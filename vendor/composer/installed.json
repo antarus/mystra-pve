@@ -4098,5 +4098,55 @@
             "framework",
             "zf2"
         ]
+    },
+    {
+        "name": "sclinternet/bm-calendar",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/SCLInternet/BmCalendar.git",
+            "reference": "1e449f01d7a0f5edb12dacc6f4e594959c7a3bad"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/SCLInternet/BmCalendar/zipball/1e449f01d7a0f5edb12dacc6f4e594959c7a3bad",
+            "reference": "1e449f01d7a0f5edb12dacc6f4e594959c7a3bad",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3",
+            "zendframework/zendframework": "2.*"
+        },
+        "require-dev": {
+            "phpmd/phpmd": "1.4.0",
+            "phpunit/phpunit": "3.7.*",
+            "satooshi/php-coveralls": "dev-master",
+            "squizlabs/php_codesniffer": "1.*"
+        },
+        "time": "2013-07-18 08:03:55",
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "BmCalendar": "src/"
+            },
+            "classmap": [
+                "./Module.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Tom Oram",
+                "email": "tom@x2k.co.uk",
+                "homepage": "http://github.com/tomphp"
+            }
+        ],
+        "description": "Calendar module which provide the ability to block off days.",
+        "homepage": "https://github.com/SCLInternet/SclZfUtilities"
     }
 ]

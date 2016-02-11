@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4c0789f5bf2bb3afed5456729b9f19e3",
-    "content-hash": "cdb736649070b6cf07fa70ff78eddf70",
+    "hash": "a418e6a14886bec6824f5949f85da052",
+    "content-hash": "aff7b8e7e3330b73c10a6bdb17c5bbab",
     "packages": [
         {
             "name": "container-interop/container-interop",
@@ -602,6 +602,54 @@
                 "psr-3"
             ],
             "time": "2012-12-21 11:40:51"
+        },
+        {
+            "name": "sclinternet/bm-calendar",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SCLInternet/BmCalendar.git",
+                "reference": "1e449f01d7a0f5edb12dacc6f4e594959c7a3bad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SCLInternet/BmCalendar/zipball/1e449f01d7a0f5edb12dacc6f4e594959c7a3bad",
+                "reference": "1e449f01d7a0f5edb12dacc6f4e594959c7a3bad",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zendframework": "2.*"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "1.4.0",
+                "phpunit/phpunit": "3.7.*",
+                "satooshi/php-coveralls": "dev-master",
+                "squizlabs/php_codesniffer": "1.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "BmCalendar": "src/"
+                },
+                "classmap": [
+                    "./Module.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Tom Oram",
+                    "email": "tom@x2k.co.uk",
+                    "homepage": "http://github.com/tomphp"
+                }
+            ],
+            "description": "Calendar module which provide the ability to block off days.",
+            "homepage": "https://github.com/SCLInternet/SclZfUtilities",
+            "time": "2013-07-18 08:03:55"
         },
         {
             "name": "sebastian/comparator",
@@ -3965,7 +4013,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "sclinternet/bm-calendar": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
