@@ -1,0 +1,53 @@
+//race 
+.spriteRace { background-image: url('./../img/race.png'); background-color: transparent; background-repeat: no-repeat; }
+.Gnome { width: 18px; height: 18px; background-position: 0px -450px; }
+.Elfe-de-sang { width: 18px; height: 18px; background-position: 0px -432px; }
+.Elfe-de-sangf { width: 18px; height: 18px; background-position: 0px -414px; }
+.Worgen { width: 18px; height: 18px; background-position: 0px -396px; }
+.Worgenf { width: 18px; height: 18px; background-position: 0px -378px; }
+.Goblin { width: 18px; height: 18px; background-position: 0px -360px; }
+.Goblinf { width: 18px; height: 18px; background-position: 0px -342px; }
+.Pandaren { width: 18px; height: 18px; background-position: 0px -324px; }
+.Pandarenf { width: 18px; height: 18px; background-position: 0px -306px; }
+.Gnomef { width: 18px; height: 18px; background-position: 0px -288px; }
+.Humain { width: 18px; height: 18px; background-position: 0px -270px; }
+.Humainf { width: 18px; height: 18px; background-position: 0px -252px; }
+.Nain { width: 18px; height: 18px; background-position: 0px -234px; }
+.Nainf { width: 18px; height: 18px; background-position: 0px -216px; }
+.Elfe-de-la-nuit { width: 18px; height: 18px; background-position: 0px -198px; }
+.Elfe-de-la-nuitf { width: 18px; height: 18px; background-position: 0px -180px; }
+.Troll { width: 18px; height: 18px; background-position: 0px -162px; }
+.Trollf { width: 18px; height: 18px; background-position: 0px -144px; }
+.Mort-vivant { width: 18px; height: 18px; background-position: 0px -126px; }
+.Mort-vivantf { width: 18px; height: 18px; background-position: 0px -108px; }
+.Orc { width: 18px; height: 18px; background-position: 0px -90px; }
+.Orcf { width: 18px; height: 18px; background-position: 0px -72px; }
+.Tauren { width: 18px; height: 18px; background-position: 0px -54px; }
+.Taurenf { width: 18px; height: 18px; background-position: 0px -36px; }
+.Draenei { width: 18px; height: 18px; background-position: 0px -18px; }
+.Draeneif { width: 18px; height: 18px; background-position: 0px 0px; }
+
+// classes
+.spriteClasse { background-image: url('./../img/classe.png'); background-color: transparent; background-repeat: no-repeat; }
+.guerrier-grand { width: 50px; height: 52px; background-position: 0px -20px; }
+.moine-grand { width: 50px; height: 52px; background-position: -50px -20px; }
+.chevalier-de-la-mort-grand { width: 50px; height: 52px; background-position: -100px -20px; }
+.druide-grand { width: 50px; height: 52px; background-position: -150px -20px; }
+.chasseur-grand { width: 50px; height: 52px; background-position: -200px -20px; }
+.mage-grand { width: 50px; height: 52px; background-position: -250px 0px; }
+.paladin-grand { width: 50px; height: 52px; background-position: -300px 0px; }
+.pretre-grand { width: 50px; height: 52px; background-position: -350px 0px; }
+.voleur-grand { width: 50px; height: 52px; background-position: -400px 0px; }
+.chaman-grand { width: 50px; height: 52px; background-position: -450px 0px; }
+.demoniste-grand { width: 50px; height: 52px; background-position: -500px 0px; }
+.chevalier-de-la-mort { width: 20px; height: 20px; background-position: 0px 0px; }
+.guerrier { width: 20px; height: 20px; background-position: -20px 0px; }
+.moine { width: 20px; height: 20px; background-position: -40px 0px; }
+.druide { width: 20px; height: 20px; background-position: -60px 0px; }
+.chasseur { width: 20px; height: 20px; background-position: -80px 0px; }
+.mage { width: 20px; height: 20px; background-position: -100px 0px; }
+.paladin { width: 20px; height: 20px; background-position: -120px 0px; }
+.pretre { width: 20px; height: 20px; background-position: -140px 0px; }
+.voleur { width: 20px; height: 20px; background-position: -160px 0px; }
+.chaman { width: 20px; height: 20px; background-position: -180px 0px; }
+.demoniste { width: 20px; height: 20px; background-position: -200px 0px; }
