@@ -1,0 +1,12 @@
+accueil
+recrutement : "Notre roster"  table roster
+avance : a l'import du raid
+lien warcraftlog
+prochain events : en cours de dev
+
+api warcraftlog
+https://www.warcraftlogs.com:443/v1/reports/guild/Mystra/Garona/EU?api_key=d72dafe55ac59eb591acf4dab8ae23b8
+
+todo
+prendre en compte les spé des personnages/spé princ, spé secondaire en bdd
+

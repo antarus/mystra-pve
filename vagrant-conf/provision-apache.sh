@@ -20,6 +20,7 @@ main() {
 	php_go
         phpmyadmin_go
         maj_composer_Project
+        createBdd
 	autoremove_go
 }
 
@@ -166,5 +167,18 @@ maj_composer_Project(){
     php composer.phar install --no-progress
 }
 
+createBdd(){
+    if [ -d "/var/www/zf/vagrant-conf/provision-sql" ]; then
+            echo "Executing all SQL files in /var/www/zf/vagrant-conf/provision-sql folder ..."
+            echo "-------------------------------------"
+            for sql_file in /var/www/zf/vagrant-conf/provision-sql/*.sql
+            do
+                    echo "EXECUTING $sql_file..."
+                    time mysql -u root --password=root < $sql_file
+                    echo "FINISHED $sql_file"
+                    echo ""
+            done
+    fi
+}
 main
 exit 0
