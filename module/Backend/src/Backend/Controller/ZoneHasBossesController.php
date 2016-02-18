@@ -78,10 +78,10 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ZoneHasBossesForm();//new \Backend\Form\ZoneHasBossesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ZoneHasBossesForm();//new \Commun\Form\ZoneHasBossesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ZoneHasBossesFilter();
+        $oFiltre = new \Commun\Filter\ZoneHasBossesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la zone-has-bosses."), 'error');
            return $this->redirect()->toRoute('backend-zone-has-bosses-list');
         }
-        $oForm = new \Backend\Form\ZoneHasBossesForm();//new \Backend\Form\ZoneHasBossesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ZoneHasBossesFilter();
+        $oForm = new \Commun\Form\ZoneHasBossesForm();//new \Commun\Form\ZoneHasBossesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ZoneHasBossesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

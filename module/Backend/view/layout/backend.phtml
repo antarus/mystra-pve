@@ -1,0 +1,19 @@
+<?php echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
+<html lang="fr">
+    <head>
+        <?= $this->render('layout/backend/head') ?>
+    </head>
+    <body>
+        <?= $this->render('layout/backend/header') ?>
+        <div class="container">
+            <?= $this->render('layout/backend/breadcrumbs') ?>
+            <?= $this->render('layout/app/messages') ?>
+            <?= $this->content ?>
+            <hr>
+            <footer>
+                <p>&copy; 2016 - <?php echo date('Y') ?> by Antarus & Capi <?php echo $this->translate('All rights reserved.') ?></p>
+            </footer>
+        </div>
+        <?= $this->plugin('InlineScript'); ?>
+    </body>
+</html>

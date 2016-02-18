@@ -78,10 +78,10 @@ class EvenementsRolesController extends \Zend\Mvc\Controller\AbstractActionContr
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\EvenementsRolesForm();//new \Backend\Form\EvenementsRolesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\EvenementsRolesForm();//new \Commun\Form\EvenementsRolesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\EvenementsRolesFilter();
+        $oFiltre = new \Commun\Filter\EvenementsRolesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class EvenementsRolesController extends \Zend\Mvc\Controller\AbstractActionContr
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-roles."), 'error');
            return $this->redirect()->toRoute('backend-evenements-roles-list');
         }
-        $oForm = new \Backend\Form\EvenementsRolesForm();//new \Backend\Form\EvenementsRolesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\EvenementsRolesFilter();
+        $oForm = new \Commun\Form\EvenementsRolesForm();//new \Commun\Form\EvenementsRolesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\EvenementsRolesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

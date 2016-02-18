@@ -105,13 +105,13 @@ class ZoneHasModeDiffculteGrid extends \ZfTable\AbstractTable
     {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('commun-zone_has_mode_diffculte-update', array('id' => $record["idMode"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idMode"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-zone_has_mode_diffculte-update', array('id' => $record["idMode"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idMode"]);
             }
         ));
 
         $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('commun-zone_has_mode_diffculte-delete', array('id' => $record["idMode"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idMode"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-zone_has_mode_diffculte-delete', array('id' => $record["idMode"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idMode"]);
             }
         ));
     }

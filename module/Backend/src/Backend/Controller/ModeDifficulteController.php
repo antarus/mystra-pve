@@ -78,10 +78,10 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ModeDifficulteForm();//new \Backend\Form\ModeDifficulteForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ModeDifficulteForm();//new \Commun\Form\ModeDifficulteForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ModeDifficulteFilter();
+        $oFiltre = new \Commun\Filter\ModeDifficulteFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la mode-difficulte."), 'error');
            return $this->redirect()->toRoute('backend-mode-difficulte-list');
         }
-        $oForm = new \Backend\Form\ModeDifficulteForm();//new \Backend\Form\ModeDifficulteForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ModeDifficulteFilter();
+        $oForm = new \Commun\Form\ModeDifficulteForm();//new \Commun\Form\ModeDifficulteForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ModeDifficulteFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

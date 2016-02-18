@@ -135,13 +135,13 @@ class UsersGrid extends \ZfTable\AbstractTable
     {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('commun-users-update', array('id' => $record["idUsers"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idUsers"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-users-update', array('id' => $record["idUsers"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idUsers"]);
             }
         ));
 
         $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('commun-users-delete', array('id' => $record["idUsers"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idUsers"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-users-delete', array('id' => $record["idUsers"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idUsers"]);
             }
         ));
     }

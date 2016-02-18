@@ -78,10 +78,10 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\FactionForm();//new \Backend\Form\FactionForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\FactionForm();//new \Commun\Form\FactionForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\FactionFilter();
+        $oFiltre = new \Commun\Filter\FactionFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la faction."), 'error');
            return $this->redirect()->toRoute('backend-faction-list');
         }
-        $oForm = new \Backend\Form\FactionForm();//new \Backend\Form\FactionForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\FactionFilter();
+        $oForm = new \Commun\Form\FactionForm();//new \Commun\Form\FactionForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\FactionFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

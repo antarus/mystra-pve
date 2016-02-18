@@ -78,10 +78,10 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\NpcForm();//new \Backend\Form\NpcForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\NpcForm();//new \Commun\Form\NpcForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\NpcFilter();
+        $oFiltre = new \Commun\Filter\NpcFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la npc."), 'error');
            return $this->redirect()->toRoute('backend-npc-list');
         }
-        $oForm = new \Backend\Form\NpcForm();//new \Backend\Form\NpcForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\NpcFilter();
+        $oForm = new \Commun\Form\NpcForm();//new \Commun\Form\NpcForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\NpcFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

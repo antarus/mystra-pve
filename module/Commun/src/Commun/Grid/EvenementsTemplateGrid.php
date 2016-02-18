@@ -160,13 +160,13 @@ class EvenementsTemplateGrid extends \ZfTable\AbstractTable
     {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('commun-evenements_template-update', array('id' => $record["idEvenements_template"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idEvenements_template"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-evenements_template-update', array('id' => $record["idEvenements_template"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idEvenements_template"]);
             }
         ));
 
         $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('commun-evenements_template-delete', array('id' => $record["idEvenements_template"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idEvenements_template"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-evenements_template-delete', array('id' => $record["idEvenements_template"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idEvenements_template"]);
             }
         ));
     }

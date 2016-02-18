@@ -78,10 +78,10 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RaidsForm();//new \Backend\Form\RaidsForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RaidsForm();//new \Commun\Form\RaidsForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RaidsFilter();
+        $oFiltre = new \Commun\Filter\RaidsFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la raids."), 'error');
            return $this->redirect()->toRoute('backend-raids-list');
         }
-        $oForm = new \Backend\Form\RaidsForm();//new \Backend\Form\RaidsForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RaidsFilter();
+        $oForm = new \Commun\Form\RaidsForm();//new \Commun\Form\RaidsForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RaidsFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

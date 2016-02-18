@@ -78,10 +78,10 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RosterHasPersonnageForm();//new \Backend\Form\RosterHasPersonnageForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RosterHasPersonnageForm();//new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RosterHasPersonnageFilter();
+        $oFiltre = new \Commun\Filter\RosterHasPersonnageFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster-has-personnage."), 'error');
            return $this->redirect()->toRoute('backend-roster-has-personnage-list');
         }
-        $oForm = new \Backend\Form\RosterHasPersonnageForm();//new \Backend\Form\RosterHasPersonnageForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RosterHasPersonnageFilter();
+        $oForm = new \Commun\Form\RosterHasPersonnageForm();//new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RosterHasPersonnageFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

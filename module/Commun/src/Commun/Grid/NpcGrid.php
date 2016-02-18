@@ -105,13 +105,13 @@ class NpcGrid extends \ZfTable\AbstractTable
     {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('commun-npc-update', array('id' => $record["idNpc"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idNpc"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-npc-update', array('id' => $record["idNpc"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idNpc"]);
             }
         ));
 
         $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('commun-npc-delete', array('id' => $record["idNpc"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idNpc"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-npc-delete', array('id' => $record["idNpc"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idNpc"]);
             }
         ));
     }

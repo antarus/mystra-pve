@@ -78,10 +78,10 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RoleForm();//new \Backend\Form\RoleForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RoleForm();//new \Commun\Form\RoleForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RoleFilter();
+        $oFiltre = new \Commun\Filter\RoleFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la role."), 'error');
            return $this->redirect()->toRoute('backend-role-list');
         }
-        $oForm = new \Backend\Form\RoleForm();//new \Backend\Form\RoleForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RoleFilter();
+        $oForm = new \Commun\Form\RoleForm();//new \Commun\Form\RoleForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RoleFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

@@ -78,10 +78,10 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\PersonnagesForm();//new \Backend\Form\PersonnagesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PersonnagesForm();//new \Commun\Form\PersonnagesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\PersonnagesFilter();
+        $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages."), 'error');
            return $this->redirect()->toRoute('backend-personnages-list');
         }
-        $oForm = new \Backend\Form\PersonnagesForm();//new \Backend\Form\PersonnagesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\PersonnagesFilter();
+        $oForm = new \Commun\Form\PersonnagesForm();//new \Commun\Form\PersonnagesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

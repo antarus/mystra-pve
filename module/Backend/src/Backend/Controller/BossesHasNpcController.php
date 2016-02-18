@@ -78,10 +78,10 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\BossesHasNpcForm();//new \Backend\Form\BossesHasNpcForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\BossesHasNpcForm();//new \Commun\Form\BossesHasNpcForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\BossesHasNpcFilter();
+        $oFiltre = new \Commun\Filter\BossesHasNpcFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la bosses-has-npc."), 'error');
            return $this->redirect()->toRoute('backend-bosses-has-npc-list');
         }
-        $oForm = new \Backend\Form\BossesHasNpcForm();//new \Backend\Form\BossesHasNpcForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\BossesHasNpcFilter();
+        $oForm = new \Commun\Form\BossesHasNpcForm();//new \Commun\Form\BossesHasNpcForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\BossesHasNpcFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

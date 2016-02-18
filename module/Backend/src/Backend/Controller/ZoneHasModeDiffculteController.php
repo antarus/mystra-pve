@@ -78,10 +78,10 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ZoneHasModeDiffculteForm();//new \Backend\Form\ZoneHasModeDiffculteForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ZoneHasModeDiffculteForm();//new \Commun\Form\ZoneHasModeDiffculteForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ZoneHasModeDiffculteFilter();
+        $oFiltre = new \Commun\Filter\ZoneHasModeDiffculteFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la zone-has-mode-diffculte."), 'error');
            return $this->redirect()->toRoute('backend-zone-has-mode-diffculte-list');
         }
-        $oForm = new \Backend\Form\ZoneHasModeDiffculteForm();//new \Backend\Form\ZoneHasModeDiffculteForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ZoneHasModeDiffculteFilter();
+        $oForm = new \Commun\Form\ZoneHasModeDiffculteForm();//new \Commun\Form\ZoneHasModeDiffculteForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ZoneHasModeDiffculteFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

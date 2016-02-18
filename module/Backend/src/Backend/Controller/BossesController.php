@@ -78,10 +78,10 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\BossesForm();//new \Backend\Form\BossesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\BossesForm();//new \Commun\Form\BossesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\BossesFilter();
+        $oFiltre = new \Commun\Filter\BossesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la bosses."), 'error');
            return $this->redirect()->toRoute('backend-bosses-list');
         }
-        $oForm = new \Backend\Form\BossesForm();//new \Backend\Form\BossesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\BossesFilter();
+        $oForm = new \Commun\Form\BossesForm();//new \Commun\Form\BossesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\BossesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

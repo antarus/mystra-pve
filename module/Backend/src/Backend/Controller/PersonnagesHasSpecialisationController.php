@@ -78,10 +78,10 @@ class PersonnagesHasSpecialisationController extends \Zend\Mvc\Controller\Abstra
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\PersonnagesHasSpecialisationForm();//new \Backend\Form\PersonnagesHasSpecialisationForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PersonnagesHasSpecialisationForm();//new \Commun\Form\PersonnagesHasSpecialisationForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\PersonnagesHasSpecialisationFilter();
+        $oFiltre = new \Commun\Filter\PersonnagesHasSpecialisationFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class PersonnagesHasSpecialisationController extends \Zend\Mvc\Controller\Abstra
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages-has-specialisation."), 'error');
            return $this->redirect()->toRoute('backend-personnages-has-specialisation-list');
         }
-        $oForm = new \Backend\Form\PersonnagesHasSpecialisationForm();//new \Backend\Form\PersonnagesHasSpecialisationForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\PersonnagesHasSpecialisationFilter();
+        $oForm = new \Commun\Form\PersonnagesHasSpecialisationForm();//new \Commun\Form\PersonnagesHasSpecialisationForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\PersonnagesHasSpecialisationFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

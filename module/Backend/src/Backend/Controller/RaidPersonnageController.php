@@ -78,10 +78,10 @@ class RaidPersonnageController extends \Zend\Mvc\Controller\AbstractActionContro
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RaidPersonnageForm();//new \Backend\Form\RaidPersonnageForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RaidPersonnageForm();//new \Commun\Form\RaidPersonnageForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RaidPersonnageFilter();
+        $oFiltre = new \Commun\Filter\RaidPersonnageFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RaidPersonnageController extends \Zend\Mvc\Controller\AbstractActionContro
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la raid-personnage."), 'error');
            return $this->redirect()->toRoute('backend-raid-personnage-list');
         }
-        $oForm = new \Backend\Form\RaidPersonnageForm();//new \Backend\Form\RaidPersonnageForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RaidPersonnageFilter();
+        $oForm = new \Commun\Form\RaidPersonnageForm();//new \Commun\Form\RaidPersonnageForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RaidPersonnageFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

@@ -78,10 +78,10 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\EvenementsTemplateForm();//new \Backend\Form\EvenementsTemplateForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\EvenementsTemplateForm();//new \Commun\Form\EvenementsTemplateForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\EvenementsTemplateFilter();
+        $oFiltre = new \Commun\Filter\EvenementsTemplateFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-template."), 'error');
            return $this->redirect()->toRoute('backend-evenements-template-list');
         }
-        $oForm = new \Backend\Form\EvenementsTemplateForm();//new \Backend\Form\EvenementsTemplateForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\EvenementsTemplateFilter();
+        $oForm = new \Commun\Form\EvenementsTemplateForm();//new \Commun\Form\EvenementsTemplateForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\EvenementsTemplateFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

@@ -78,10 +78,10 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RaceForm();//new \Backend\Form\RaceForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RaceForm();//new \Commun\Form\RaceForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RaceFilter();
+        $oFiltre = new \Commun\Filter\RaceFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la race."), 'error');
            return $this->redirect()->toRoute('backend-race-list');
         }
-        $oForm = new \Backend\Form\RaceForm();//new \Backend\Form\RaceForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RaceFilter();
+        $oForm = new \Commun\Form\RaceForm();//new \Commun\Form\RaceForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RaceFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

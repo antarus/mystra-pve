@@ -71,10 +71,10 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
      * @return array
      */
     public function createAction() {
-        $oForm = new \Backend\Form\GuildesForm(); //new \Backend\Form\GuildesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\GuildesForm(); //new \Commun\Form\GuildesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
 
-        $oFiltre = new \Backend\Filter\GuildesFilter();
+        $oFiltre = new \Commun\Filter\GuildesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
@@ -112,8 +112,8 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guildes."), 'error');
             return $this->redirect()->toRoute('backend-guildes-list');
         }
-        $oForm = new \Backend\Form\GuildesForm(); //new \Backend\Form\GuildesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\GuildesFilter();
+        $oForm = new \Commun\Form\GuildesForm(); //new \Commun\Form\GuildesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\GuildesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
 

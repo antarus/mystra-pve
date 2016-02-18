@@ -78,10 +78,10 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\SpecialisationForm();//new \Backend\Form\SpecialisationForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\SpecialisationForm();//new \Commun\Form\SpecialisationForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\SpecialisationFilter();
+        $oFiltre = new \Commun\Filter\SpecialisationFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la specialisation."), 'error');
            return $this->redirect()->toRoute('backend-specialisation-list');
         }
-        $oForm = new \Backend\Form\SpecialisationForm();//new \Backend\Form\SpecialisationForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\SpecialisationFilter();
+        $oForm = new \Commun\Form\SpecialisationForm();//new \Commun\Form\SpecialisationForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\SpecialisationFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

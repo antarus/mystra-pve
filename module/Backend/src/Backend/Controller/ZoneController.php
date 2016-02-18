@@ -78,10 +78,10 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ZoneForm();//new \Backend\Form\ZoneForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ZoneForm();//new \Commun\Form\ZoneForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ZoneFilter();
+        $oFiltre = new \Commun\Filter\ZoneFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la zone."), 'error');
            return $this->redirect()->toRoute('backend-zone-list');
         }
-        $oForm = new \Backend\Form\ZoneForm();//new \Backend\Form\ZoneForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ZoneFilter();
+        $oForm = new \Commun\Form\ZoneForm();//new \Commun\Form\ZoneForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ZoneFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

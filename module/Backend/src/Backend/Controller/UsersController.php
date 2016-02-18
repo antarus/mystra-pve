@@ -78,10 +78,10 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\UsersForm();//new \Backend\Form\UsersForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\UsersForm();//new \Commun\Form\UsersForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\UsersFilter();
+        $oFiltre = new \Commun\Filter\UsersFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la users."), 'error');
            return $this->redirect()->toRoute('backend-users-list');
         }
-        $oForm = new \Backend\Form\UsersForm();//new \Backend\Form\UsersForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\UsersFilter();
+        $oForm = new \Commun\Form\UsersForm();//new \Commun\Form\UsersForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\UsersFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

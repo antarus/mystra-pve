@@ -78,10 +78,10 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\RosterForm();//new \Backend\Form\RosterForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RosterForm();//new \Commun\Form\RosterForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\RosterFilter();
+        $oFiltre = new \Commun\Filter\RosterFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
            return $this->redirect()->toRoute('backend-roster-list');
         }
-        $oForm = new \Backend\Form\RosterForm();//new \Backend\Form\RosterForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\RosterFilter();
+        $oForm = new \Commun\Form\RosterForm();//new \Commun\Form\RosterForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\RosterFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

@@ -1,0 +1,37 @@
+<meta charset="utf-8">
+<?php echo $this->headTitle($this->translate('Mystra - Pve'))->setSeparator(' - ')->setAutoEscape(false) ?>
+
+<?php
+echo $this->headMeta()
+        ->appendName('viewport', 'width=device-width, initial-scale=1.0')
+        ->appendHttpEquiv('X-UA-Compatible', 'IE=edge')
+?>
+
+<!-- Le styles -->
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath('css/wow.css'))
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/defaults.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
+        ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
+        ->prependStylesheet($this->basePath('css/reset.css'))
+        ->prependStylesheet($this->basePath('css/style.css'))
+        ->prependStylesheet($this->basePath('css/zf-table/zf-table.css'))
+?>
+
+<!-- Scripts -->
+<?php
+echo $this->headScript()
+        ->prependFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
+        ->prependFile($this->basePath('js/jquery/validate/jquery.validate.min.js'))
+        ->prependFile($this->basePath('js/bootstrap.min.js'))
+        ->prependFile($this->basePath('js/jquery.min.js'))
+        ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->prependFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+        ->appendFile($this->basePath('js/jquery.dataTables.min.js'))
+        ->appendFile($this->basePath('js/zf-table.js'))
+        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
+
+;
+?>

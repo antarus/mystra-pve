@@ -78,10 +78,10 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\EvenementsPersonnageForm();//new \Backend\Form\EvenementsPersonnageForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\EvenementsPersonnageForm();//new \Commun\Form\EvenementsPersonnageForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\EvenementsPersonnageFilter();
+        $oFiltre = new \Commun\Filter\EvenementsPersonnageFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-personnage."), 'error');
            return $this->redirect()->toRoute('backend-evenements-personnage-list');
         }
-        $oForm = new \Backend\Form\EvenementsPersonnageForm();//new \Backend\Form\EvenementsPersonnageForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\EvenementsPersonnageFilter();
+        $oForm = new \Commun\Form\EvenementsPersonnageForm();//new \Commun\Form\EvenementsPersonnageForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\EvenementsPersonnageFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

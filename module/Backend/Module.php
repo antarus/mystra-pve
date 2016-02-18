@@ -15,6 +15,12 @@ use Zend\Mvc\MvcEvent;
 
 class Module {
 
+    public function init(\Zend\ModuleManager\ModuleManager $mm) {
+        $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
+            $e->getTarget()->layout('backend/layout');
+        });
+    }
+
     public function onBootstrap(MvcEvent $e) {
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();

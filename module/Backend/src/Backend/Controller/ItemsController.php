@@ -78,10 +78,10 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ItemsForm();//new \Backend\Form\ItemsForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ItemsForm();//new \Commun\Form\ItemsForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ItemsFilter();
+        $oFiltre = new \Commun\Filter\ItemsFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la items."), 'error');
            return $this->redirect()->toRoute('backend-items-list');
         }
-        $oForm = new \Backend\Form\ItemsForm();//new \Backend\Form\ItemsForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ItemsFilter();
+        $oForm = new \Commun\Form\ItemsForm();//new \Commun\Form\ItemsForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ItemsFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         

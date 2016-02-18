@@ -78,10 +78,10 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController
      */
     public function createAction()
     {
-        $oForm = new \Backend\Form\ClassesForm();//new \Backend\Form\ClassesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ClassesForm();//new \Commun\Form\ClassesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
         
-        $oFiltre = new \Backend\Filter\ClassesFilter();
+        $oFiltre = new \Commun\Filter\ClassesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
@@ -120,8 +120,8 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la classes."), 'error');
            return $this->redirect()->toRoute('backend-classes-list');
         }
-        $oForm = new \Backend\Form\ClassesForm();//new \Backend\Form\ClassesForm($this->getServiceLocator());
-        $oFiltre = new \Backend\Filter\ClassesFilter();
+        $oForm = new \Commun\Form\ClassesForm();//new \Commun\Form\ClassesForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\ClassesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
         
