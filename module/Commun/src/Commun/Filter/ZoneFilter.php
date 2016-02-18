@@ -48,7 +48,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'lvlMin',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -58,7 +58,26 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
+                           'max' => '255'
+                       )
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'lvlMax',
+               'required' => true,
+               'filters' => array(
+                   array('name' => 'StripTags'),
+                   array('name' => 'StringTrim')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'StringLength',
+                       'options' => array(
+                           'encoding' => 'UTF-8',
+                           'min' => '1',
                            'max' => '255'
                        )
                    ),
@@ -67,7 +86,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'tailleMin',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -77,7 +96,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
                            'max' => '255'
                        )
                    ),
@@ -86,7 +105,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'tailleMax',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -96,7 +115,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
                            'max' => '255'
                        )
                    ),
@@ -105,7 +124,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'patch',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -115,7 +134,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
                            'max' => '45'
                        )
                    ),
@@ -123,27 +142,8 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'lvlMax',
-               'required' => false,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '0',
-                           'max' => '255'
-                       )
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
                'name' => 'isDonjon',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name'=>'Int')
                ),
@@ -156,7 +156,7 @@ class ZoneFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'isRaid',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name'=>'Int')
                ),

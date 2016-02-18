@@ -48,7 +48,7 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'niveau',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -58,35 +58,9 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
                            'max' => '255'
                        )
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'idUsers',
-               'required' => false,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'idJeux',
-               'required' => true,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
                    ),
                )
         )));
@@ -132,6 +106,19 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'idGuildes',
+               'required' => false,
+               'filters' => array(
+                   array('name'=>'Int')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'Digits'
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'idUsers',
                'required' => false,
                'filters' => array(
                    array('name'=>'Int')

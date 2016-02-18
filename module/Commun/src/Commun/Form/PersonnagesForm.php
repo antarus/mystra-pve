@@ -44,28 +44,6 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
-            'name' => 'idUsers',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'IdUsers',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'idJeux',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'IdJeux',
-            ),
-        ));
-
-        $this->add(array(
             'name' => 'idFaction',
             'attributes' => array(
                 'type'  => 'text',
@@ -106,6 +84,17 @@ class PersonnagesForm extends \Core\Form\AbstractForm
             ),
             'options' => array(
                 'label' => 'IdGuildes',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'idUsers',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'IdUsers',
             ),
         ));
 

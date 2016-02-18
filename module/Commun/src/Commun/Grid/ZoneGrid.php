@@ -58,6 +58,11 @@ class ZoneGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
+        'lvlMax' => array(
+            'title' => 'LvlMax',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'tailleMin' => array(
             'title' => 'TailleMin',
             'width' => '100',
@@ -70,11 +75,6 @@ class ZoneGrid extends \ZfTable\AbstractTable
         ),
         'patch' => array(
             'title' => 'Patch',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'lvlMax' => array(
-            'title' => 'LvlMax',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -168,6 +168,11 @@ class ZoneGrid extends \ZfTable\AbstractTable
             $query->where("lvlMin like '%".$value."%' ");
         }
 
+        $value = $this->getParamAdapter()->getValueOfFilter('lvlMax');
+        if ($value != null) {
+            $query->where("lvlMax like '%".$value."%' ");
+        }
+
         $value = $this->getParamAdapter()->getValueOfFilter('tailleMin');
         if ($value != null) {
             $query->where("tailleMin like '%".$value."%' ");
@@ -181,11 +186,6 @@ class ZoneGrid extends \ZfTable\AbstractTable
         $value = $this->getParamAdapter()->getValueOfFilter('patch');
         if ($value != null) {
             $query->where("patch like '%".$value."%' ");
-        }
-
-        $value = $this->getParamAdapter()->getValueOfFilter('lvlMax');
-        if ($value != null) {
-            $query->where("lvlMax like '%".$value."%' ");
         }
 
         $value = $this->getParamAdapter()->getValueOfFilter('isDonjon');

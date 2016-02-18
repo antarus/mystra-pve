@@ -58,16 +58,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
-        'idUsers' => array(
-            'title' => 'IdUsers',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idJeux' => array(
-            'title' => 'IdJeux',
-            'width' => '100',
-            'filters' => 'text',
-        ),
         'idFaction' => array(
             'title' => 'IdFaction',
             'width' => '100',
@@ -85,6 +75,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
         ),
         'idGuildes' => array(
             'title' => 'IdGuildes',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'idUsers' => array(
+            'title' => 'IdUsers',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -168,16 +163,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
             $query->where("niveau like '%".$value."%' ");
         }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
-        if ($value != null) {
-            $query->where("idUsers = '".$value."' ");
-        }
-
-        $value = $this->getParamAdapter()->getValueOfFilter('idJeux');
-        if ($value != null) {
-            $query->where("idJeux = '".$value."' ");
-        }
-
         $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
         if ($value != null) {
             $query->where("idFaction = '".$value."' ");
@@ -196,6 +181,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
         $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
         if ($value != null) {
             $query->where("idGuildes = '".$value."' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
+        if ($value != null) {
+            $query->where("idUsers = '".$value."' ");
         }
     }
 

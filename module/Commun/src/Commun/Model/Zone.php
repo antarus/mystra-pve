@@ -33,6 +33,13 @@ class Zone extends \Core\Model\AbstractModel
     public $lvlMin = null;
 
     /**
+     * Colonne: lvlMax
+     *
+     * @var string
+     */
+    public $lvlMax = null;
+
+    /**
      * Colonne: tailleMin
      *
      * @var string
@@ -52,13 +59,6 @@ class Zone extends \Core\Model\AbstractModel
      * @var string
      */
     public $patch = null;
-
-    /**
-     * Colonne: lvlMax
-     *
-     * @var string
-     */
-    public $lvlMax = null;
 
     /**
      * Colonne: isDonjon
@@ -195,6 +195,26 @@ class Zone extends \Core\Model\AbstractModel
     }
 
     /**
+     * Retourne la valeur lvlMax.
+     *
+     * @return string
+     */
+    public function getLvlMax()
+    {
+        return strval($this->lvlMax);
+    }
+
+    /**
+     * Définit la valeur pour lvlMax
+     *
+     * @param string
+     */
+    public function setLvlMax($value)
+    {
+        $this->lvlMax = $value;
+    }
+
+    /**
      * Retourne la valeur tailleMin.
      *
      * @return string
@@ -252,26 +272,6 @@ class Zone extends \Core\Model\AbstractModel
     public function setPatch($value)
     {
         $this->patch = $value;
-    }
-
-    /**
-     * Retourne la valeur lvlMax.
-     *
-     * @return string
-     */
-    public function getLvlMax()
-    {
-        return strval($this->lvlMax);
-    }
-
-    /**
-     * Définit la valeur pour lvlMax
-     *
-     * @param string
-     */
-    public function setLvlMax($value)
-    {
-        $this->lvlMax = $value;
     }
 
     /**

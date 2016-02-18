@@ -44,6 +44,17 @@ class ZoneForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
+            'name' => 'lvlMax',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'LvlMax',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'tailleMin',
             'attributes' => array(
                 'type'  => 'text',
@@ -73,17 +84,6 @@ class ZoneForm extends \Core\Form\AbstractForm
             ),
             'options' => array(
                 'label' => 'Patch',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'lvlMax',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'LvlMax',
             ),
         ));
 

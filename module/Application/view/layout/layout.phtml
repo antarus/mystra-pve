@@ -20,21 +20,30 @@
                 ->prependStylesheet($this->basePath('css/bootstrap-theme.min.css'))
                 ->prependStylesheet($this->basePath('css/bootstrap.min.css'))
                 ->prependStylesheet($this->basePath('css/reset.css'))
+                ->prependStylesheet($this->basePath('css/style.css'))
+                ->prependStylesheet($this->basePath('css/zf-table/zf-table.css'))
         ?>
 
         <!-- Scripts -->
         <?php
         echo $this->headScript()
+                ->prependFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
+                ->prependFile($this->basePath('js/jquery/validate/jquery.validate.min.js'))
                 ->prependFile($this->basePath('js/bootstrap.min.js'))
                 ->prependFile($this->basePath('js/jquery.min.js'))
                 ->prependFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
                 ->prependFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
+                ->appendFile($this->basePath('js/jquery.dataTables.min.js'))
+                ->appendFile($this->basePath('js/zf-table.js'))
+                ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
+
         ;
         ?>
 
     </head>
     <body>
         <div id="container">
+            <?= $this->render('partial/messages') ?>
             <div id="header">
                 <div class="logo">
                     <a href="http://www.guilde-mystra.fr"><img title="Guilde Mystra" alt="Guilde Mystra" src="<?php echo $this->basePath('img/logo-2.png') ?>"></a>

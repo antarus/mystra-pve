@@ -55,7 +55,7 @@ class SpecialisationFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'nom',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
                    array('name' => 'StringTrim')
@@ -65,7 +65,7 @@ class SpecialisationFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '0',
+                           'min' => '1',
                            'max' => '100'
                        )
                    ),

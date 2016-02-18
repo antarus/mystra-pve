@@ -42,7 +42,7 @@ class PersonnagesHasSpecialisationFilter extends \Core\Filter\AbstractFilter
 
         $inputFilter->add($factory->createInput(array(
                'name' => 'isPrincipal',
-               'required' => false,
+               'required' => true,
                'filters' => array(
                    array('name'=>'Int')
                ),

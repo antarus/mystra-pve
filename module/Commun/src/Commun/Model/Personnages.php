@@ -33,22 +33,6 @@ class Personnages extends \Core\Model\AbstractModel
     public $niveau = null;
 
     /**
-     * Colonne: idUsers
-     *
-     * Reference to users.idUsers
-     *
-     * @var int
-     */
-    public $idUsers = null;
-
-    /**
-     * Colonne: idJeux
-     *
-     * @var int
-     */
-    public $idJeux = null;
-
-    /**
      * Colonne: idFaction
      *
      * Reference to faction.idFaction
@@ -83,6 +67,15 @@ class Personnages extends \Core\Model\AbstractModel
      * @var int
      */
     public $idGuildes = null;
+
+    /**
+     * Colonne: idUsers
+     *
+     * Reference to users.idUsers
+     *
+     * @var int
+     */
+    public $idUsers = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -205,46 +198,6 @@ class Personnages extends \Core\Model\AbstractModel
     }
 
     /**
-     * Retourne la valeur idUsers.
-     *
-     * @return int
-     */
-    public function getIdUsers()
-    {
-        return intval($this->idUsers);
-    }
-
-    /**
-     * Définit la valeur pour idUsers
-     *
-     * @param int
-     */
-    public function setIdUsers($value)
-    {
-        $this->idUsers = $value;
-    }
-
-    /**
-     * Retourne la valeur idJeux.
-     *
-     * @return int
-     */
-    public function getIdJeux()
-    {
-        return intval($this->idJeux);
-    }
-
-    /**
-     * Définit la valeur pour idJeux
-     *
-     * @param int
-     */
-    public function setIdJeux($value)
-    {
-        $this->idJeux = $value;
-    }
-
-    /**
      * Retourne la valeur idFaction.
      *
      * @return int
@@ -322,6 +275,26 @@ class Personnages extends \Core\Model\AbstractModel
     public function setIdGuildes($value)
     {
         $this->idGuildes = $value;
+    }
+
+    /**
+     * Retourne la valeur idUsers.
+     *
+     * @return int
+     */
+    public function getIdUsers()
+    {
+        return intval($this->idUsers);
+    }
+
+    /**
+     * Définit la valeur pour idUsers
+     *
+     * @param int
+     */
+    public function setIdUsers($value)
+    {
+        $this->idUsers = $value;
     }
 
 
