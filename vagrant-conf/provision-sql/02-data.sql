@@ -132,3 +132,22 @@ INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`,`nom`, `
 (32, 11, 3, 'Farouche','ability_druid_catform'),
 (33, 11, 1, 'Gardien','ability_racial_bearform'),
 (34, 11, 2, 'Restauration','spell_nature_healingtouch');
+
+--
+-- Vider la table avant d'insérer `mode_difficulte`
+--
+
+TRUNCATE TABLE `mode_difficulte`;
+--
+-- Contenu de la table `mode_difficulte`
+--
+
+INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
+(1, 'Raid LFR', 'RAID_FLEX_LFR'),
+(2, 'Raid NM', 'RAID_FLEX_NORMAL'),
+(3, 'Raid HM', 'RAID_FLEX_HEROIC'),
+(4, 'Raid MM', 'RAID_MYTHIC'),
+(5, 'Donjon NM', 'DUNGEON_NORMAL'),
+(6, 'Donjon HM', 'DUNGEON_HEROIC'),
+(7, 'Donjon MM', 'DUNGEON_MYTHIC');
+

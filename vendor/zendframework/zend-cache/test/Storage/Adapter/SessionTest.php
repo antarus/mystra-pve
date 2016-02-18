@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,11 +14,20 @@ use Zend\Session\Container as SessionContainer;
 
 /**
  * @group      Zend_Cache
+ * @covers Zend\Cache\Storage\Adapter\Session<extended>
  */
 class SessionTest extends CommonAdapterTest
 {
     public function setUp()
     {
+        if (! class_exists(SessionContainer::class)) {
+            $this->markTestSkipped(
+                'Skipping zend-session-related tests until that component is '
+                . 'forwards-compatible with zend-stdlib, zend-servicemanager, '
+                . 'and zend-eventmanager v3'
+            );
+        }
+
         $_SESSION = [];
         SessionContainer::setDefaultManager(null);
         $sessionContainer = new SessionContainer('Default');
@@ -34,6 +43,10 @@ class SessionTest extends CommonAdapterTest
 
     public function tearDown()
     {
+        if (! class_exists(SessionContainer::class)) {
+            return;
+        }
+
         $_SESSION = [];
         SessionContainer::setDefaultManager(null);
     }

@@ -3,7 +3,7 @@
  * Zend Framework (http://framework.zend.com/)
  *
  * @link      http://github.com/zendframework/zf2 for the canonical source repository
- * @copyright Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright Copyright (c) 2005-2016 Zend Technologies USA Inc. (http://www.zend.com)
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
@@ -14,6 +14,7 @@ use Zend\Cache\Storage\Adapter\MongoDbOptions;
 
 /**
  * @group      Zend_Cache
+ * @covers Zend\Cache\Storage\Adapter\MongoDb<extended>
  */
 class MongoDbTest extends CommonAdapterTest
 {
@@ -59,38 +60,5 @@ class MongoDbTest extends CommonAdapterTest
         ]);
 
         $this->assertInstanceOf('\Zend\Cache\Storage\Adapter\MongoDbOptions', $this->_storage->getOptions());
-    }
-
-    public function testCachedItemsExpire()
-    {
-        $ttl = 2;
-        $key = 'foo';
-        $value = 'bar';
-
-        $this->_storage->getOptions()->setTtl($ttl);
-
-        $this->_storage->setItem($key, $value);
-
-        // wait for the cached item to expire
-        sleep($ttl * 2);
-
-        $this->assertNull($this->_storage->getItem($key));
-    }
-
-    public function testFlush()
-    {
-        $key1 = 'foo';
-        $key2 = 'key';
-        $value1 = 'bar';
-        $value2 = 'value';
-
-        $this->assertEquals([], $this->_storage->setItems([
-            $key1 => $value1,
-            $key2 => $value2,
-        ]));
-
-        $this->assertTrue($this->_storage->flush());
-
-        $this->assertEquals([], $this->_storage->hasItems([$key1, $key2]));
     }
 }

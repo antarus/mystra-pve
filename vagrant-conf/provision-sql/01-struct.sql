@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 18 Février 2016 à 16:08
+-- Généré le: Jeu 18 Février 2016 à 16:46
 -- Version du serveur: 5.5.47-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.14
 
@@ -193,7 +193,7 @@ CREATE TABLE IF NOT EXISTS `faction` (
 CREATE TABLE IF NOT EXISTS `guildes` (
   `idGuildes` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
-  `idJeux` int(11) DEFAULT NULL,
+  `serveur` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`idGuildes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
