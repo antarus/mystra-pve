@@ -11,5 +11,8 @@
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
         "dudapiotr/zftable": "dev-master"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.4"
     }
 }

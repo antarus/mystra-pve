@@ -91,7 +91,7 @@ php_go() {
 
 	if [ -f "${xdebug_config_file}" ]; then
 		cat << EOF > ${xdebug_config_file}
-;;zend_extension=xdebug.so
+zend_extension=xdebug.so
 xdebug.remote_handle=dbgp
 xdebug.remote_enable=1
 xdebug.remote_connect_back=1
