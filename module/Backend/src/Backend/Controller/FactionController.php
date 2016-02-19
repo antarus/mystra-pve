@@ -10,11 +10,9 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Mystra
  */
-class FactionController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
-
     public $_table = null;
 
     /**
@@ -22,8 +20,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -35,8 +32,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function getTable()
-    {
+    public function getTable() {
         if (!$this->_table) {
             $this->_table = $this->getServiceLocator()->get('\Commun\Table\FactionTable');
         }
@@ -49,8 +45,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('Backend/faction/list');
@@ -62,9 +57,8 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\FactionGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $oTable = new \Commun\Grid\FactionGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
                 ->setSource($this->getTable()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
@@ -76,23 +70,22 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\FactionForm();//new \Commun\Form\FactionForm($this->getServiceLocator());
+    public function createAction() {
+        $oForm = new \Commun\Form\FactionForm(); //new \Commun\Form\FactionForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
-        
+
         $oFiltre = new \Commun\Filter\FactionFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
         if ($oRequest->isPost()) {
             $oEntite = new \Backend\Model\Faction();
-        
+
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été créé avec succès."), 'success');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été créée avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-faction-list');
             }
         }
@@ -107,32 +100,31 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
             $oEntite = $this->getTable()->findRow($id);
             if (!$oEntite) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de faction inconnu."), 'error');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de faction inconnue."), 'error');
                 return $this->redirect()->toRoute('backend-faction-list');
             }
         } catch (Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la faction."), 'error');
-           return $this->redirect()->toRoute('backend-faction-list');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la faction."), 'error');
+            return $this->redirect()->toRoute('backend-faction-list');
         }
-        $oForm = new \Commun\Form\FactionForm();//new \Commun\Form\FactionForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\FactionForm(); //new \Commun\Form\FactionForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\FactionFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été modifié avec succès."), 'success');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été modifiée avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-faction-list');
             }
         }
@@ -147,8 +139,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-faction-list');
@@ -156,7 +147,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
         $oTable = $this->getTable();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été supprimé avec succès."), 'success');
+        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La faction a été supprimée avec succès."), 'success');
         return $this->redirect()->toRoute('backend-faction-list');
     }
 
@@ -165,8 +156,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +165,11 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
-
 }
-

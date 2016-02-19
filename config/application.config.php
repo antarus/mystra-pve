@@ -11,6 +11,7 @@ return array(
     'modules' => array(
         'Application',
         'ZfTable',
+        'Bnet',
         'Core',
         'Backend',
         'Accueil',

@@ -85,7 +85,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guildes a été créé avec succès."), 'success');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été créée avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-guildes-list');
             }
         }
@@ -105,11 +105,11 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         try {
             $oEntite = $this->getTable()->findRow($id);
             if (!$oEntite) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de guildes inconnu."), 'error');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de guilde inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-guildes-list');
             }
         } catch (Exception $ex) {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guildes."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guilde."), 'error');
             return $this->redirect()->toRoute('backend-guildes-list');
         }
         $oForm = new \Commun\Form\GuildesForm(); //new \Commun\Form\GuildesForm($this->getServiceLocator());
@@ -124,7 +124,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
 
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été modifié avec succès."), 'success');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été modifiée avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-guildes-list');
             }
         }
@@ -147,7 +147,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         $oTable = $this->getTable();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été supprimé avec succès."), 'success');
+        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été supprimée avec succès."), 'success');
         return $this->redirect()->toRoute('backend-guildes-list');
     }
 
