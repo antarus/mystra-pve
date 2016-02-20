@@ -15,11 +15,14 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         ->prependStylesheet($this->basePath('/css/Backend/test-bootstrap-theme.css'))
         ->prependStylesheet($this->basePath('/css/Backend/bootstrap.css'))
         ->prependStylesheet($this->basePath('/css/Backend/jquery-ui.css'))
+        ->prependStylesheet($this->basePath('/css/wow.css'))
 ?>
 
 <!-- Scripts -->
 <?php
 echo $this->headScript()
+        ->prependFile($this->basePath('js/wow.js'))
+        ->prependFile($this->basePath('js/jquery/jquery-ui.min.js'))
         ->prependFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
         ->prependFile($this->basePath('js/jquery/validate/jquery.validate.min.js'))
         ->prependFile($this->basePath('js/bootstrap.min.js'))

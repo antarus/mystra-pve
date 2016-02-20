@@ -2354,6 +2354,58 @@ return array(
                     ),
                 ),
             ),
+            'backend-guildes-import' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/guilde/import/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Guildes',
+                        'action' => 'import',
+                    ),
+                ),
+            ),
+            'backend-guildes-import-traitement' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/guilde/import/traitement/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Guildes',
+                        'action' => 'importTraitement',
+                    ),
+                ),
+            ),
+            'backend-guildes-import2' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/guilde/import2/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Guildes',
+                        'action' => 'import2',
+                    ),
+                ),
+            ),
+            'backend-guildes-import-traitement2' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/guilde/import/traitement2/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Guildes',
+                        'action' => 'importTraitement2',
+                    ),
+                ),
+            ),
         ),
     ),
 );

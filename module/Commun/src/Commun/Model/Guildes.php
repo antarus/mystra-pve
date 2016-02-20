@@ -33,6 +33,29 @@ class Guildes extends \Core\Model\AbstractModel
     public $serveur = null;
 
     /**
+     * Colonne: niveau
+     *
+     * @var string
+     */
+    public $niveau = null;
+
+    /**
+     * Colonne: mignature
+     *
+     * @var string
+     */
+    public $mignature = null;
+
+    /**
+     * Colonne: idFaction
+     *
+     * Reference to faction.idFaction
+     *
+     * @var int
+     */
+    public $idFaction = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -150,6 +173,66 @@ class Guildes extends \Core\Model\AbstractModel
     public function setServeur($value)
     {
         $this->serveur = $value;
+    }
+
+    /**
+     * Retourne la valeur niveau.
+     *
+     * @return string
+     */
+    public function getNiveau()
+    {
+        return strval($this->niveau);
+    }
+
+    /**
+     * Définit la valeur pour niveau
+     *
+     * @param string
+     */
+    public function setNiveau($value)
+    {
+        $this->niveau = $value;
+    }
+
+    /**
+     * Retourne la valeur mignature.
+     *
+     * @return string
+     */
+    public function getMignature()
+    {
+        return strval($this->mignature);
+    }
+
+    /**
+     * Définit la valeur pour mignature
+     *
+     * @param string
+     */
+    public function setMignature($value)
+    {
+        $this->mignature = $value;
+    }
+
+    /**
+     * Retourne la valeur idFaction.
+     *
+     * @return int
+     */
+    public function getIdFaction()
+    {
+        return intval($this->idFaction);
+    }
+
+    /**
+     * Définit la valeur pour idFaction
+     *
+     * @param int
+     */
+    public function setIdFaction($value)
+    {
+        $this->idFaction = $value;
     }
 
 

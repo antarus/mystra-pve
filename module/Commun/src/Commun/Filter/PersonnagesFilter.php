@@ -66,6 +66,57 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter
         )));
 
         $inputFilter->add($factory->createInput(array(
+               'name' => 'genre',
+               'required' => false,
+               'filters' => array(
+                   array('name'=>'Int')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'Digits'
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'mignature',
+               'required' => false,
+               'filters' => array(
+                   array('name' => 'StripTags'),
+                   array('name' => 'StringTrim')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'StringLength',
+                       'options' => array(
+                           'encoding' => 'UTF-8',
+                           'min' => '0',
+                           'max' => '100'
+                       )
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'royaume',
+               'required' => false,
+               'filters' => array(
+                   array('name' => 'StripTags'),
+                   array('name' => 'StringTrim')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'StringLength',
+                       'options' => array(
+                           'encoding' => 'UTF-8',
+                           'min' => '0',
+                           'max' => '100'
+                       )
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
                'name' => 'idFaction',
                'required' => true,
                'filters' => array(

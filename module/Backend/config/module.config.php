@@ -47,6 +47,7 @@ return array(
         ),
         'template_map' => array(
             'backend/layout' => __DIR__ . '/../view/layout/backend.phtml',
+            'layout/ajax' => __DIR__ . '/../view/layout/ajax.phtml',
         ),
     ),
     // Placeholder for console routes

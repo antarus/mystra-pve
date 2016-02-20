@@ -64,6 +64,57 @@ class GuildesFilter extends \Core\Filter\AbstractFilter
                    ),
                )
         )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'niveau',
+               'required' => false,
+               'filters' => array(
+                   array('name' => 'StripTags'),
+                   array('name' => 'StringTrim')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'StringLength',
+                       'options' => array(
+                           'encoding' => 'UTF-8',
+                           'min' => '0',
+                           'max' => '255'
+                       )
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'mignature',
+               'required' => false,
+               'filters' => array(
+                   array('name' => 'StripTags'),
+                   array('name' => 'StringTrim')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'StringLength',
+                       'options' => array(
+                           'encoding' => 'UTF-8',
+                           'min' => '0',
+                           'max' => '100'
+                       )
+                   ),
+               )
+        )));
+
+        $inputFilter->add($factory->createInput(array(
+               'name' => 'idFaction',
+               'required' => true,
+               'filters' => array(
+                   array('name'=>'Int')
+               ),
+               'validators' => array(
+                   array(
+                       'name' => 'Digits'
+                   ),
+               )
+        )));
     }
 
 

@@ -1,0 +1,69 @@
+<h1><?php echo $this->translate("Importer une guilde") ?></h1>
+<div id="msg"></div>
+<form id="frm1" method='post' action="<?php echo $this->url('backend-guildes-import-traitement', array('id' => $this->id)) ?>" class="form-inline">
+    <fieldset>
+        <input type="hidden" name="id" required="true" value="" />
+        <div class="control-group">
+            <label class="control-label"><?php echo $this->translate("Nom") ?></label>
+            <div class="controls">
+                <input type='text' name="nomGuilde" required="true" value="<?php echo $guilde['nom']; ?>"/>
+            </div>
+            <label class="control-label"><?php echo $this->translate("Serveur") ?></label>
+            <div class="controls">
+                <input type='text' name="nomServeur" required="true" value="<?php echo $guilde['serveur']; ?>"/>
+            </div>
+            <label class="control-label"><?php echo $this->translate("Importer les membres") ?></label>
+            <div class="controls">
+                <input type="radio" name="imp-membre" value="Oui" <?php if ($guilde["imp-membre"] == 'Oui') echo 'checked'; ?>><?php echo $this->translate("Oui") ?>
+                <input type="radio" name="imp-membre" value="Non" <?php if ($guilde["imp-membre"] == 'Non') echo 'checked'; ?>><?php echo $this->translate("Non") ?>
+            </div>
+            <label class="control-label"><?php echo $this->translate("Niveau minimum des membre a importer") ?></label>
+            <div class="controls">
+                <input type='text' name="lvlMin"  value="<?php echo $guilde['lvlMin']; ?>"/>
+            </div>
+            <p class="help-block"><?php echo $this->translate("Laisser vide pour importer tous les membres") ?></p>
+            <div class="form-actions">
+                <input id="submit" type='submit' value='submit' class="btn"/>
+            </div>
+            <div class="import">
+
+            </div>
+    </fieldset>
+</form>
+
+<script>
+
+    $(document).ready(function () {
+        var $loading = $('#loadingDiv').hide();
+        $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
+        // Lorsque je soumets le formulaire
+        $('#frm1').on('submit', function (e) {
+            e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
+
+            var $this = $(this); // L'objet jQuery du formulaire
+
+            // Envoi de la requête HTTP en mode asynchrone
+            $.ajax({
+                url: $this.attr('action'), // Le nom du fichier indiqué dans le formulaire
+                type: $this.attr('method'), // La méthode indiquée dans le formulaire (get ou post)
+                data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
+                beforeSend: function (html) { // Je récupère la réponse du fichier PHP
+                    $("body").addClass("loading");
+                },
+                complete: function (html) { // Je récupère la réponse du fichier PHP
+                    $("body").removeClass("loading");
+                    $("#msg").addClass('alert-success').text("Guilde importée");
+                },
+                error: function (html) { // Je récupère la réponse du fichier PHP
+                    $("#msg").addClass('alert-danger').text("Erreur lors du traitement");
+                },
+            });
+        });
+    });
+</script>

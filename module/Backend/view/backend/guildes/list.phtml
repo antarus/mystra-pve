@@ -1,8 +1,28 @@
 <a href="<?php echo $this->url('backend-guildes-create'); ?>" class="btn btn-success"><?php echo $this->translate("Créer") ?></a>
-
+<a href="<?php echo $this->url('backend-guildes-import'); ?>" class="btn btn-success"><?php echo $this->translate("Importer") ?></a>
+<a id="lnkImport" href="<?php echo $this->url('backend-guildes-import2'); ?>" class="btn btn-success"><?php echo $this->translate("Importer 2") ?></a>
 <div id="tableContainer">
 </div>
+<div id="msgWowImport"></div>
 
 <script>
+    $(document).ready(function () {
+
+        $('#lnkImport').click(function () {
+            var $link = $(this);
+            var $dialog = $('<div id="dlgImport"></div>')
+                    .load($link.attr('href'))
+                    .dialog({
+                        autoOpen: false,
+                        title: $link.attr('title'),
+                        height: 450,
+                        width: 500
+                    });
+            $dialog.dialog('open');
+
+            return false;
+        });
+    });
     $("#tableContainer").zfTable('<?php echo $this->url('backend-guildes-ajaxList'); ?>');
+
 </script>

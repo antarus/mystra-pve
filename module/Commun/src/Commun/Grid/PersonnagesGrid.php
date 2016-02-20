@@ -58,6 +58,21 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
+        'genre' => array(
+            'title' => 'Genre',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'mignature' => array(
+            'title' => 'Mignature',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'royaume' => array(
+            'title' => 'Royaume',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'idFaction' => array(
             'title' => 'IdFaction',
             'width' => '100',
@@ -161,6 +176,21 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
         $value = $this->getParamAdapter()->getValueOfFilter('niveau');
         if ($value != null) {
             $query->where("niveau like '%".$value."%' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('genre');
+        if ($value != null) {
+            $query->where("genre = '".$value."' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('mignature');
+        if ($value != null) {
+            $query->where("mignature like '%".$value."%' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
+        if ($value != null) {
+            $query->where("royaume like '%".$value."%' ");
         }
 
         $value = $this->getParamAdapter()->getValueOfFilter('idFaction');

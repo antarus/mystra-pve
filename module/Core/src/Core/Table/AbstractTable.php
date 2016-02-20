@@ -170,6 +170,15 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
                 ->rollback();
     }
 
+    public function selectBy(array $array, $prototypeClass = null) {
+        $oRowset = $this->select($array);
+        $data = $this->fetchAllWhere($array, $prototypeClass)->toArray();
+
+        $arrayObjectPrototypeClass = ($prototypeClass) ? $prototypeClass : $this->arrayObjectPrototypeClass;
+        $oRowset->setArrayObjectPrototype(new $arrayObjectPrototypeClass());
+        return $oRowset->current();
+    }
+
     /**
      * Retourne une ligne pour une clé donnée dépendant du prototypeClass
      *
@@ -270,7 +279,7 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
      * @param mixed $order
      * @return \Zend\Db\ResultSet\ResultSet
      */
-    public function fetchAllWhere(Where $oWhere, $order = null) {
+    public function fetchAllWhere($oWhere, $order = null) {
         $oQuery = $this->getBaseQuery();
         $oQuery->where($oWhere);
         if (!is_null($order)) {

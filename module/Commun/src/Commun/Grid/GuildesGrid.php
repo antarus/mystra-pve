@@ -58,6 +58,21 @@ class GuildesGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
+        'niveau' => array(
+            'title' => 'Niveau',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'mignature' => array(
+            'title' => 'Mignature',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'idFaction' => array(
+            'title' => 'IdFaction',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'edit' => array(
             'title' => 'Modifier',
             'width' => '100',
@@ -136,6 +151,21 @@ class GuildesGrid extends \ZfTable\AbstractTable
         $value = $this->getParamAdapter()->getValueOfFilter('serveur');
         if ($value != null) {
             $query->where("serveur like '%".$value."%' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+        if ($value != null) {
+            $query->where("niveau like '%".$value."%' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('mignature');
+        if ($value != null) {
+            $query->where("mignature like '%".$value."%' ");
+        }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
+        if ($value != null) {
+            $query->where("idFaction = '".$value."' ");
         }
     }
 

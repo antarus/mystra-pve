@@ -44,6 +44,39 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
+            'name' => 'genre',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Genre',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'mignature',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Mignature',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'royaume',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Royaume',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'idFaction',
             'attributes' => array(
                 'type'  => 'text',

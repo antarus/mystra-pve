@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 18 Février 2016 à 20:36
+-- Généré le: Sam 20 Février 2016 à 12:22
 -- Version du serveur: 5.5.47-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.14
 
@@ -195,7 +195,11 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   `idGuildes` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
   `serveur` varchar(150) NOT NULL,
-  PRIMARY KEY (`idGuildes`)
+  `niveau` mediumint(9) DEFAULT NULL,
+  `mignature` varchar(100) DEFAULT NULL,
+  `idFaction` int(11) NOT NULL,
+  PRIMARY KEY (`idGuildes`),
+  KEY `fk_guildes_faction1_idx` (`idFaction`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
@@ -267,6 +271,9 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   `idPersonnage` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `niveau` mediumint(9) NOT NULL,
+  `genre` tinyint(1) DEFAULT NULL COMMENT 'id battlenet\n1 femme\n0 homme',
+  `mignature` varchar(100) DEFAULT NULL,
+  `royaume` varchar(100) DEFAULT NULL,
   `idFaction` int(11) NOT NULL,
   `idClasses` int(11) NOT NULL,
   `idRace` int(11) NOT NULL,
@@ -278,7 +285,7 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   KEY `fk_personnages_faction1_idx` (`idFaction`),
   KEY `fk_personnages_classes1_idx` (`idClasses`),
   KEY `fk_personnages_race1_idx` (`idRace`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -509,6 +516,12 @@ ALTER TABLE `evenements_template`
 --
 ALTER TABLE `evenements_template_roles`
   ADD CONSTRAINT `fk_evenements_template_roles_evenements_template1` FOREIGN KEY (`idEvenements_template`) REFERENCES `evenements_template` (`idEvenements_template`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `guildes`
+--
+ALTER TABLE `guildes`
+  ADD CONSTRAINT `fk_guildes_faction1` FOREIGN KEY (`idFaction`) REFERENCES `faction` (`idFaction`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `item_personnage_raid`

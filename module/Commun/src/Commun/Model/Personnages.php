@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Mystra
  */
-class Personnages extends \Core\Model\AbstractModel
-{
+class Personnages extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idPersonnage
@@ -31,6 +30,27 @@ class Personnages extends \Core\Model\AbstractModel
      * @var string
      */
     public $niveau = null;
+
+    /**
+     * Colonne: genre
+     *
+     * @var int
+     */
+    public $genre = null;
+
+    /**
+     * Colonne: mignature
+     *
+     * @var string
+     */
+    public $mignature = null;
+
+    /**
+     * Colonne: royaume
+     *
+     * @var string
+     */
+    public $royaume = null;
 
     /**
      * Colonne: idFaction
@@ -83,8 +103,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -93,8 +113,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -103,8 +123,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -113,8 +133,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -123,8 +143,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -133,8 +153,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -142,8 +162,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdPersonnage()
-    {
+    public function getIdPersonnage() {
         return intval($this->idPersonnage);
     }
 
@@ -152,8 +171,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdPersonnage($value)
-    {
+    public function setIdPersonnage($value) {
         $this->idPersonnage = $value;
     }
 
@@ -162,8 +180,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return strval($this->nom);
     }
 
@@ -172,8 +189,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
+    public function setNom($value) {
         $this->nom = $value;
     }
 
@@ -182,8 +198,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNiveau()
-    {
+    public function getNiveau() {
         return strval($this->niveau);
     }
 
@@ -192,9 +207,62 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNiveau($value)
-    {
+    public function setNiveau($value) {
         $this->niveau = $value;
+    }
+
+    /**
+     * Retourne la valeur genre.
+     *
+     * @return int
+     */
+    public function getGenre() {
+        return intval($this->genre);
+    }
+
+    /**
+     * Définit la valeur pour genre
+     *
+     * @param int
+     */
+    public function setGenre($value) {
+        $this->genre = $value;
+    }
+
+    /**
+     * Retourne la valeur mignature.
+     *
+     * @return string
+     */
+    public function getMignature() {
+        return strval($this->mignature);
+    }
+
+    /**
+     * Définit la valeur pour mignature
+     *
+     * @param string
+     */
+    public function setMignature($value) {
+        $this->mignature = $value;
+    }
+
+    /**
+     * Retourne la valeur royaume.
+     *
+     * @return string
+     */
+    public function getRoyaume() {
+        return strval($this->royaume);
+    }
+
+    /**
+     * Définit la valeur pour royaume
+     *
+     * @param string
+     */
+    public function setRoyaume($value) {
+        $this->royaume = $value;
     }
 
     /**
@@ -202,8 +270,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdFaction()
-    {
+    public function getIdFaction() {
         return intval($this->idFaction);
     }
 
@@ -212,8 +279,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdFaction($value)
-    {
+    public function setIdFaction($value) {
         $this->idFaction = $value;
     }
 
@@ -222,8 +288,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdClasses()
-    {
+    public function getIdClasses() {
         return intval($this->idClasses);
     }
 
@@ -232,8 +297,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdClasses($value)
-    {
+    public function setIdClasses($value) {
         $this->idClasses = $value;
     }
 
@@ -242,8 +306,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdRace()
-    {
+    public function getIdRace() {
         return intval($this->idRace);
     }
 
@@ -252,8 +315,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdRace($value)
-    {
+    public function setIdRace($value) {
         $this->idRace = $value;
     }
 
@@ -262,9 +324,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdGuildes()
-    {
-        return intval($this->idGuildes);
+    public function getIdGuildes() {
+        return $this->idGuildes;
     }
 
     /**
@@ -272,8 +333,7 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdGuildes($value)
-    {
+    public function setIdGuildes($value) {
         $this->idGuildes = $value;
     }
 
@@ -282,9 +342,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdUsers()
-    {
-        return intval($this->idUsers);
+    public function getIdUsers() {
+        return $this->idUsers;
     }
 
     /**
@@ -292,11 +351,8 @@ class Personnages extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdUsers($value)
-    {
+    public function setIdUsers($value) {
         $this->idUsers = $value;
     }
 
-
 }
-

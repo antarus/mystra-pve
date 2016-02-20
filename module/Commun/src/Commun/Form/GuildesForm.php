@@ -44,6 +44,39 @@ class GuildesForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
+            'name' => 'niveau',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Niveau',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'mignature',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Mignature',
+            ),
+        ));
+
+        $this->add(array(
+            'name' => 'idFaction',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'IdFaction',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'attributes' => array(
                 'type'  => 'submit',
