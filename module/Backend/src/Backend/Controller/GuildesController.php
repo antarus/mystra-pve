@@ -240,7 +240,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
             $aPost = $oRequest->getPost();
             $this->getTableGuilde()->beginTransaction();
             try {
-                $guild = $this->_getServBnet()->warcraft(new Region(Region::EUROPE))->guilds();
+                $guild = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->guilds();
                 $guild->on($aPost['nomServeur']);
                 $aOptionBnet = array();
                 if ($aPost['imp-membre'] == "Oui") {

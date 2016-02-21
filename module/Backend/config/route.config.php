@@ -2406,6 +2406,32 @@ return array(
                     ),
                 ),
             ),
+            'backend-zone-import' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/zone/import/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Zone',
+                        'action' => 'import',
+                    ),
+                ),
+            ),
+            'backend-zone-import-traitement' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/zone/import/traitement/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Zone',
+                        'action' => 'importTraitement',
+                    ),
+                ),
+            ),
         ),
     ),
 );

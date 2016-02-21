@@ -34,7 +34,14 @@
 <script>
 
     $(document).ready(function () {
-
+        var $loading = $('#loadingDiv').hide();
+        $(document)
+                .ajaxStart(function () {
+                    $loading.show();
+                })
+                .ajaxStop(function () {
+                    $loading.hide();
+                });
         // Lorsque je soumets le formulaire
         $('#frm1').on('submit', function (e) {
             e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
@@ -51,9 +58,7 @@
                 },
                 complete: function (html) { // Je récupère la réponse du fichier PHP
                     $("body").removeClass("loading");
-                },
-                sucess: function (html) {
-                    $("#msg").addClass('alert-success').text("Zone importée");
+                    $("#msg").addClass('alert-success').text("Guilde importée");
                 },
                 error: function (html) { // Je récupère la réponse du fichier PHP
                     $("#msg").addClass('alert-danger').text("Erreur lors du traitement");

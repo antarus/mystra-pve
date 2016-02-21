@@ -375,9 +375,9 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
 
         $set = $mObject->getArrayCopy();
 
-        if (isset($set[$this->nomCle])) {
-            unset($set[$this->nomCle]);
-        }
+//        if (isset($set[$this->nomCle])) {
+//            unset($set[$this->nomCle]);
+//        }
 
         $res = parent::insert($set);
 

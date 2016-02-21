@@ -11,7 +11,7 @@ namespace Core\Util;
 class ParserWow {
 
     /**
-     * Extrait les membre des donnes de battlnet et les adapte au format murloc.
+     * Extrait les membre des donnes de battlnet et et les transforme en objet utilisable de notre coté.
      * @param type $aDataGuildeBnet
      * @param \Core\Model\Guildes $oGuilde
      * @param array $aOptionFiltre lvlMin|
@@ -24,7 +24,6 @@ class ParserWow {
             throw new Exception('Les datas issues de bnet ne peuvent être vide.');
         }
         $aPersonnage = array();
-        $writer = new \Zend\Config\Writer\Json();
         $lvlMin = 0;
         if (isset($aOptionFiltre)) {
             if (isset($aOptionFiltre['lvlMin'])) {
@@ -54,7 +53,7 @@ class ParserWow {
     }
 
     /**
-     * Extrait les information de la guilde des donnes de battlnet et les adapte au format murloc.
+     * Extrait les information de la guilde des donnes de battlnet et et les transforme en objet utilisable de notre coté.
      * @param type $aDataGuildeBnet
      * @return  \Core\Model\Guilde
      * @throws Exception
@@ -83,6 +82,78 @@ class ParserWow {
         $reader = new \Zend\Config\Reader\Xml();
         $data = $reader->fromString($sString);
         return $data;
+    }
+
+    /**
+     * Extrait les information de la guilde des donnes de battlnet et et les transforme en objet utilisable de notre coté.
+     * @param type $aDataZoneBnet
+     * @return  \Core\Model\Zone
+     * @throws Exception
+     */
+    public static function extraitZoneDepuisBnetZone($aDataZoneBnet) {
+
+        if (!isset($aDataZoneBnet)) {
+            throw new \Exception('Les datas issues de bnet ne peuvent être vide.');
+        }
+        $oZone = new \Commun\Model\Zone();
+        $oZone->setIdZone($aDataZoneBnet['id']);
+        $oZone->setNom($aDataZoneBnet['name']);
+        $oZone->setIsDonjon($aDataZoneBnet['isDungeon']);
+        $oZone->setIsRaid($aDataZoneBnet['isRaid']);
+        $oZone->setLvlMax($aDataZoneBnet['advisedMinLevel']);
+        $oZone->setLvlMin($aDataZoneBnet['advisedMaxLevel']);
+        $oZone->setPatch($aDataZoneBnet['patch']);
+        $oZone->setModeDifficulte($aDataZoneBnet['availableModes']);
+
+        $aTaille = explode('-', $aDataZoneBnet['numPlayers']);
+        if (count($aTaille) == 1) {
+            $iTailleMin = $iTailleMax = $aDataZoneBnet['numPlayers'];
+        } else {
+            $iTailleMin = $aTaille[0];
+            $iTailleMax = $aTaille[1];
+        }
+        $oZone->setTailleMin($iTailleMin);
+        $oZone->setTailleMax($iTailleMax);
+        return $oZone;
+    }
+
+    /**
+     * Extrait les bosses des donnes de battlnet et les transforme en objet utilisable de notre coté.
+     * @param type $aDataZoneBnet
+     * @param \Core\Model\Zone $oZone
+     * @param array $aOptionFiltre lvlMin|
+     * @return array de \Core\Model\Personnages
+     * @throws Exception
+     */
+    public static function extraitBossDepuisBnetZone($aDataZoneBnet, \Commun\Model\Zone $oZone) {
+
+        if (!isset($aDataZoneBnet)) {
+            throw new Exception('Les datas issues de bnet ne peuvent être vide.');
+        }
+        $aBoss = array();
+
+        if (isset($aDataZoneBnet['bosses'])) {
+            foreach ($aDataZoneBnet['bosses'] as $aBosse) {
+
+                $oBoss = new \Commun\Model\Bosses();
+                $oBoss->setIdBosses($aBosse['id']);
+                $oBoss->setNom($aBosse['name']);
+                $oBoss->setLevel($aBosse['level']);
+                $oBoss->setVie($aBosse['health']);
+                $aNpc = array();
+                if (isset($aBosse['npcs'])) {
+                    foreach ($aBosse['npcs'] as $aNpcBnet) {
+                        $oNpc = new \Commun\Model\Npc();
+                        $oNpc->setIdNpc($aNpcBnet['id']);
+                        $oNpc->setNom($aNpcBnet['name']);
+                        $aNpc[] = $oNpc;
+                    }
+                }
+                $oBoss->setNpc($aNpc);
+                $aBoss[] = $oBoss;
+            }
+            return $aBoss;
+        }
     }
 
 }
