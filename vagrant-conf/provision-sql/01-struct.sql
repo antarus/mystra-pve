@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Sam 20 Février 2016 à 12:22
+-- GÃ©nÃ©rÃ© le: Sam 20 FÃ©vrier 2016 Ã  12:22
 -- Version du serveur: 5.5.47-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.14
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `mystra_pve`
+-- Base de donnÃ©es: `mystra_pve`
 --
 CREATE DATABASE IF NOT EXISTS `mystra_pve` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `mystra_pve`;
@@ -196,7 +196,7 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   `nom` varchar(45) NOT NULL,
   `serveur` varchar(150) NOT NULL,
   `niveau` mediumint(9) DEFAULT NULL,
-  `mignature` varchar(100) DEFAULT NULL,
+  `miniature` varchar(100) DEFAULT NULL,
   `idFaction` int(11) NOT NULL,
   PRIMARY KEY (`idGuildes`),
   KEY `fk_guildes_faction1_idx` (`idFaction`)
@@ -213,8 +213,9 @@ CREATE TABLE IF NOT EXISTS `items` (
   `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `ajouterPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `majPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `idItemJeu` varchar(50) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `idBnet` int(10) DEFAULT NULL,
   `couleur` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -230,6 +231,7 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   `idItem` int(10) NOT NULL,
   `idPersonnage` int(11) NOT NULL,
   `valeur` float(10,2) DEFAULT NULL,
+  `bonus` varchar(150) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`idItemRaidPersonnage`),
   KEY `fk_item_personnage_raid_raids1_idx` (`idRaid`),
   KEY `fk_item_personnage_raid_items1_idx` (`idItem`),
@@ -272,7 +274,7 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `niveau` mediumint(9) NOT NULL,
   `genre` tinyint(1) DEFAULT NULL COMMENT 'id battlenet\n1 femme\n0 homme',
-  `mignature` varchar(100) DEFAULT NULL,
+  `miniature` varchar(100) DEFAULT NULL,
   `royaume` varchar(100) DEFAULT NULL,
   `idFaction` int(11) NOT NULL,
   `idClasses` int(11) NOT NULL,
@@ -469,7 +471,7 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contraintes pour les tables exportées
+-- Contraintes pour les tables exportÃ©es
 --
 
 --

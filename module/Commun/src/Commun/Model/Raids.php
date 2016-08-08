@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Mystra
  */
-class Raids extends \Core\Model\AbstractModel
-{
+class Raids extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idRaid
@@ -68,8 +67,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -78,8 +77,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -88,8 +87,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -98,8 +97,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -108,8 +107,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -118,8 +117,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -127,8 +126,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getIdRaid()
-    {
+    public function getIdRaid() {
         return strval($this->idRaid);
     }
 
@@ -137,8 +135,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setIdRaid($value)
-    {
+    public function setIdRaid($value) {
         $this->idRaid = $value;
     }
 
@@ -147,9 +144,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdEvenements()
-    {
-        return intval($this->idEvenements);
+    public function getIdEvenements() {
+        return $this->idEvenements;
     }
 
     /**
@@ -157,8 +153,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdEvenements($value)
-    {
+    public function setIdEvenements($value) {
         $this->idEvenements = $value;
     }
 
@@ -167,8 +162,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getDate()
-    {
+    public function getDate() {
         return strval($this->date);
     }
 
@@ -177,8 +171,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setDate($value)
-    {
+    public function setDate($value) {
         $this->date = $value;
     }
 
@@ -187,8 +180,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNote()
-    {
+    public function getNote() {
         return strval($this->note);
     }
 
@@ -197,8 +189,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNote($value)
-    {
+    public function setNote($value) {
         $this->note = $value;
     }
 
@@ -207,8 +198,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return float
      */
-    public function getValeur()
-    {
+    public function getValeur() {
         return floatval($this->valeur);
     }
 
@@ -217,8 +207,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param float
      */
-    public function setValeur($value)
-    {
+    public function setValeur($value) {
         $this->valeur = $value;
     }
 
@@ -227,8 +216,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getAjoutePar()
-    {
+    public function getAjoutePar() {
         return strval($this->ajoutePar);
     }
 
@@ -237,8 +225,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setAjoutePar($value)
-    {
+    public function setAjoutePar($value) {
         $this->ajoutePar = $value;
     }
 
@@ -247,8 +234,7 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getMajPar()
-    {
+    public function getMajPar() {
         return strval($this->majPar);
     }
 
@@ -257,11 +243,8 @@ class Raids extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setMajPar($value)
-    {
+    public function setMajPar($value) {
         $this->majPar = $value;
     }
 
-
 }
-

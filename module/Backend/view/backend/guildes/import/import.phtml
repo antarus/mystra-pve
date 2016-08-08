@@ -6,11 +6,11 @@
         <div class="control-group">
             <label class="control-label"><?php echo $this->translate("Nom") ?></label>
             <div class="controls">
-                <input type='text' name="nomGuilde" required="true" value="<?php echo $guilde['nom']; ?>"/>
+                <input type='text' name="guilde" required="true" value="<?php echo $guilde['guilde']; ?>"/>
             </div>
             <label class="control-label"><?php echo $this->translate("Serveur") ?></label>
             <div class="controls">
-                <input type='text' name="nomServeur" required="true" value="<?php echo $guilde['serveur']; ?>"/>
+                <input type='text' name="serveur" required="true" value="<?php echo $guilde['serveur']; ?>"/>
             </div>
             <label class="control-label"><?php echo $this->translate("Importer les membres") ?></label>
             <div class="controls">
@@ -48,15 +48,20 @@
                 data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
                 beforeSend: function (html) { // Je récupère la réponse du fichier PHP
                     $("body").addClass("loading");
+                    if (html.status = "200") {
+                        $("#msg").addClass('alert-success').text("Guilde importée");
+                    } else {
+                        $("#msg").addClass('alert-danger').text("Erreur lors du traitement AJAX");
+                    }
                 },
                 complete: function (html) { // Je récupère la réponse du fichier PHP
                     $("body").removeClass("loading");
                 },
                 sucess: function (html) {
-                    $("#msg").addClass('alert-success').text("Zone importée");
+                    $("#msg").addClass('alert-success').text("Guilde importée");
                 },
                 error: function (html) { // Je récupère la réponse du fichier PHP
-                    $("#msg").addClass('alert-danger').text("Erreur lors du traitement");
+                    $("#msg").addClass('alert-danger').text("Erreur lors du traitement AJAX");
                 },
             });
         });

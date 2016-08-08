@@ -45,6 +45,11 @@ return array(
                     'action' => 'index',
                 ),
                 array(
+                    'label' => $translator->translate('Items - personnage -raid'),
+                    'route' => 'backend-item-personnage-raid-list',
+                    'action' => 'index',
+                ),
+                array(
                     'label' => $translator->translate('Mode de difficulté'),
                     'route' => 'backend-mode_difficulte-list',
                     'action' => 'index',

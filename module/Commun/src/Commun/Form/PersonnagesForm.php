@@ -55,13 +55,13 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
-            'name' => 'mignature',
+            'name' => 'miniature',
             'attributes' => array(
                 'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Mignature',
+                'label' => 'miniature',
             ),
         ));
 

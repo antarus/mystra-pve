@@ -6,25 +6,23 @@ namespace Commun\Form;
  * @author Antarus
  * @project Mystra
  */
-class ItemsForm extends \Core\Form\AbstractForm
-{
+class ItemsForm extends \Core\Form\AbstractForm {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct('items');
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-           'name' => 'idItem',
-           'attributes' => array(
-               'type'  => 'hidden',
-           ),
+            'name' => 'idItem',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
         ));
 
         $this->add(array(
             'name' => 'nom',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -35,7 +33,7 @@ class ItemsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'ajouterPar',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -46,7 +44,7 @@ class ItemsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'majPar',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -55,20 +53,20 @@ class ItemsForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
-            'name' => 'idItemJeu',
+            'name' => 'idIBnet',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdItemJeu',
+                'label' => 'idIBnet',
             ),
         ));
 
         $this->add(array(
             'name' => 'couleur',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -79,7 +77,7 @@ class ItemsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type' => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
                 'class' => 'form-control btn-success',
@@ -88,6 +86,4 @@ class ItemsForm extends \Core\Form\AbstractForm
         ));
     }
 
-
 }
-

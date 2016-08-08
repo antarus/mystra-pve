@@ -21,7 +21,7 @@ class ParserWow {
     public static function extraitMembreDepuisBnetGuilde($aDataGuildeBnet, \Commun\Model\Guildes $oGuilde, array $aOptionFiltre) {
 
         if (!isset($aDataGuildeBnet)) {
-            throw new Exception('Les datas issues de bnet ne peuvent être vide.');
+            throw new Exception("Les datas pour l'extraction de membres issues de bnet ne peuvent être vide.");
         }
         $aPersonnage = array();
         $lvlMin = 0;
@@ -34,22 +34,70 @@ class ParserWow {
         if (isset($aDataGuildeBnet['members'])) {
             foreach ($aDataGuildeBnet['members'] as $aCharacter) {
                 if ($aCharacter['character']['level'] >= $lvlMin) {
-                    $oPersonnage = new \Commun\Model\Personnages();
-                    $oPersonnage->setNom($aCharacter['character']['name']);
-                    $oPersonnage->setNiveau($aCharacter['character']['level']);
+
+//                    $oPersonnage = new \Commun\Model\Personnages();
+//                    $oPersonnage->setNom($aCharacter['character']['name']);
+//                    $oPersonnage->setNiveau($aCharacter['character']['level']);
+//                    $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
+//                    $oPersonnage->setIdClasses($aCharacter['character']['class']);
+//                    //$oPersonnage->setIdFaction($aCharacter['character']['faction']);
+//                    $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+//                    $oPersonnage->setIdRace($aCharacter['character']['race']);
+//                    $oPersonnage->setGenre($aCharacter['character']['gender']);
+//                    $oPersonnage->setRoyaume($aCharacter['character']['realm']);
+//                    $oPersonnage->setminiature($aCharacter['character']['thumbnail']);
+//                    $aPersonnage[] = $oPersonnage;
+                    $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aCharacter['character']);
                     $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
-                    $oPersonnage->setIdClasses($aCharacter['character']['class']);
-                    //$oPersonnage->setIdFaction($aCharacter['character']['faction']);
                     $oPersonnage->setIdFaction($oGuilde->getIdFaction());
-                    $oPersonnage->setIdRace($aCharacter['character']['race']);
-                    $oPersonnage->setGenre($aCharacter['character']['gender']);
-                    $oPersonnage->setRoyaume($aCharacter['character']['realm']);
-                    $oPersonnage->setMignature($aCharacter['character']['thumbnail']);
                     $aPersonnage[] = $oPersonnage;
                 }
             }
             return $aPersonnage;
         }
+    }
+
+    /**
+     * Extrait les informations du personnagee des donnes de battlnet et et les transforme en objet utilisable de notre coté.
+     * Manque la faction qui n'est pas disponible
+     * @param type $aDataPersonnageBnet
+     * @return  \Core\Model\Personnages
+     * @throws Exception
+     */
+    public static function extraitPersonnageDepuisBnet($aDataPersonnageBnet) {
+
+        if (!isset($aDataPersonnageBnet)) {
+            throw new \Exception('Les datas personnages issues de bnet ne peuvent être vide.');
+        }
+        $oPersonnage = new \Commun\Model\Personnages();
+        $oPersonnage->setNom($aDataPersonnageBnet['name']);
+        $oPersonnage->setNiveau($aDataPersonnageBnet['level']);
+        $oPersonnage->setIdClasses($aDataPersonnageBnet['class']);
+        // $oPersonnage->setIdFaction($aDataPersonnageBnet['faction']);
+        $oPersonnage->setIdRace($aDataPersonnageBnet['race']);
+        $oPersonnage->setGenre($aDataPersonnageBnet['gender']);
+        $oPersonnage->setRoyaume($aDataPersonnageBnet['realm']);
+        $oPersonnage->setminiature($aDataPersonnageBnet['thumbnail']);
+        return $oPersonnage;
+    }
+
+    /**
+     * Extrait les informations du personnagee des donnes de battlnet et et les transforme en objet utilisable de notre coté.
+     * Manque la faction qui n'est pas disponible
+     * @param array $aDataItemBnet
+     * @return  \Core\Model\Items
+     * @throws Exception
+     */
+    public static function extraitItemDepuisBnet($aDataItemBnet) {
+
+        if (!isset($aDataItemBnet)) {
+            throw new \Exception('Les datas personnages issues de bnet ne peuvent être vide.');
+        }
+        $oItem = new \Commun\Model\Items();
+        $oItem->setIdBnet($aDataItemBnet['id']);
+        $oItem->setNom($aDataItemBnet['name']);
+        $oItem->setIcon($aDataItemBnet['icon']);
+        return $oItem;
     }
 
     /**
@@ -61,13 +109,13 @@ class ParserWow {
     public static function extraitGuildeDepuisBnetGuilde($aDataGuildeBnet) {
 
         if (!isset($aDataGuildeBnet)) {
-            throw new \Exception('Les datas issues de bnet ne peuvent être vide.');
+            throw new \Exception("Les datas pour l'extraction de guilde issues de bnet ne peuvent être vide.");
         }
         $oGuilde = new \Commun\Model\Guildes();
         $oGuilde->setNom($aDataGuildeBnet['name']);
         $oGuilde->setServeur($aDataGuildeBnet['realm']);
         $oGuilde->setIdFaction($aDataGuildeBnet['side']);
-        $oGuilde->setMignature($aDataGuildeBnet['thumbnail']);
+        $oGuilde->setminiature($aDataGuildeBnet['thumbnail']);
         $oGuilde->setNiveau($aDataGuildeBnet['level']);
         $oGuilde->setServeur($aDataGuildeBnet['realm']);
         return $oGuilde;
@@ -93,7 +141,7 @@ class ParserWow {
     public static function extraitZoneDepuisBnetZone($aDataZoneBnet) {
 
         if (!isset($aDataZoneBnet)) {
-            throw new \Exception('Les datas issues de bnet ne peuvent être vide.');
+            throw new \Exception("Les datas pour l'extraction de zone issues de bnet ne peuvent être vide.");
         }
         $oZone = new \Commun\Model\Zone();
         $oZone->setIdZone($aDataZoneBnet['id']);
@@ -128,7 +176,7 @@ class ParserWow {
     public static function extraitBossDepuisBnetZone($aDataZoneBnet, \Commun\Model\Zone $oZone) {
 
         if (!isset($aDataZoneBnet)) {
-            throw new Exception('Les datas issues de bnet ne peuvent être vide.');
+            throw new Exception("Les datas pour l'extraction de zone issues de bnet ne peuvent être vide.");
         }
         $aBoss = array();
 

@@ -1,0 +1,11 @@
+url backend 
+http://127.0.0.1/backend/bosses/list
+
+url backend avec vagrant
+http://127.0.0.1:8888/backend/bosses/list
+
+le script qui monte le serveur http et la base de donné a juste un pb au niveau de l'import des donnée.
+
+connecté vous sur phpmyadmin (http://127.0.0.1:8888/phpmyadmin/) root/root
+
+importer le fichier sql situé dans /vagrant-conf/provision-sql/20160221.sql

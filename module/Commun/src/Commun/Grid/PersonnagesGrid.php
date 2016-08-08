@@ -63,8 +63,8 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
-        'mignature' => array(
-            'title' => 'Mignature',
+        'miniature' => array(
+            'title' => 'miniature',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -183,9 +183,9 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
             $query->where("genre = '".$value."' ");
         }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('mignature');
+        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
         if ($value != null) {
-            $query->where("mignature like '%".$value."%' ");
+            $query->where("miniature like '%".$value."%' ");
         }
 
         $value = $this->getParamAdapter()->getValueOfFilter('royaume');

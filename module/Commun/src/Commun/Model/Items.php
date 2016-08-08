@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Mystra
  */
-class Items extends \Core\Model\AbstractModel
-{
+class Items extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idItem
@@ -44,7 +43,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @var string
      */
-    public $idItemJeu = null;
+    public $idBnet = null;
 
     /**
      * Colonne: couleur
@@ -54,13 +53,20 @@ class Items extends \Core\Model\AbstractModel
     public $couleur = null;
 
     /**
+     * Colonne: icon
+     *
+     * @var string
+     */
+    public $icon = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -69,8 +75,8 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -79,8 +85,8 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -89,8 +95,8 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -99,8 +105,8 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -109,8 +115,8 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -118,8 +124,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdItem()
-    {
+    public function getIdItem() {
         return intval($this->idItem);
     }
 
@@ -128,8 +133,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdItem($value)
-    {
+    public function setIdItem($value) {
         $this->idItem = $value;
     }
 
@@ -138,8 +142,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
+    public function getNom() {
         return strval($this->nom);
     }
 
@@ -148,8 +151,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
+    public function setNom($value) {
         $this->nom = $value;
     }
 
@@ -158,8 +160,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getAjouterPar()
-    {
+    public function getAjouterPar() {
         return strval($this->ajouterPar);
     }
 
@@ -168,8 +169,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setAjouterPar($value)
-    {
+    public function setAjouterPar($value) {
         $this->ajouterPar = $value;
     }
 
@@ -178,8 +178,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getMajPar()
-    {
+    public function getMajPar() {
         return strval($this->majPar);
     }
 
@@ -188,29 +187,26 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setMajPar($value)
-    {
+    public function setMajPar($value) {
         $this->majPar = $value;
     }
 
     /**
-     * Retourne la valeur idItemJeu.
+     * Retourne la valeur idBnet.
      *
-     * @return string
+     * @return int
      */
-    public function getIdItemJeu()
-    {
-        return strval($this->idItemJeu);
+    public function getIdBnet() {
+        return intval($this->idBnet);
     }
 
     /**
      * Définit la valeur pour idItemJeu
      *
-     * @param string
+     * @param int
      */
-    public function setIdItemJeu($value)
-    {
-        $this->idItemJeu = $value;
+    public function setIdBnet($value) {
+        $this->idBnet = $value;
     }
 
     /**
@@ -218,8 +214,7 @@ class Items extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getCouleur()
-    {
+    public function getCouleur() {
         return strval($this->couleur);
     }
 
@@ -228,11 +223,26 @@ class Items extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setCouleur($value)
-    {
+    public function setCouleur($value) {
         $this->couleur = $value;
     }
 
+    /**
+     * Retourne la valeur pour l'icone.
+     *
+     * @return string
+     */
+    public function getIcon() {
+        return strval($this->icon);
+    }
+
+    /**
+     * Définit la valeur pour l'icone
+     *
+     * @param string
+     */
+    public function setIcon($value) {
+        $this->icon = $value;
+    }
 
 }
-

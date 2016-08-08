@@ -2,6 +2,19 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/RaidsTable.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/Module.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Core/src/Core/Util/ParserWow.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/GuildesController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/ZoneTable.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/GuildesTable.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Bnet/config/module.config.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/PersonnagesController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Model/Raids.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/guildes/import/import.phtml</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/RaidsController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/PersonnagesTable.php</file>
+        </group>
     </open-files>
 </project-private>

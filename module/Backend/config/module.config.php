@@ -22,6 +22,7 @@ return array(
             'Backend\\Controller\\EvenementsTemplateRoles' => 'Backend\\Controller\\EvenementsTemplateRolesController',
             'Backend\\Controller\\Faction' => 'Backend\\Controller\\FactionController',
             'Backend\\Controller\\Guildes' => 'Backend\\Controller\\GuildesController',
+            'Backend\\Controller\\Index' => 'Backend\\Controller\\IndexController',
             'Backend\\Controller\\ItemPersonnageRaid' => 'Backend\\Controller\\ItemPersonnageRaidController',
             'Backend\\Controller\\Items' => 'Backend\\Controller\\ItemsController',
             'Backend\\Controller\\ModeDifficulte' => 'Backend\\Controller\\ModeDifficulteController',

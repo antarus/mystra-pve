@@ -3,6 +3,8 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use \Bnet\Region;
+use \Bnet\ClientFactory;
 
 /**
  * Controller pour la vue.
@@ -10,20 +12,17 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Mystra
  */
-class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionController {
 
-    public $_servTranslator = null;
-
-    public $_table = null;
+    private $_servTranslator = null;
+    private $_table = null;
 
     /**
      * Retourne le service de traduction en mode lazy.
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -33,10 +32,9 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
     /**
      * Returne une instance de la table en lazy.
      *
-     * @return
+     * @return \Commun\Table\PersonnagesTable
      */
-    public function getTable()
-    {
+    public function getTablePersonnage() {
         if (!$this->_table) {
             $this->_table = $this->getServiceLocator()->get('\Commun\Table\PersonnagesTable');
         }
@@ -49,8 +47,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('Backend/personnages/list');
@@ -62,11 +59,10 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\PersonnagesGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $oTable = new \Commun\Grid\PersonnagesGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
-                ->setSource($this->getTable()->getBaseQuery())
+                ->setSource($this->getTablePersonnage()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
     }
@@ -76,22 +72,21 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\PersonnagesForm();//new \Commun\Form\PersonnagesForm($this->getServiceLocator());
+    public function createAction() {
+        $oForm = new \Commun\Form\PersonnagesForm(); //new \Commun\Form\PersonnagesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
-        
+
         $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
         if ($oRequest->isPost()) {
             $oEntite = new \Backend\Model\Personnages();
-        
+
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
-                $this->getTable()->insert($oEntite);
+                $this->getTablePersonnage()->insert($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été créé avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
@@ -107,31 +102,30 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
-            $oEntite = $this->getTable()->findRow($id);
+            $oEntite = $this->getTablePersonnage()->findRow($id);
             if (!$oEntite) {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de personnages inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
         } catch (Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages."), 'error');
-           return $this->redirect()->toRoute('backend-personnages-list');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages."), 'error');
+            return $this->redirect()->toRoute('backend-personnages-list');
         }
-        $oForm = new \Commun\Form\PersonnagesForm();//new \Commun\Form\PersonnagesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PersonnagesForm(); //new \Commun\Form\PersonnagesForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
-                $this->getTable()->update($oEntite);
+                $this->getTablePersonnage()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été modifié avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
@@ -147,13 +141,12 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-personnages-list');
         }
-        $oTable = $this->getTable();
+        $oTable = $this->getTablePersonnage();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
         $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été supprimé avec succès."), 'success');
@@ -165,8 +158,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +167,67 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
+    /**
+     * Affiche la fenetre d'import Bnet.
+     *
+     * @return array
+     */
+    public function importAction() {
+        $aOptPersonnage = array(
+            'nom' => '',
+            'serveur' => '',
+        );
+
+        // Pour optimiser le rendu
+        $oViewModel = new ViewModel();
+        $oViewModel->setTemplate('Backend/personnages/import/import');
+        $oViewModel->setVariable("perso", $aOptPersonnage);
+        return $oViewModel;
+    }
+
+    /**
+     * Traitement de l'import Bnet.
+     *
+     * @return array
+     */
+    public function importTraitementAction() {
+        $aOptPersonnage = array(
+            'nom' => '',
+            'serveur' => '',
+        );
+        $this->layout('layout/ajax');
+        //$this->layout('backend/layout');
+        $oRequest = $this->getRequest();
+
+        if ($oRequest->isPost()) {
+            $aPost = $oRequest->getPost();
+            $this->getTablePersonnage()->beginTransaction();
+            try {
+                $this->getTablePersonnage()->importPersonnage($aPost);
+                $this->getTablePersonnage()->commit();
+
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnage a été importé avec succès avec succès."), 'success');
+            } catch (\Exception $ex) {
+                // on rollback en cas d'erreur
+                $this->getTablePersonnage()->rollback();
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de l'import du personnage."), 'error');
+                return null;
+            }
+        }
+        // Pour optimiser le rendu
+
+        $oViewModel = new ViewModel();
+        $oViewModel->setTemplate('Backend/personnages/import/import');
+        $oViewModel->setVariable("perso", $aOptPersonnage);
+        //$oViewModel->setVariable("id", $iId);
+        return $oViewModel;
+    }
 
 }
-

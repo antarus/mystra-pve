@@ -39,11 +39,11 @@ class Personnages extends \Core\Model\AbstractModel {
     public $genre = null;
 
     /**
-     * Colonne: mignature
+     * Colonne: miniature
      *
      * @var string
      */
-    public $mignature = null;
+    public $miniature = null;
 
     /**
      * Colonne: royaume
@@ -230,21 +230,21 @@ class Personnages extends \Core\Model\AbstractModel {
     }
 
     /**
-     * Retourne la valeur mignature.
+     * Retourne la valeur miniature.
      *
      * @return string
      */
-    public function getMignature() {
-        return strval($this->mignature);
+    public function getminiature() {
+        return strval($this->miniature);
     }
 
     /**
-     * Définit la valeur pour mignature
+     * Définit la valeur pour miniature
      *
      * @param string
      */
-    public function setMignature($value) {
-        $this->mignature = $value;
+    public function setminiature($value) {
+        $this->miniature = $value;
     }
 
     /**

@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Mystra
  */
-class ItemPersonnageRaid extends \Core\Model\AbstractModel
-{
+class ItemPersonnageRaid extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idItemRaidPersonnage
@@ -53,13 +52,20 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
     public $valeur = null;
 
     /**
+     * Colonne: bonus
+     *
+     * @var string
+     */
+    public $bonus = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -68,8 +74,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -78,8 +84,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -88,8 +94,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -98,8 +104,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -108,8 +114,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -117,8 +123,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdItemRaidPersonnage()
-    {
+    public function getIdItemRaidPersonnage() {
         return intval($this->idItemRaidPersonnage);
     }
 
@@ -127,8 +132,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdItemRaidPersonnage($value)
-    {
+    public function setIdItemRaidPersonnage($value) {
         $this->idItemRaidPersonnage = $value;
     }
 
@@ -137,9 +141,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getIdRaid()
-    {
-        return strval($this->idRaid);
+    public function getIdRaid() {
+        return intval($this->idRaid);
     }
 
     /**
@@ -147,8 +150,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setIdRaid($value)
-    {
+    public function setIdRaid($value) {
         $this->idRaid = $value;
     }
 
@@ -157,8 +159,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdItem()
-    {
+    public function getIdItem() {
         return intval($this->idItem);
     }
 
@@ -167,8 +168,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdItem($value)
-    {
+    public function setIdItem($value) {
         $this->idItem = $value;
     }
 
@@ -177,8 +177,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdPersonnage()
-    {
+    public function getIdPersonnage() {
         return intval($this->idPersonnage);
     }
 
@@ -187,8 +186,7 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdPersonnage($value)
-    {
+    public function setIdPersonnage($value) {
         $this->idPersonnage = $value;
     }
 
@@ -197,9 +195,26 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @return float
      */
-    public function getValeur()
-    {
+    public function getValeur() {
         return floatval($this->valeur);
+    }
+
+    /**
+     * Définit la valeur pour valeur
+     *
+     * @param string
+     */
+    public function setBonus($value) {
+        $this->bonus = strval($value);
+    }
+
+    /**
+     * Retourne la valeur valeur.
+     *
+     * @return string
+     */
+    public function getBonus() {
+        return strval($this->bonus);
     }
 
     /**
@@ -207,11 +222,8 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel
      *
      * @param float
      */
-    public function setValeur($value)
-    {
+    public function setValeur($value) {
         $this->valeur = $value;
     }
 
-
 }
-

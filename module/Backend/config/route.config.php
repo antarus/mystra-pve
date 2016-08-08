@@ -22,6 +22,23 @@ return array(
                     ),
                 ),
             ),
+            'backend-index' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Index',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
             'backend-bosses-ajaxList' =>
             array(
                 'type' => 'segment',
@@ -875,7 +892,7 @@ return array(
                     ),
                 ),
             ),
-            'backend-item_personnage_raid-list' =>
+            'backend-item-personnage-raid-list' =>
             array(
                 'type' => 'segment',
                 'options' =>
@@ -892,7 +909,7 @@ return array(
                     ),
                 ),
             ),
-            'backend-item_personnage_raid-ajaxList' =>
+            'backend-item-personnage-raid-ajaxList' =>
             array(
                 'type' => 'segment',
                 'options' =>
@@ -909,7 +926,7 @@ return array(
                     ),
                 ),
             ),
-            'backend-item_personnage_raid-create' =>
+            'backend-item-personnage-raid-create' =>
             array(
                 'type' => 'segment',
                 'options' =>
@@ -926,7 +943,7 @@ return array(
                     ),
                 ),
             ),
-            'backend-item_personnage_raid-update' =>
+            'backend-item-personnage-raid-update' =>
             array(
                 'type' => 'segment',
                 'options' =>
@@ -944,7 +961,7 @@ return array(
                     ),
                 ),
             ),
-            'backend-item_personnage_raid-delete' =>
+            'backend-item-personnage-raid-delete' =>
             array(
                 'type' => 'segment',
                 'options' =>
@@ -2380,32 +2397,6 @@ return array(
                     ),
                 ),
             ),
-            'backend-guildes-import2' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/guilde/import2/',
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\Guildes',
-                        'action' => 'import2',
-                    ),
-                ),
-            ),
-            'backend-guildes-import-traitement2' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/guilde/import/traitement2/',
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\Guildes',
-                        'action' => 'importTraitement2',
-                    ),
-                ),
-            ),
             'backend-zone-import' =>
             array(
                 'type' => 'segment',
@@ -2428,6 +2419,84 @@ return array(
                     'defaults' =>
                     array(
                         'controller' => 'Backend\\Controller\\Zone',
+                        'action' => 'importTraitement',
+                    ),
+                ),
+            ),
+            'backend-raids-import' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/raid/import/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Raids',
+                        'action' => 'import',
+                    ),
+                ),
+            ),
+            'backend-raids-import-traitement' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/raid/import/traitement/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Raids',
+                        'action' => 'importTraitement',
+                    ),
+                ),
+            ),
+            'backend-personnages-import' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/personnages/import/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Personnages',
+                        'action' => 'import',
+                    ),
+                ),
+            ),
+            'backend-personnages-importtraitement' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/personnages/import/traitement/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Personnages',
+                        'action' => 'importTraitement',
+                    ),
+                ),
+            ),
+            'backend-items-import' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/item/import/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Items',
+                        'action' => 'import',
+                    ),
+                ),
+            ),
+            'backend-items-import-traitement' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/item/import/traitement/',
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Items',
                         'action' => 'importTraitement',
                     ),
                 ),

@@ -40,11 +40,11 @@ class Guildes extends \Core\Model\AbstractModel
     public $niveau = null;
 
     /**
-     * Colonne: mignature
+     * Colonne: miniature
      *
      * @var string
      */
-    public $mignature = null;
+    public $miniature = null;
 
     /**
      * Colonne: idFaction
@@ -196,23 +196,23 @@ class Guildes extends \Core\Model\AbstractModel
     }
 
     /**
-     * Retourne la valeur mignature.
+     * Retourne la valeur miniature.
      *
      * @return string
      */
-    public function getMignature()
+    public function getminiature()
     {
-        return strval($this->mignature);
+        return strval($this->miniature);
     }
 
     /**
-     * Définit la valeur pour mignature
+     * Définit la valeur pour miniature
      *
      * @param string
      */
-    public function setMignature($value)
+    public function setminiature($value)
     {
-        $this->mignature = $value;
+        $this->miniature = $value;
     }
 
     /**

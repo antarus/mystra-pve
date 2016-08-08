@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class GuildesGrid extends \ZfTable\AbstractTable
-{
+class GuildesGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class GuildesGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class GuildesGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'idGuildes' => array(
             'title' => 'IdGuildes',
@@ -63,8 +60,8 @@ class GuildesGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
-        'mignature' => array(
-            'title' => 'Mignature',
+        'miniature' => array(
+            'title' => 'Miniature',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -89,8 +86,7 @@ class GuildesGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -100,8 +96,7 @@ class GuildesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -113,62 +108,57 @@ class GuildesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-guildes-update', array('id' => $record["idGuildes"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idGuildes"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-guildes-update', array('id' => $record["idGuildes"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idGuildes"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-guildes-delete', array('id' => $record["idGuildes"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idGuildes"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-guildes-delete', array('id' => $record["idGuildes"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idGuildes"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
-        if ($value != null) {
-            $query->where("idGuildes = '".$value."' ");
-        }
+                    protected function initFilters(\Zend\Db\Sql\Select $query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
+                        if ($value != null) {
+                            $query->where("idGuildes = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-        if ($value != null) {
-            $query->where("nom like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                        if ($value != null) {
+                            $query->where("nom like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('serveur');
-        if ($value != null) {
-            $query->where("serveur like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('serveur');
+                        if ($value != null) {
+                            $query->where("serveur like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
-        if ($value != null) {
-            $query->where("niveau like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+                        if ($value != null) {
+                            $query->where("niveau like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('mignature');
-        if ($value != null) {
-            $query->where("mignature like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
+                        if ($value != null) {
+                            $query->where("miniature like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
-        if ($value != null) {
-            $query->where("idFaction = '".$value."' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
+                        if ($value != null) {
+                            $query->where("idFaction = '" . $value . "' ");
+                        }
+                    }
 
-
-}
-
+                }

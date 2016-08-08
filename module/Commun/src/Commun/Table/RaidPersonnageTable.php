@@ -6,8 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Mystra
  */
-class RaidPersonnageTable extends \Core\Table\AbstractTable
-{
+class RaidPersonnageTable extends \Core\Table\AbstractTable {
 
     /**
      * Nom de la  table.
@@ -30,6 +29,40 @@ class RaidPersonnageTable extends \Core\Table\AbstractTable
      */
     protected $nomCle = 'idRaid';
 
+    /**
+     * Sauvegarde ou met a jour le personnage et le raid passé.
+     * @param \Commun\Model\Personnages $oPersonnage
+     * @param \Commun\Model\Raids $oRaids
+     * @return  \Core\Model\RaidPersonnage
+     */
+    public function saveOrUpdateRaid($oPersonnage, $oRaids) {
+
+        //recherche si le raid existe
+        /* @var $oTab \Commun\Model\Raids */
+        $oTab = $this->selectBy(
+                array(
+                    "idPersonnage" => $oPersonnage->getIdPersonnage(),
+                    "idRaid" => $oRaids->getIdRaid(),
+        ));
+
+        $oRaidPersonnage = new \Commun\Model\RaidPersonnage();
+        // coder au cas ou on rajoute d'autre info dans la table
+        // si n'existe pas on insert
+        if (!$oTab) {
+            $oRaidPersonnage->setIdPersonnage($oPersonnage->getIdPersonnage());
+            $oRaidPersonnage->setIdRaid($oRaids->getIdRaid());
+            $this->insert($oRaidPersonnage);
+
+            return $oRaidPersonnage;
+        }
+        // ne fonctionne pas car mon abstractTable ne gère pas les multi clé
+//        else {
+//            // sinon on update
+//            $oTab->setIdPersonnage($oPersonnage->getIdPersonnage());
+//            $oTab->setIdRaid($oRaids->getIdRaid());
+//            $this->update($oTab);
+//        }
+        return $oTab;
+    }
 
 }
-

@@ -28,7 +28,7 @@ class ClientFactory {
         $this->apiKey = $apiKey;
 
         if ($cache === null) {
-            $cache = StorageFactory::adapterFactory('memory ', array('ttl' => 100));
+            $cache = StorageFactory::adapterFactory('memory ', array('ttl' => 600));
         }
 
         $this->cache = $cache;

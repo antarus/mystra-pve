@@ -79,7 +79,7 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'mignature',
+               'name' => 'miniature',
                'required' => false,
                'filters' => array(
                    array('name' => 'StripTags'),

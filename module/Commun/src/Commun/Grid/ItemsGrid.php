@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class ItemsGrid extends \ZfTable\AbstractTable
-{
+class ItemsGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class ItemsGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class ItemsGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'idItem' => array(
             'title' => 'IdItem',
@@ -63,8 +60,8 @@ class ItemsGrid extends \ZfTable\AbstractTable
             'width' => '100',
             'filters' => 'text',
         ),
-        'idItemJeu' => array(
-            'title' => 'IdItemJeu',
+        'idBnet' => array(
+            'title' => 'idBnet',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -89,8 +86,7 @@ class ItemsGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -100,8 +96,7 @@ class ItemsGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -113,62 +108,57 @@ class ItemsGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-items-update', array('id' => $record["idItem"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idItem"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-items-update', array('id' => $record["idItem"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idItem"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-items-delete', array('id' => $record["idItem"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idItem"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-items-delete', array('id' => $record["idItem"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idItem"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('idItem');
-        if ($value != null) {
-            $query->where("idItem = '".$value."' ");
-        }
+                    protected function initFilters(\Zend\Db\Sql\Select $query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('idItem');
+                        if ($value != null) {
+                            $query->where("idItem = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-        if ($value != null) {
-            $query->where("nom like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                        if ($value != null) {
+                            $query->where("nom like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('ajouterPar');
-        if ($value != null) {
-            $query->where("ajouterPar like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('ajouterPar');
+                        if ($value != null) {
+                            $query->where("ajouterPar like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('majPar');
-        if ($value != null) {
-            $query->where("majPar like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('majPar');
+                        if ($value != null) {
+                            $query->where("majPar like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idItemJeu');
-        if ($value != null) {
-            $query->where("idItemJeu like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idItemJeu');
+                        if ($value != null) {
+                            $query->where("idIBnet like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('couleur');
-        if ($value != null) {
-            $query->where("couleur like '%".$value."%' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('couleur');
+                        if ($value != null) {
+                            $query->where("couleur like '%" . $value . "%' ");
+                        }
+                    }
 
-
-}
-
+                }

@@ -78,13 +78,17 @@ class Module {
                     return new \Commun\Table\FactionTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
                 'Commun\Table\GuildesTable' => function($sm) {
-                    return new \Commun\Table\GuildesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\GuildesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ItemPersonnageRaidTable' => function($sm) {
                     return new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
                 'Commun\Table\ItemsTable' => function($sm) {
-                    return new \Commun\Table\ItemsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ItemsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ModeDifficulteTable' => function($sm) {
                     return new \Commun\Table\ModeDifficulteTable($sm->get("\Zend\Db\Adapter\Adapter"));
@@ -93,7 +97,9 @@ class Module {
                     return new \Commun\Table\NpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
                 'Commun\Table\PersonnagesTable' => function($sm) {
-                    return new \Commun\Table\PersonnagesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\PersonnagesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\PersonnagesHasSpecialisationTable' => function($sm) {
                     return new \Commun\Table\PersonnagesHasSpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));

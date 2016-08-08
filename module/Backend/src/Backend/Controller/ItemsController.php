@@ -10,11 +10,9 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Mystra
  */
-class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
-
     public $_table = null;
 
     /**
@@ -22,8 +20,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -33,10 +30,9 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
     /**
      * Returne une instance de la table en lazy.
      *
-     * @return
+     * @return \Commun\Table\ItemsTable
      */
-    public function getTable()
-    {
+    public function getTable() {
         if (!$this->_table) {
             $this->_table = $this->getServiceLocator()->get('\Commun\Table\ItemsTable');
         }
@@ -49,8 +45,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('Backend/items/list');
@@ -62,9 +57,8 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\ItemsGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $oTable = new \Commun\Grid\ItemsGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
                 ->setSource($this->getTable()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
@@ -76,19 +70,18 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\ItemsForm();//new \Commun\Form\ItemsForm($this->getServiceLocator());
+    public function createAction() {
+        $oForm = new \Commun\Form\ItemsForm(); //new \Commun\Form\ItemsForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
-        
+
         $oFiltre = new \Commun\Filter\ItemsFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
         if ($oRequest->isPost()) {
             $oEntite = new \Backend\Model\Items();
-        
+
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
@@ -107,8 +100,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
             $oEntite = $this->getTable()->findRow($id);
@@ -117,19 +109,19 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
                 return $this->redirect()->toRoute('backend-items-list');
             }
         } catch (Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la items."), 'error');
-           return $this->redirect()->toRoute('backend-items-list');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la items."), 'error');
+            return $this->redirect()->toRoute('backend-items-list');
         }
-        $oForm = new \Commun\Form\ItemsForm();//new \Commun\Form\ItemsForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\ItemsForm(); //new \Commun\Form\ItemsForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\ItemsFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La items a été modifié avec succès."), 'success');
@@ -147,8 +139,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-items-list');
@@ -165,8 +156,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +165,62 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
+    /**
+     * Affiche la fenetre d'import Bnet.
+     *
+     * @return array
+     */
+    public function importAction() {
+        $aOptItem = array(
+            'id' => '');
+
+        // Pour optimiser le rendu
+        $oViewModel = new ViewModel();
+        $oViewModel->setTemplate('Backend/items/import/import');
+        $oViewModel->setVariable("item", $aOptItem);
+        return $oViewModel;
+    }
+
+    /**
+     * Traitement de l'import Bnet.
+     *
+     * @return array
+     */
+    public function importTraitementAction() {
+        $aOptItem = array(
+            'id' => '');
+
+        $this->layout('layout/ajax');
+        //$this->layout('backend/layout');
+        $oRequest = $this->getRequest();
+
+        if ($oRequest->isPost()) {
+            $aPost = $oRequest->getPost();
+            $this->getTable()->beginTransaction();
+            try {
+                $this->getTable()->importItem($aPost);
+                $this->getTable()->commit();
+            } catch (\Exception $ex) {
+                // on rollback en cas d'erreur
+                $this->getTable()->rollback();
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de l'item."), 'error');
+                return null;
+            }
+        }
+        // Pour optimiser le rendu
+
+        $oViewModel = new ViewModel();
+        $oViewModel->setTemplate('Backend/items/import/import');
+        $oViewModel->setVariable("item", $aOptItem);
+        //$oViewModel->setVariable("id", $iId);
+        return $oViewModel;
+    }
 
 }
-
