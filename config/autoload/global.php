@@ -1,27 +1,9 @@
 <?php
 
-/**
- * Global Configuration Override
- *
- * You can use this file for overriding configuration values from modules, etc.
- * You would place values in here that are agnostic to the environment and not
- * sensitive to security.
- *
- * @NOTE: In practice, this file will typically be INCLUDED in your source
- * control, so do not include passwords or other sensitive information in this
- * file.
- */
-$dbParams = array(
-    'database' => 'raid_tracker',
-    'username' => 'raid_tracker',
-    'password' => 'R@id-Tr@ck3r!321',
-    'hostname' => 'localhost'
-);
-
 return array(
     'service_manager' => array(
         'factories' => array(
-            'Zend\Db\Adapter\Adapter' => 'Zend\Db\Adapter\AdapterServiceFactory',
+            'Zend\\Db\\Adapter\\Adapter' => 'Zend\\Db\\Adapter\\AdapterServiceFactory',
             'Zend\Cache\Storage\Filesystem' => function($sm) {
                 $cache = Zend\Cache\StorageFactory::factory(array(
                             'adapter' => 'filesystem',
@@ -38,26 +20,49 @@ return array(
                 return $cache;
             }),
                 'abstract_factories' => array(
-                    'Zend\Log\LoggerAbstractServiceFactory',
-                )
+                    0 => 'Zend\\Log\\LoggerAbstractServiceFactory',
+                ),
             ),
             'db' => array(
                 'driver' => 'pdo',
-                'dsn' => 'mysql:dbname=' . $dbParams['database'] . ';host=' . $dbParams['hostname'],
-                'database' => $dbParams['database'],
-                'username' => $dbParams['username'],
-                'password' => $dbParams['password'],
-                'hostname' => $dbParams['hostname'],
+                'dsn' => 'mysql:dbname=raid_tracker;host=localhost',
+                'database' => 'raid_tracker',
+                'username' => 'raid_tracker',
+                'password' => 'R@id-Tr@ck3r!321',
+                'hostname' => 'localhost',
                 'driver_options' => array(
-                    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
-                ))
-            ,
+                    1002 => 'SET NAMES \'UTF8\'',
+                ),
+            ),
             'urlProjet' => 'dev.raid-tracker.com',
             'zf-mvc-auth' => array(
                 'authentication' => array(
+                    'adapters' => array(
+                        'blizzard' => array(
+                            'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
+                            'options' => array(
+                                'accept_schemes' => array(
+                                    0 => 'basic',
+                                ),
+                                'realm' => 'api',
+                                'htpasswd' => 'data/htpasswd',
+                            ),
+                        ),
+                        'rtk' => array(
+                            'adapter' => 'ZF\\MvcAuth\\Authentication\\HttpAdapter',
+                            'options' => array(
+                                'accept_schemes' => array(
+                                    0 => 'basic',
+                                ),
+                                'realm' => 'api',
+                                'htpasswd' => 'data/htpasswd',
+                            ),
+                        ),
+                    ),
                     'map' => array(
-                        'API\\V1' => 'hello',
+                        'APIrTk\\V1' => 'rtk',
                         'APIBlizzard\\V1' => 'blizzard',
+                        'APIRtK\\V1' => 'rtk',
                     ),
                 ),
             ),

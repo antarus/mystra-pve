@@ -170,9 +170,15 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
                 ->rollback();
     }
 
+    /**
+     * Retourne une ligne
+     * @param array $array
+     * @param type $prototypeClass
+     * @return type
+     */
     public function selectBy(array $array, $prototypeClass = null) {
         $oRowset = $this->select($array);
-        $data = $this->fetchAllWhere($array, $prototypeClass)->toArray();
+        //  $data = $this->fetchAllWhere($array, $prototypeClass)->toArray();
 
         $arrayObjectPrototypeClass = ($prototypeClass) ? $prototypeClass : $this->arrayObjectPrototypeClass;
         $oRowset->setArrayObjectPrototype(new $arrayObjectPrototypeClass());

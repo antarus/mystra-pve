@@ -80,7 +80,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      */
     public function saveOrUpdatePersonnage($oPersonnage, $oGuilde = null) {
         try {
-
+            $oPersonnage->setNom(strtolower($oPersonnage->getNom()));
             //recherche si le personnage existe
             $oTabPersonnage = $this->selectBy(
                     array(

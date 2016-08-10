@@ -11,6 +11,18 @@ namespace Core\Util;
 class ParserWow {
 
     /**
+     * Génèrer un lien d'item vers wowhead.
+     * exemple :
+     * <code>http://www.wowhead.com/?item=124382&bonus=1798:564:1492:3441:529:::</code>
+     *
+     * $aItem doit contenir <code>idBnet</code> et <code>bonus</code>,
+     * @param array $aItem
+     */
+    public static function genereLienItemWowHead(array $aItem) {
+        return "http://www.wowhead.com/?item=" . $aItem['idBnet'] . "&bonus=" . $aItem['bonus'];
+    }
+
+    /**
      * Extrait les membre des donnes de battlnet et et les transforme en objet utilisable de notre coté.
      * @param type $aDataGuildeBnet
      * @param \Core\Model\Guildes $oGuilde

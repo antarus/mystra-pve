@@ -1,19 +1,18 @@
 <?php
-
 return array(
     'service_manager' => array(
         'factories' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\CharacterResource' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterResourceFactory'
+            'APIRtK\\V1\\Rest\\Loot\\LootResource' => 'APIRtK\\V1\\Rest\\Loot\\LootResourceFactory',
         ),
     ),
     'router' => array(
         'routes' => array(
-            'api-blizzard.rest.character' => array(
+            'api-rt-k.rest.loot' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/character/:api-character-server/:character_id',
+                    'route' => '/loot/:loot_server/:loot_name',
                     'defaults' => array(
-                        'controller' => 'APIBlizzard\\V1\\Rest\\Character\\Controller',
+                        'controller' => 'APIRtK\\V1\\Rest\\Loot\\Controller',
                     ),
                 ),
             ),
@@ -21,15 +20,15 @@ return array(
     ),
     'zf-versioning' => array(
         'uri' => array(
-            0 => 'api-blizzard.rest.character',
+            0 => 'api-rt-k.rest.loot',
         ),
     ),
     'zf-rest' => array(
-        'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
-            'listener' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterResource',
-            'route_name' => 'api-blizzard.rest.character',
-            'route_identifier_name' => 'api-character-server',
-            'collection_name' => 'character',
+        'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
+            'listener' => 'APIRtK\\V1\\Rest\\Loot\\LootResource',
+            'route_name' => 'api-rt-k.rest.loot',
+            'route_identifier_name' => 'loot_server',
+            'collection_name' => 'loot',
             'entity_http_methods' => array(
                 0 => 'GET',
                 1 => 'PATCH',
@@ -43,48 +42,48 @@ return array(
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
-            'entity_class' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterEntity',
-            'collection_class' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterCollection',
-            'service_name' => 'character',
+            'entity_class' => 'APIRtK\\V1\\Rest\\Loot\\LootEntity',
+            'collection_class' => 'APIRtK\\V1\\Rest\\Loot\\LootCollection',
+            'service_name' => 'loot',
         ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => 'HalJson'
+            'APIRtK\\V1\\Rest\\Loot\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
-                0 => 'application/vnd.api-blizzard.v1+json',
+            'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
         ),
         'content_type_whitelist' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
-                0 => 'application/vnd.api-blizzard.v1+json',
+            'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
                 1 => 'application/json',
             ),
         ),
     ),
     'zf-hal' => array(
         'metadata_map' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\CharacterEntity' => array(
-                'entity_identifier_name' => 'id',
-                'route_name' => 'api-blizzard.rest.character',
-                'route_identifier_name' => 'api-character-server',
+            'APIRtK\\V1\\Rest\\Loot\\LootEntity' => array(
+                'entity_identifier_name' => 'nom',
+                'route_name' => 'api-rt-k.rest.loot',
+                'route_identifier_name' => 'loot_server',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
-            'APIBlizzard\\V1\\Rest\\Character\\CharacterCollection' => array(
-                'entity_identifier_name' => 'id',
-                'route_name' => 'api-blizzard.rest.character',
-                'route_identifier_name' => 'api-character-server',
+            'APIRtK\\V1\\Rest\\Loot\\LootCollection' => array(
+                'entity_identifier_name' => 'nom',
+                'route_name' => 'api-rt-k.rest.loot',
+                'route_identifier_name' => 'loot_server',
                 'is_collection' => true,
             ),
         ),
     ),
     'zf-mvc-auth' => array(
         'authorization' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
+            'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
                 'collection' => array(
                     'GET' => false,
                     'POST' => false,

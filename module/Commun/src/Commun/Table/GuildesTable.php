@@ -102,6 +102,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
      * @return \Commun\Model\Guildes
      */
     public function saveOrUpdateGuilde($oGuilde) {
+        $oGuilde->setNom(strtolower($oGuilde->getNom()));
         $oTabGuilde = $this->selectBy(
                 array(
                     "nom" => $oGuilde->getNom(),

@@ -1,5 +1,5 @@
 <?php
-namespace API;
+namespace APIRtK;
 
 use ZF\Apigility\Provider\ApigilityProviderInterface;
 

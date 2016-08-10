@@ -103,7 +103,7 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
         if (!$oTabItem) {
             $oTabItem = new \Commun\Model\Items();
             $oTabItem->setAjouterPar("Import murloc");
-            $oTabItem->setNom($oItems->getNom());
+            $oTabItem->setNom(strtolower($oItems->getNom()));
             $oTabItem->setIcon($oItems->getIcon());
             $oTabItem->setIdBnet($oItems->getIdBnet());
             $this->insert($oTabItem);

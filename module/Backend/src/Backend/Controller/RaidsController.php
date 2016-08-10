@@ -464,7 +464,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $oItem = $this->getTableItem()->importItem($aPost);
                 $oPersonnage = $this->findPersonnage($aLstPersonnage, $aItem['member']);
                 if (!isset($oPersonnage)) {
-                    throw new Exception('erreur inconnue. le personnage n\'a pas ete trouvé dans la liste');
+                    throw new \Exception('erreur inconnue. le personnage n\'a pas ete trouvé dans la liste');
                 } else {
                     $this->getTableItemPersonnageRaid()->removeAllItemForRaidAndPersonnage($oPersonnage, $oRaid);
                     $this->getTableItemPersonnageRaid()->saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaid, $oItem, $aInfoItem[1]);
@@ -486,7 +486,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         if ($pos !== false) {
             $sNom = substr($sNom, 0, $pos);
         }
-
+        $sNom = strtolower($sNom);
         foreach ($aLstPersonnage as $oPersonnage) {
             if ($oPersonnage->getNom() === $sNom) {
                 return $oPersonnage;
