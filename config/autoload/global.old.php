@@ -34,7 +34,7 @@ return array(
                     1002 => 'SET NAMES \'UTF8\'',
                 ),
             ),
-            'urlProjet' => 'dev.murloc-avenue.com',
+            'urlProjet' => 'dev.raid-tracker.com',
             'zf-mvc-auth' => array(
                 'authentication' => array(
                     'adapters' => array(
@@ -66,4 +66,3 @@ return array(
                 ),
             ),
         );
-        

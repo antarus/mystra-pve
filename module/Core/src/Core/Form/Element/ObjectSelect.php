@@ -13,7 +13,7 @@ use Zend\Stdlib\ArrayUtils;
  * inspire du objectSelect de doctrine.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class ObjectSelect extends SelectElement {
 

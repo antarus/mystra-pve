@@ -11,7 +11,7 @@ use Core\Hydrator\ClassMethodsPublic;
  * Base des models.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 abstract class AbstractModel implements InputFilterAwareInterface {

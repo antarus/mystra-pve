@@ -8,7 +8,7 @@ use Zend\InputFilter\InputFilterAwareInterface;
  * Gestionnaire des validateurs.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 class GestionnaireValidateur implements InputFilterAwareInterface {

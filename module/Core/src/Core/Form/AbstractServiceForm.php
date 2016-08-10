@@ -6,7 +6,7 @@ namespace Core\Form;
  * Etend le form par défaut de Zend pour gérer JQuery Validator.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 abstract class AbstractServiceForm extends AbstractForm {
 

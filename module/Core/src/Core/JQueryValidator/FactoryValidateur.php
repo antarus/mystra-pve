@@ -6,7 +6,7 @@ namespace Core\JQueryValidator;
  * Fabrique pour les validateur jQuery.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class FactoryValidateur {
 

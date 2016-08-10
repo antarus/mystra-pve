@@ -34,7 +34,7 @@ return array(
                     1002 => 'SET NAMES \'UTF8\'',
                 ),
             ),
-            'urlProjet' => 'dev.raid-tracker.com',
+            'urlProjet' => 'dev.Raid-TracKer.com',
             'zf-mvc-auth' => array(
                 'authentication' => array(
                     'adapters' => array(

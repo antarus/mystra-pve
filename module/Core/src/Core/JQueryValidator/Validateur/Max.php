@@ -8,7 +8,7 @@ use Core\JQueryValidator\AbstractValidateur;
  * Implementation du validateur Max.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class Max extends AbstractValidateur {
 

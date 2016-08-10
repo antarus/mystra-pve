@@ -10,7 +10,7 @@ use Zend\InputFilter\InputFilterInterface;
  * Classe de base pour les filtres permettant de stocker la factory et les inputfilter.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class AbstractFilter {
 

@@ -8,7 +8,7 @@ use Core\JQueryValidator\AbstractValidateur;
  * Implementation du validateur Range.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class Range extends AbstractValidateur {
 

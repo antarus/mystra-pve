@@ -8,7 +8,7 @@ use Core\JQueryValidator\AbstractValidateur;
  * Implementation du validateur Min.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class Min extends AbstractValidateur {
 

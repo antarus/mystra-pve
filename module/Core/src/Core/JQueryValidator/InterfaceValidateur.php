@@ -6,7 +6,7 @@ namespace Core\JQueryValidator;
  * Interface pour les validateurs.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 interface InterfaceValidateur {

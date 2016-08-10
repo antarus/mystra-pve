@@ -16,7 +16,7 @@ use Zend\Db\Sql\Where;
  * Cela permet d'ajouter, mettre a jour, et supprimer des objets en base de donnée.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 class AbstractTable extends AbstractTableGateway implements EventManagerAwareInterface {

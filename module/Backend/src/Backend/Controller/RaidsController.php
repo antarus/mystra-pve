@@ -390,7 +390,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         }
 
         $oRaid = new \Commun\Model\Raids();
-        $oRaid->setAjoutePar("Import murloc");
+        $oRaid->setAjoutePar("Import Raid-TracKer");
         $oRaid->setNote($sNom . ' - ' . $sDifficulte);
         $oRaid->setDate(date('Y-m-d H:i:s', intval($aRaid['enter'])));
         /* @var $oTabRaid \Commun\Model\Raids */

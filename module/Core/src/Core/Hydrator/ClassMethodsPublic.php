@@ -12,7 +12,7 @@ use Zend\Stdlib\Hydrator\Filter\MethodMatchFilter;
  * Hérite ClassMethods mais ne concerne que les méthodes public.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 class ClassMethodsPublic extends ClassMethods {

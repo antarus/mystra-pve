@@ -6,7 +6,7 @@ namespace Core\JQueryValidator;
  * Base des vallidateurs.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 abstract class AbstractValidateur implements InterfaceValidateur {

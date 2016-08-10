@@ -8,7 +8,7 @@ use Core\JQueryValidator\AbstractValidateur;
  * Implementation du validateur requis.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  */
 class Requis extends AbstractValidateur {
 

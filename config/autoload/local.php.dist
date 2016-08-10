@@ -52,5 +52,5 @@ return array(
                     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
                 ))
             ,
-            'urlProjet' => 'dev.murloc-avenue.com',
+            'urlProjet' => 'dev.raid-tracker.com',
         );

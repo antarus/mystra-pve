@@ -102,7 +102,7 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
         //si il existe pas on le cree
         if (!$oTabItem) {
             $oTabItem = new \Commun\Model\Items();
-            $oTabItem->setAjouterPar("Import murloc");
+            $oTabItem->setAjouterPar("Import Raid-TracKer");
             $oTabItem->setNom(strtolower($oItems->getNom()));
             $oTabItem->setIcon($oItems->getIcon());
             $oTabItem->setIdBnet($oItems->getIdBnet());

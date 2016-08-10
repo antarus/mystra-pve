@@ -48,7 +48,7 @@ class RaidsTable extends \Core\Table\AbstractTable {
         } else {
             // sinon on update
             $oRaids->setIdRaid($oTabRaid->getIdRaid());
-            $oRaids->setMajPar("Import murloc");
+            $oRaids->setMajPar("Import Raid-TracKer");
             $this->update($oRaids);
         }
         return $oRaids;

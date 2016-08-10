@@ -8,7 +8,7 @@ use Core\JQueryValidator\AbstractValidateur;
  * Implementation du validateur Numerique.
  *
  * @author Antarus
- * @project Murloc avenue
+ * @project Raid-TracKer
  *
  */
 class Numerique extends AbstractValidateur {
