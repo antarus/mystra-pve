@@ -53,7 +53,7 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/role/list');
+        $oViewModel->setTemplate('backend/role/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/role/create');
+        $oViewModel->setTemplate('backend/role/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/role/update');
+        $oViewModel->setTemplate('backend/role/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

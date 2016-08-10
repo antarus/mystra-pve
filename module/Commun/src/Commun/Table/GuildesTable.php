@@ -91,6 +91,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             return $oGuilde;
         } catch (\Exception $ex) {
+            //var_dump($ex);
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }

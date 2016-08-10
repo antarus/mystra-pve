@@ -113,7 +113,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/raids/list');
+        $oViewModel->setTemplate('backend/raids/list');
         return $oViewModel;
     }
 
@@ -156,7 +156,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/raids/create');
+        $oViewModel->setTemplate('backend/raids/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -195,7 +195,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/raids/update');
+        $oViewModel->setTemplate('backend/raids/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
@@ -249,7 +249,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         );
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/raids/import/import');
+        $oViewModel->setTemplate('backend/raids/import/import');
         $oViewModel->setVariable("import", $aOptImpRaid);
         return $oViewModel;
     }
@@ -278,7 +278,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $this->layout('layout/ajax');
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/raids/import/import');
+        $oViewModel->setTemplate('backend/raids/import/import');
         $oViewModel->setVariable("import", $aOptImpRaid);
 
         $oRequest = $this->getRequest();

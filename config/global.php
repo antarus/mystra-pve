@@ -52,7 +52,7 @@ return array(
                     PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
                 ))
             ,
-            'urlProjet' => 'dev.raid-tracker.com',
+            'urlProjet' => 'dev.murloc-avenue.com',
             'zf-mvc-auth' => array(
                 'authentication' => array(
                     'map' => array(

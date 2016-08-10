@@ -53,7 +53,7 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/users/list');
+        $oViewModel->setTemplate('backend/users/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/users/create');
+        $oViewModel->setTemplate('backend/users/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/users/update');
+        $oViewModel->setTemplate('backend/users/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

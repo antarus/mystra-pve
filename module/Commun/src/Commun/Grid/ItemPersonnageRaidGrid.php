@@ -129,7 +129,11 @@ class ItemPersonnageRaidGrid extends \ZfTable\AbstractTable {
                         ));
                     }
 
-                    protected function initFilters(\Zend\Db\Sql\Select $query) {
+                    /**
+                     *
+                     * @param \Zend\Db\Sql\Select $query
+                     */
+                    protected function initFilters($query) {
                         $value = $this->getParamAdapter()->getValueOfFilter('idItemRaidPersonnage');
                         if ($value != null) {
                             $query->where("idItemRaidPersonnage = '" . $value . "' ");

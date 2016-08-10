@@ -53,7 +53,7 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/specialisation/list');
+        $oViewModel->setTemplate('backend/specialisation/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/specialisation/create');
+        $oViewModel->setTemplate('backend/specialisation/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/specialisation/update');
+        $oViewModel->setTemplate('backend/specialisation/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

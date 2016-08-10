@@ -53,7 +53,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster-has-personnage/list');
+        $oViewModel->setTemplate('backend/roster-has-personnage/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster-has-personnage/create');
+        $oViewModel->setTemplate('backend/roster-has-personnage/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster-has-personnage/update');
+        $oViewModel->setTemplate('backend/roster-has-personnage/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

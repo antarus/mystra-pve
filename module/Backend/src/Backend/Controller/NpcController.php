@@ -53,7 +53,7 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/npc/list');
+        $oViewModel->setTemplate('backend/npc/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/npc/create');
+        $oViewModel->setTemplate('backend/npc/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/npc/update');
+        $oViewModel->setTemplate('backend/npc/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

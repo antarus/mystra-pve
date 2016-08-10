@@ -53,7 +53,7 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/race/list');
+        $oViewModel->setTemplate('backend/race/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/race/create');
+        $oViewModel->setTemplate('backend/race/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/race/update');
+        $oViewModel->setTemplate('backend/race/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

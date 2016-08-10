@@ -53,7 +53,7 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-personnage/list');
+        $oViewModel->setTemplate('backend/evenements-personnage/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-personnage/create');
+        $oViewModel->setTemplate('backend/evenements-personnage/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-personnage/update');
+        $oViewModel->setTemplate('backend/evenements-personnage/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

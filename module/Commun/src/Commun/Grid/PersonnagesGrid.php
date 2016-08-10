@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class PersonnagesGrid extends \ZfTable\AbstractTable
-{
+class PersonnagesGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'idPersonnage' => array(
             'title' => 'IdPersonnage',
@@ -114,8 +111,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -125,8 +121,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -138,87 +133,86 @@ class PersonnagesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-personnages-update', array('id' => $record["idPersonnage"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-personnages-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-personnages-delete', array('id' => $record["idPersonnage"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-personnages-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
-        if ($value != null) {
-            $query->where("idPersonnage = '".$value."' ");
-        }
+                    /**
+                     *
+                     * @param \Zend\Db\Sql\Select $query
+                     */
+                    protected function initFilters($query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
+                        if ($value != null) {
+                            $query->where("idPersonnage = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-        if ($value != null) {
-            $query->where("nom like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                        if ($value != null) {
+                            $query->where("nom like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
-        if ($value != null) {
-            $query->where("niveau like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+                        if ($value != null) {
+                            $query->where("niveau like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('genre');
-        if ($value != null) {
-            $query->where("genre = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('genre');
+                        if ($value != null) {
+                            $query->where("genre = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
-        if ($value != null) {
-            $query->where("miniature like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
+                        if ($value != null) {
+                            $query->where("miniature like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
-        if ($value != null) {
-            $query->where("royaume like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
+                        if ($value != null) {
+                            $query->where("royaume like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
-        if ($value != null) {
-            $query->where("idFaction = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
+                        if ($value != null) {
+                            $query->where("idFaction = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idClasses');
-        if ($value != null) {
-            $query->where("idClasses = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idClasses');
+                        if ($value != null) {
+                            $query->where("idClasses = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idRace');
-        if ($value != null) {
-            $query->where("idRace = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idRace');
+                        if ($value != null) {
+                            $query->where("idRace = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
-        if ($value != null) {
-            $query->where("idGuildes = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
+                        if ($value != null) {
+                            $query->where("idGuildes = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
-        if ($value != null) {
-            $query->where("idUsers = '".$value."' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
+                        if ($value != null) {
+                            $query->where("idUsers = '" . $value . "' ");
+                        }
+                    }
 
-
-}
-
+                }

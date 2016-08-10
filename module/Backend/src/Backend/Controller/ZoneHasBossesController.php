@@ -53,7 +53,7 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-bosses/list');
+        $oViewModel->setTemplate('backend/zone-has-bosses/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-bosses/create');
+        $oViewModel->setTemplate('backend/zone-has-bosses/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-bosses/update');
+        $oViewModel->setTemplate('backend/zone-has-bosses/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

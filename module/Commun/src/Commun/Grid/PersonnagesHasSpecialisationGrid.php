@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
-{
+class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'specialisation_idSpecialisation' => array(
             'title' => 'Specialisation idSpecialisation',
@@ -74,8 +71,7 @@ class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -85,8 +81,7 @@ class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -98,47 +93,46 @@ class PersonnagesHasSpecialisationGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-personnages_has_specialisation-update', array('id' => $record["personnages_idPersonnage"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["personnages_idPersonnage"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-personnages_has_specialisation-update', array('id' => $record["personnages_idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["personnages_idPersonnage"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-personnages_has_specialisation-delete', array('id' => $record["personnages_idPersonnage"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["personnages_idPersonnage"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-personnages_has_specialisation-delete', array('id' => $record["personnages_idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["personnages_idPersonnage"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('specialisation_idSpecialisation');
-        if ($value != null) {
-            $query->where("specialisation_idSpecialisation = '".$value."' ");
-        }
+                    /**
+                     *
+                     * @param \Zend\Db\Sql\Select $query
+                     */
+                    protected function initFilters($query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('specialisation_idSpecialisation');
+                        if ($value != null) {
+                            $query->where("specialisation_idSpecialisation = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('personnages_idPersonnage');
-        if ($value != null) {
-            $query->where("personnages_idPersonnage = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('personnages_idPersonnage');
+                        if ($value != null) {
+                            $query->where("personnages_idPersonnage = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('isPrincipal');
-        if ($value != null) {
-            $query->where("isPrincipal = '".$value."' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('isPrincipal');
+                        if ($value != null) {
+                            $query->where("isPrincipal = '" . $value . "' ");
+                        }
+                    }
 
-
-}
-
+                }

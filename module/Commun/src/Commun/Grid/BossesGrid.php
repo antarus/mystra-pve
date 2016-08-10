@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class BossesGrid extends \ZfTable\AbstractTable
-{
+class BossesGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class BossesGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class BossesGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'idBosses' => array(
             'title' => 'IdBosses',
@@ -79,8 +76,7 @@ class BossesGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -90,8 +86,7 @@ class BossesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -103,52 +98,51 @@ class BossesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-bosses-update', array('id' => $record["idBosses"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idBosses"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-bosses-update', array('id' => $record["idBosses"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idBosses"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-bosses-delete', array('id' => $record["idBosses"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idBosses"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-bosses-delete', array('id' => $record["idBosses"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idBosses"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('idBosses');
-        if ($value != null) {
-            $query->where("idBosses = '".$value."' ");
-        }
+                    /**
+                     *
+                     * @param \Zend\Db\Sql\Select $query
+                     */
+                    protected function initFilters($query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('idBosses');
+                        if ($value != null) {
+                            $query->where("idBosses = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-        if ($value != null) {
-            $query->where("nom like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                        if ($value != null) {
+                            $query->where("nom like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('level');
-        if ($value != null) {
-            $query->where("level = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('level');
+                        if ($value != null) {
+                            $query->where("level = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('vie');
-        if ($value != null) {
-            $query->where("vie = '".$value."' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('vie');
+                        if ($value != null) {
+                            $query->where("vie = '" . $value . "' ");
+                        }
+                    }
 
-
-}
-
+                }

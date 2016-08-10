@@ -53,7 +53,7 @@ class EvenementsTemplateRolesController extends \Zend\Mvc\Controller\AbstractAct
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template-roles/list');
+        $oViewModel->setTemplate('backend/evenements-template-roles/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class EvenementsTemplateRolesController extends \Zend\Mvc\Controller\AbstractAct
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template-roles/create');
+        $oViewModel->setTemplate('backend/evenements-template-roles/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class EvenementsTemplateRolesController extends \Zend\Mvc\Controller\AbstractAct
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template-roles/update');
+        $oViewModel->setTemplate('backend/evenements-template-roles/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

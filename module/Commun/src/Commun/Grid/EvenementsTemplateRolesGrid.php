@@ -10,8 +10,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
  * @author Antarus
  * @project Mystra
  */
-class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
-{
+class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable {
 
     /**
      * @var ServiceLocatorInterface
@@ -32,7 +31,6 @@ class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
-
     protected $config = array(
         'name' => 'List',
         'showPagination' => true,
@@ -41,7 +39,6 @@ class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
         'itemCountPerPage' => 20,
         'showColumnFilters' => true,
     );
-
     protected $headers = array(
         'idEvenements_template_roles' => array(
             'title' => 'IdEvenements template roles',
@@ -84,8 +81,7 @@ class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager)
-    {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
     }
@@ -95,8 +91,7 @@ class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\Mvc\Controller\PluginManager
      */
-    public function url()
-    {
+    public function url() {
         if (!$this->_url) {
             $this->_url = $this->_pluginManager->get('url');
         }
@@ -108,57 +103,56 @@ class EvenementsTemplateRolesGrid extends \ZfTable\AbstractTable
      *
      * @var \Zend\I18n\Translator\Translator
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->_serviceLocator->get('translator');
         }
         return $this->_servTranslator;
     }
 
-    public function init()
-    {
+    public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-info\" href=\"". $this->url()->fromRoute('backend-evenements_template_roles-update', array('id' => $record["idEvenements_template_roles"]))."\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idEvenements_template_roles"]);
+            "callable" => function($context, $record) {
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-evenements_template_roles-update', array('id' => $record["idEvenements_template_roles"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idEvenements_template_roles"]);
             }
-        ));
+                ));
 
-        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-            "callable" => function($context, $record){
-                return sprintf("<a class=\"btn btn-danger\" href=\"".$this->url()->fromRoute('backend-evenements_template_roles-delete', array('id' => $record["idEvenements_template_roles"]))."\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idEvenements_template_roles"]);
-            }
-        ));
-    }
+                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+                    "callable" => function($context, $record) {
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-evenements_template_roles-delete', array('id' => $record["idEvenements_template_roles"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idEvenements_template_roles"]);
+                    }
+                        ));
+                    }
 
-    protected function initFilters(\Zend\Db\Sql\Select $query)
-    {
-        $value = $this->getParamAdapter()->getValueOfFilter('idEvenements_template_roles');
-        if ($value != null) {
-            $query->where("idEvenements_template_roles = '".$value."' ");
-        }
+                    /**
+                     *
+                     * @param \Zend\Db\Sql\Select $query
+                     */
+                    protected function initFilters($query) {
+                        $value = $this->getParamAdapter()->getValueOfFilter('idEvenements_template_roles');
+                        if ($value != null) {
+                            $query->where("idEvenements_template_roles = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('nombre');
-        if ($value != null) {
-            $query->where("nombre like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('nombre');
+                        if ($value != null) {
+                            $query->where("nombre like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('ordre');
-        if ($value != null) {
-            $query->where("ordre like '%".$value."%' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('ordre');
+                        if ($value != null) {
+                            $query->where("ordre like '%" . $value . "%' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idEvenements_template');
-        if ($value != null) {
-            $query->where("idEvenements_template = '".$value."' ");
-        }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idEvenements_template');
+                        if ($value != null) {
+                            $query->where("idEvenements_template = '" . $value . "' ");
+                        }
 
-        $value = $this->getParamAdapter()->getValueOfFilter('idRoles');
-        if ($value != null) {
-            $query->where("idRoles = '".$value."' ");
-        }
-    }
+                        $value = $this->getParamAdapter()->getValueOfFilter('idRoles');
+                        if ($value != null) {
+                            $query->where("idRoles = '" . $value . "' ");
+                        }
+                    }
 
-
-}
-
+                }

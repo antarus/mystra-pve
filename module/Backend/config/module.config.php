@@ -43,12 +43,20 @@ return array(
         ),
     ),
     'view_manager' => array(
-        'template_path_stack' => array(
-            'backend' => __DIR__ . '/../view',
-        ),
+        'display_not_found_reason' => true,
+        'display_exceptions' => true,
+        'doctype' => 'HTML5',
+        'not_found_template' => 'error/404',
+        'exception_template' => 'error/index',
         'template_map' => array(
             'backend/layout' => __DIR__ . '/../view/layout/backend.phtml',
             'layout/ajax' => __DIR__ . '/../view/layout/ajax.phtml',
+            'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
+            'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/index' => __DIR__ . '/../view/error/index.phtml',
+        ),
+        'template_path_stack' => array(
+            'backend' => __DIR__ . '/../view',
         ),
     ),
     // Placeholder for console routes

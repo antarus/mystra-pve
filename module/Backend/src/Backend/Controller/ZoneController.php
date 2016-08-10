@@ -140,7 +140,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone/list');
+        $oViewModel->setTemplate('backend/zone/list');
         return $oViewModel;
     }
 
@@ -183,7 +183,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone/create');
+        $oViewModel->setTemplate('backend/zone/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -222,7 +222,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone/update');
+        $oViewModel->setTemplate('backend/zone/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
@@ -277,7 +277,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
 
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone/import/import');
+        $oViewModel->setTemplate('backend/zone/import/import');
         $oViewModel->setVariable("zone", $aOptZone);
         return $oViewModel;
     }
@@ -295,7 +295,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
         $this->layout('layout/ajax');
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone/import/import');
+        $oViewModel->setTemplate('backend/zone/import/import');
         $oViewModel->setVariable("zone", $aOptZone);
 
         $oRequest = $this->getRequest();

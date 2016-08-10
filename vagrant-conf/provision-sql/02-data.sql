@@ -41,17 +41,18 @@ TRUNCATE TABLE `classes`;
 --
 
 INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
-(1, '#C69B6D', 'Guerrier', NULL),
+(1, '#C69B6D', 'Warrior', NULL),
 (2, '#F48CBA', 'Paladin', NULL),
-(3, '#AAD372', 'Chasseur', NULL),
-(4, '#FFF468', 'Voleur', NULL),
-(5, '#AAAAAA', 'Prêtre', NULL),
-(6, '#C41E3B', 'Chevalier de la mort', NULL),
-(7, '#2359FF', 'Chaman', NULL),
+(3, '#AAD372', 'Hunter', NULL),
+(4, '#FFF468', 'Rogue', NULL),
+(5, '#AAAAAA', 'Priest', NULL),
+(6, '#C41E3B', 'Death Knight', NULL),
+(7, '#2359FF', 'Shaman', NULL),
 (8, '#68CCEF', 'Mage', NULL),
-(9, '#9382C9', 'Démoniste', NULL),
-(10, '#008467', 'Moine', NULL),
-(11, '#FF7C0A', 'Druide', NULL);
+(9, '#9382C9', 'Warlock', NULL),
+(10, '#008467', 'Monk', NULL),
+(11, '#FF7C0A', 'Druid', NULL),
+(12, '#A330C9', 'Demon Hunter', NULL);
 
 --
 -- Vider la table avant d'insérer `evenements`
@@ -149,16 +150,16 @@ TRUNCATE TABLE `race`;
 --
 
 INSERT INTO `race` (`idRace`, `nom`, `icon`) VALUES
-(1, 'Humain', NULL),
+(1, 'Human', NULL),
 (2, 'Orc', NULL),
-(3, 'Nain', NULL),
-(4, 'Elfe de la nuit', NULL),
-(5, 'Mort-vivant', NULL),
+(3, 'Dwarf', NULL),
+(4, 'Night Elf', NULL),
+(5, 'Undead', NULL),
 (6, 'Tauren', NULL),
 (7, 'Gnome', NULL),
 (8, 'Troll', NULL),
-(9, 'Gobelin', NULL),
-(10, 'Elfe de sang', NULL),
+(9, 'Goblin', NULL),
+(10, 'Blood Elf', NULL),
 (11, 'Draeneï', NULL),
 (22, 'Worgen', NULL),
 (24, 'Pandaren', NULL),

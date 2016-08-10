@@ -53,7 +53,7 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template/list');
+        $oViewModel->setTemplate('backend/evenements-template/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template/create');
+        $oViewModel->setTemplate('backend/evenements-template/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/evenements-template/update');
+        $oViewModel->setTemplate('backend/evenements-template/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

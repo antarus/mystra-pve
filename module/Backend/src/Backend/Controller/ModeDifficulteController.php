@@ -53,7 +53,7 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/mode-difficulte/list');
+        $oViewModel->setTemplate('backend/mode-difficulte/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/mode-difficulte/create');
+        $oViewModel->setTemplate('backend/mode-difficulte/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/mode-difficulte/update');
+        $oViewModel->setTemplate('backend/mode-difficulte/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

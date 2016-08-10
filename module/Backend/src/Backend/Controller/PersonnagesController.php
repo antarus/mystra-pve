@@ -50,7 +50,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages/list');
+        $oViewModel->setTemplate('backend/personnages/list');
         return $oViewModel;
     }
 
@@ -93,7 +93,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages/create');
+        $oViewModel->setTemplate('backend/personnages/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -132,7 +132,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages/update');
+        $oViewModel->setTemplate('backend/personnages/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
@@ -187,7 +187,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
 
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages/import/import');
+        $oViewModel->setTemplate('backend/personnages/import/import');
         $oViewModel->setVariable("perso", $aOptPersonnage);
         return $oViewModel;
     }
@@ -224,7 +224,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         // Pour optimiser le rendu
 
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages/import/import');
+        $oViewModel->setTemplate('backend/personnages/import/import');
         $oViewModel->setVariable("perso", $aOptPersonnage);
         //$oViewModel->setVariable("id", $iId);
         return $oViewModel;

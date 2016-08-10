@@ -79,30 +79,36 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      * @return  \Core\Model\Personnages
      */
     public function saveOrUpdatePersonnage($oPersonnage, $oGuilde = null) {
-//recherche si le personnage existe
-        $oTabPersonnage = $this->selectBy(
-                array(
-                    "nom" => $oPersonnage->getNom(),
-                    "royaume" => $oPersonnage->getRoyaume(),
-                    "idFaction" => $oPersonnage->getIdFaction()));
-// si n'existe pas on insert
-        if (!$oTabPersonnage) {
-            if (!empty($oGuilde)) {
-                $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
-                $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+        try {
+
+            //recherche si le personnage existe
+            $oTabPersonnage = $this->selectBy(
+                    array(
+                        "nom" => $oPersonnage->getNom(),
+                        "royaume" => $oPersonnage->getRoyaume(),
+                        "idFaction" => $oPersonnage->getIdFaction()));
+            // si n'existe pas on insert
+            if (!$oTabPersonnage) {
+                if (!empty($oGuilde)) {
+                    $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
+                    $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                }
+                $this->insert($oPersonnage);
+                $oPersonnage->setIdPersonnage($this->lastInsertValue);
+            } else {
+                // sinon on update
+                if (!empty($oGuilde)) {
+                    $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
+                    $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                }
+                $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
+                $this->update($oPersonnage);
             }
-            $this->insert($oPersonnage);
-            $oPersonnage->setIdPersonnage($this->lastInsertValue);
-        } else {
-// sinon on update
-            if (!empty($oGuilde)) {
-                $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
-                $oPersonnage->setIdFaction($oGuilde->getIdFaction());
-            }
-            $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
-            $this->update($oPersonnage);
+            return $oPersonnage;
+        } catch (Exception $ex) {
+            var_dump($ex);
+            throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
-        return $oPersonnage;
     }
 
 }

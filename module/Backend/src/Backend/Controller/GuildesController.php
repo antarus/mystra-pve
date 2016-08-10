@@ -51,7 +51,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/guildes/list');
+        $oViewModel->setTemplate('backend/guildes/list');
         return $oViewModel;
     }
 
@@ -94,7 +94,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/guildes/create');
+        $oViewModel->setTemplate('backend/guildes/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -133,7 +133,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/guildes/update');
+        $oViewModel->setTemplate('backend/guildes/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
@@ -190,7 +190,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
 
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/guildes/import/import');
+        $oViewModel->setTemplate('backend/guildes/import/import');
         $oViewModel->setVariable("guilde", $aOptGuilde);
         return $oViewModel;
     }
@@ -219,13 +219,14 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->getTableGuilde()->commit();
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
+                //var_dump($ex);
                 $this->getTableGuilde()->rollback();
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guilde."), 'error');
 
 
-//
+////
 //                $oViewModel = new ViewModel();
-//                $oViewModel->setTemplate('Backend/guildes/import/import');
+//                $oViewModel->setTemplate('backend/guildes/import/import');
 //                $oViewModel->setVariable("guilde", $aOptGuilde);
 //
 //                return $oViewModel;
@@ -235,7 +236,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         // Pour optimiser le rendu
 
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/guildes/import/import');
+        $oViewModel->setTemplate('backend/guildes/import/import');
         $oViewModel->setVariable("guilde", $aOptGuilde);
         //$oViewModel->setVariable("id", $iId);
         return $oViewModel;

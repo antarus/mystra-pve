@@ -53,7 +53,7 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-mode-diffculte/list');
+        $oViewModel->setTemplate('backend/zone-has-mode-diffculte/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-mode-diffculte/create');
+        $oViewModel->setTemplate('backend/zone-has-mode-diffculte/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/zone-has-mode-diffculte/update');
+        $oViewModel->setTemplate('backend/zone-has-mode-diffculte/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

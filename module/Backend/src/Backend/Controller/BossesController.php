@@ -53,7 +53,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses/list');
+        $oViewModel->setTemplate('backend/bosses/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses/create');
+        $oViewModel->setTemplate('backend/bosses/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses/update');
+        $oViewModel->setTemplate('backend/bosses/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

@@ -53,7 +53,7 @@ class PersonnagesHasSpecialisationController extends \Zend\Mvc\Controller\Abstra
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages-has-specialisation/list');
+        $oViewModel->setTemplate('backend/personnages-has-specialisation/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class PersonnagesHasSpecialisationController extends \Zend\Mvc\Controller\Abstra
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages-has-specialisation/create');
+        $oViewModel->setTemplate('backend/personnages-has-specialisation/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class PersonnagesHasSpecialisationController extends \Zend\Mvc\Controller\Abstra
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/personnages-has-specialisation/update');
+        $oViewModel->setTemplate('backend/personnages-has-specialisation/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

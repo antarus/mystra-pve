@@ -53,7 +53,7 @@ class ItemPersonnageRaidController extends \Zend\Mvc\Controller\AbstractActionCo
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/item-personnage-raid/list');
+        $oViewModel->setTemplate('backend/item-personnage-raid/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class ItemPersonnageRaidController extends \Zend\Mvc\Controller\AbstractActionCo
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/item-personnage-raid/create');
+        $oViewModel->setTemplate('backend/item-personnage-raid/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class ItemPersonnageRaidController extends \Zend\Mvc\Controller\AbstractActionCo
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/item-personnage-raid/update');
+        $oViewModel->setTemplate('backend/item-personnage-raid/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

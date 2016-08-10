@@ -48,7 +48,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/items/list');
+        $oViewModel->setTemplate('backend/items/list');
         return $oViewModel;
     }
 
@@ -91,7 +91,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/items/create');
+        $oViewModel->setTemplate('backend/items/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -130,7 +130,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/items/update');
+        $oViewModel->setTemplate('backend/items/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
@@ -183,7 +183,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
 
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/items/import/import');
+        $oViewModel->setTemplate('backend/items/import/import');
         $oViewModel->setVariable("item", $aOptItem);
         return $oViewModel;
     }
@@ -217,7 +217,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
         // Pour optimiser le rendu
 
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/items/import/import');
+        $oViewModel->setTemplate('backend/items/import/import');
         $oViewModel->setVariable("item", $aOptItem);
         //$oViewModel->setVariable("id", $iId);
         return $oViewModel;

@@ -48,7 +48,7 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/classes/list');
+        $oViewModel->setTemplate('backend/classes/list');
         return $oViewModel;
     }
 
@@ -91,7 +91,7 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/classes/create');
+        $oViewModel->setTemplate('backend/classes/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -130,7 +130,7 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/classes/update');
+        $oViewModel->setTemplate('backend/classes/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

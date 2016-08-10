@@ -48,7 +48,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
     public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/faction/list');
+        $oViewModel->setTemplate('backend/faction/list');
         return $oViewModel;
     }
 
@@ -91,7 +91,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/faction/create');
+        $oViewModel->setTemplate('backend/faction/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -130,7 +130,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/faction/update');
+        $oViewModel->setTemplate('backend/faction/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

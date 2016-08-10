@@ -53,7 +53,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster/list');
+        $oViewModel->setTemplate('backend/roster/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster/create');
+        $oViewModel->setTemplate('backend/roster/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/roster/update');
+        $oViewModel->setTemplate('backend/roster/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 

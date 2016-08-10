@@ -53,7 +53,7 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
     {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses-has-npc/list');
+        $oViewModel->setTemplate('backend/bosses-has-npc/list');
         return $oViewModel;
     }
 
@@ -98,7 +98,7 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses-has-npc/create');
+        $oViewModel->setTemplate('backend/bosses-has-npc/create');
         return $oViewModel->setVariables(array('form' => $oForm));
     }
 
@@ -138,7 +138,7 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('Backend/bosses-has-npc/update');
+        $oViewModel->setTemplate('backend/bosses-has-npc/update');
         return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
