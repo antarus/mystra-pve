@@ -19,8 +19,8 @@ SET time_zone = "+00:00";
 --
 -- Base de donnÃ©es: `mystra_pve`
 --
-CREATE DATABASE IF NOT EXISTS `mystra_pve` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `mystra_pve`;
+CREATE DATABASE IF NOT EXISTS `raid_tracker` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `raid_tracker`;
 
 -- --------------------------------------------------------
 

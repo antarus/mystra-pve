@@ -19,7 +19,7 @@ SET FOREIGN_KEY_CHECKS=0;
 --
 -- Base de données: `mystra_pve`
 --
-USE `mystra_pve`;
+USE `raid_tracker`;
 
 --
 -- Vider la table avant d'insérer `bosses`

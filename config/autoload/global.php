@@ -12,9 +12,9 @@
  * file.
  */
 $dbParams = array(
-    'database' => 'mystra_pve',
-    'username' => 'root',
-    'password' => 'root',
+    'database' => 'raid_tracker',
+    'username' => 'raid_tracker',
+    'password' => 'R@id-Tr@ck3r!321',
     'hostname' => 'localhost'
 );
 
