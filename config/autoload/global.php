@@ -53,4 +53,12 @@ return array(
                 ))
             ,
             'urlProjet' => 'dev.murloc-avenue.com',
+            'zf-mvc-auth' => array(
+                'authentication' => array(
+                    'map' => array(
+                        'API\\V1' => 'hello',
+                        'APIBlizzard\\V1' => 'blizzard',
+                    ),
+                ),
+            ),
         );

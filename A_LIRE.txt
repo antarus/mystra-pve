@@ -1,11 +1,20 @@
-url backend 
-http://127.0.0.1/backend/bosses/list
+ï»¿url backend
+http://127.0.0.1/backend/
 
 url backend avec vagrant
-http://127.0.0.1:8888/backend/bosses/list
+http://127.0.0.1:8888/backend/
 
-le script qui monte le serveur http et la base de donné a juste un pb au niveau de l'import des donnée.
+le script qui monte le serveur http et la base de donnÃ©e a juste un pb au niveau de l'import des donnÃ©e.
 
-connecté vous sur phpmyadmin (http://127.0.0.1:8888/phpmyadmin/) root/root
+connectÃ© vous sur phpmyadmin (http://127.0.0.1:8888/phpmyadmin/) root/root
 
-importer le fichier sql situé dans /vagrant-conf/provision-sql/20160221.sql
+importer le fichier sql situÃ© dans /vagrant-conf/provision-sql/01-struct et 02-data
+
+
+
+API
+=========
+url : /apigility/ui#/
+
+exemple API
+http://localhost:48081/api/character/garona/antaruss

@@ -8,6 +8,7 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
 {
     public static $files = array (
         '1d1b89d124cc9cb8219922c9d5569199' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest.php',
+        'ce89ac35a6c330c55f4710717db9ff78' => __DIR__ . '/..' . '/kriswallsmith/assetic/src/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -63,10 +64,24 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
             'Zend\\Cache\\' => 11,
             'Zend\\Barcode\\' => 13,
             'Zend\\Authentication\\' => 20,
+            'ZF\\Versioning\\' => 14,
+            'ZF\\Rpc\\' => 7,
+            'ZF\\Rest\\' => 8,
+            'ZF\\OAuth2\\' => 10,
+            'ZF\\MvcAuth\\' => 11,
+            'ZF\\Hal\\' => 7,
+            'ZF\\ContentValidation\\' => 21,
+            'ZF\\ContentNegotiation\\' => 22,
+            'ZF\\Configuration\\' => 17,
+            'ZF\\Apigility\\Provider\\' => 22,
+            'ZF\\Apigility\\Admin\\' => 19,
+            'ZF\\Apigility\\' => 13,
+            'ZF\\ApiProblem\\' => 14,
         ),
         'S' => 
         array (
             'Symfony\\Component\\Yaml\\' => 23,
+            'Symfony\\Component\\Process\\' => 26,
         ),
         'I' => 
         array (
@@ -279,9 +294,65 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
         array (
             0 => __DIR__ . '/..' . '/zendframework/zend-authentication/src',
         ),
+        'ZF\\Versioning\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-versioning/src',
+        ),
+        'ZF\\Rpc\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-rpc/src',
+        ),
+        'ZF\\Rest\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-rest/src',
+        ),
+        'ZF\\OAuth2\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-oauth2/src',
+        ),
+        'ZF\\MvcAuth\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-mvc-auth/src',
+        ),
+        'ZF\\Hal\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-hal/src',
+        ),
+        'ZF\\ContentValidation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-content-validation/src',
+        ),
+        'ZF\\ContentNegotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-content-negotiation/src',
+        ),
+        'ZF\\Configuration\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-configuration/src',
+        ),
+        'ZF\\Apigility\\Provider\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-apigility-provider/src',
+        ),
+        'ZF\\Apigility\\Admin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-apigility-admin/src',
+        ),
+        'ZF\\Apigility\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-apigility/src',
+        ),
+        'ZF\\ApiProblem\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/zfcampus/zf-api-problem/src',
+        ),
         'Symfony\\Component\\Yaml\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/yaml',
+        ),
+        'Symfony\\Component\\Process\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/process',
         ),
         'Interop\\Container\\' => 
         array (
@@ -323,11 +394,29 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
             ),
         ),
+        'O' => 
+        array (
+            'OAuth2' => 
+            array (
+                0 => __DIR__ . '/..' . '/bshaffer/oauth2-server-php/src',
+            ),
+        ),
         'M' => 
         array (
             'Mockery' => 
             array (
                 0 => __DIR__ . '/..' . '/mockery/mockery/library',
+            ),
+        ),
+        'A' => 
+        array (
+            'Assetic' => 
+            array (
+                0 => __DIR__ . '/..' . '/kriswallsmith/assetic/src',
+            ),
+            'AssetManager' => 
+            array (
+                0 => __DIR__ . '/..' . '/rwoverdijk/assetmanager/src',
             ),
         ),
     );
@@ -836,6 +925,22 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
         'SebastianBergmann\\RecursionContext\\InvalidArgumentException' => __DIR__ . '/..' . '/sebastian/recursion-context/src/InvalidArgumentException.php',
         'SebastianBergmann\\Version' => __DIR__ . '/..' . '/sebastian/version/src/Version.php',
         'Text_Template' => __DIR__ . '/..' . '/phpunit/php-text-template/src/Template.php',
+        'ZF\\ApiProblem\\Module' => __DIR__ . '/..' . '/zfcampus/zf-api-problem/Module.php',
+        'ZF\\Apigility\\Admin\\Module' => __DIR__ . '/..' . '/zfcampus/zf-apigility-admin/Module.php',
+        'ZF\\Apigility\\Admin\\Ui\\Module' => __DIR__ . '/..' . '/zfcampus/zf-apigility-admin-ui/Module.php',
+        'ZF\\Apigility\\Module' => __DIR__ . '/..' . '/zfcampus/zf-apigility/Module.php',
+        'ZF\\Configuration\\Module' => __DIR__ . '/..' . '/zfcampus/zf-configuration/Module.php',
+        'ZF\\ContentNegotiation\\Module' => __DIR__ . '/..' . '/zfcampus/zf-content-negotiation/Module.php',
+        'ZF\\ContentValidation\\Module' => __DIR__ . '/..' . '/zfcampus/zf-content-validation/Module.php',
+        'ZF\\DevelopmentMode\\DevelopmentModeController' => __DIR__ . '/..' . '/zfcampus/zf-development-mode/DevelopmentModeController.php',
+        'ZF\\DevelopmentMode\\DevelopmentModeControllerFactory' => __DIR__ . '/..' . '/zfcampus/zf-development-mode/DevelopmentModeControllerFactory.php',
+        'ZF\\DevelopmentMode\\Module' => __DIR__ . '/..' . '/zfcampus/zf-development-mode/Module.php',
+        'ZF\\Hal\\Module' => __DIR__ . '/..' . '/zfcampus/zf-hal/Module.php',
+        'ZF\\MvcAuth\\Module' => __DIR__ . '/..' . '/zfcampus/zf-mvc-auth/Module.php',
+        'ZF\\OAuth2\\Module' => __DIR__ . '/..' . '/zfcampus/zf-oauth2/Module.php',
+        'ZF\\Rest\\Module' => __DIR__ . '/..' . '/zfcampus/zf-rest/Module.php',
+        'ZF\\Rpc\\Module' => __DIR__ . '/..' . '/zfcampus/zf-rpc/Module.php',
+        'ZF\\Versioning\\Module' => __DIR__ . '/..' . '/zfcampus/zf-versioning/Module.php',
         'Zend\\I18n\\Translator\\Resources' => __DIR__ . '/..' . '/zendframework/zend-i18n-resources/src/Resources.php',
         'ZfTable\\Module' => __DIR__ . '/..' . '/dudapiotr/zftable/Module.php',
     );
