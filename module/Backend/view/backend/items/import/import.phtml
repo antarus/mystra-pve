@@ -1,5 +1,5 @@
 <h1><?php echo $this->translate("Importer un item") ?></h1>
-<div id="msg"></div>
+
 <form id="frm1" method='post' action="<?php echo $this->url('backend-items-import-traitement', array('id' => $this->id)) ?>" class="form-inline">
     <fieldset>
         <div class="control-group">
@@ -18,38 +18,4 @@
     </fieldset>
 </form>
 
-<script>
-
-    $(document).ready(function () {
-        // Lorsque je soumets le formulaire
-        $('#frm1').on('submit', function (e) {
-            e.preventDefault(); // J'empêche le comportement par défaut du navigateur, c-à-d de soumettre le formulaire
-
-            var $this = $(this); // L'objet jQuery du formulaire
-
-            // Envoi de la requête HTTP en mode asynchrone
-            $.ajax({
-                url: $this.attr('action'), // Le nom du fichier indiqué dans le formulaire
-                type: $this.attr('method'), // La méthode indiquée dans le formulaire (get ou post)
-                data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
-                beforeSend: function (html) { // Je récupère la réponse du fichier PHP
-                    $("body").addClass("loading");
-                },
-                complete: function (html) { // Je récupère la réponse du fichier PHP
-                    $("body").removeClass("loading");
-                    if (html.status = "200") {
-                        $("#msg").removeClass("'alert-danger").addClass('alert-success').text("Item importé");
-                    } else {
-                        $("#msg").removeClass("'alert-success").addClass('alert-danger').text("Erreur lors du traitement AJAX");
-                    }
-                },
-                sucess: function (html) {
-                    $("#msg").addClass('alert-success').text("Item importé");
-                },
-                error: function (html) { // Je récupère la réponse du fichier PHP
-                    $("#msg").addClass('alert-danger').text("Erreur lors du traitement AJAX");
-                },
-            });
-        });
-    });
-</script>
+<?= $this->render('layout/backend/js-ajax-import') ?>

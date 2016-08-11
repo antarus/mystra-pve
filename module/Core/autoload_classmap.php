@@ -29,4 +29,5 @@ return array(
     'Core\Table\AbstractTable' => __DIR__ . '/src/Core/Table/AbstractTable.php',
     'Core\Table\AbstractServiceTable' => __DIR__ . '/src/Core/Table/AbstractServiceTable.php',
     'Core\Util\ParserWow' => __DIR__ . '/src/Core/Util/ParserWow.php',
+    'Core\Util\ParseException' => __DIR__ . '/src/Core/Util/ParseException.php',
 );

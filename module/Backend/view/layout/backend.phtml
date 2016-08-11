@@ -13,7 +13,9 @@
         <?= $this->render('layout/backend/header') ?>
         <div class="container">
             <?= $this->render('layout/backend/breadcrumbs') ?>
-            <?= $this->render('layout/app/messages') ?>
+            <div id="msg">
+                <?= $this->render('layout/app/messages') ?>
+            </div>
             <?= $this->content ?>
             <hr>
             <footer>

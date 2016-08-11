@@ -2,34 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIrTk_1/src/APIrTk/V1/Rest/Loot/LootResource.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/config/application.config.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIrTk_1/src/APIrTk/V1/Rest/Loot/LootCollection.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIBlizzard/src/APIBlizzard/V1/Rest/Character/CharacterResourceFactory.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/config/autoload/global.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIBlizzard/src/APIBlizzard/V1/Rest/Character/CharacterEntity.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIRtK/Module.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/GuildesController.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/config/module.config.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIrTk/src/APIRtK/Module.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIBlizzard/src/APIBlizzard/Module.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/config/development.config.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIrTk/config/module.config.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/GuildesTable.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/config/autoload/local.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/vagrant-conf/provision-sql/01-struct.sql</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIBlizzard/src/APIBlizzard/V1/Rest/Character/CharacterResource.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/PersonnagesTable.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/RaidsTable.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/RaidsController.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/ItemsTable.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Model/EvenementsPersonnage.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIBlizzard/config/module.config.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/APIrTk_1/src/APIrTk/V1/Rest/Loot/LootEntity.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/config/autoload/global.old.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/vagrant-conf/provision-sql/02-data.sql</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/RaidPersonnageTable.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

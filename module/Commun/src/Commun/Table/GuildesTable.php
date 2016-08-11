@@ -4,6 +4,8 @@ namespace Commun\Table;
 
 use \Bnet\Region;
 use \Bnet\ClientFactory;
+use \Commun\Exception\BnetException;
+use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
@@ -72,6 +74,9 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                 $aOptionBnet[] = 'members';
             }
             $aGuildeBnet = $guild->find($aPost['guilde'], $aOptionBnet);
+            if (!$aGuildeBnet) {
+                throw new BnetException(1);
+            }
 
             $aOptionFiltre = array();
             if (isset($aPost['lvlMin'])) {
@@ -90,8 +95,10 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                 $this->_getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
             }
             return $oGuilde;
+//        } catch (\Zend\Http\Client\Adapter\Exception\RuntimeException $vTimeOuteEx){
         } catch (\Exception $ex) {
             //var_dump($ex);
+
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }
@@ -102,22 +109,28 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
      * @return \Commun\Model\Guildes
      */
     public function saveOrUpdateGuilde($oGuilde) {
-        $oGuilde->setNom(strtolower($oGuilde->getNom()));
-        $oTabGuilde = $this->selectBy(
-                array(
-                    "nom" => $oGuilde->getNom(),
-                    "serveur" => $oGuilde->getServeur(),
-                    "idFaction" => $oGuilde->getIdFaction()));
-        // si n'existe pas on insert
-        if (!$oTabGuilde) {
-            $this->insert($oGuilde);
-            $oGuilde->setIdGuildes($this->lastInsertValue);
-        } else {
-            // sinon on update
-            $oGuilde->setIdGuildes($oTabGuilde->getIdGuildes());
-            $this->update($oGuilde);
+        try {
+
+
+            $oGuilde->setNom(strtolower($oGuilde->getNom()));
+            $oTabGuilde = $this->selectBy(
+                    array(
+                        "nom" => $oGuilde->getNom(),
+                        "serveur" => $oGuilde->getServeur(),
+                        "idFaction" => $oGuilde->getIdFaction()));
+            // si n'existe pas on insert
+            if (!$oTabGuilde) {
+                $this->insert($oGuilde);
+                $oGuilde->setIdGuildes($this->lastInsertValue);
+            } else {
+                // sinon on update
+                $oGuilde->setIdGuildes($oTabGuilde->getIdGuildes());
+                $this->update($oGuilde);
+            }
+            return $oGuilde;
+        } catch (\Exception $exc) {
+            throw new DatabaseException(1);
         }
-        return $oGuilde;
     }
 
 }

@@ -3,8 +3,9 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
-use \Bnet\Region;
-use \Bnet\ClientFactory;
+use \Commun\Exception\BnetException;
+use Commun\Exception\DatabaseException;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -208,7 +209,6 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
             'imp-membre' => 'Oui',
         );
         $this->layout('layout/ajax');
-        //$this->layout('backend/layout');
         $oRequest = $this->getRequest();
 
         if ($oRequest->isPost()) {
@@ -218,28 +218,22 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->getTableGuilde()->importGuilde($aPost);
                 $this->getTableGuilde()->commit();
             } catch (\Exception $ex) {
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
                 // on rollback en cas d'erreur
-                //var_dump($ex);
                 $this->getTableGuilde()->rollback();
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guilde."), 'error');
+                $result = new JsonModel(array(
+                    'error' => $aAjaxEx
+                ));
 
-
-////
-//                $oViewModel = new ViewModel();
-//                $oViewModel->setTemplate('backend/guildes/import/import');
-//                $oViewModel->setVariable("guilde", $aOptGuilde);
-//
-//                return $oViewModel;
-                return null;
+                return $result;
             }
         }
-        // Pour optimiser le rendu
-
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/guildes/import/import');
-        $oViewModel->setVariable("guilde", $aOptGuilde);
-        //$oViewModel->setVariable("id", $iId);
-        return $oViewModel;
+        $result = new JsonModel(array(
+            'success' => array(
+                'msg' => 'guilde importée avec succès'
+            )
+        ));
+        return $result;
     }
 
 }
