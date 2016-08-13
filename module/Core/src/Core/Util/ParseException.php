@@ -28,14 +28,13 @@ class ParseException {
         $oExTmp = ParseException::getCause($oException);
         switch ($oExTmp) {
             case $oExTmp instanceof \Commun\Exception\BnetException;
-                $aReturn['code'] = 201;
+                $aReturn['code'] = $oExTmp->getCode();
                 break;
             case $oExTmp instanceof \Commun\Exception\DatabaseException;
-                $aReturn['code'] = 301;
-                echo "ground request";
+                $aReturn['code'] = $oExTmp->getCode();
                 break;
             case $oExTmp instanceof \Zend\Http\Client\Adapter\Exception\RuntimeException;
-                $aReturn['code'] = 401;
+                $aReturn['code'] = 400;
                 break;
             default:
                 $aReturn['code'] = 500;

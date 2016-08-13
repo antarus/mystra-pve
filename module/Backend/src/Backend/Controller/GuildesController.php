@@ -218,19 +218,18 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->getTableGuilde()->importGuilde($aPost);
                 $this->getTableGuilde()->commit();
             } catch (\Exception $ex) {
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
                 // on rollback en cas d'erreur
                 $this->getTableGuilde()->rollback();
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));
-
                 return $result;
             }
         }
         $result = new JsonModel(array(
             'success' => array(
-                'msg' => 'guilde importée avec succès'
+                'msg' => $this->_getServTranslator()->translate('guilde importée avec succès')
             )
         ));
         return $result;

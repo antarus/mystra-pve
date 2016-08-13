@@ -75,7 +75,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             $aGuildeBnet = $guild->find($aPost['guilde'], $aOptionBnet);
             if (!$aGuildeBnet) {
-                throw new BnetException(1);
+                throw new BnetException(100, $this->_getServiceLocator()->get('translator'));
             }
 
             $aOptionFiltre = array();
@@ -84,7 +84,6 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             $oGuilde = \Core\Util\ParserWow::extraitGuildeDepuisBnetGuilde($aGuildeBnet);
             $oGuilde = $this->saveOrUpdateGuilde($oGuilde);
-            //$aOptGuilde['bnetData'] = $aGuilde->getData();
             if ($aPost['imp-membre'] == "Oui") {
                 $aMembreGuilde = \Core\Util\ParserWow::extraitMembreDepuisBnetGuilde($aGuildeBnet, $oGuilde, $aOptionFiltre);
             } else {
@@ -95,10 +94,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                 $this->_getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
             }
             return $oGuilde;
-//        } catch (\Zend\Http\Client\Adapter\Exception\RuntimeException $vTimeOuteEx){
         } catch (\Exception $ex) {
-            //var_dump($ex);
-
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }
@@ -109,28 +105,35 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
      * @return \Commun\Model\Guildes
      */
     public function saveOrUpdateGuilde($oGuilde) {
+
+        $oGuilde->setNom(strtolower($oGuilde->getNom()));
         try {
-
-
-            $oGuilde->setNom(strtolower($oGuilde->getNom()));
             $oTabGuilde = $this->selectBy(
                     array(
                         "nom" => $oGuilde->getNom(),
                         "serveur" => $oGuilde->getServeur(),
                         "idFaction" => $oGuilde->getIdFaction()));
-            // si n'existe pas on insert
-            if (!$oTabGuilde) {
+        } catch (\Exception $exc) {
+            throw new DatabaseException(5000, 4, $this->_getServiceLocator()->get('translator'));
+        }
+        // si n'existe pas on insert
+        if (!$oTabGuilde) {
+            try {
                 $this->insert($oGuilde);
                 $oGuilde->setIdGuildes($this->lastInsertValue);
-            } else {
+            } catch (\Exception $exc) {
+                throw new DatabaseException(5000, 2, $this->_getServiceLocator()->get('translator'));
+            }
+        } else {
+            try {
                 // sinon on update
                 $oGuilde->setIdGuildes($oTabGuilde->getIdGuildes());
                 $this->update($oGuilde);
+            } catch (\Exception $exc) {
+                throw new DatabaseException(5000, 1, $this->_getServiceLocator()->get('translator'));
             }
-            return $oGuilde;
-        } catch (\Exception $exc) {
-            throw new DatabaseException(1);
         }
+        return $oGuilde;
     }
 
 }
