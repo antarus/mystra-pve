@@ -4,6 +4,8 @@ namespace Commun\Table;
 
 use \Bnet\Region;
 use \Bnet\ClientFactory;
+use \Commun\Exception\BnetException;
+use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
@@ -62,6 +64,10 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                 $personnageBnet->on($aPost['serveur']);
 
                 $aPersoBnet = $personnageBnet->find($aPost['nom']);
+                if (!$aPersoBnet) {
+                    throw new BnetException(299, $this->_getServiceLocator()->get('translator'));
+                }
+
 
                 $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
                 return $this->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
@@ -82,27 +88,39 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
         try {
             $oPersonnage->setNom(strtolower($oPersonnage->getNom()));
             //recherche si le personnage existe
-            $oTabPersonnage = $this->selectBy(
-                    array(
-                        "nom" => $oPersonnage->getNom(),
-                        "royaume" => $oPersonnage->getRoyaume(),
-                        "idFaction" => $oPersonnage->getIdFaction()));
+            try {
+                $oTabPersonnage = $this->selectBy(
+                        array(
+                            "nom" => $oPersonnage->getNom(),
+                            "royaume" => $oPersonnage->getRoyaume(),
+                            "idFaction" => $oPersonnage->getIdFaction()));
+            } catch (\Exception $exc) {
+                throw new DatabaseException(2000, 4, $this->_getServiceLocator()->get('translator'));
+            }
             // si n'existe pas on insert
             if (!$oTabPersonnage) {
-                if (!empty($oGuilde)) {
-                    $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
-                    $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                try {
+                    if (!empty($oGuilde)) {
+                        $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
+                        $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                    }
+                    $this->insert($oPersonnage);
+                    $oPersonnage->setIdPersonnage($this->lastInsertValue);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(2000, 2, $this->_getServiceLocator()->get('translator'));
                 }
-                $this->insert($oPersonnage);
-                $oPersonnage->setIdPersonnage($this->lastInsertValue);
             } else {
-                // sinon on update
-                if (!empty($oGuilde)) {
-                    $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
-                    $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                try {
+                    // sinon on update
+                    if (!empty($oGuilde)) {
+                        $oPersonnage->setIdGuildes($oGuilde->getIdGuildes());
+                        $oPersonnage->setIdFaction($oGuilde->getIdFaction());
+                    }
+                    $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
+                    $this->update($oPersonnage);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(2000, 1, $this->_getServiceLocator()->get('translator'));
                 }
-                $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
-                $this->update($oPersonnage);
             }
             return $oPersonnage;
         } catch (Exception $ex) {

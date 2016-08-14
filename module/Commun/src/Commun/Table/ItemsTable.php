@@ -4,6 +4,8 @@ namespace Commun\Table;
 
 use \Bnet\Region;
 use \Bnet\ClientFactory;
+use \Commun\Exception\BnetException;
+use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
@@ -52,15 +54,20 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
     public function importItem($aPost) {
         try {
             $aInfoItem = $this->extractInfoItem($aPost['id']);
-
-            $oTabItems = $this->selectBy(
-                    array(
-                        "idBnet" => $aInfoItem[0]));
+            try {
+                $oTabItems = $this->selectBy(
+                        array(
+                            "idBnet" => $aInfoItem[0]));
+            } catch (\Exception $exc) {
+                throw new DatabaseException(3000, 4, $this->_getServiceLocator()->get('translator'));
+            }
             // si n'existe pas on importe
             if (!$oTabItems) {
                 $itemBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->items();
                 $oBnetItem = $itemBnet->find($aInfoItem[0]);
-
+                if (!$oBnetItem) {
+                    throw new BnetException(399, $this->_getServiceLocator()->get('translator'));
+                }
                 $oItem = \Core\Util\ParserWow::extraitItemDepuisBnet($oBnetItem);
                 return $this->saveOrUpdateItem($oItem);
             }
@@ -98,16 +105,24 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
      * @return \Core\Model\Items
      */
     public function saveOrUpdateItem($oItems) {
-        $oTabItem = $this->selectBy(array('idBnet' => $oItems->getIdBnet()));
+        try {
+            $oTabItem = $this->selectBy(array('idBnet' => $oItems->getIdBnet()));
+        } catch (\Exception $exc) {
+            throw new DatabaseException(3000, 4, $this->_getServiceLocator()->get('translator'));
+        }
         //si il existe pas on le cree
         if (!$oTabItem) {
-            $oTabItem = new \Commun\Model\Items();
-            $oTabItem->setAjouterPar("Import Raid-TracKer");
-            $oTabItem->setNom(strtolower($oItems->getNom()));
-            $oTabItem->setIcon($oItems->getIcon());
-            $oTabItem->setIdBnet($oItems->getIdBnet());
-            $this->insert($oTabItem);
-            $oTabItem->setIdItem($this->lastInsertValue);
+            try {
+                $oTabItem = new \Commun\Model\Items();
+                $oTabItem->setAjouterPar("Import Raid-TracKer");
+                $oTabItem->setNom(strtolower($oItems->getNom()));
+                $oTabItem->setIcon($oItems->getIcon());
+                $oTabItem->setIdBnet($oItems->getIdBnet());
+                $this->insert($oTabItem);
+                $oTabItem->setIdItem($this->lastInsertValue);
+            } catch (\Exception $exc) {
+                throw new DatabaseException(3000, 2, $this->_getServiceLocator()->get('translator'));
+            }
         }
 
         return $oTabItem;

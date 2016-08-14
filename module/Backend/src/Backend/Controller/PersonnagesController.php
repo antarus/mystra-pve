@@ -3,8 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
-use \Bnet\Region;
-use \Bnet\ClientFactory;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -212,22 +211,22 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             try {
                 $this->getTablePersonnage()->importPersonnage($aPost);
                 $this->getTablePersonnage()->commit();
-
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnage a été importé avec succès avec succès."), 'success');
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTablePersonnage()->rollback();
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de l'import du personnage."), 'error');
-                return null;
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $result = new JsonModel(array(
+                    'error' => $aAjaxEx
+                ));
+                return $result;
             }
         }
-        // Pour optimiser le rendu
-
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/personnages/import/import');
-        $oViewModel->setVariable("perso", $aOptPersonnage);
-        //$oViewModel->setVariable("id", $iId);
-        return $oViewModel;
+        $result = new JsonModel(array(
+            'success' => array(
+                'msg' => $this->_getServTranslator()->translate('Personnage importé avec succès')
+            )
+        ));
+        return $result;
     }
 
 }

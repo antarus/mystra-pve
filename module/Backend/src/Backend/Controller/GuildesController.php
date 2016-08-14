@@ -3,8 +3,6 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
-use \Commun\Exception\BnetException;
-use Commun\Exception\DatabaseException;
 use Zend\View\Model\JsonModel;
 
 /**

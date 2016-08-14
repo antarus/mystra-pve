@@ -1,6 +1,6 @@
 <h1><?php echo $this->translate("Importer un raid") ?></h1>
 
-<form id="frm1" method='post' action="<?php echo $this->url('backend-raids-import-traitement', array('id' => $this->id)) ?>" class="form-inline">
+<form id="frmAjax" method='post' action="<?php echo $this->url('backend-raids-import-traitement', array('id' => $this->id)) ?>" class="form-inline">
     <fieldset>
         <div class="control-group">
             <label class="control-label"><?php echo $this->translate("Serveur") ?></label>

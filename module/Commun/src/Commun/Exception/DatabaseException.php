@@ -8,7 +8,8 @@ class DatabaseException extends \Exception {
         5000 => "Erreur inconnue",
         1000 => "guilde",
         2000 => "personnage",
-        3000 => "item"
+        3000 => "item",
+        4000 => "raid"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -68,6 +69,11 @@ class DatabaseException extends \Exception {
         3002 => "Erreur lors la création de l'item",
         3003 => "Erreur lors de la suppression de l'item",
         3004 => "Erreur lors du listing des items",
+        // raid
+        4001 => "Erreur lors la mise à jour du raid",
+        4002 => "Erreur lors la création  du raid",
+        4003 => "Erreur lors de la suppression  du raid",
+        4004 => "Erreur lors du listing  du raid",
     );
 
 }

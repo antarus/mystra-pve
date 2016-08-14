@@ -3,6 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -210,17 +211,19 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTable()->rollback();
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de l'item."), 'error');
-                return null;
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $result = new JsonModel(array(
+                    'error' => $aAjaxEx
+                ));
+                return $result;
             }
         }
-        // Pour optimiser le rendu
-
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/items/import/import');
-        $oViewModel->setVariable("item", $aOptItem);
-        //$oViewModel->setVariable("id", $iId);
-        return $oViewModel;
+        $result = new JsonModel(array(
+            'success' => array(
+                'msg' => $this->_getServTranslator()->translate('Item importé avec succès')
+            )
+        ));
+        return $result;
     }
 
 }

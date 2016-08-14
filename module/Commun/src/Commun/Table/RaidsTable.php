@@ -2,6 +2,9 @@
 
 namespace Commun\Table;
 
+use \Commun\Exception\BnetException;
+use \Commun\Exception\DatabaseException;
+
 /**
  * @author Antarus
  * @project Mystra

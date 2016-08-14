@@ -18,3 +18,42 @@ url : /apigility/ui#/
 
 exemple API
 http://localhost:48081/api/character/garona/antaruss
+
+
+
+
+CODE ERREUR :
+=========
+
+DatabaseException :
+--------------
+
+5000 => 'Erreur incconue',
+// guilde
+1001 => "Erreur lors la mise à jour de la guilde",
+1002 => "Erreur lors la création de la guilde",
+1003 => "Erreur lors de la suppression de la guilde",
+1004 => "Erreur lors du listing des guildes",
+// personnage
+2001 => "Erreur lors la mise à jour du personnage",
+2002 => "Erreur lors la création du personnage",
+2003 => "Erreur lors de la suppression du personnage",
+2004 => "Erreur lors du listing des personnages",
+// item
+3001 => "Erreur lors la mise à jour de l'item",
+3002 => "Erreur lors la création de l'item",
+3003 => "Erreur lors de la suppression de l'item",
+3004 => "Erreur lors du listing des items",
+// raid
+4001 => "Erreur lors la mise à jour du raid",
+4002 => "Erreur lors la création  du raid",
+4003 => "Erreur lors de la suppression  du raid",
+4004 => "Erreur lors du listing  du raid",
+
+
+BnetException :
+--------------
+500 => "Erreur inconnue",
+199 => "Guilde ou Serveur inconnue",
+299 => "Personnage ou Serveur inconnu",
+399 => "Item inconnu"

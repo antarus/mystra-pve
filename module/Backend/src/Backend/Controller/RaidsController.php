@@ -3,6 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -276,10 +277,6 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             'eqdkp' => '',
         );
         $this->layout('layout/ajax');
-        // Pour optimiser le rendu
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/raids/import/import');
-        $oViewModel->setVariable("import", $aOptImpRaid);
 
         $oRequest = $this->getRequest();
 
@@ -289,23 +286,33 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->getTableRaid()->beginTransaction();
                 $aRaid = $this->importEqdkp($aPost['txtImport']);
                 if (!isset($aRaid['head']['export']['name']) || $aRaid['head']['export']['name'] !== "EQdkp Plus XML") {
-                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("format non reconnu"), 'error');
+                    $result = new JsonModel(array(
+                        'error' => array(
+                            'code' => 500,
+                            'msg' => 'format XML non reconnu'
+                        )
+                    ));
+                    return $result;
                 } else {
                     $this->saveImport($aRaid, $aPost['serveur']);
                 }
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le raid a été importé avec succès."), 'success');
                 $this->getTableRaid()->commit();
             } catch (\Exception $ex) {
-                // var_dump($ex);
                 // on rollback en cas d'erreur
                 $this->getTableRaid()->rollback();
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de l'import du raid."), 'error');
-                return null;
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $result = new JsonModel(array(
+                    'error' => $aAjaxEx
+                ));
+                return $result;
             }
         }
-
-
-        return $oViewModel;
+        $result = new JsonModel(array(
+            'success' => array(
+                'msg' => $this->_getServTranslator()->translate('Raid importée avec succès')
+            )
+        ));
+        return $result;
     }
 
     private function saveImport(array $aRaid, $sServeur) {
