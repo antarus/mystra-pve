@@ -17,20 +17,24 @@ SET FOREIGN_KEY_CHECKS=0;
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données: `mystra_pve`
+-- Base de données: `raid_tracker`
 --
-USE `raid_tracker`;
 
 --
 -- Vider la table avant d'insérer `bosses`
 --
 
 TRUNCATE TABLE `bosses`;
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `bosses_has_npc`
 --
 
 TRUNCATE TABLE `bosses_has_npc`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `classes`
 --
@@ -54,31 +58,45 @@ INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
 (11, '#FF7C0A', 'Druid', NULL),
 (12, '#A330C9', 'Demon Hunter', NULL);
 
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `evenements`
 --
 
 TRUNCATE TABLE `evenements`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `evenements_personnage`
 --
 
 TRUNCATE TABLE `evenements_personnage`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `evenements_roles`
 --
 
 TRUNCATE TABLE `evenements_roles`;
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `evenements_template`
 --
 
 TRUNCATE TABLE `evenements_template`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `evenements_template_roles`
 --
 
 TRUNCATE TABLE `evenements_template_roles`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `faction`
 --
@@ -92,21 +110,29 @@ INSERT INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
 (0, 'Alliance', NULL),
 (1, 'Horde', NULL);
 
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `guildes`
 --
 
 TRUNCATE TABLE `guildes`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `items`
 --
 
 TRUNCATE TABLE `items`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `item_personnage_raid`
 --
 
 TRUNCATE TABLE `item_personnage_raid`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `mode_difficulte`
 --
@@ -125,21 +151,23 @@ INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 (6, 'Donjon HM', 'DUNGEON_HEROIC'),
 (7, 'Donjon MM', 'DUNGEON_MYTHIC');
 
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `npc`
 --
 
 TRUNCATE TABLE `npc`;
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `personnages`
 --
 
 TRUNCATE TABLE `personnages`;
---
--- Vider la table avant d'insérer `personnages_has_specialisation`
---
+-- --------------------------------------------------------
 
-TRUNCATE TABLE `personnages_has_specialisation`;
 --
 -- Vider la table avant d'insérer `race`
 --
@@ -166,16 +194,24 @@ INSERT INTO `race` (`idRace`, `nom`, `icon`) VALUES
 (25, 'Pandaren', NULL),
 (26, 'Pandaren', NULL);
 
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `raids`
 --
 
 TRUNCATE TABLE `raids`;
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `raid_personnage`
 --
 
 TRUNCATE TABLE `raid_personnage`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `role`
 --
@@ -191,16 +227,24 @@ INSERT INTO `role` (`idRole`, `nom`) VALUES
 (3, 'DPS Cac'),
 (4, 'DPS Distant');
 
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `roster`
 --
 
 TRUNCATE TABLE `roster`;
+-- --------------------------------------------------------
+
+
 --
 -- Vider la table avant d'insérer `roster_has_personnage`
 --
 
 TRUNCATE TABLE `roster_has_personnage`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `specialisation`
 --
@@ -246,26 +290,38 @@ INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, 
 (33, 11, 1, 'Gardien', 'ability_racial_bearform'),
 (34, 11, 2, 'Restauration', 'spell_nature_healingtouch');
 
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `users`
 --
 
 TRUNCATE TABLE `users`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `zone`
 --
 
 TRUNCATE TABLE `zone`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `zone_has_bosses`
 --
 
 TRUNCATE TABLE `zone_has_bosses`;
+-- --------------------------------------------------------
+
 --
 -- Vider la table avant d'insérer `zone_has_mode_diffculte`
 --
 
 TRUNCATE TABLE `zone_has_mode_diffculte`;
+--
+-- Contraintes pour les tables exportées
+--
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

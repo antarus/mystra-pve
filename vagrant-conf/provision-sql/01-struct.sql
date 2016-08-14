@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- GÃ©nÃ©rÃ© le: Sam 20 FÃ©vrier 2016 Ã  12:22
--- Version du serveur: 5.5.47-0ubuntu0.14.04.1
--- Version de PHP: 5.5.9-1ubuntu4.14
+-- Généré le: Dim 14 Août 2016 à 13:21
+-- Version du serveur: 5.5.50-0ubuntu0.14.04.1
+-- Version de PHP: 5.5.9-1ubuntu4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de donnÃ©es: `mystra_pve`
+-- Base de données: `raid_tracker`
 --
 CREATE DATABASE IF NOT EXISTS `raid_tracker` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 USE `raid_tracker`;
@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS `bosses` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `bosses_has_npc`
@@ -51,7 +50,6 @@ CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
   KEY `fk_bosses_has_npc_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `classes`
@@ -63,9 +61,8 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `nom` varchar(45) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idClasses`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements`
@@ -95,7 +92,6 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   KEY `fk_evenements_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_personnage`
@@ -113,8 +109,6 @@ CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   KEY `fk_evenement_personnage_personnage1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `evenements_roles`
 --
@@ -130,7 +124,6 @@ CREATE TABLE IF NOT EXISTS `evenements_roles` (
   KEY `fk_evenements_roles_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_template`
@@ -156,7 +149,6 @@ CREATE TABLE IF NOT EXISTS `evenements_template` (
   KEY `fk_evenements_template_roster1_idx` (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_template_roles`
@@ -172,7 +164,6 @@ CREATE TABLE IF NOT EXISTS `evenements_template_roles` (
   KEY `fk_evenements_template_roles_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `faction`
@@ -183,9 +174,8 @@ CREATE TABLE IF NOT EXISTS `faction` (
   `nom` varchar(45) NOT NULL,
   `logo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idFaction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `guildes`
@@ -202,7 +192,6 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   KEY `fk_guildes_faction1_idx` (`idFaction`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `items`
@@ -219,7 +208,6 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `item_personnage_raid`
@@ -238,7 +226,6 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_personnages1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `mode_difficulte`
@@ -251,7 +238,6 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
   PRIMARY KEY (`idMode`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `npc`
@@ -262,8 +248,6 @@ CREATE TABLE IF NOT EXISTS `npc` (
   `nom` varchar(45) NOT NULL,
   PRIMARY KEY (`idNpc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `personnages`
@@ -287,24 +271,7 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   KEY `fk_personnages_faction1_idx` (`idFaction`),
   KEY `fk_personnages_classes1_idx` (`idClasses`),
   KEY `fk_personnages_race1_idx` (`idRace`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `personnages_has_specialisation`
---
-
-CREATE TABLE IF NOT EXISTS `personnages_has_specialisation` (
-  `specialisation_idSpecialisation` int(11) NOT NULL,
-  `personnages_idPersonnage` int(11) NOT NULL,
-  `isPrincipal` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`specialisation_idSpecialisation`,`personnages_idPersonnage`),
-  KEY `fk_specialisation_has_personnages_personnages1_idx` (`personnages_idPersonnage`),
-  KEY `fk_specialisation_has_personnages_specialisation1_idx` (`specialisation_idSpecialisation`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Structure de la table `race`
@@ -317,7 +284,6 @@ CREATE TABLE IF NOT EXISTS `race` (
   PRIMARY KEY (`idRace`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `raids`
@@ -335,7 +301,6 @@ CREATE TABLE IF NOT EXISTS `raids` (
   KEY `fk_raids_evenements1_idx` (`idEvenements`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `raid_personnage`
@@ -349,7 +314,6 @@ CREATE TABLE IF NOT EXISTS `raid_personnage` (
   KEY `fk_raid_personnage_personnages1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `role`
@@ -361,7 +325,6 @@ CREATE TABLE IF NOT EXISTS `role` (
   PRIMARY KEY (`idRole`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `roster`
@@ -373,8 +336,6 @@ CREATE TABLE IF NOT EXISTS `roster` (
   PRIMARY KEY (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
 -- Structure de la table `roster_has_personnage`
 --
@@ -382,12 +343,13 @@ CREATE TABLE IF NOT EXISTS `roster` (
 CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
   `idRoster` int(11) NOT NULL,
   `idPersonnage` int(11) NOT NULL,
-  PRIMARY KEY (`idRoster`,`idPersonnage`),
+  `idRole` int(11) NOT NULL,
+  PRIMARY KEY (`idRoster`,`idPersonnage`,`idRole`),
   KEY `fk_roster_has_personnage_personnage1_idx` (`idPersonnage`),
-  KEY `fk_roster_has_personnage_roster1_idx` (`idRoster`)
+  KEY `fk_roster_has_personnage_roster1_idx` (`idRoster`),
+  KEY `fk_roster_has_personnage_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `specialisation`
@@ -404,7 +366,6 @@ CREATE TABLE IF NOT EXISTS `specialisation` (
   KEY `fk_specialisation_role1_idx` (`idRole`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `users`
@@ -421,8 +382,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   `forgetPass` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`idUsers`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
 
 --
 -- Structure de la table `zone`
@@ -442,7 +401,6 @@ CREATE TABLE IF NOT EXISTS `zone` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `zone_has_bosses`
@@ -456,7 +414,6 @@ CREATE TABLE IF NOT EXISTS `zone_has_bosses` (
   KEY `fk_zone_has_bosses_zone1_idx` (`idZone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
 
 --
 -- Structure de la table `zone_has_mode_diffculte`
@@ -471,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contraintes pour les tables exportÃ©es
+-- Contraintes pour les tables exportées
 --
 
 --
@@ -544,13 +501,6 @@ ALTER TABLE `personnages`
   ADD CONSTRAINT `fk_personnage_users1` FOREIGN KEY (`idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `personnages_has_specialisation`
---
-ALTER TABLE `personnages_has_specialisation`
-  ADD CONSTRAINT `fk_specialisation_has_personnages_personnages1` FOREIGN KEY (`personnages_idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_specialisation_has_personnages_specialisation1` FOREIGN KEY (`specialisation_idSpecialisation`) REFERENCES `specialisation` (`idSpecialisation`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
 -- Contraintes pour la table `raids`
 --
 ALTER TABLE `raids`
@@ -567,6 +517,7 @@ ALTER TABLE `raid_personnage`
 -- Contraintes pour la table `roster_has_personnage`
 --
 ALTER TABLE `roster_has_personnage`
+  ADD CONSTRAINT `fk_roster_has_personnage_role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`idRole`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_roster_has_personnage_personnage1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_roster_has_personnage_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

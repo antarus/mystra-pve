@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Mystra
  */
-class RosterHasPersonnage extends \Core\Model\AbstractModel
-{
+class RosterHasPersonnage extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idRoster
@@ -30,13 +29,22 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
     public $idPersonnage = null;
 
     /**
+     * Colonne: idRole
+     *
+     * Reference to role.idRole
+     *
+     * @var int
+     */
+    public $idRole = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -45,8 +53,8 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -55,8 +63,8 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -65,8 +73,8 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -75,8 +83,8 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -85,8 +93,8 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -94,8 +102,7 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdRoster()
-    {
+    public function getIdRoster() {
         return intval($this->idRoster);
     }
 
@@ -104,8 +111,7 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdRoster($value)
-    {
+    public function setIdRoster($value) {
         $this->idRoster = $value;
     }
 
@@ -114,8 +120,7 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdPersonnage()
-    {
+    public function getIdPersonnage() {
         return intval($this->idPersonnage);
     }
 
@@ -124,11 +129,26 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdPersonnage($value)
-    {
+    public function setIdPersonnage($value) {
         $this->idPersonnage = $value;
     }
 
+    /**
+     * Retourne la valeur idRole.
+     *
+     * @return int
+     */
+    public function getIdRole() {
+        return intval($this->idRole);
+    }
+
+    /**
+     * Définit la valeur pour idRole
+     *
+     * @param int
+     */
+    public function setIdRole($value) {
+        $this->idRole = $value;
+    }
 
 }
-

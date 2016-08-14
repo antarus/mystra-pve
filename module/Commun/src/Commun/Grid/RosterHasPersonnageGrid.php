@@ -50,6 +50,11 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
+        'idRole' => array(
+            'title' => 'IdRole',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'edit' => array(
             'title' => 'Modifier',
             'width' => '100',
@@ -122,6 +127,12 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
                         $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
                         if ($value != null) {
                             $query->where("idPersonnage = '" . $value . "' ");
+                        }
+
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('idRole');
+                        if ($value != null) {
+                            $query->where("idRole = '" . $value . "' ");
                         }
                     }
 

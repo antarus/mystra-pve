@@ -50,3 +50,5 @@ config/autoload/local.php
 config/autoload/*.local.php
 data/cache/*
 !data/cache/.gitkeep
+docs/mystra-pve.mwb.bak
+*.bak
