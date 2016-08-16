@@ -85,16 +85,16 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'Guildes' => array(
+        'guilde' => array(
             'title' => 'Guilde',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idUsers' => array(
-            'title' => 'IdUsers',
-            'width' => '100',
-            'filters' => 'text',
-        ),
+//        'idUsers' => array(
+//            'title' => 'IdUsers',
+//            'width' => '100',
+//            'filters' => 'text',
+//        ),
         'edit' => array(
             'title' => 'Modifier',
             'width' => '100',
@@ -164,56 +164,61 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                      * @param \Zend\Db\Sql\Select $query
                      */
                     protected function initFilters($query) {
-//                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
-//                        if ($value != null) {
-//                            $query->where("idPersonnage = '" . $value . "' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-//                        if ($value != null) {
-//                            $query->where("nom like '%" . $value . "%' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
-//                        if ($value != null) {
-//                            $query->where("niveau like '%" . $value . "%' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('genre');
-//                        if ($value != null) {
-//                            $query->where("genre = '" . $value . "' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
-//                        if ($value != null) {
-//                            $query->where("miniature like '%" . $value . "%' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
-//                        if ($value != null) {
-//                            $query->where("royaume like '%" . $value . "%' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
-//                        if ($value != null) {
-//                            $query->where("idFaction = '" . $value . "' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('idClasses');
-//                        if ($value != null) {
-//                            $query->where("idClasses = '" . $value . "' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('idRace');
-//                        if ($value != null) {
-//                            $query->where("idRace = '" . $value . "' ");
-//                        }
-//
-//                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
-//                        if ($value != null) {
-//                            $query->where("idGuildes = '" . $value . "' ");
-//                        }
-//
+                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
+                        if ($value != null) {
+                            $query->where("idPersonnage = '" . $value . "' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                        if ($value != null) {
+                            $query->where("p.nom like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+                        if ($value != null) {
+                            $query->where("p.niveau = '" . $value . "' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('genre');
+                        if ($value != null) {
+                            if (strtolower($value) == 'female') {
+                                $value = '0';
+                            } else {
+                                $value = '1';
+                            }
+                            $query->where("p.genre = '" . $value . "' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
+                        if ($value != null) {
+                            $query->where("p.miniature like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
+                        if ($value != null) {
+                            $query->where("p.royaume like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('faction');
+                        if ($value != null) {
+                            $query->where("f.nom like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('classe');
+                        if ($value != null) {
+                            $query->where("c.nom like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('race');
+                        if ($value != null) {
+                            $query->where("r.nom like '%" . $value . "%' ");
+                        }
+
+                        $value = $this->getParamAdapter()->getValueOfFilter('guilde');
+                        if ($value != null) {
+                            $query->where("g.nom like '%" . $value . "%' ");
+                        }
+
 //                        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
 //                        if ($value != null) {
 //                            $query->where("idUsers = '" . $value . "' ");

@@ -344,11 +344,13 @@ CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
   `idRoster` int(11) NOT NULL,
   `idPersonnage` int(11) NOT NULL,
   `idRole` int(11) NOT NULL,
+  `isApply` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idRoster`,`idPersonnage`,`idRole`),
   KEY `fk_roster_has_personnage_personnage1_idx` (`idPersonnage`),
   KEY `fk_roster_has_personnage_roster1_idx` (`idRoster`),
   KEY `fk_roster_has_personnage_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 --
