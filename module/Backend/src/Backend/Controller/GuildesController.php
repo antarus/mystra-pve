@@ -80,7 +80,7 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Guildes();
+            $oEntite = new \Commun\Model\Guildes();
 
             $oForm->setData($oRequest->getPost());
 

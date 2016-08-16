@@ -79,7 +79,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Items();
+            $oEntite = new \Commun\Model\Items();
 
             $oForm->setData($oRequest->getPost());
 

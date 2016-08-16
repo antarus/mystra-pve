@@ -85,7 +85,7 @@ class ItemPersonnageRaidController extends \Zend\Mvc\Controller\AbstractActionCo
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\ItemPersonnageRaid();
+            $oEntite = new \Commun\Model\ItemPersonnageRaid();
         
             $oForm->setData($oRequest->getPost());
         

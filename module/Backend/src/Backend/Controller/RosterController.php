@@ -10,11 +10,9 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Mystra
  */
-class RosterController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
-
     public $_table = null;
 
     /**
@@ -22,8 +20,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -35,8 +32,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function getTable()
-    {
+    public function getTable() {
         if (!$this->_table) {
             $this->_table = $this->getServiceLocator()->get('\Commun\Table\RosterTable');
         }
@@ -49,8 +45,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('backend/roster/list');
@@ -62,9 +57,8 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\RosterGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $oTable = new \Commun\Grid\RosterGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
                 ->setSource($this->getTable()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
@@ -76,19 +70,18 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\RosterForm();//new \Commun\Form\RosterForm($this->getServiceLocator());
+    public function createAction() {
+        $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
-        
+
         $oFiltre = new \Commun\Filter\RosterFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Roster();
-        
+            $oEntite = new \Commun\Model\Roster();
+
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
@@ -107,8 +100,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
             $oEntite = $this->getTable()->findRow($id);
@@ -117,19 +109,19 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
                 return $this->redirect()->toRoute('backend-roster-list');
             }
         } catch (Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
-           return $this->redirect()->toRoute('backend-roster-list');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
+            return $this->redirect()->toRoute('backend-roster-list');
         }
-        $oForm = new \Commun\Form\RosterForm();//new \Commun\Form\RosterForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\RosterFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été modifié avec succès."), 'success');
@@ -147,8 +139,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-roster-list');
@@ -165,8 +156,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +165,11 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
-
 }
-

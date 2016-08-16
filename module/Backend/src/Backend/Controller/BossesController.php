@@ -85,7 +85,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Bosses();
+            $oEntite = new \Commun\Model\Bosses();
         
             $oForm->setData($oRequest->getPost());
         

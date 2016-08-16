@@ -6,25 +6,25 @@ namespace Commun\Form;
  * @author Antarus
  * @project Mystra
  */
-class PersonnagesForm extends \Core\Form\AbstractForm
-{
+class PersonnagesForm extends \Core\Form\AbstractServiceForm {
 
-    public function __construct()
-    {
-        parent::__construct('personnages');
+//    public function __construct()
+//    {
+
+    public function __construct(\Zend\ServiceManager\ServiceLocatorInterface $oServLocat = null) {
+        parent::__construct('personnages', $oServLocat);
         $this->setAttribute('method', 'post');
-
         $this->add(array(
-           'name' => 'idPersonnage',
-           'attributes' => array(
-               'type'  => 'hidden',
-           ),
+            'name' => 'idPersonnage',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
         ));
 
         $this->add(array(
             'name' => 'nom',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -35,7 +35,7 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'niveau',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -45,19 +45,24 @@ class PersonnagesForm extends \Core\Form\AbstractForm
 
         $this->add(array(
             'name' => 'genre',
+            'type' => 'Zend\Form\Element\Select',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
                 'label' => 'Genre',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---'),
+                'value_options' => array(
+                    '0' => 'Female',
+                    '1' => 'Male'
+                )
             ),
         ));
 
         $this->add(array(
             'name' => 'miniature',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -68,7 +73,7 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'royaume',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -76,65 +81,125 @@ class PersonnagesForm extends \Core\Form\AbstractForm
             ),
         ));
 
+//        $this->add(array(
+//            'name' => 'idFaction',
+//            'attributes' => array(
+//                'type' => 'text',
+//                'class' => 'form-control'
+//            ),
+//            'options' => array(
+//                'label' => 'IdFaction',
+//            ),
+//        ));
         $this->add(array(
+            'type' => 'Core\Form\Element\ObjectSelect',
             'name' => 'idFaction',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdFaction',
+                'label' => 'Faction',
+                'service_manager' => $this->getServiceLocator(),
+                'target_class' => 'Commun\Table\FactionTable',
+                'property' => 'nom',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---')
             ),
         ));
 
         $this->add(array(
+            'type' => 'Core\Form\Element\ObjectSelect',
             'name' => 'idClasses',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdClasses',
+                'label' => 'Classes',
+                'service_manager' => $this->getServiceLocator(),
+                'target_class' => 'Commun\Table\ClassesTable',
+                'property' => 'nom',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---')
             ),
         ));
 
+
+//        $this->add(array(
+//            'name' => 'idRace',
+//            'attributes' => array(
+//                'type' => 'text',
+//                'class' => 'form-control'
+//            ),
+//            'options' => array(
+//                'label' => 'IdRace',
+//            ),
+//        ));
         $this->add(array(
+            'type' => 'Core\Form\Element\ObjectSelect',
             'name' => 'idRace',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdRace',
+                'label' => 'Race',
+                'service_manager' => $this->getServiceLocator(),
+                'target_class' => 'Commun\Table\RaceTable',
+                'property' => 'nom',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---')
             ),
         ));
 
+
+//        $this->add(array(
+//            'name' => 'idGuildes',
+//            'attributes' => array(
+//                'type' => 'text',
+//                'class' => 'form-control'
+//            ),
+//            'options' => array(
+//                'label' => 'IdGuildes',
+//            ),
+//        ));
         $this->add(array(
+            'type' => 'Core\Form\Element\ObjectSelect',
             'name' => 'idGuildes',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdGuildes',
+                'label' => 'Guilde',
+                'service_manager' => $this->getServiceLocator(),
+                'target_class' => 'Commun\Table\GuildesTable',
+                'property' => 'nom',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---')
             ),
         ));
-
+//        $this->add(array(
+//            'name' => 'idUsers',
+//            'attributes' => array(
+//                'type' => 'text',
+//                'class' => 'form-control'
+//            ),
+//            'options' => array(
+//                'label' => 'IdUsers',
+//            ),
+//        ));
         $this->add(array(
+            'type' => 'Core\Form\Element\ObjectSelect',
             'name' => 'idUsers',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdUsers',
+                'label' => 'Utilisateur',
+                'service_manager' => $this->getServiceLocator(),
+                'target_class' => 'Commun\Table\UsersTable',
+                'property' => 'nom',
+                'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---')
             ),
         ));
-
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type' => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
                 'class' => 'form-control btn-success',
@@ -143,6 +208,4 @@ class PersonnagesForm extends \Core\Form\AbstractForm
         ));
     }
 
-
 }
-

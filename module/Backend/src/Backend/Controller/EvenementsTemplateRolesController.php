@@ -85,7 +85,7 @@ class EvenementsTemplateRolesController extends \Zend\Mvc\Controller\AbstractAct
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\EvenementsTemplateRoles();
+            $oEntite = new \Commun\Model\EvenementsTemplateRoles();
         
             $oForm->setData($oRequest->getPost());
         

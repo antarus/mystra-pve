@@ -85,7 +85,7 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Npc();
+            $oEntite = new \Commun\Model\Npc();
         
             $oForm->setData($oRequest->getPost());
         

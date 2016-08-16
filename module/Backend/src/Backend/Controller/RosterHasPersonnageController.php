@@ -85,7 +85,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\RosterHasPersonnage();
+            $oEntite = new \Commun\Model\RosterHasPersonnage();
         
             $oForm->setData($oRequest->getPost());
         

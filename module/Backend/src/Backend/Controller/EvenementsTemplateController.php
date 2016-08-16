@@ -85,7 +85,7 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\EvenementsTemplate();
+            $oEntite = new \Commun\Model\EvenementsTemplate();
         
             $oForm->setData($oRequest->getPost());
         

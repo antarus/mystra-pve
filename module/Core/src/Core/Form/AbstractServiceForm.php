@@ -15,6 +15,7 @@ abstract class AbstractServiceForm extends AbstractForm {
      * @var \Zend\ServiceManager\ServiceLocatorInterface
      */
     private $_serviceLocator;
+    private $translator;
 
     /**
      * Constructeur.
@@ -25,6 +26,7 @@ abstract class AbstractServiceForm extends AbstractForm {
     function __construct($sNom, \Zend\ServiceManager\ServiceLocatorInterface $oServLocat = null, $options = array()) {
         parent::__construct($sNom, $options);
         $this->_serviceLocator = $oServLocat;
+        $this->translator = $this->_serviceLocator->get('translator');
     }
 
     /**
@@ -41,6 +43,22 @@ abstract class AbstractServiceForm extends AbstractForm {
      */
     function setServiceLocator(\Zend\ServiceManager\ServiceLocatorInterface $oServLocat) {
         $this->_serviceLocator = $oServLocat;
+    }
+
+    /**
+     * Retourne le translator.
+     * @return translator
+     */
+    function getTranslator() {
+        return $this->translator;
+    }
+
+    /**
+     * Définit le translator
+     * @param type $oTranslator
+     */
+    protected function setTranslator($oTranslator) {
+        $this->translator = $oTranslator;
     }
 
 }

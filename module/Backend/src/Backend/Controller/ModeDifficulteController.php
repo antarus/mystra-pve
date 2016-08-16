@@ -85,7 +85,7 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\ModeDifficulte();
+            $oEntite = new \Commun\Model\ModeDifficulte();
         
             $oForm->setData($oRequest->getPost());
         

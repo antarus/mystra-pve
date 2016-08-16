@@ -85,7 +85,7 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Role();
+            $oEntite = new \Commun\Model\Role();
         
             $oForm->setData($oRequest->getPost());
         

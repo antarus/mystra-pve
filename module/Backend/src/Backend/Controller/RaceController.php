@@ -85,7 +85,7 @@ class RaceController extends \Zend\Mvc\Controller\AbstractActionController
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Race();
+            $oEntite = new \Commun\Model\Race();
         
             $oForm->setData($oRequest->getPost());
         

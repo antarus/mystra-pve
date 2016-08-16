@@ -85,7 +85,7 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\BossesHasNpc();
+            $oEntite = new \Commun\Model\BossesHasNpc();
         
             $oForm->setData($oRequest->getPost());
         

@@ -85,7 +85,7 @@ class SpecialisationController extends \Zend\Mvc\Controller\AbstractActionContro
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Specialisation();
+            $oEntite = new \Commun\Model\Specialisation();
         
             $oForm->setData($oRequest->getPost());
         

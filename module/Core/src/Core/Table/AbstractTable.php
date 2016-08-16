@@ -295,7 +295,7 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
     }
 
     /**
-     * Retourne le selec query deja configuré par l'adapter et le nom de la table.
+     * Retourne le select query deja configuré par l'adapter et le nom de la table.
      *
      * @return Zend\Db\Sql\Select
      */

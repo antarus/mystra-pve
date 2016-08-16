@@ -61,7 +61,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
     public function ajaxListAction() {
         $oTable = new \Commun\Grid\PersonnagesGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
-                ->setSource($this->getTablePersonnage()->getBaseQuery())
+                ->setSource($this->getTablePersonnage()->getQueryAjaxListe())
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
     }
@@ -72,14 +72,14 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
      * @return array
      */
     public function createAction() {
-        $oForm = new \Commun\Form\PersonnagesForm(); //new \Commun\Form\PersonnagesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PersonnagesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
 
         $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Personnages();
+            $oEntite = new \Commun\Model\Personnages();
 
             $oForm->setData($oRequest->getPost());
 
@@ -113,7 +113,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages."), 'error');
             return $this->redirect()->toRoute('backend-personnages-list');
         }
-        $oForm = new \Commun\Form\PersonnagesForm(); //new \Commun\Form\PersonnagesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PersonnagesForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\PersonnagesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);

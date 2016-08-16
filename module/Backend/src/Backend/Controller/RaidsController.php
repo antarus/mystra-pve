@@ -144,7 +144,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Raids();
+            $oEntite = new \Commun\Model\Raids();
 
             $oForm->setData($oRequest->getPost());
 

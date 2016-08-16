@@ -78,7 +78,7 @@ class ClassesController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Classes();
+            $oEntite = new \Commun\Model\Classes();
 
             $oForm->setData($oRequest->getPost());
 

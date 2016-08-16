@@ -78,7 +78,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Faction();
+            $oEntite = new \Commun\Model\Faction();
 
             $oForm->setData($oRequest->getPost());
 

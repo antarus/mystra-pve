@@ -85,7 +85,7 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\EvenementsPersonnage();
+            $oEntite = new \Commun\Model\EvenementsPersonnage();
         
             $oForm->setData($oRequest->getPost());
         

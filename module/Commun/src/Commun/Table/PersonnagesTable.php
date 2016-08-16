@@ -47,6 +47,47 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
     }
 
     /**
+     * Retourne la query de base pour l'affichage de la liste des personnages.
+     * @return Zend\Db\Sql\Select
+     */
+    function getQueryAjaxListe() {
+//        select p.id, p.nom, p.niveau, c.nom as classe, r.nom as race, f.nom as faction, p.genre, p.royaume, g.nom from personnages p
+//        inner join classes c
+//        on c.idClasses = p.idClasses
+//        inner join race r
+//        on r.idRace = p.idRace
+//        inner join faction f
+//        on f.idFaction = p.idFaction
+//        left join guildes g
+//        on g.idGuildes = p.idGuildes
+        //  $this->getAdapter()->getDriver()->getConnection()->execute($sql)
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $query = $sql->select();
+
+        $query->columns(array(
+                    'idPersonnage',
+                    'nom',
+                    'niveau',
+                    'royaume',
+                    'miniature',
+                    'genre'
+                ))
+                ->from(array('p' => 'personnages'))
+                ->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('classe' => 'nom',
+                    'c_classeId' => 'idClasses'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('r' => 'race'), 'r.idRace = p.idRace', array('race' => 'nom',
+                    'r_raceId' => 'idRace'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('f' => 'faction'), 'f.idFaction = p.idFaction', array('faction' => 'nom',
+                    'r_factionId' => 'idFaction'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('g' => 'guildes'), 'g.idGuildes = p.idGuildes', array('guilde' => 'nom',
+                    'g_guildeId' => 'idGuildes'), \Zend\Db\Sql\Select::JOIN_LEFT);
+        ;
+
+        // $this->debug($query);
+        return $query;
+    }
+
+    /**
      * import un personnage depuis un tableau.
      * @param array $aPost
      * @param \Commun\Model\Guildes $oGuilde

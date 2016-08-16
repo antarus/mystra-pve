@@ -85,7 +85,7 @@ class ZoneHasModeDiffculteController extends \Zend\Mvc\Controller\AbstractAction
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\ZoneHasModeDiffculte();
+            $oEntite = new \Commun\Model\ZoneHasModeDiffculte();
         
             $oForm->setData($oRequest->getPost());
         

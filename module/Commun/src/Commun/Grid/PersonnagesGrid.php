@@ -70,23 +70,23 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'idFaction' => array(
-            'title' => 'IdFaction',
+        'faction' => array(
+            'title' => 'Faction',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idClasses' => array(
-            'title' => 'IdClasses',
+        'classe' => array(
+            'title' => 'classe',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idRace' => array(
-            'title' => 'IdRace',
+        'race' => array(
+            'title' => 'Race',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idGuildes' => array(
-            'title' => 'IdGuildes',
+        'Guildes' => array(
+            'title' => 'Guilde',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -141,6 +141,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
+        $this->getHeader("genre")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                return $record["genre"] == 0 ? 'Female' : 'Male';
+            }
+        ));
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
                 return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-personnages-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
@@ -159,60 +164,60 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                      * @param \Zend\Db\Sql\Select $query
                      */
                     protected function initFilters($query) {
-                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
-                        if ($value != null) {
-                            $query->where("idPersonnage = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-                        if ($value != null) {
-                            $query->where("nom like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
-                        if ($value != null) {
-                            $query->where("niveau like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('genre');
-                        if ($value != null) {
-                            $query->where("genre = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
-                        if ($value != null) {
-                            $query->where("miniature like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
-                        if ($value != null) {
-                            $query->where("royaume like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
-                        if ($value != null) {
-                            $query->where("idFaction = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idClasses');
-                        if ($value != null) {
-                            $query->where("idClasses = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idRace');
-                        if ($value != null) {
-                            $query->where("idRace = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
-                        if ($value != null) {
-                            $query->where("idGuildes = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
-                        if ($value != null) {
-                            $query->where("idUsers = '" . $value . "' ");
-                        }
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
+//                        if ($value != null) {
+//                            $query->where("idPersonnage = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
+//                        if ($value != null) {
+//                            $query->where("nom like '%" . $value . "%' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+//                        if ($value != null) {
+//                            $query->where("niveau like '%" . $value . "%' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('genre');
+//                        if ($value != null) {
+//                            $query->where("genre = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
+//                        if ($value != null) {
+//                            $query->where("miniature like '%" . $value . "%' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('royaume');
+//                        if ($value != null) {
+//                            $query->where("royaume like '%" . $value . "%' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
+//                        if ($value != null) {
+//                            $query->where("idFaction = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idClasses');
+//                        if ($value != null) {
+//                            $query->where("idClasses = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idRace');
+//                        if ($value != null) {
+//                            $query->where("idRace = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
+//                        if ($value != null) {
+//                            $query->where("idGuildes = '" . $value . "' ");
+//                        }
+//
+//                        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
+//                        if ($value != null) {
+//                            $query->where("idUsers = '" . $value . "' ");
+//                        }
                     }
 
                 }

@@ -85,7 +85,7 @@ class RaidPersonnageController extends \Zend\Mvc\Controller\AbstractActionContro
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\RaidPersonnage();
+            $oEntite = new \Commun\Model\RaidPersonnage();
         
             $oForm->setData($oRequest->getPost());
         

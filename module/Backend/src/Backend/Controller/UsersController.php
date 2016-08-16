@@ -85,7 +85,7 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Users();
+            $oEntite = new \Commun\Model\Users();
         
             $oForm->setData($oRequest->getPost());
         

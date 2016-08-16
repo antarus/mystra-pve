@@ -85,7 +85,7 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
         $oForm->setInputFilter($oFiltre->getInputFilter());
         
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\ZoneHasBosses();
+            $oEntite = new \Commun\Model\ZoneHasBosses();
         
             $oForm->setData($oRequest->getPost());
         

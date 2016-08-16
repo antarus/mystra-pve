@@ -170,7 +170,7 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Backend\Model\Zone();
+            $oEntite = new \Commun\Model\Zone();
 
             $oForm->setData($oRequest->getPost());
 
