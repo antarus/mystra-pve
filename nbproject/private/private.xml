@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/module/Core/src/Core/Table/AbstractTable.php</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/RosterHasPersonnageTable.php</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/vagrant-conf/provision-sql/01-struct.sql</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/public/css/wow.css</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/vagrant-conf/provision-sql/02-data.sql</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/public/css/style.css</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/RosterHasPersonnageController.php</file>
+            <file>file:/G:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Grid/RosterHasPersonnageGrid.php</file>
+        </group>
     </open-files>
 </project-private>

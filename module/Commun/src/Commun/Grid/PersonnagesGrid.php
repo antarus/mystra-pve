@@ -143,7 +143,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
     public function init() {
         $this->getHeader("genre")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return $record["genre"] == 0 ? 'Female' : 'Male';
+                return $record["genre"] == 0 ? 'Male' : 'Female';
             }
         ));
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(

@@ -53,8 +53,8 @@ class PersonnagesForm extends \Core\Form\AbstractServiceForm {
                 'label' => 'Genre',
                 'empty_option' => $this->getTranslator()->translate('---Veuillez choisir ---'),
                 'value_options' => array(
-                    '0' => 'Female',
-                    '1' => 'Male'
+                    '0' => 'Male',
+                    '1' => 'Female'
                 )
             ),
         ));
