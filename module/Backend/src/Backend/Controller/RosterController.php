@@ -12,8 +12,9 @@ use Zend\View\Model\ViewModel;
  */
 class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 
-    public $_servTranslator = null;
-    public $_table = null;
+    private $_servTranslator = null;
+    private $_tableRoster = null;
+    private $_tableRole;
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -32,11 +33,23 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
      *
      * @return
      */
-    public function getTable() {
-        if (!$this->_table) {
-            $this->_table = $this->getServiceLocator()->get('\Commun\Table\RosterTable');
+    public function getTableRoster() {
+        if (!$this->_tableRoster) {
+            $this->_tableRoster = $this->getServiceLocator()->get('\Commun\Table\RosterTable');
         }
-        return $this->_table;
+        return $this->_tableRoster;
+    }
+
+    /**
+     * Returne une instance de la table en lazy.
+     *
+     * @return \Commun\Table\RoleTable
+     */
+    public function getTableRole() {
+        if (!$this->_tableRole) {
+            $this->_tableRole = $this->getServiceLocator()->get('\Commun\Table\RoleTable');
+        }
+        return $this->_tableRole;
     }
 
     /**
@@ -60,7 +73,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
     public function ajaxListAction() {
         $oTable = new \Commun\Grid\RosterGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
-                ->setSource($this->getTable()->getBaseQuery())
+                ->setSource($this->getTableRoster()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
     }
@@ -84,7 +97,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
-                $this->getTable()->insert($oEntite);
+                $this->getTableRoster()->insert($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été créé avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-roster-list');
             }
@@ -103,15 +116,17 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
     public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
-            $oEntite = $this->getTable()->findRow($id);
+            $oEntite = $this->getTableRoster()->findRow($id);
             if (!$oEntite) {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-roster-list');
             }
         } catch (Exception $ex) {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du roster."), 'error');
             return $this->redirect()->toRoute('backend-roster-list');
         }
+
+
         $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\RosterFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
@@ -123,15 +138,84 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $this->getTable()->update($oEntite);
+                $this->getTableRoster()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été modifié avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-roster-list');
             }
         }
+
+//        $aOptRoster = array(
+//            'nom' => '[Nom de votre Roster]',
+//            'roles' => array(
+//                array(
+//                    'nom' => 'dps',
+//                    "personnages" => array(
+//                        array(
+//                            "nom" => 'perso1',
+//                            "classe" => 'classe1'
+//                        ),
+//                        array(
+//                            "nom" => 'perso2',
+//                            "classe" => 'classe2'
+//                        )
+//                    )),
+//                array(
+//                    'nom' => 'distant',
+//                    "personnages" => array(
+//                        array(
+//                            "nom" => 'perso3',
+//                            "classe" => 'classe3'
+//                        ),
+//                        array(
+//                            "nom" => 'perso4',
+//                            "classe" => 'classe4'
+//                        )
+//                    )
+//                )
+//            ),
+//        );
+        $aOptRoster = array(
+            'nom' => '[Nom de votre Roster]',
+            'roles' => $this->getTableRole()->fetchAll()->toArray()
+        );
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('backend/roster/update');
-        return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
+        $oViewModel->setVariables(array('id' => $id,
+            'form' => $oForm,
+            "roster" => $aOptRoster));
+        return $oViewModel;
+//        $id = (int) $this->params()->fromRoute('id', 0);
+//        try {
+//            $oEntite = $this->getTable()->findRow($id);
+//            if (!$oEntite) {
+//                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
+//                return $this->redirect()->toRoute('backend-roster-list');
+//            }
+//        } catch (Exception $ex) {
+//            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
+//            return $this->redirect()->toRoute('backend-roster-list');
+//        }
+//        $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
+//        $oFiltre = new \Commun\Filter\RosterFilter();
+//        $oEntite->setInputFilter($oFiltre->getInputFilter());
+//        $oForm->bind($oEntite);
+//
+//        $oRequest = $this->getRequest();
+//        if ($oRequest->isPost()) {
+//            $oForm->setInputFilter($oFiltre->getInputFilter());
+//            $oForm->setData($oRequest->getPost());
+//
+//            if ($oForm->isValid()) {
+//                $this->getTable()->update($oEntite);
+//                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été modifié avec succès."), 'success');
+//                return $this->redirect()->toRoute('backend-roster-list');
+//            }
+//        }
+//        // Pour optimiser le rendu
+//        $oViewModel = new ViewModel();
+//        $oViewModel->setTemplate('backend/roster/update');
+//        return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
     /**
@@ -144,7 +228,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
         if (!$id) {
             return $this->redirect()->toRoute('backend-roster-list');
         }
-        $oTable = $this->getTable();
+        $oTable = $this->getTableRoster();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
         $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été supprimé avec succès."), 'success');

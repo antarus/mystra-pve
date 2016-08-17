@@ -53,30 +53,21 @@
 .demoniste { width: 20px; height: 20px; background-position: -200px 0px; }
 
 
-#wow-iframe-traitement {
-    position: absolute;
-}
 
-#wow-zend-progressbar-container {
-    width: 100px;
-    height: 30px;
-    position: absolute;
-    border: 1px solid #000000;
-    background-color: #ffffff;
-    display:none;
-}
 
-#wow-zend-progressbar-done {
-    width: 0;
-    height: 30px;
-
-    background-color: #000000;
+.ui-autocomplete .m-nom {
+    margin-right: 1em;
+    font-size: larger;
 }
-#wow-import-container{
-    top:50px;
-    position:absolute;
-    overflow-y: auto;
-    height: 300px;
-    width:400px;
-    display:none;
+.ui-autocomplete .m-guilde {
+    float: right;
+    font-size: larger;
+}
+.ui-autocomplete .m-sep {
+    display: block;
+    font-size: smaller;
+}
+.ui-autocomplete .m-serveur {
+    display: block;
+    font-size: smaller;
 }

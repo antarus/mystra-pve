@@ -13,10 +13,10 @@ function gestionImportAjax()
             data: $this.serialize(), // Je sérialise les données (j'envoie toutes les valeurs présentes dans le formulaire)
             dataType: 'json',
             beforeSend: function (html) { // Je récupère la réponse du fichier PHP
-                $("body").addClass("loading");
+                //  $("body").addClass("loading");
             },
             complete: function (html) { // Je récupère la réponse du fichier PHP
-                $("body").removeClass("loading");
+                // $("body").removeClass("loading");
                 $("#msg").removeClass('alert-success');
                 $("#msg").removeClass('alert-danger');
                 if (html.responseJSON.error) {
@@ -30,3 +30,10 @@ function gestionImportAjax()
 
 
 }
+
+$(document).ajaxStart(function () {
+    $("body").addClass("loading");
+});
+$(document).ajaxStop(function () {
+    $("body").removeClass("loading");
+});

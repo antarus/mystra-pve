@@ -128,6 +128,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
     public function saveOrUpdatePersonnage($oPersonnage, $oGuilde = null) {
         try {
             $oPersonnage->setNom(strtolower($oPersonnage->getNom()));
+            $oPersonnage->setRoyaume(strtolower($oPersonnage->getRoyaume()));
             //recherche si le personnage existe
             try {
                 $oTabPersonnage = $this->selectBy(
@@ -165,9 +166,78 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             }
             return $oPersonnage;
         } catch (Exception $ex) {
-            var_dump($ex);
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
+    }
+
+    /**
+     *  Retourne une liste de personnage avec les paramêtres passé.
+     * Les paramatres par defaut sont:
+     *  $aParam = array(
+     *      'rech'=>'%',
+     *      'champs_personnage' => array(
+     *           'idPersonnage',
+     *           'nom',
+     *           'royaume',
+     *       ),
+     *       'classe' => true,
+     *       'guilde' => true
+     *       'limit' => 20
+     *   );
+     *
+     * @param type $aParam
+     * @return array
+     */
+    function getAutoComplete($aParam) {
+        if (!isset($aParam)) {
+            $aParam = array(
+                'rech' => '%',
+                'champs_personnage' => array(
+                    'idPersonnage',
+                    'nom',
+                    'royaume'
+                ),
+                'classe' => true,
+                'guilde' => true,
+                'limit' => 20
+            );
+        }
+        if (!isset($aParam['champs_personnage'])) {
+            $aParam['champs_personage'] = array(
+                'idPersonnage',
+                'nom',
+                'royaume',
+            );
+        }
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+
+        $oQuery->columns($aParam['champs_personnage'])
+                ->from(array('p' => 'personnages'));
+        if (isset($aParam['classe']) && $aParam['classe']) {
+            $oQuery->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('classe' => 'nom',
+                'c_classeId' => 'idClasses', 'couleur'), \Zend\Db\Sql\Select::JOIN_INNER);
+        }
+//        $query->join(array('r' => 'race'), 'r.idRace = p.idRace', array('race' => 'nom',
+//                    'r_raceId' => 'idRace'), \Zend\Db\Sql\Select::JOIN_INNER)
+//                ->join(array('f' => 'faction'), 'f.idFaction = p.idFaction', array('faction' => 'nom',
+//                    'r_factionId' => 'idFaction'), \Zend\Db\Sql\Select::JOIN_INNER)
+        if (isset($aParam['guilde']) && $aParam['guilde']) {
+            $oQuery->join(array('g' => 'guildes'), 'g.idGuildes = p.idGuildes', array('guilde' => 'nom',
+                'g_guildeId' => 'idGuildes'), \Zend\Db\Sql\Select::JOIN_LEFT);
+        }
+
+        if (isset($aParam['rech'])) {
+            $oQuery->where("p.nom like '%" . strtolower($aParam['rech']) . "%' ");
+        }
+        if (isset($aParam['limit'])) {
+            $oQuery->limit($aParam['limit']);
+        }
+        //$this->debug($oQuery);
+        $aReturn = $this->fetchAllArray($oQuery);
+
+        return $aReturn;
     }
 
 }

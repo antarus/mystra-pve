@@ -148,7 +148,7 @@ class TableGatewayAbstractFactoryTest extends TestCase
 
         $gateway = $this->factory->createServiceWithName($this->services, 'footable', 'Foo\Table');
         $this->assertInstanceOf('Zend\Db\TableGateway\TableGateway', $gateway);
-        $this->assertEquals('foo', $gateway->getTable());
+        $this->assertEquals('foo', $gateway->getTableRosterHasPersonnage());
         $this->assertSame($adapter, $gateway->getAdapter());
         $resultSet = $gateway->getResultSetPrototype();
         $this->assertInstanceOf('Zend\Db\ResultSet\HydratingResultSet', $resultSet);
@@ -198,7 +198,7 @@ class TableGatewayAbstractFactoryTest extends TestCase
 
         $gateway = $this->factory->createServiceWithName($this->services, 'footable', 'Foo\Table');
         $this->assertInstanceOf('Zend\Db\TableGateway\TableGateway', $gateway);
-        $this->assertEquals('foo', $gateway->getTable());
+        $this->assertEquals('foo', $gateway->getTableRosterHasPersonnage());
         $this->assertSame($adapter, $gateway->getAdapter());
         $resultSet = $gateway->getResultSetPrototype();
         $this->assertInstanceOf('Zend\Db\ResultSet\HydratingResultSet', $resultSet);

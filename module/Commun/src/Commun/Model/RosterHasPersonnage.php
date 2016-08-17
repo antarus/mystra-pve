@@ -38,6 +38,15 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel {
     public $idRole = null;
 
     /**
+     * Colonne: isApply
+     *
+     * Reference to role.isApply
+     *
+     * @var int
+     */
+    public $isApply = false;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -149,6 +158,24 @@ class RosterHasPersonnage extends \Core\Model\AbstractModel {
      */
     public function setIdRole($value) {
         $this->idRole = $value;
+    }
+
+    /**
+     * Retourne la valeur isApply.
+     *
+     * @return boolean
+     */
+    function getIsApply() {
+        return $this->isApply;
+    }
+
+    /**
+     * Définit la valeur pour isApply
+     *
+     * @param boolean
+     */
+    function setIsApply($isApply) {
+        $this->isApply = $isApply;
     }
 
 }

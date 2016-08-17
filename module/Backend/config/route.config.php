@@ -1327,90 +1327,20 @@ return array(
                     ),
                 ),
             ),
-            'backend-personnages_has_specialisation-list' =>
+            'backend-personnage-autocomplete' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/personnages_has_specialisation/list',
+                    'route' => '/backend/personnage/autocomplete',
                     'constraints' =>
                     array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+'
                     ),
                     'defaults' =>
                     array(
-                        'controller' => 'Backend\\Controller\\PersonnagesHasSpecialisation',
-                        'action' => 'list',
-                    ),
-                ),
-            ),
-            'backend-personnages_has_specialisation-ajaxList' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/personnages_has_specialisation/ajaxList',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\PersonnagesHasSpecialisation',
-                        'action' => 'ajaxList',
-                    ),
-                ),
-            ),
-            'backend-personnages_has_specialisation-create' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/personnages_has_specialisation/create',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\PersonnagesHasSpecialisation',
-                        'action' => 'create',
-                    ),
-                ),
-            ),
-            'backend-personnages_has_specialisation-update' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/personnages_has_specialisation/update/[:id]',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\PersonnagesHasSpecialisation',
-                        'action' => 'update',
-                    ),
-                ),
-            ),
-            'backend-personnages_has_specialisation-delete' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/personnages_has_specialisation/delete/[:id]',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\PersonnagesHasSpecialisation',
-                        'action' => 'delete',
+                        'controller' => 'Backend\\Controller\\Personnages',
+                        'action' => 'autocomplete',
                     ),
                 ),
             ),
@@ -1849,12 +1779,12 @@ return array(
                     ),
                 ),
             ),
-            'backend-roster_has_personnage-list' =>
+            'backend-roster-has-personnage-list' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster_has_personnage/list',
+                    'route' => '/backend/roster-has-personnage/list',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
@@ -1866,15 +1796,17 @@ return array(
                     ),
                 ),
             ),
-            'backend-roster_has_personnage-ajaxList' =>
+            'backend-roster-has-personnage-ajaxList' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster_has_personnage/ajaxList',
+                    'route' => '/backend/roster/ajaxList/[:idRole]/[:idRoster]/',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'idRole' => '[0-9]+',
+                        'idRoster' => '[0-9]+',
                     ),
                     'defaults' =>
                     array(
@@ -1883,29 +1815,30 @@ return array(
                     ),
                 ),
             ),
-            'backend-roster_has_personnage-create' =>
+            'backend-roster-has-personnage-add' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster_has_personnage/create',
+                    'route' => '/backend/roster/[:id]/ajout',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'id' => '[0-9]+',
                     ),
                     'defaults' =>
                     array(
                         'controller' => 'Backend\\Controller\\RosterHasPersonnage',
-                        'action' => 'create',
+                        'action' => 'add',
                     ),
                 ),
             ),
-            'backend-roster_has_personnage-update' =>
+            'backend-roster-has-personnage-update' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster_has_personnage/update/[:id]',
+                    'route' => '/backend/roster-has-personnage/update/[:id]',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
@@ -1918,12 +1851,12 @@ return array(
                     ),
                 ),
             ),
-            'backend-roster_has_personnage-delete' =>
+            'backend-roster-has-personnage-delete' =>
             array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster_has_personnage/delete/[:id]',
+                    'route' => '/backend/roster-has-personnage/delete/[:id]',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',

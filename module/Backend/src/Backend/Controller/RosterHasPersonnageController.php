@@ -3,6 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -10,20 +11,19 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Mystra
  */
-class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
-
-    public $_table = null;
+    private $_tableRosterHasPersonnage = null;
+    private $_tableRole = null;
+    private $_tableRoster = null;
 
     /**
      * Retourne le service de traduction en mode lazy.
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -33,14 +33,37 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
     /**
      * Returne une instance de la table en lazy.
      *
-     * @return
+     * @return \Commun\Table\RosterHasPersonnageTable
      */
-    public function getTable()
-    {
-        if (!$this->_table) {
-            $this->_table = $this->getServiceLocator()->get('\Commun\Table\RosterHasPersonnageTable');
+    public function getTableRosterHasPersonnage() {
+        if (!$this->_tableRosterHasPersonnage) {
+            $this->_tableRosterHasPersonnage = $this->getServiceLocator()->get('\Commun\Table\RosterHasPersonnageTable');
         }
-        return $this->_table;
+        return $this->_tableRosterHasPersonnage;
+    }
+
+    /**
+     * Returne une instance de la table en lazy.
+     *
+     * @return \Commun\Table\RosterTable
+     */
+    public function getTableRoster() {
+        if (!$this->_tableRoster) {
+            $this->_tableRoster = $this->getServiceLocator()->get('\Commun\Table\RosterTable');
+        }
+        return $this->_tableRoster;
+    }
+
+    /**
+     * Returne une instance de la table en lazy.
+     *
+     * @return \Commun\Table\RoleTable
+     */
+    public function getTableRole() {
+        if (!$this->_tableRole) {
+            $this->_tableRole = $this->getServiceLocator()->get('\Commun\Table\RoleTable');
+        }
+        return $this->_tableRole;
     }
 
     /**
@@ -49,8 +72,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('backend/roster-has-personnage/list');
@@ -58,15 +80,16 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
     }
 
     /**
-     * Action pour le listing via AJAX.
+     * Action pour le listing des personnage pour un role.
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\RosterHasPersonnageGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $idRole = (int) $this->params()->fromRoute('idRole', 0);
+        $idRoster = (int) $this->params()->fromRoute('idRoster', 0);
+        $oTable = new \Commun\Grid\RosterHasPersonnageGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
-                ->setSource($this->getTable()->getBaseQuery())
+                ->setSource($this->getTableRosterHasPersonnage()->getListePersonnage($idRole, $idRoster))
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
     }
@@ -76,30 +99,83 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\RosterHasPersonnageForm();//new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
+    public function addAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        try {
+            $oEntite = $this->getTableRoster()->findRow($id);
+            if (!$oEntite) {
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
+                return $this->redirect()->toRoute('backend-roster-list');
+            }
+        } catch (Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du roster."), 'error');
+            return $this->redirect()->toRoute('backend-roster-list');
+        }
+
+        $this->layout('layout/ajax');
+
         $oRequest = $this->getRequest();
-        
-        $oFiltre = new \Commun\Filter\RosterHasPersonnageFilter();
-        $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
+        $aOptAddPlayerToRoster = array(
+            'nomRoster' => $oEntite->getNom(),
+            'nom' => '',
+            'idPerso' => 0,
+            'apply' => false,
+            'roles' => $this->getTableRole()->fetchAll()->toArray()
+//            'roles' => array(
+//                array('id' => 1, 'nom' => $this->_getServTranslator()->translate("dps")),
+//                array('id' => 2, 'nom' => $this->_getServTranslator()->translate("distant")),
+//                array('id' => 3, 'nom' => $this->_getServTranslator()->translate("tank"))
+//            ),
+        );
         if ($oRequest->isPost()) {
-            $oEntite = new \Commun\Model\RosterHasPersonnage();
-        
-            $oForm->setData($oRequest->getPost());
-        
+            $oEntiteRhP = new \Commun\Model\RosterHasPersonnage();
+            $aPost = $oRequest->getPost();
+
+            if ($aPost["idPersonnage"] == 0) {
+                return new JsonModel(array(
+                    'error' => array(
+                        'msg' => 'veuillez sélectionné un personnage valide.'
+                    )
+                ));
+            }
+
+            $oForm = new \Commun\Form\RosterHasPersonnageForm(); //new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
+            $oFiltre = new \Commun\Filter\RosterHasPersonnageFilter();
+            $oEntiteRhP->setInputFilter($oFiltre->getInputFilter());
+
+            $oForm->setData($aPost);
+
             if ($oForm->isValid()) {
-                $oEntite->exchangeArray($oForm->getData());
-                $this->getTable()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster-has-personnage a été créé avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-roster-has-personnage-list');
+                $oEntiteRhP->exchangeArray($oForm->getData());
+                try {
+                    $this->getTableRosterHasPersonnage()->beginTransaction();
+                    $this->getTableRosterHasPersonnage()->insert($oEntiteRhP);
+                    $this->getTableRosterHasPersonnage()->commit();
+                    $result = new JsonModel(array(
+                        'success' => array(
+                            'msg' => $this->_getServTranslator()->translate('Personnage ajouté avec succès')
+                        )
+                    ));
+                } catch (\Exception $ex) {
+                    // on rollback en cas d'erreur
+                    $this->getTableRosterHasPersonnage()->rollback();
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                    $result = new JsonModel(array(
+                        'error' => $aAjaxEx
+                    ));
+                }
+                return $result;
             }
         }
+
+
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/roster-has-personnage/create');
-        return $oViewModel->setVariables(array('form' => $oForm));
+        //disable layout if request by Ajax
+        $oViewModel->setTerminal($oRequest->isXmlHttpRequest());
+        $oViewModel->setTemplate('backend/roster-has-personnage/add');
+        return $oViewModel->setVariables(array('id' => $id, 'player' => $aOptAddPlayerToRoster));
     }
 
     /**
@@ -107,31 +183,30 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
-            $oEntite = $this->getTable()->findRow($id);
+            $oEntite = $this->getTableRosterHasPersonnage()->findRow($id);
             if (!$oEntite) {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster-has-personnage inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-roster-has-personnage-list');
             }
         } catch (Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster-has-personnage."), 'error');
-           return $this->redirect()->toRoute('backend-roster-has-personnage-list');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster-has-personnage."), 'error');
+            return $this->redirect()->toRoute('backend-roster-has-personnage-list');
         }
-        $oForm = new \Commun\Form\RosterHasPersonnageForm();//new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\RosterHasPersonnageForm(); //new \Commun\Form\RosterHasPersonnageForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\RosterHasPersonnageFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
-                $this->getTable()->update($oEntite);
+                $this->getTableRosterHasPersonnage()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster-has-personnage a été modifié avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-roster-has-personnage-list');
             }
@@ -147,13 +222,12 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-roster-has-personnage-list');
         }
-        $oTable = $this->getTable();
+        $oTable = $this->getTableRosterHasPersonnage();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
         $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster-has-personnage a été supprimé avec succès."), 'success');
@@ -165,8 +239,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +248,11 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
-
 }
-

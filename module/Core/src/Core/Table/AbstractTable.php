@@ -255,7 +255,8 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
     }
 
     /**
-     * Retourne les enregistrement de la query donnée.
+     * Retourne les enregistrement de la query donnée en liant les donnée a l'entité
+     * ( soit le prototype passé, soit celui lié a cette table)
      *
      * @param \Zend\Db\Sql\Select $oQuery
      * @param string | null $prototypeClass
@@ -292,6 +293,31 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
             $oQuery->order($order);
         }
         return $this->fetchAll($oQuery);
+    }
+
+    /**
+     * Retourne les enregistrement de la query donnée au format Array.
+     * Contrairement a la methode fetchAll, si vous ne passer pas de $prototypeClass,
+     *  alors il n'y a pas de conversion vers l'entité lié a cette table.
+     * @param \Zend\Db\Sql\Select $oQuery
+     * @param string | null $prototypeClass
+     * @return \Zend\Db\ResultSet\ResultSet
+     */
+    public function fetchAllArray(\Zend\Db\Sql\Select $oQuery = null, $prototypeClass = null) {
+        if (!$oQuery) {
+            $oQuery = $this->getBaseQuery();
+        }
+
+        $oStmt = $this->getSql()->prepareStatementForSqlObject($oQuery);
+        $oRes = $oStmt->execute();
+
+        $oResultSet = new ResultSet();
+        if ($prototypeClass != null) {
+            $oResultSet->setArrayObjectPrototype(new $prototypeClass());
+        }
+        $oResultSet->initialize($oRes);
+
+        return $oResultSet->toArray();
     }
 
     /**

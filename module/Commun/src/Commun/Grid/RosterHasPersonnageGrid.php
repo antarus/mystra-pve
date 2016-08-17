@@ -32,7 +32,7 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
      */
     private $_servTranslator = null;
     protected $config = array(
-        'name' => 'List',
+        'name' => '',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -40,18 +40,23 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
         'showColumnFilters' => true,
     );
     protected $headers = array(
-        'idRoster' => array(
-            'title' => 'IdRoster',
+//        'idRoster' => array(
+//            'title' => 'IdRoster',
+//            'width' => '100',
+//            'filters' => 'text',
+//        ),
+        'nom' => array(
+            'title' => 'Nom',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idPersonnage' => array(
-            'title' => 'IdPersonnage',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idRole' => array(
-            'title' => 'IdRole',
+//        'idRole' => array(
+//            'title' => 'IdRole',
+//            'width' => '100',
+//            'filters' => 'text',
+//        ),
+        'isApply' => array(
+            'title' => 'Apply',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -101,15 +106,27 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
+        $this->getHeader("isApply")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                return $record["isApply"] == 0 ? 'Non' : 'Oui';
+            }
+        ));
+
+        $this->getHeader("nom")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                return "<span class='m-nom' style=\"color:" . $record['couleur'] . "\" >" . $record['nom'] . "</span>";
+            }
+        ));
+
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-roster_has_personnage-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
             }
                 ));
 
                 $this->getHeader("delete")->getCell()->addDecorator("callable", array(
                     "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-roster_has_personnage-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
                     }
                         ));
                     }

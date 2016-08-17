@@ -31,7 +31,12 @@ class RosterHasPersonnageForm extends \Core\Form\AbstractForm {
                 'type' => 'hidden',
             ),
         ));
-
+        $this->add(array(
+            'name' => 'isApply',
+            'attributes' => array(
+                'type' => 'text',
+            ),
+        ));
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

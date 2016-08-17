@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/RosterHasPersonnageController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/GuildesController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/layout/ajax.phtml</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/roster-has-personnage/add.phtml</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/RosterController.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/config/route.config.php</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/roster/update.phtml</file>
+            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/roster/__update.phtml</file>
+        </group>
     </open-files>
 </project-private>

@@ -229,4 +229,33 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         return $result;
     }
 
+    /**
+     * Action pour l'autocomplete
+     *
+     * @return array
+     */
+    public function autocompleteAction() {
+        $aParam = $this->params()->fromQuery();
+        if (!isset($aParam["rech"])) {
+            return array();
+        }
+        // TODO ne pas surchargé ici mais en JS
+        $aParam = array(
+            'rech' => $aParam["rech"],
+            'champs_personnage' => array(
+                'idPersonnage',
+                'nom',
+                'royaume'
+            ),
+            'classe' => true,
+            'guilde' => true,
+            'limit' => 20
+        );
+        $aReturn = array(
+            'personnages' => $this->getTablePersonnage()->getAutoComplete($aParam)
+        );
+
+        return new JsonModel($aReturn);
+    }
+
 }

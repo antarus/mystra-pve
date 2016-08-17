@@ -1,8 +1,78 @@
-<h1>Mise à jour</h1>
+<h1><?php echo $this->translate("Modifier un roster") ?></h1>
 
-<?php
-echo $this->partial('partial/form-partial', array(
-    'form' => $this->form,
-    'url' => $this->url('backend-roster-update', array('id' => $this->id)))
-);
+<form id="frmAjax" method='post' action="<?php echo $this->url('backend-roster-update', array('id' => $this->id)) ?>" class="form-inline">
+    <fieldset>
+        <input type="hidden" name="id" required="true" value="<?php echo $this->id; ?>" />
+        <div class="control-group">
+            <label class="control-label"><?php echo $this->translate("Nom") ?></label>
+            <div class="controls">
+                <input id="nomRoster" type='text' name="nomRoster" required="true" value="<?php echo $roster['nom']; ?>"/>
+            </div>
+
+            <h3><?php echo $this->translate("Liste des joueurs") ?></h3>
+
+            <a id="addPersonnage" href="<?php echo $this->url('backend-roster-has-personnage-add', array('id' => $this->id)) ?>">
+                <?php echo $this->translate("Ajouter un joueur au roster") ?></a>
+            <?php foreach ($roster['roles'] as $role) { ?>
+                <h3><?php echo $this->translate($role["nom"]) ?></h3>
+                <div id="tableContainer<?php echo $role["idRole"] ?>">
+                </div>
+
+                <script>
+                    $("#tableContainer<?php echo $role["idRole"] ?>").zfTable("<?php echo $this->url('backend-roster-has-personnage-ajaxList', array('idRole' => $role["idRole"], 'idRoster' => $this->id)); ?> ");
+                </script>
+
+
+                <?php
+            }
+            if (!isset($roster['roles'])) {
+                ?>
+                <p>   <?php echo $this->translate("Aucun joueur définit."); ?></p>
+                <?php
+            }
+            ?>
+            <div class="form-actions">
+                <input id="submit" type='submit' value='submit' class="btn"/>
+            </div>
+            <div class="import">
+
+            </div>
+        </div>
+    </fieldset>
+</form>
+<!-- empty div to save dialog temporary -->
+<div id="popupGlobal"></div>
+
+<?= $this->render('layout/backend/js-ajax-import') ?>
+
+<script type="text/javascript">
+    function majListe() {
+<?php foreach ($roster['roles'] as $role) { ?>
+            $("#tableContainer<?php echo $role["idRole"] ?>").html('');
+            $("#tableContainer<?php echo $role["idRole"] ?>").zfTable("<?php echo $this->url('backend-roster-has-personnage-ajaxList', array('idRole' => $role["idRole"], 'idRoster' => $this->id)); ?>");
+<?php }
 ?>
+    }
+    $(function () {
+        $("#addPersonnage").click(function () {
+            $("#popupGlobal").dialog({
+                draggable: false,
+                modal: true,
+                autoOpen: false,
+                height: 350,
+                width: 400,
+                resizable: true,
+                title: "<?php echo $this->translate("Ajout d'un joueur au roster") ?> [<?php echo $roster['nom']; ?>]",
+                //position: {of: windows}
+            });
+            $("#popupGlobal").load($(this).attr('href'));
+            $("#popupGlobal").dialog("open");
+
+
+            return false;
+        });
+
+        majListe();
+
+    });
+</script>
