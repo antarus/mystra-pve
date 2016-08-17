@@ -85,7 +85,12 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
         }
         if ($oTabRosterPersonnage) {
             try {
-                $this->delete($oTabRosterPersonnage);
+                $cleCompose = array(
+                    "idRoster" => $idRoster,
+                    "idPersonnage" => $idPerso
+                );
+
+                $this->delete($cleCompose);
             } catch (\Exception $exc) {
                 throw new DatabaseException(5000, 3, $this->_getServiceLocator()->get('translator'));
             }

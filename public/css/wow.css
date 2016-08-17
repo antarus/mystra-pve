@@ -1,4 +1,4 @@
-//race
+/** race*/
 .spriteRace { background-image: url('./../img/race.png'); background-color: transparent; background-repeat: no-repeat; }
 .Gnome { width: 18px; height: 18px; background-position: 0px -450px; }
 .Elfe-de-sang { width: 18px; height: 18px; background-position: 0px -432px; }
@@ -27,7 +27,7 @@
 .Draenei { width: 18px; height: 18px; background-position: 0px -18px; }
 .Draeneif { width: 18px; height: 18px; background-position: 0px 0px; }
 
-// classes
+/** classes**/
 .spriteClasse { background-image: url('./../img/classe.png'); background-color: transparent; background-repeat: no-repeat; }
 .guerrier-grand { width: 50px; height: 52px; background-position: 0px -20px; }
 .moine-grand { width: 50px; height: 52px; background-position: -50px -20px; }

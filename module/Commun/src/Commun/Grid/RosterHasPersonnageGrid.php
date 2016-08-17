@@ -60,10 +60,10 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'edit' => array(
-            'title' => 'Modifier',
-            'width' => '100',
-        ),
+//        'edit' => array(
+//            'title' => 'Modifier',
+//            'width' => '100',
+//        ),
         'delete' => array(
             'title' => 'Supprimer',
             'width' => '100',
