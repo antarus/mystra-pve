@@ -9,7 +9,7 @@ use Zend\View\Model\JsonModel;
  * Controller pour la vue.
  *
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
 

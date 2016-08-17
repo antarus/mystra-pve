@@ -10,7 +10,7 @@ use \Bnet\ClientFactory;
  * Controller pour la vue.
  *
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
 

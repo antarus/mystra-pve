@@ -9,7 +9,7 @@ use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class GuildesTable extends \Core\Table\AbstractServiceTable {
 

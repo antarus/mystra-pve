@@ -4,7 +4,7 @@ namespace Commun\Table;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class EvenementsPersonnageTable extends \Core\Table\AbstractTable
 {

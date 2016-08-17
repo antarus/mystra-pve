@@ -7,7 +7,7 @@ use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RaidsTable extends \Core\Table\AbstractTable {
 

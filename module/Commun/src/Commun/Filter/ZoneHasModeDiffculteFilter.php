@@ -4,7 +4,7 @@ namespace Commun\Filter;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class ZoneHasModeDiffculteFilter extends \Core\Filter\AbstractFilter
 {

@@ -9,7 +9,7 @@ use Zend\View\Model\JsonModel;
  * Controller pour la vue.
  *
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionController {
 
@@ -122,11 +122,6 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
             'idPerso' => 0,
             'apply' => false,
             'roles' => $this->getTableRole()->fetchAll()->toArray()
-//            'roles' => array(
-//                array('id' => 1, 'nom' => $this->_getServTranslator()->translate("dps")),
-//                array('id' => 2, 'nom' => $this->_getServTranslator()->translate("distant")),
-//                array('id' => 3, 'nom' => $this->_getServTranslator()->translate("tank"))
-//            ),
         );
         if ($oRequest->isPost()) {
             $oEntiteRhP = new \Commun\Model\RosterHasPersonnage();
@@ -150,7 +145,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
                 $oEntiteRhP->exchangeArray($oForm->getData());
                 try {
                     $this->getTableRosterHasPersonnage()->beginTransaction();
-                    $this->getTableRosterHasPersonnage()->insert($oEntiteRhP);
+                    $this->getTableRosterHasPersonnage()->saveOrUpdateRosterPersonnage($oEntiteRhP);
                     $this->getTableRosterHasPersonnage()->commit();
                     $result = new JsonModel(array(
                         'success' => array(
@@ -223,15 +218,27 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
      * @return redirection vers la liste
      */
     public function deleteAction() {
-        $id = (int) $this->params()->fromRoute('id', 0);
-        if (!$id) {
-            return $this->redirect()->toRoute('backend-roster-has-personnage-list');
+        $idPerso = (int) $this->params()->fromRoute('idPerso', 0);
+        $idRoster = (int) $this->params()->fromRoute('idRoster', 0);
+
+
+        if (!$idPerso) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Impossible de trouver le lien roster personnage a supprimer."), 'error');
+            return $this->redirect()->toRoute('backend-roster-update', array('id' => $idRoster));
         }
-        $oTable = $this->getTableRosterHasPersonnage();
-        $oEntite = $oTable->findRow($id);
-        $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster-has-personnage a été supprimé avec succès."), 'success');
-        return $this->redirect()->toRoute('backend-roster-has-personnage-list');
+        try {
+            $this->getTableRosterHasPersonnage()->supprimerRosterPersonnage($idRoster, $idPerso);
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le personnage a été supprimé du roster avec succès."), 'success');
+        } catch (\Exception $ex) {
+            // on rollback en cas d'erreur
+            $this->getTableRosterHasPersonnage()->rollback();
+            $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Erreur lors de la suppression du personnage du roster."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');
+        }
+
+        return $this->redirect()->toRoute('backend-roster-update', array('id' => $idRoster));
     }
 
     /**

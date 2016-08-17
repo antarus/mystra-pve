@@ -117,10 +117,14 @@ class Module {
                     return new \Commun\Table\RoleTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
                 'Commun\Table\RosterTable' => function($sm) {
-                    return new \Commun\Table\RosterTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RosterTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RosterHasPersonnageTable' => function($sm) {
-                    return new \Commun\Table\RosterHasPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RosterHasPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\SpecialisationTable' => function($sm) {
                     return new \Commun\Table\SpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));

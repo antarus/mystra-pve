@@ -49,7 +49,17 @@ DatabaseException :
 4002 => "Erreur lors la création  du raid",
 4003 => "Erreur lors de la suppression  du raid",
 4004 => "Erreur lors du listing  du raid",
-
+// roster/personnage/role
+5001 => "Erreur lors la mise à jour du lien roster-personnage",
+5002 => "Erreur lors la création du lien roster-personnage",
+5003 => "Erreur lors de la suppression du lien roster-personnage",
+5004 => "Erreur lors du listing du lien roster-personnage",
+// roster
+6001 => "Erreur lors la mise à jour du roster",
+6002 => "Erreur lors la création du roster",
+6003 => "Erreur lors de la suppression du roster",
+6004 => "Erreur lors du listing du roster",
+6005 => "Le nom du roster est déjà utilisé",
 
 BnetException :
 --------------
@@ -57,3 +67,11 @@ BnetException :
 199 => "Guilde ou Serveur inconnue",
 299 => "Personnage ou Serveur inconnu",
 399 => "Item inconnu"
+
+
+
+TODO :
+=================
+
+Ajouter log exception cause au dessus de tous les ` throw new DatabaseException`
+et ` throw new BnetException` car on n'enregistre pas l'exception ayant déclenché le catch.

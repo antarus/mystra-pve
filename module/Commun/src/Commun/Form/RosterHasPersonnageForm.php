@@ -4,7 +4,7 @@ namespace Commun\Form;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RosterHasPersonnageForm extends \Core\Form\AbstractForm {
 

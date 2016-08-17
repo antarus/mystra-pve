@@ -6,7 +6,7 @@ use Zend\EventManager\EventManagerInterface;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class Guildes extends \Core\Model\AbstractModel
 {

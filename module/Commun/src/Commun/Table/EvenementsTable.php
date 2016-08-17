@@ -4,7 +4,7 @@ namespace Commun\Table;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class EvenementsTable extends \Core\Table\AbstractTable
 {

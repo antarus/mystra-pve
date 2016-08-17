@@ -9,7 +9,7 @@ use \Commun\Exception\DatabaseException;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class PersonnagesTable extends \Core\Table\AbstractServiceTable {
 

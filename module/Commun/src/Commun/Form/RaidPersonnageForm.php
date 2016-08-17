@@ -4,7 +4,7 @@ namespace Commun\Form;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RaidPersonnageForm extends \Core\Form\AbstractForm
 {

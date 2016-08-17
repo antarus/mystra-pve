@@ -4,23 +4,27 @@ namespace Commun\Exception;
 
 class DatabaseException extends \Exception {
 
-    protected $ERREUR_CAT = [
+    protected $ERREUR_PRINC = [
         5000 => "Erreur inconnue",
         1000 => "guilde",
         2000 => "personnage",
         3000 => "item",
-        4000 => "raid"
+        4000 => "raid",
+        5000 => "roster/personnage",
+        6000 => "roster"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
         1 => "update",
         2 => "create",
         3 => "delete",
-        4 => "list"
+        4 => "list",
+        5 => "contrainte unique"
     ];
-    private $categorie;
 
-    public function __construct($code = 5000, $erreurType = 0, $oTanslator, Exception $previous = null) {
+    // private $categorie;
+
+    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, Exception $previous = null) {
         if (isset($this->message[$code + $erreurType])) {
             $msg = $this->message[$code + $erreurType];
             $codeErreur = $code + $erreurType;
@@ -28,29 +32,32 @@ class DatabaseException extends \Exception {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-        if (isset($this->ERREUR_CAT[$erreurType])) {
-            $this->categorie = $this->ERREUR_CAT[$erreurType];
-        } else {
-            $this->categorie = $this->ERREUR_CAT[0];
+//        if (isset($this->ERREUR_PRINC[$erreurType])) {
+//            $this->categorie = $this->ERREUR_PRINC[$erreurType];
+//        } else {
+//            $this->categorie = $this->ERREUR_PRINC[0];
+//        }
+        if (isset($oTanslator)) {
+            $msg = $oTanslator->translate($msg);
         }
-        parent::__construct($oTranslator->translate($msg), $codeErreur, $previous);
+        parent::__construct($msg, $codeErreur, $previous);
     }
 
     /**
      * Getter de la catégorie.
      * @return string
      */
-    function getCategorie() {
-        return $this->categorie;
-    }
+//    function getCategorie() {
+//        return $this->categorie;
+//    }
 
     /**
      * Setter de la catégorie.
      * @param string $categorie
      */
-    function setCategorie($categorie) {
-        $this->categorie = $categorie;
-    }
+//    function setCategorie($categorie) {
+//        $this->categorie = $categorie;
+//    }
 
     protected $message = array(
         5000 => 'Erreur incconue',
@@ -71,9 +78,20 @@ class DatabaseException extends \Exception {
         3004 => "Erreur lors du listing des items",
         // raid
         4001 => "Erreur lors la mise à jour du raid",
-        4002 => "Erreur lors la création  du raid",
+        4002 => "Erreur lors la création du raid",
         4003 => "Erreur lors de la suppression  du raid",
-        4004 => "Erreur lors du listing  du raid",
+        4004 => "Erreur lors du listing du raid",
+        // roster/personnage/role
+        5001 => "Erreur lors la mise à jour du lien roster-personnage",
+        5002 => "Erreur lors la création du lien roster-personnage",
+        5003 => "Erreur lors de la suppression du lien roster-personnage",
+        5004 => "Erreur lors du listing du lien roster-personnage",
+        // roster
+        6001 => "Erreur lors la mise à jour du roster",
+        6002 => "Erreur lors la création du roster",
+        6003 => "Erreur lors de la suppression du roster",
+        6004 => "Erreur lors du listing du roster",
+        6005 => "Le nom du roster est déjà utilisé",
     );
 
 }

@@ -4,7 +4,7 @@ namespace Commun\Filter;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class SpecialisationFilter extends \Core\Filter\AbstractFilter
 {

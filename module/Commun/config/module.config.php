@@ -2,7 +2,7 @@
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  * @license MIT
  * @copyright Mystra - Antarus & Capi
  */

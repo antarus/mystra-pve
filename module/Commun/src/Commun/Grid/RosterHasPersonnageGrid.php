@@ -8,7 +8,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
 
@@ -118,39 +118,39 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
             }
         ));
 
-        $this->getHeader("edit")->getCell()->addDecorator("callable", array(
+//        $this->getHeader("edit")->getCell()->addDecorator("callable", array(
+//            "callable" => function($context, $record) {
+//                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
+//            }
+//                ));
+
+        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-delete', array('idPerso' => $record["idPersonnage"], 'idRoster' => $record["idRoster"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur de vouloir supprimer ce personnage du roster ?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
             }
                 ));
+            }
 
-                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-                    "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-roster-has-personnage-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
-                    }
-                        ));
-                    }
-
-                    /**
-                     *
-                     * @param \Zend\Db\Sql\Select $query
-                     */
-                    protected function initFilters($query) {
-                        $value = $this->getParamAdapter()->getValueOfFilter('idRoster');
-                        if ($value != null) {
-                            $query->where("idRoster = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
-                        if ($value != null) {
-                            $query->where("idPersonnage = '" . $value . "' ");
-                        }
-
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idRole');
-                        if ($value != null) {
-                            $query->where("idRole = '" . $value . "' ");
-                        }
-                    }
-
+            /**
+             *
+             * @param \Zend\Db\Sql\Select $query
+             */
+            protected function initFilters($query) {
+                $value = $this->getParamAdapter()->getValueOfFilter('idRoster');
+                if ($value != null) {
+                    $query->where("idRoster = '" . $value . "' ");
                 }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
+                if ($value != null) {
+                    $query->where("idPersonnage = '" . $value . "' ");
+                }
+
+
+                $value = $this->getParamAdapter()->getValueOfFilter('idRole');
+                if ($value != null) {
+                    $query->where("idRole = '" . $value . "' ");
+                }
+            }
+
+        }

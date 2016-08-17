@@ -8,7 +8,7 @@ use \Zend\Mvc\Controller\Plugin\Url;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class ZoneGrid extends \ZfTable\AbstractTable {
 

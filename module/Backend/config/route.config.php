@@ -1856,11 +1856,12 @@ return array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/roster-has-personnage/delete/[:id]',
+                    'route' => '/backend/roster/[:idRoster]/joueur/[:idPerso]/delete',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                        'id' => '[0-9]+',
+                        'idRoster' => '[0-9]+',
+                        'idPerso' => '[0-9]+',
                     ),
                     'defaults' =>
                     array(

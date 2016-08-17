@@ -4,7 +4,7 @@ namespace Commun\Form;
 
 /**
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class GuildesForm extends \Core\Form\AbstractForm
 {

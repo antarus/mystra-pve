@@ -8,7 +8,7 @@ use Zend\View\Model\ViewModel;
  * Controller pour la vue.
  *
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 
@@ -97,9 +97,20 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
-                $this->getTableRoster()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été créé avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-roster-list');
+                try {
+                    $this->getTableRoster()->beginTransaction();
+                    $oEntite = $this->getTableRoster()->saveOrUpdateRoster($oEntite);
+                    $this->getTableRoster()->commit();
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le roster a été créé avec succès."), 'success');
+                    return $this->redirect()->toRoute('backend-roster-update', array('id' => $oEntite->getIdRoster()));
+                } catch (\Exception $ex) {
+                    // on rollback en cas d'erreur
+                    $this->getTableRoster()->rollback();
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La création du roster a échoué."), 'error');
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -131,53 +142,33 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
         $oFiltre = new \Commun\Filter\RosterFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-
+        $aOptRoster = array(
+            'nom' => $oEntite->getNom(),
+            'roles' => $this->getTableRole()->fetchAll()->toArray()
+        );
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $this->getTableRoster()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été modifié avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-roster-list');
+                try {
+                    $this->getTableRoster()->beginTransaction();
+                    $oEntite = $this->getTableRoster()->saveOrUpdateRoster($oEntite);
+                    $this->getTableRoster()->commit();
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le roster a été modifié avec succès."), 'success');
+                    return $this->redirect()->toRoute('backend-roster-list');
+                } catch (\Exception $ex) {
+                    // on rollback en cas d'erreur
+                    $this->getTableRoster()->rollback();
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La modification du roster a échoué."), 'error');
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');
+                }
             }
         }
 
-//        $aOptRoster = array(
-//            'nom' => '[Nom de votre Roster]',
-//            'roles' => array(
-//                array(
-//                    'nom' => 'dps',
-//                    "personnages" => array(
-//                        array(
-//                            "nom" => 'perso1',
-//                            "classe" => 'classe1'
-//                        ),
-//                        array(
-//                            "nom" => 'perso2',
-//                            "classe" => 'classe2'
-//                        )
-//                    )),
-//                array(
-//                    'nom' => 'distant',
-//                    "personnages" => array(
-//                        array(
-//                            "nom" => 'perso3',
-//                            "classe" => 'classe3'
-//                        ),
-//                        array(
-//                            "nom" => 'perso4',
-//                            "classe" => 'classe4'
-//                        )
-//                    )
-//                )
-//            ),
-//        );
-        $aOptRoster = array(
-            'nom' => '[Nom de votre Roster]',
-            'roles' => $this->getTableRole()->fetchAll()->toArray()
-        );
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('backend/roster/update');

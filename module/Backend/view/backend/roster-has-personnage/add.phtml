@@ -113,6 +113,7 @@
                         if (!vContinue) {
                             $("#popupGlobal").dialog("close");
                             majListe();
+                            $("#msg").addClass('alert-success').text(html.responseJSON.success.msg);
                         }
                     }
                 }

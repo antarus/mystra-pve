@@ -8,7 +8,7 @@ use Zend\View\Model\ViewModel;
  * Controller pour la vue.
  *
  * @author Antarus
- * @project Mystra
+ * @project Raid-TracKer
  */
 class NpcController extends \Zend\Mvc\Controller\AbstractActionController
 {
