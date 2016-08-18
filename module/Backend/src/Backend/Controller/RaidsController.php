@@ -174,7 +174,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de raids inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-raids-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la raids."), 'error');
             return $this->redirect()->toRoute('backend-raids-list');
         }
@@ -300,7 +300,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTableRaid()->rollback();
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));
@@ -444,7 +444,10 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
 //                    );
 //                    $oGuildes = $this->getTableGuilde()->importGuilde($aOptGuilde);
 //                }
-                $oPersonnage = $this->getTablePersonnage()->importPersonnage($aOptPersonnage);
+                $aPersoBnet = $this->getTablePersonnage()->importPersonnage($aOptPersonnage);
+                $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
+                $oPersonnage = $this->getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage);
+
                 // on cree le lien raid personnage
                 $this->getTableRaidPersonnages()->saveOrUpdateRaid($oPersonnage, $oRaid);
                 $aLstPersonnage[] = $oPersonnage;

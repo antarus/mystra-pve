@@ -116,7 +116,7 @@ class BossesHasNpcController extends \Zend\Mvc\Controller\AbstractActionControll
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de bosses-has-npc inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-bosses-has-npc-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la bosses-has-npc."), 'error');
            return $this->redirect()->toRoute('backend-bosses-has-npc-list');
         }

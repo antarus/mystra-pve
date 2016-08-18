@@ -116,7 +116,7 @@ class EvenementsTemplateController extends \Zend\Mvc\Controller\AbstractActionCo
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de evenements-template inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-evenements-template-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-template."), 'error');
            return $this->redirect()->toRoute('backend-evenements-template-list');
         }

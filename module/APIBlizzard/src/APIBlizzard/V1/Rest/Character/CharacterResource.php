@@ -8,9 +8,10 @@ use \Bnet\Region;
 use \Bnet\ClientFactory;
 
 class CharacterResource extends AbstractResourceListener {
-    /* @var $_servBnet \Bnet\ClientFactory */
+    /* @var $_service */
 
-    private $_servBnet;
+    private $_service;
+
 
     /* @var $_tableRace \Commun\Table\RaceTable  */
     private $_tableRace;
@@ -18,44 +19,28 @@ class CharacterResource extends AbstractResourceListener {
     /* @var $_tableClasses \Commun\Table\ClassesTable  */
     private $_tableClasses;
 
+    /* @var $_tablePersonnage \Commun\Table\PersonnagesTable  */
+    private $_tablePersonnage;
+
+    /**
+     * Retourne la table PersonnagesTable.
+     * @return \Commun\Table\PersonnagesTable
+     */
+    private function getTablePersonnage() {
+        if (!$this->_tablePersonnage) {
+            $this->_tablePersonnage = $this->_service->get('Commun\Table\PersonnagesTable');
+        }
+        return $this->_tablePersonnage;
+    }
+
     /**
      *
      * @param $services
      */
     public function __construct($services) {
-        $this->_servBnet = $services->get('\Bnet\ClientFactory');
+        $this->_service = $services;
         $this->_tableRace = $services->get('\Commun\Table\RaceTable');
         $this->_tableClasses = $services->get('\Commun\Table\ClassesTable');
-    }
-
-    /**
-     * Create a resource
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function create($data) {
-        return new ApiProblem(405, 'The POST method has not been defined');
-    }
-
-    /**
-     * Delete a resource
-     *
-     * @param  mixed $id
-     * @return ApiProblem|mixed
-     */
-    public function delete($id) {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
-    }
-
-    /**
-     * Delete a collection, or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function deleteList($data) {
-        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
     }
 
     /**
@@ -65,60 +50,34 @@ class CharacterResource extends AbstractResourceListener {
      * @return ApiProblem|mixed
      */
     public function fetch($id) {
-        $sNom = $this->getEvent()->getRouteParam('character_id');
-        $sServer = $this->getEvent()->getRouteParam('api-character-server');
-        $personnageBnet = $this->_servBnet->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
-        $personnageBnet->on($sServer);
-        $aOptionBnet = array();
-        $aOptionBnet[] = 'items';
-        // $personnageBnet->find($sNom);
-        $oPersonnage = $personnageBnet->find($sNom, $aOptionBnet);
-        $oPersonnage['race'] = $this->_tableRace->findRow($oPersonnage['race'])->getNom();
-        $oPersonnage['class'] = $this->_tableClasses->findRow($oPersonnage['class'])->getNom();
-        $oPersonnage['gender'] = $oPersonnage['gender'] == 0 ? "Male" : "Femelle";
-        return $oPersonnage;
-    }
+        try {
+            $sNom = $this->getEvent()->getRouteParam('character_id');
+            $sServer = $this->getEvent()->getRouteParam('api-character-server');
+            $aPost = array(
+                'serveur' => $sServer,
+                'nom' => $sNom
+            );
+            $aOptionBnet = array();
+            $aOptionBnet[] = 'items';
+//            try {
+            $oPersonnage = $this->getTablePersonnage()->importPersonnage($aPost, null, $aOptionBnet);
+            $oReturn = $oPersonnage->jsonSerialize();
 
-    /**
-     * Fetch all or a subset of resources
-     *
-     * @param  array $params
-     * @return ApiProblem|mixed
-     */
-    public function fetchAll($params = array()) {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
-    }
+            $oReturn['race'] = $this->_tableRace->findRow($oReturn['race'])->getNom();
+            $oReturn['class'] = $this->_tableClasses->findRow($oReturn['class'])->getNom();
+            $oReturn['gender'] = $oReturn['gender'] == 0 ? "Male" : "Female";
+            return $oReturn;
+//            } catch (\Exception $ex) {
+//                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+//                if ($aAjaxEx["code"] == 299) {
+//                    return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"));
+//                }
+//                return new ApiProblem(500, $aAjaxEx['msg'], $this->_getServTranslator()->translate("Erreur interne"), $this->_getServTranslator()->translate("Erreur interne du serveur"));
+//            }
+        } catch (\Exception $ex) {
 
-    /**
-     * Patch (partial in-place update) a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function patch($id, $data) {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
-    }
-
-    /**
-     * Replace a collection or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function replaceList($data) {
-        return new ApiProblem(405, 'The PUT method has not been defined for collections');
-    }
-
-    /**
-     * Update a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function update($id, $data) {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
+        }
     }
 
 }

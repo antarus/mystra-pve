@@ -116,7 +116,7 @@ class NpcController extends \Zend\Mvc\Controller\AbstractActionController
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de npc inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-npc-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la npc."), 'error');
            return $this->redirect()->toRoute('backend-npc-list');
         }

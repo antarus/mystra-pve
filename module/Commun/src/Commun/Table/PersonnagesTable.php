@@ -91,29 +91,30 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      * import un personnage depuis un tableau.
      * @param array $aPost
      * @param \Commun\Model\Guildes $oGuilde
-     * @return  \Commun\Model\Personnages
+     * @param array $OptionBnet
+     * @return  array bnet
      */
-    public function importPersonnage($aPost, $oGuilde = null) {
+    public function importPersonnage($aPost, $oGuilde = null, $OptionBnet = array()) {
         try {
-            $oTabPersonnage = $this->selectBy(
-                    array(
-                        "nom" => $aPost['nom'],
-                        "royaume" => $aPost['serveur']));
-// si n'existe pas on importe
-            if (!$oTabPersonnage) {
-                $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
-                $personnageBnet->on($aPost['serveur']);
+//            $oTabPersonnage = $this->selectBy(
+//                    array(
+//                        "nom" => $aPost['nom'],
+//                        "royaume" => $aPost['serveur']));
+//// si n'existe pas on importe
+//            if (!$oTabPersonnage) {
+            $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
+            $personnageBnet->on($aPost['serveur']);
 
-                $aPersoBnet = $personnageBnet->find($aPost['nom']);
-                if (!$aPersoBnet) {
-                    throw new BnetException(299, $this->_getServiceLocator()->get('translator'));
-                }
-
-
-                $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
-                return $this->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
+            $aPersoBnet = $personnageBnet->find($aPost['nom'], $OptionBnet);
+            if (!$aPersoBnet) {
+                throw new BnetException(299, $this->_getServiceLocator()->get('translator'));
             }
-            return $oTabPersonnage;
+            return $aPersoBnet;
+
+//                $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
+//                return $this->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
+//            }
+//            return $oTabPersonnage;
         } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de l'import de personnage", 0, $ex);
         }
@@ -165,7 +166,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                 }
             }
             return $oPersonnage;
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }

@@ -73,7 +73,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                 }
             }
             return $oRoster;
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }

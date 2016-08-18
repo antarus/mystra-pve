@@ -116,7 +116,7 @@ class ItemPersonnageRaidController extends \Zend\Mvc\Controller\AbstractActionCo
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de item-personnage-raid inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-item-personnage-raid-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la item-personnage-raid."), 'error');
            return $this->redirect()->toRoute('backend-item-personnage-raid-list');
         }

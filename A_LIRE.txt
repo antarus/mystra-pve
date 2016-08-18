@@ -25,6 +25,10 @@ http://localhost:48081/api/character/garona/antaruss
 CODE ERREUR :
 =========
 
+divers :
+----------
+504 => "Timeout"
+
 DatabaseException :
 --------------
 
@@ -68,6 +72,15 @@ BnetException :
 299 => "Personnage ou Serveur inconnu",
 399 => "Item inconnu"
 
+
+
+APIProblem:
+--------------
+404 => "Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."
+       "L'item [ %s ] n'a pas été trouvé."
+       "Le roster [ %s ] demandé n'a pas été trouvé."
+
+500 =>  "Erreur interne"  voir le "detail" pour plus d'information (si renseigné)
 
 
 TODO :

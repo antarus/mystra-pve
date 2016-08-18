@@ -116,7 +116,7 @@ class ModeDifficulteController extends \Zend\Mvc\Controller\AbstractActionContro
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de mode-difficulte inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-mode-difficulte-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la mode-difficulte."), 'error');
            return $this->redirect()->toRoute('backend-mode-difficulte-list');
         }

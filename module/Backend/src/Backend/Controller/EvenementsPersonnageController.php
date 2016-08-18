@@ -116,7 +116,7 @@ class EvenementsPersonnageController extends \Zend\Mvc\Controller\AbstractAction
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de evenements-personnage inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-evenements-personnage-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-personnage."), 'error');
            return $this->redirect()->toRoute('backend-evenements-personnage-list');
         }

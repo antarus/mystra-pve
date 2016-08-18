@@ -116,7 +116,7 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de users inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-users-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la users."), 'error');
            return $this->redirect()->toRoute('backend-users-list');
         }

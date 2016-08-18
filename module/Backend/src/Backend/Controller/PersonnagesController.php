@@ -109,7 +109,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de personnages inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la personnages."), 'error');
             return $this->redirect()->toRoute('backend-personnages-list');
         }
@@ -209,12 +209,16 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             $aPost = $oRequest->getPost();
             $this->getTablePersonnage()->beginTransaction();
             try {
-                $this->getTablePersonnage()->importPersonnage($aPost);
+//
+                $aPersoBnet = $this->getTablePersonnage()->importPersonnage($aPost);
+                $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
+                $this->getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage);
+
                 $this->getTablePersonnage()->commit();
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTablePersonnage()->rollback();
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));

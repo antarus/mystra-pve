@@ -129,7 +129,7 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
                 }
             }
             return $oLienRosterPers;
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
         }
     }

@@ -108,7 +108,7 @@ class FactionController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de faction inconnue."), 'error');
                 return $this->redirect()->toRoute('backend-faction-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la faction."), 'error');
             return $this->redirect()->toRoute('backend-faction-list');
         }

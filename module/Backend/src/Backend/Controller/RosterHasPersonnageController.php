@@ -107,7 +107,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-roster-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du roster."), 'error');
             return $this->redirect()->toRoute('backend-roster-list');
         }
@@ -155,7 +155,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
                 } catch (\Exception $ex) {
                     // on rollback en cas d'erreur
                     $this->getTableRosterHasPersonnage()->rollback();
-                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
                     $result = new JsonModel(array(
                         'error' => $aAjaxEx
                     ));
@@ -186,7 +186,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster-has-personnage inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-roster-has-personnage-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster-has-personnage."), 'error');
             return $this->redirect()->toRoute('backend-roster-has-personnage-list');
         }
@@ -232,7 +232,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
         } catch (\Exception $ex) {
             // on rollback en cas d'erreur
             $this->getTableRosterHasPersonnage()->rollback();
-            $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+            $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
 
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Erreur lors de la suppression du personnage du roster."), 'error');
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');

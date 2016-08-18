@@ -116,7 +116,7 @@ class RoleController extends \Zend\Mvc\Controller\AbstractActionController
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de role inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-role-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la role."), 'error');
            return $this->redirect()->toRoute('backend-role-list');
         }

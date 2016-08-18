@@ -116,7 +116,7 @@ class ZoneHasBossesController extends \Zend\Mvc\Controller\AbstractActionControl
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de zone-has-bosses inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-zone-has-bosses-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la zone-has-bosses."), 'error');
            return $this->redirect()->toRoute('backend-zone-has-bosses-list');
         }

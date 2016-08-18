@@ -109,7 +109,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de items inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-items-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la items."), 'error');
             return $this->redirect()->toRoute('backend-items-list');
         }
@@ -211,7 +211,7 @@ class ItemsController extends \Zend\Mvc\Controller\AbstractActionController {
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTable()->rollback();
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));

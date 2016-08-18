@@ -106,7 +106,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
                 } catch (\Exception $ex) {
                     // on rollback en cas d'erreur
                     $this->getTableRoster()->rollback();
-                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
 
                     $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La création du roster a échoué."), 'error');
                     $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');
@@ -132,7 +132,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-roster-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du roster."), 'error');
             return $this->redirect()->toRoute('backend-roster-list');
         }
@@ -161,7 +161,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
                 } catch (\Exception $ex) {
                     // on rollback en cas d'erreur
                     $this->getTableRoster()->rollback();
-                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToAjax($ex);
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
 
                     $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La modification du roster a échoué."), 'error');
                     $this->flashMessenger()->addMessage($this->_getServTranslator()->translate($aAjaxEx['msg']), 'error');
@@ -183,7 +183,7 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
 //                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
 //                return $this->redirect()->toRoute('backend-roster-list');
 //            }
-//        } catch (Exception $ex) {
+//        } catch (\Exception $ex) {
 //            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
 //            return $this->redirect()->toRoute('backend-roster-list');
 //        }

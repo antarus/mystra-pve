@@ -9,10 +9,11 @@ class LootResource extends AbstractResourceListener {
     /* @var $_service */
 
     private $_service;
-
+    private $_servTranslator;
 
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
+
     /* @var $_tableItemPersonnageRaid \Commun\Table\ItemPersonnageRaidTable */
     private $_tableItemPersonnageRaid;
 
@@ -28,6 +29,18 @@ class LootResource extends AbstractResourceListener {
             $this->_tableItems = $this->_service->get('Commun\Table\ItemsTable');
         }
         return $this->_tableItems;
+    }
+
+    /**
+     * Retourne le service de traduction en mode lazy.
+     *
+     * @return
+     */
+    public function _getServTranslator() {
+        if (!$this->_servTranslator) {
+            $this->_servTranslator = $this->_service->get('translator');
+        }
+        return $this->_servTranslator;
     }
 
     /**
@@ -61,116 +74,52 @@ class LootResource extends AbstractResourceListener {
     }
 
     /**
-     * Create a resource
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function create($data) {
-        return new ApiProblem(405, 'The POST method has not been defined');
-    }
-
-    /**
-     * Delete a resource
-     *
-     * @param  mixed $id
-     * @return ApiProblem|mixed
-     */
-    public function delete($id) {
-        return new ApiProblem(405, 'The DELETE method has not been defined for individual resources');
-    }
-
-    /**
-     * Delete a collection, or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function deleteList($data) {
-        return new ApiProblem(405, 'The DELETE method has not been defined for collections');
-    }
-
-    /**
      * Fetch a resource
      *
      * @param  mixed $id nom du personnage dont on veut le loot
      * @return ApiProblem|mixed
      */
     public function fetch($id) {
-        $sServer = $this->getEvent()->getRouteParam('loot_server');
-        $sNom = $this->getEvent()->getRouteParam('loot_name');
-        $oTabPersonnage = $this->getTablePersonnage()->selectBy(
-                array(
-                    "nom" => $sNom,
-                    "royaume" => $sServer));
-        if (!$oTabPersonnage) {
-            throw new \Exception("le personnage " . $sNom . " n'existe pas en base de donnée.");
-        }
-
-        $oResult = new LootEntity();
-        $oResult->setNom($oTabPersonnage->getNom());
-        $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->fetchAllWhere(
-                        array(
-                            "idPersonnage" => $oTabPersonnage->getIdPersonnage()))->toArray();
-        $aItemsPersonnage = array();
-        foreach ($oTabItemPersonnageRaid as $item) {
-            $oTabItem = $this->getTableItems()->selectBy(
+        try {
+            $sServer = $this->getEvent()->getRouteParam('loot_server');
+            $sNom = $this->getEvent()->getRouteParam('loot_name');
+            $oTabPersonnage = $this->getTablePersonnage()->selectBy(
                     array(
+                        "nom" => $sNom,
+                        "royaume" => $sServer));
+            if (!$oTabPersonnage) {
+                return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"));
+            }
+
+            $oResult = new LootEntity();
+            $oResult->setNom($oTabPersonnage->getNom());
+            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->fetchAllWhere(
+                            array(
+                                "idPersonnage" => $oTabPersonnage->getIdPersonnage()))->toArray();
+            $aItemsPersonnage = array();
+            foreach ($oTabItemPersonnageRaid as $item) {
+                $oTabItem = $this->getTableItems()->selectBy(
+                        array(
+                            "idItem" => $item['idItem']));
+                if (!$oTabItem) {
+                    return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("L'item [ %s ] n'a pas été trouvé.")), $this->_getServTranslator()->translate("Non trouvé"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(
                         "idItem" => $item['idItem']));
+                }
 
-            $aLien = array();
-            $aLien['idBnet'] = $oTabItem->getIdBnet();
-            $aLien['bonus'] = $item['bonus'];
-            $aItem = array();
-            $aItem['nom'] = $oTabItem->getNom();
-            $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
-            $aItemsPersonnage[] = $aItem;
+                $aLien = array();
+                $aLien['idBnet'] = $oTabItem->getIdBnet();
+                $aLien['bonus'] = $item['bonus'];
+                $aItem = array();
+                $aItem['nom'] = $oTabItem->getNom();
+                $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
+                $aItemsPersonnage[] = $aItem;
+            }
+            $oResult->setItems($aItemsPersonnage);
+
+            return $oResult;
+        } catch (\Exception $ex) {
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
         }
-        $oResult->setItems($aItemsPersonnage);
-
-        return $oResult;
-    }
-
-    /**
-     * Fetch all or a subset of resources
-     *
-     * @param  array $params
-     * @return ApiProblem|mixed
-     */
-    public function fetchAll($params = array()) {
-        return new ApiProblem(405, 'The GET method has not been defined for collections');
-    }
-
-    /**
-     * Patch (partial in-place update) a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function patch($id, $data) {
-        return new ApiProblem(405, 'The PATCH method has not been defined for individual resources');
-    }
-
-    /**
-     * Replace a collection or members of a collection
-     *
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function replaceList($data) {
-        return new ApiProblem(405, 'The PUT method has not been defined for collections');
-    }
-
-    /**
-     * Update a resource
-     *
-     * @param  mixed $id
-     * @param  mixed $data
-     * @return ApiProblem|mixed
-     */
-    public function update($id, $data) {
-        return new ApiProblem(405, 'The PUT method has not been defined for individual resources');
     }
 
 }

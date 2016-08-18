@@ -116,7 +116,7 @@ class EvenementsRolesController extends \Zend\Mvc\Controller\AbstractActionContr
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de evenements-roles inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-evenements-roles-list');
             }
-        } catch (Exception $ex) {
+        } catch (\Exception $ex) {
            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la evenements-roles."), 'error');
            return $this->redirect()->toRoute('backend-evenements-roles-list');
         }
