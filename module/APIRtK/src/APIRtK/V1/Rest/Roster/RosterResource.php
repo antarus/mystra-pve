@@ -8,6 +8,8 @@ use ZF\Rest\AbstractResourceListener;
 class RosterResource extends AbstractResourceListener {
 
     private $_tableRoster;
+    private $_tableRole;
+    private $_tableRosterHasPersonnage;
     private $_servTranslator;
     /* @var $_service */
     private $_service;
@@ -21,6 +23,30 @@ class RosterResource extends AbstractResourceListener {
             $this->_tableRoster = $this->_service->get('Commun\Table\RosterTable');
         }
         return $this->_tableRoster;
+    }
+
+    /**
+     * Returne une instance de la table en lazy.
+     *
+     * @return \Commun\Table\RoleTable
+     */
+    public function getTableRole() {
+        if (!$this->_tableRole) {
+            $this->_tableRole = $this->_service->get('\Commun\Table\RoleTable');
+        }
+        return $this->_tableRole;
+    }
+
+    /**
+     * Returne une instance de la table en lazy.
+     *
+     * @return \Commun\Table\RosterHasPersonnageTable
+     */
+    public function getTableRosterHasPersonnage() {
+        if (!$this->_tableRosterHasPersonnage) {
+            $this->_tableRosterHasPersonnage = $this->_service->get('\Commun\Table\RosterHasPersonnageTable');
+        }
+        return $this->_tableRosterHasPersonnage;
     }
 
     /**
@@ -52,6 +78,8 @@ class RosterResource extends AbstractResourceListener {
     public function fetch($id) {
         try {
             $sNom = $this->getEvent()->getRouteParam('roster_name');
+
+            /* @var $oTabRoster \Commun\Model\Roster  */
             $oTabRoster = $this->getTableRoster()->selectBy(
                     array(
                         "nom" => $sNom));
@@ -59,30 +87,19 @@ class RosterResource extends AbstractResourceListener {
                 return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] demandé n'a pas été trouvé."), $sNom), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Roster inconnu"));
             }
 
-//            $oResult = new RosterEntity();
-//            $oResult->setNom($oTabRoster->getNom());
-//            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->fetchAllWhere(
-//                            array(
-//                                "idPersonnage" => $oTabRoster->getIdPersonnage()))->toArray();
-//            $aItemsPersonnage = array();
-//            foreach ($oTabItemPersonnageRaid as $item) {
-//                $oTabItem = $this->getTableItems()->selectBy(
-//                        array(
-//                            "idItem" => $item['idItem']));
-//
-//                $aLien = array();
-//                $aLien['idBnet'] = $oTabItem->getIdBnet();
-//                $aLien['bonus'] = $item['bonus'];
-//                $aItem = array();
-//                $aItem['nom'] = $oTabItem->getNom();
-//                $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
-//                $aItemsPersonnage[] = $aItem;
-//            }
-//            $oResult->setItems($aItemsPersonnage);
+            $aRoles = $this->getTableRole()->fetchAll()->toArray();
+            $oResult = new RosterEntity();
+            $oResult->setNom($sNom);
+            $aRoleModifie = array();
+            foreach ($aRoles as $aRole) {
+                $aLstPerso = $this->getTableRosterHasPersonnage()->getListePersonnage($aRole['idRole'], $oTabRoster->getIdRoster());
 
-            return $oTabRoster;
+                $aRole["personnages"] = $aLstPerso;
+                $aRoleModifie[] = $aRole;
+            }
+            $oResult->setRoles($aRoleModifie);
+            return $oResult;
         } catch (\Exception $ex) {
-
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
         }
     }

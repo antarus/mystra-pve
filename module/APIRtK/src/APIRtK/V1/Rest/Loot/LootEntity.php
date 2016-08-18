@@ -33,18 +33,18 @@ class LootEntity extends \Core\Model\AbstractModel {
     }
 
     /**
-     * Retourne la valeur $nom.
+     * Retourne la valeur items.
      *
-     * @return string
+     * @return array
      */
     public function getItems() {
         return $this->items;
     }
 
     /**
-     * Définit la valeur pour $nom
+     * Définit la valeur pour items
      *
-     * @param string
+     * @param array
      */
     public function setItems($value) {
         $this->items = $value;

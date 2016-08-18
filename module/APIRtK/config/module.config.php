@@ -123,13 +123,13 @@ return array(
                 'is_collection' => true,
             ),
             'APIRtK\\V1\\Rest\\Roster\\RosterEntity' => array(
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'nom',
                 'route_name' => 'api-rt-k.rest.roster',
                 'route_identifier_name' => 'roster_name',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
             'APIRtK\\V1\\Rest\\Roster\\RosterCollection' => array(
-                'entity_identifier_name' => 'id',
+                'entity_identifier_name' => 'nom',
                 'route_name' => 'api-rt-k.rest.roster',
                 'route_identifier_name' => 'roster_name',
                 'is_collection' => true,

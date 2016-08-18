@@ -1,0 +1,92 @@
+
+!loot garona antaruss
+
+  retourne les loots de antaruss sur le serveur garona.
+  format :
+
+  {
+    "nom": "sfy",
+    "items": [
+      {
+        "nom": "flickering felspark",
+        "lien": "http://www.wowhead.com/?item=124231&bonus=1798:1492:3441:"
+      }
+    ],
+    "_links": {
+      "self": {
+        "href": "http://localhost:48081/api/loot/sfy/sfy"
+      }
+    }
+  }
+
+TODO : ajouter la date du loot
+
+
+
+
+------------------------------
+
+!roster mystra
+  retourne le roster nommé mystra
+
+ format :(en cours de dev)
+
+  {
+    "nom": "mystra",
+    "roles": [
+      {
+        "tank" :
+        [
+          {
+            "nom": "antaruss",
+            "classe": "monk"
+          },
+          {
+            "nom": "prony",
+            "classe": "druid"
+          }
+        ]
+      },
+      {
+        "soigneur" :
+        [
+          {
+            "nom": "lisys",
+            "classe": "priest"
+          },
+          
+        ]
+      }
+
+    .. etc
+      ]
+    "_links": {
+      "self": {
+        "href": "http://localhost:48081/api/loot/sfy/sfy"
+      }
+    }
+  }
+
+------------------------------
+
+!roster mystra stat
+  retourne les stats du roster mystra. Nb raid, nb de loot, Taux de participation moyen, ilvlMoyen ( TODO a complèter)
+
+
+------------------------------
+
+!roster mystra stat capi
+  lien armory, nombre de raids, taux de participation, nombre de loot, ilvl, liste des loots avec lien wowhead
+
+
+!roster mystra greedy
+  retourne le plus gros lootauvore du roster :P
+  peut etre fusionné  dans la commande !roster stat
+
+------------------------------
+
+!roster mystra compare  antaruss  capi 
+
+  compare les deux personnages. (a definir)
+
+

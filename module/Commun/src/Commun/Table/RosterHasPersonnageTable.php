@@ -52,8 +52,8 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
         $oQuery->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('classe' => 'nom',
             'idClasses', 'couleur'), \Zend\Db\Sql\Select::JOIN_INNER);
 
-        $oQuery->join(array('r' => 'role'), 'rhp.idRole = r.idRole', array('classe' => 'nom',
-            'idRole', 'r_roleNom' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER);
+        $oQuery->join(array('r' => 'role'), 'rhp.idRole = r.idRole', array('role' => 'nom',
+            'idRole'), \Zend\Db\Sql\Select::JOIN_INNER);
 
 
         $oQuery->join(array('g' => 'guildes'), 'g.idGuildes = p.idGuildes', array('guilde' => 'nom',
@@ -62,7 +62,7 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
 
 
         $oQuery->where("rhp.idRole= '" . $idRole . "' and rhp.idRoster = '" . $idRoster . "'");
-
+        $oQuery->order('nom');
         // $this->debug($oQuery);
         $aReturn = $this->fetchAllArray($oQuery);
         return $aReturn;
