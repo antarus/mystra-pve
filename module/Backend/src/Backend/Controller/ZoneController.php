@@ -3,8 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
-use \Bnet\Region;
-use \Bnet\ClientFactory;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -17,23 +16,6 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
     private $_servBnet;
     private $_servTranslator = null;
     private $_tableZone = null;
-    private $_tableBoss = null;
-    private $_tableNpc = null;
-    private $_tableBossesHasNpc = null;
-    private $_tableZoneHasBosses = null;
-    private $_tableZoneHasModeDiffculte = null;
-    private $_tableModeDifficulte = null;
-
-    /**
-     * Retourne le service de battlnet.
-     * @return \Bnet\ClientFactory
-     */
-    private function _getServBnet() {
-        if (!$this->_servBnet) {
-            $this->_servBnet = $this->getServiceLocator()->get('Bnet\ClientFactory');
-        }
-        return $this->_servBnet;
-    }
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -50,85 +32,13 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
     /**
      * Returne une instance de la table szone  en lazy.
      *
-     * @return
+     * @return \Commun\Table\ZoneTable
      */
     public function getTableZone() {
         if (!$this->_tableZone) {
             $this->_tableZone = $this->getServiceLocator()->get('\Commun\Table\ZoneTable');
         }
         return $this->_tableZone;
-    }
-
-    /**
-     * Returne une instance de la table szone  en lazy.
-     *
-     * @return
-     */
-    public function getTableBoss() {
-        if (!$this->_tableBoss) {
-            $this->_tableBoss = $this->getServiceLocator()->get('\Commun\Table\BossesTable');
-        }
-        return $this->_tableBoss;
-    }
-
-    /**
-     * Returne une instance de la table npc  en lazy.
-     *
-     * @return
-     */
-    public function getTableNpc() {
-        if (!$this->_tableNpc) {
-            $this->_tableNpc = $this->getServiceLocator()->get('\Commun\Table\NpcTable');
-        }
-        return $this->_tableNpc;
-    }
-
-    /**
-     * Returne une instance de la table en lazy.
-     *
-     * @return
-     */
-    public function getTableBossesHasNpc() {
-        if (!$this->_tableBossesHasNpc) {
-            $this->_tableBossesHasNpc = $this->getServiceLocator()->get('\Commun\Table\BossesHasNpcTable');
-        }
-        return $this->_tableBossesHasNpc;
-    }
-
-    /**
-     * Returne une instance de la table en lazy.
-     *
-     * @return
-     */
-    public function getTableZoneHasBosses() {
-        if (!$this->_tableZoneHasBosses) {
-            $this->_tableZoneHasBosses = $this->getServiceLocator()->get('\Commun\Table\ZoneHasBossesTable');
-        }
-        return $this->_tableZoneHasBosses;
-    }
-
-    /**
-     * Returne une instance de la table en lazy.
-     *
-     * @return
-     */
-    public function getTableZoneHasModeDiffculte() {
-        if (!$this->_tableZoneHasModeDiffculte) {
-            $this->_tableZoneHasModeDiffculte = $this->getServiceLocator()->get('\Commun\Table\ZoneHasModeDiffculteTable');
-        }
-        return $this->_tableZoneHasModeDiffculte;
-    }
-
-    /**
-     * Returne une instance de la table en lazy.
-     *
-     * @return
-     */
-    public function getTableModeDifficulte() {
-        if (!$this->_tableModeDifficulte) {
-            $this->_tableModeDifficulte = $this->getServiceLocator()->get('\Commun\Table\ModeDifficulteTable');
-        }
-        return $this->_tableModeDifficulte;
     }
 
     /**
@@ -293,132 +203,30 @@ class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
             'imp-boss' => 'Oui',
         );
         $this->layout('layout/ajax');
-        // Pour optimiser le rendu
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/zone/import/import');
-        $oViewModel->setVariable("zone", $aOptZone);
-
         $oRequest = $this->getRequest();
 
         if ($oRequest->isPost()) {
             $aPost = $oRequest->getPost();
             $this->getTableZone()->beginTransaction();
             try {
-                $this->importZone($aPost);
+                $this->getTableZone()->importZone($aPost);
                 $this->getTableZone()->commit();
             } catch (\Exception $ex) {
-                // var_dump($ex);
                 // on rollback en cas d'erreur
                 $this->getTableZone()->rollback();
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de l'import de la zone."), 'error');
-                return null;
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+                $result = new JsonModel(array(
+                    'error' => $aAjaxEx
+                ));
+                return $result;
             }
         }
-
-        //$oViewModel->setVariable("id", $iId);
-        return $oViewModel;
-    }
-
-    public function importZone($aPost) {
-
-        $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->zones();
-        $aZoneBnet = $zone->find($aPost['idZone']);
-
-        $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet);
-        $oTabZone = $this->getTableZone()->selectBy(
-                array(
-                    "idZone" => $oZone->getIdZone()));
-        // si n'existe pas on insert
-        if (!$oTabZone) {
-            $this->getTableZone()->insert($oZone);
-        } else {
-            // sinon on update
-            $this->getTableZone()->update($oZone);
-        }
-        //mode de difficulté
-        //supprime toutes les clé correpsondnat au boss dans la table BossesHasModeDifficulté
-        $oTabZoneHasDifficulte = $this->getTableZoneHasModeDiffculte()->selectBy(
-                array("idZone" => $oZone->getIdZone()));
-        if ($oTabZoneHasDifficulte) {
-            if (is_array($oTabZoneHasDifficulte)) {
-                foreach ($oTabZoneHasDifficulte as $oDiff) {
-                    $this->getTableZoneHasModeDiffculte()->delete($oDiff);
-                }
-            } else {
-                $this->getTableZoneHasModeDiffculte()->delete($oTabZoneHasDifficulte);
-            }
-        }
-        foreach ($oZone->getModeDifficulte() as $oDiff) {
-            $oTabModeDifficulte = $this->getTableModeDifficulte()->selectBy(
-                    array("nom_bnet" => $oDiff));
-            $oZoneHasModeDiff = new \Commun\Model\ZoneHasModeDiffculte();
-            $oZoneHasModeDiff->setIdZone($oZone->getIdZone());
-            $oZoneHasModeDiff->setIdMode($oTabModeDifficulte->getIdMode());
-            $this->getTableZoneHasModeDiffculte()->insert($oZoneHasModeDiff);
-        }
-
-        if ($aPost['imp-boss'] == "Oui") {
-            $aBossZone = \Core\Util\ParserWow::extraitBossDepuisBnetZone($aZoneBnet, $oZone);
-        } else {
-            $aBossZone = array();
-        }
-        //supprime toutes les clé correpsondnat au zone dans la table ZoneHasBosses
-        $oTabZoneHasBoss = $this->getTableZoneHasBosses()->selectBy(
-                array("idZone" => $oZone->getIdZone()));
-        if ($oTabZoneHasBoss) {
-            if (is_array($oTabZoneHasBoss)) {
-                foreach ($oTabZoneHasBoss as $oZoneHasBoss) {
-                    $this->getTableZoneHasBosses()->delete($oZoneHasBoss);
-                }
-            } else {
-                $this->getTableZoneHasBosses()->delete($oTabZoneHasBoss);
-            }
-        }
-        foreach ($aBossZone as $oBoss) {
-            // table boss
-            $oTabBoss = $this->getTableBoss()->selectBy(
-                    array("idBosses" => $oBoss->getIdBosses()));
-            // si n'existe pas on insert
-            if (!$oTabBoss) {
-                $this->getTableBoss()->insert($oBoss);
-            } else {
-                // sinon on update
-                $this->getTableBoss()->update($oBoss);
-            }
-            // table npc
-            //supprime toutes les clé correpsondnat au boss dans la table BossesHasNpc
-            $oTabBossHasNpc = $this->getTableBossesHasNpc()->selectBy(
-                    array("idBosses" => $oBoss->getIdBosses()));
-            if ($oTabBossHasNpc) {
-                if (is_array($oTabBossHasNpc)) {
-                    foreach ($oTabBossHasNpc as $oNpc) {
-                        $this->getTableBossesHasNpc()->delete($oNpc);
-                    }
-                } else {
-                    $this->getTableBossesHasNpc()->delete($oTabBossHasNpc);
-                }
-            }
-            foreach ($oBoss->getNpc() as $oNpc) {
-
-                $oTabNpc = $this->getTableNpc()->selectBy(
-                        array("idNpc" => $oNpc->getIdNpc()));
-                // si n'existe pas on insert
-                if (!$oTabNpc) {
-                    $this->getTableNpc()->insert($oNpc);
-                } else {
-                    // sinon on update
-                    $this->getTableNpc()->update($oNpc);
-                }
-                $oBossHasNpc = new \Commun\Model\BossesHasNpc();
-                $oBossHasNpc->setIdBosses($oBoss->getIdBosses());
-                $oBossHasNpc->setIdNpc($oNpc->getIdNpc());
-                $this->getTableBossesHasNpc()->insert($oBossHasNpc);
-            }
-            $oZoneHasBoss = new \Commun\Model\ZoneHasBosses();
-            $oZoneHasBoss->setIdBosses($oBoss->getIdBosses());
-            $oZoneHasBoss->setIdZone($oZone->getIdZone());
-            $this->getTableZoneHasBosses()->insert($oZoneHasBoss);
-        }
+        $result = new JsonModel(array(
+            'success' => array(
+                'msg' => $this->_getServTranslator()->translate('Zone importée avec succès')
+            )
+        ));
+        return $result;
     }
 
 }

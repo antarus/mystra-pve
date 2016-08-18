@@ -2,11 +2,16 @@
 
 namespace Commun\Table;
 
+use \Bnet\Region;
+use \Bnet\ClientFactory;
+use \Commun\Exception\BnetException;
+use \Commun\Exception\DatabaseException;
+
 /**
  * @author Antarus
  * @project Raid-TracKer
  */
-class ZoneTable extends \Core\Table\AbstractTable {
+class ZoneTable extends \Core\Table\AbstractServiceTable {
 
     /**
      * Nom de la  table.
@@ -33,6 +38,12 @@ class ZoneTable extends \Core\Table\AbstractTable {
     private $_servBnet;
     /*  @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
+    private $_tableBoss = null;
+    private $_tableNpc = null;
+    private $_tableBossesHasNpc = null;
+    private $_tableZoneHasBosses = null;
+    private $_tableZoneHasModeDiffculte = null;
+    private $_tableModeDifficulte = null;
 
     /**
      * Returne une instance de la table en lazy.
@@ -112,7 +123,7 @@ class ZoneTable extends \Core\Table\AbstractTable {
      */
     public function _getTableZoneHasModeDiffculte() {
         if (!$this->_tableZoneHasModeDiffculte) {
-            $this->_tableZoneHasModeDiffculte = $this->get_ServiceLocator()->get('\Commun\Table\ZoneHasModeDiffculteTable');
+            $this->_tableZoneHasModeDiffculte = $this->_getServiceLocator()->get('\Commun\Table\ZoneHasModeDiffculteTable');
         }
         return $this->_tableZoneHasModeDiffculte;
     }
@@ -133,9 +144,11 @@ class ZoneTable extends \Core\Table\AbstractTable {
         try {
             $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->zones();
             $aZoneBnet = $zone->find($aPost['idZone']);
-
+            if (!$aZoneBnet) {
+                throw new BnetException(499, $this->_getServiceLocator()->get('translator'));
+            }
             $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet);
-            $this->saveOrUpdateZone($oZone);
+            $oZone = $this->saveOrUpdateZone($oZone);
             //mode de difficulté
             //supprime toutes les clé correpsondnat au boss dans la table BossesHasModeDifficulté
             $oTabZoneHasDifficulte = $this->_getTableZoneHasModeDiffculte()->selectBy(
@@ -231,18 +244,35 @@ class ZoneTable extends \Core\Table\AbstractTable {
      * @return \Commun\Model\Zone
      */
     public function saveOrUpdateZone($oZone) {
-        $oTabZone = $this->selectBy(
-                array(
-                    "idZone" => $oZone->getIdZone()));
-        // si n'existe pas on insert
-        if (!$oTabZone) {
-            $this->insert($oZone);
-            $oZone->setIdZone($this->lastInsertValue);
-        } else {
-            // sinon on update
-            $this->update($oZone);
+        try {
+            try {
+                $oTabZone = $this->selectBy(
+                        array(
+                            "idZone" => $oZone->getIdZone()));
+            } catch (\Exception $exc) {
+                throw new DatabaseException(7000, 4, $this->_getServiceLocator()->get('translator'));
+            }
+
+            // si n'existe pas on insert
+            if (!$oTabZone) {
+                try {
+                    $this->insert($oZone);
+                    $oZone->setIdZone($this->lastInsertValue);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(7000, 2, $this->_getServiceLocator()->get('translator'));
+                }
+            } else {
+                try {
+                    // sinon on update
+                    $this->update($oZone);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(7000, 1, $this->_getServiceLocator()->get('translator'));
+                }
+            }
+            return $oZone;
+        } catch (\Exception $ex) {
+            throw new \Exception("Erreur lors de la sauvegarde de la zone", 0, $ex);
         }
-        return $oZone;
     }
 
 }

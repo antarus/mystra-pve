@@ -167,7 +167,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             }
             return $oPersonnage;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
+            throw new \Exception("Erreur lors de la sauvegarde du personnage", 0, $ex);
         }
     }
 

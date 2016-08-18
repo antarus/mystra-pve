@@ -64,6 +64,13 @@ DatabaseException :
 6003 => "Erreur lors de la suppression du roster",
 6004 => "Erreur lors du listing du roster",
 6005 => "Le nom du roster est déjà utilisé",
+// zone
+7001 => "Erreur lors la mise à jour de la zone",
+7002 => "Erreur lors la création de la zone",
+7003 => "Erreur lors de la suppression de la zone",
+7004 => "Erreur lors du listing de la zone",
+
+
 
 BnetException :
 --------------

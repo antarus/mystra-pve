@@ -62,11 +62,18 @@ class Raids extends \Core\Model\AbstractModel {
     public $majPar = null;
 
     /**
-     * Colonne: majPar
+     * Colonne: idRosterTmp
      *
-     * @var string
+     * @var int
      */
     public $idRosterTmp = null;
+
+    /**
+     * Colonne: idZoneTmp
+     *
+     * @var int
+     */
+    public $idZoneTmp = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -270,6 +277,24 @@ class Raids extends \Core\Model\AbstractModel {
      */
     function setIdRosterTmp($value) {
         $this->idRosterTmp = $value;
+    }
+
+    /**
+     * Retourne la valeur idZoneTmp.
+     *
+     * @return int
+     */
+    function getIdZoneTmp() {
+        return intval($this->idZoneTmp);
+    }
+
+    /**
+     * Définit la valeur pour idZoneTmp
+     *
+     * @param int
+     */
+    function setIdZoneTmp($value) {
+        $this->idZoneTmp = $value;
     }
 
 }

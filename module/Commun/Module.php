@@ -133,7 +133,9 @@ class Module {
                     return new \Commun\Table\UsersTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
                 'Commun\Table\ZoneTable' => function($sm) {
-                    return new \Commun\Table\ZoneTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ZoneTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ZoneHasBossesTable' => function($sm) {
                     return new \Commun\Table\ZoneHasBossesTable($sm->get("\Zend\Db\Adapter\Adapter"));

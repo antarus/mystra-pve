@@ -8,7 +8,8 @@ class BnetException extends \Exception {
         500 => "Erreur inconnue",
         199 => "Guilde ou Serveur inconnue",
         299 => "Personnage ou Serveur inconnu",
-        399 => "Item inconnu"
+        399 => "Item inconnu",
+        499 => "Zone inconnu"
     ];
 
     public function __construct($code = 500, $oTranslator) {

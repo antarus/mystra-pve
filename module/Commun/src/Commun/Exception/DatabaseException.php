@@ -11,7 +11,8 @@ class DatabaseException extends \Exception {
         3000 => "item",
         4000 => "raid",
         5000 => "roster/personnage",
-        6000 => "roster"
+        6000 => "roster",
+        7000 => "zone"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -22,8 +23,6 @@ class DatabaseException extends \Exception {
         5 => "contrainte unique"
     ];
 
-    // private $categorie;
-
     public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, Exception $previous = null) {
         if (isset($this->message[$code + $erreurType])) {
             $msg = $this->message[$code + $erreurType];
@@ -32,32 +31,12 @@ class DatabaseException extends \Exception {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-//        if (isset($this->ERREUR_PRINC[$erreurType])) {
-//            $this->categorie = $this->ERREUR_PRINC[$erreurType];
-//        } else {
-//            $this->categorie = $this->ERREUR_PRINC[0];
-//        }
+
         if (isset($oTanslator)) {
             $msg = $oTanslator->translate($msg);
         }
         parent::__construct($msg, $codeErreur, $previous);
     }
-
-    /**
-     * Getter de la catégorie.
-     * @return string
-     */
-//    function getCategorie() {
-//        return $this->categorie;
-//    }
-
-    /**
-     * Setter de la catégorie.
-     * @param string $categorie
-     */
-//    function setCategorie($categorie) {
-//        $this->categorie = $categorie;
-//    }
 
     protected $message = array(
         5000 => 'Erreur incconue',
@@ -92,6 +71,11 @@ class DatabaseException extends \Exception {
         6003 => "Erreur lors de la suppression du roster",
         6004 => "Erreur lors du listing du roster",
         6005 => "Le nom du roster est déjà utilisé",
+        // zone
+        7001 => "Erreur lors la mise à jour de la zone",
+        7002 => "Erreur lors la création de la zone",
+        7003 => "Erreur lors de la suppression de la zone",
+        7004 => "Erreur lors du listing de la zone",
     );
 
 }
