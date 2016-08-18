@@ -106,6 +106,7 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
+
         $this->getHeader("isApply")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
                 return $record["isApply"] == 0 ? 'Non' : 'Oui';
@@ -114,7 +115,7 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
 
         $this->getHeader("nom")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return "<span class='m-nom' style=\"color:" . $record['couleur'] . "\" >" . $record['nom'] . "</span>";
+                return "<span class='m-nom' style=\"color:" . $record['couleur'] . "\" >" . ucfirst($record["nom"]) . "</span>";
             }
         ));
 

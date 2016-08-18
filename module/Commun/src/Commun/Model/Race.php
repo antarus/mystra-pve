@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Race extends \Core\Model\AbstractModel
-{
+class Race extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idRace
@@ -38,8 +37,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -48,8 +47,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -58,8 +57,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -68,8 +67,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -78,8 +77,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -88,8 +87,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -97,8 +96,7 @@ class Race extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdRace()
-    {
+    public function getIdRace() {
         return intval($this->idRace);
     }
 
@@ -107,8 +105,7 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdRace($value)
-    {
+    public function setIdRace($value) {
         $this->idRace = $value;
     }
 
@@ -117,9 +114,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -127,9 +123,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**
@@ -137,8 +132,7 @@ class Race extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getIcon()
-    {
+    public function getIcon() {
         return strval($this->icon);
     }
 
@@ -147,11 +141,8 @@ class Race extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setIcon($value)
-    {
+    public function setIcon($value) {
         $this->icon = $value;
     }
 
-
 }
-

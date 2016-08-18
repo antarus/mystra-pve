@@ -60,6 +60,7 @@ class ClassMethodsPublic extends ClassMethods {
             if (!array_key_exists($attribute, $paramPublique)) {
                 continue;
             }
+
             $attribute = $this->extractName($attribute, $oObjet);
             $aAttributs[$attribute] = $this->extractValue($attribute, $oObjet->$methode(), $oObjet);
         }

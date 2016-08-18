@@ -181,7 +181,7 @@ class Personnages extends \Core\Model\AbstractModel {
      * @return string
      */
     public function getNom() {
-        return strval($this->nom);
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -190,7 +190,7 @@ class Personnages extends \Core\Model\AbstractModel {
      * @param string
      */
     public function setNom($value) {
-        $this->nom = $value;
+        $this->nom = strtolower($value);
     }
 
     /**

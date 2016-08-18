@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Roster extends \Core\Model\AbstractModel
-{
+class Roster extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idRoster
@@ -31,8 +30,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -41,8 +40,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -51,8 +50,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -61,8 +60,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -71,8 +70,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -81,8 +80,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -90,8 +89,7 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdRoster()
-    {
+    public function getIdRoster() {
         return intval($this->idRoster);
     }
 
@@ -100,8 +98,7 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdRoster($value)
-    {
+    public function setIdRoster($value) {
         $this->idRoster = $value;
     }
 
@@ -110,9 +107,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -120,11 +116,8 @@ class Roster extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
-
 }
-

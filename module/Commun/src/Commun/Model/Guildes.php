@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Guildes extends \Core\Model\AbstractModel
-{
+class Guildes extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idGuildes
@@ -61,8 +60,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -71,8 +70,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -81,8 +80,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -91,8 +90,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -101,8 +100,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -111,8 +110,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -120,8 +119,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdGuildes()
-    {
+    public function getIdGuildes() {
         return intval($this->idGuildes);
     }
 
@@ -130,8 +128,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdGuildes($value)
-    {
+    public function setIdGuildes($value) {
         $this->idGuildes = $value;
     }
 
@@ -140,9 +137,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -150,9 +146,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**
@@ -160,8 +155,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getServeur()
-    {
+    public function getServeur() {
         return strval($this->serveur);
     }
 
@@ -170,8 +164,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setServeur($value)
-    {
+    public function setServeur($value) {
         $this->serveur = $value;
     }
 
@@ -180,8 +173,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNiveau()
-    {
+    public function getNiveau() {
         return strval($this->niveau);
     }
 
@@ -190,8 +182,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNiveau($value)
-    {
+    public function setNiveau($value) {
         $this->niveau = $value;
     }
 
@@ -200,8 +191,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getminiature()
-    {
+    public function getminiature() {
         return strval($this->miniature);
     }
 
@@ -210,8 +200,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setminiature($value)
-    {
+    public function setminiature($value) {
         $this->miniature = $value;
     }
 
@@ -220,8 +209,7 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdFaction()
-    {
+    public function getIdFaction() {
         return intval($this->idFaction);
     }
 
@@ -230,11 +218,8 @@ class Guildes extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdFaction($value)
-    {
+    public function setIdFaction($value) {
         $this->idFaction = $value;
     }
 
-
 }
-

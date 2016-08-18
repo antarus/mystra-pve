@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Bosses extends \Core\Model\AbstractModel
-{
+class Bosses extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idBosses
@@ -45,8 +44,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -55,8 +54,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -65,8 +64,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -75,8 +74,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -85,8 +84,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -95,8 +94,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -104,8 +103,7 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdBosses()
-    {
+    public function getIdBosses() {
         return intval($this->idBosses);
     }
 
@@ -114,8 +112,7 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdBosses($value)
-    {
+    public function setIdBosses($value) {
         $this->idBosses = $value;
     }
 
@@ -124,9 +121,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -134,9 +130,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**
@@ -144,8 +139,7 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getLevel()
-    {
+    public function getLevel() {
         return intval($this->level);
     }
 
@@ -154,8 +148,7 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setLevel($value)
-    {
+    public function setLevel($value) {
         $this->level = $value;
     }
 
@@ -164,8 +157,7 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getVie()
-    {
+    public function getVie() {
         return intval($this->vie);
     }
 
@@ -174,11 +166,8 @@ class Bosses extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setVie($value)
-    {
+    public function setVie($value) {
         $this->vie = $value;
     }
 
-
 }
-

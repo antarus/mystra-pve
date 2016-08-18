@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Classes extends \Core\Model\AbstractModel
-{
+class Classes extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idClasses
@@ -45,8 +44,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -55,8 +54,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -65,8 +64,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -75,8 +74,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -85,8 +84,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -95,8 +94,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -104,8 +103,7 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdClasses()
-    {
+    public function getIdClasses() {
         return intval($this->idClasses);
     }
 
@@ -114,8 +112,7 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdClasses($value)
-    {
+    public function setIdClasses($value) {
         $this->idClasses = $value;
     }
 
@@ -124,8 +121,7 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getCouleur()
-    {
+    public function getCouleur() {
         return strval($this->couleur);
     }
 
@@ -134,8 +130,7 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setCouleur($value)
-    {
+    public function setCouleur($value) {
         $this->couleur = $value;
     }
 
@@ -144,9 +139,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -154,9 +148,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**
@@ -164,8 +157,7 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getIcon()
-    {
+    public function getIcon() {
         return strval($this->icon);
     }
 
@@ -174,11 +166,8 @@ class Classes extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setIcon($value)
-    {
+    public function setIcon($value) {
         $this->icon = $value;
     }
 
-
 }
-

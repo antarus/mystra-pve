@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Zone extends \Core\Model\AbstractModel
-{
+class Zone extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idZone
@@ -80,8 +79,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -90,8 +89,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -100,8 +99,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -110,8 +109,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -120,8 +119,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -130,8 +129,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -139,8 +138,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdZone()
-    {
+    public function getIdZone() {
         return intval($this->idZone);
     }
 
@@ -149,8 +147,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdZone($value)
-    {
+    public function setIdZone($value) {
         $this->idZone = $value;
     }
 
@@ -159,9 +156,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getNom()
-    {
-        return strval($this->nom);
+    public function getNom() {
+        return ucfirst(strval($this->nom));
     }
 
     /**
@@ -169,9 +165,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setNom($value)
-    {
-        $this->nom = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**
@@ -179,8 +174,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getLvlMin()
-    {
+    public function getLvlMin() {
         return strval($this->lvlMin);
     }
 
@@ -189,8 +183,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setLvlMin($value)
-    {
+    public function setLvlMin($value) {
         $this->lvlMin = $value;
     }
 
@@ -199,8 +192,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getLvlMax()
-    {
+    public function getLvlMax() {
         return strval($this->lvlMax);
     }
 
@@ -209,8 +201,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setLvlMax($value)
-    {
+    public function setLvlMax($value) {
         $this->lvlMax = $value;
     }
 
@@ -219,8 +210,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getTailleMin()
-    {
+    public function getTailleMin() {
         return strval($this->tailleMin);
     }
 
@@ -229,8 +219,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setTailleMin($value)
-    {
+    public function setTailleMin($value) {
         $this->tailleMin = $value;
     }
 
@@ -239,8 +228,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getTailleMax()
-    {
+    public function getTailleMax() {
         return strval($this->tailleMax);
     }
 
@@ -249,8 +237,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setTailleMax($value)
-    {
+    public function setTailleMax($value) {
         $this->tailleMax = $value;
     }
 
@@ -259,8 +246,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getPatch()
-    {
+    public function getPatch() {
         return strval($this->patch);
     }
 
@@ -269,8 +255,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setPatch($value)
-    {
+    public function setPatch($value) {
         $this->patch = $value;
     }
 
@@ -279,8 +264,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIsDonjon()
-    {
+    public function getIsDonjon() {
         return intval($this->isDonjon);
     }
 
@@ -289,8 +273,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIsDonjon($value)
-    {
+    public function setIsDonjon($value) {
         $this->isDonjon = $value;
     }
 
@@ -299,8 +282,7 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIsRaid()
-    {
+    public function getIsRaid() {
         return intval($this->isRaid);
     }
 
@@ -309,11 +291,8 @@ class Zone extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIsRaid($value)
-    {
+    public function setIsRaid($value) {
         $this->isRaid = $value;
     }
 
-
 }
-
