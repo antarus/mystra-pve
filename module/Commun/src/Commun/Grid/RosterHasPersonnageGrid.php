@@ -33,11 +33,11 @@ class RosterHasPersonnageGrid extends \ZfTable\AbstractTable {
     private $_servTranslator = null;
     protected $config = array(
         'name' => '',
-        'showPagination' => true,
+        'showPagination' => false,
         'showQuickSearch' => false,
-        'showItemPerPage' => true,
+        'showItemPerPage' => false,
         'itemCountPerPage' => 20,
-        'showColumnFilters' => true,
+        'showColumnFilters' => false,
     );
     protected $headers = array(
 //        'idRoster' => array(

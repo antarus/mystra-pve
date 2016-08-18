@@ -52,22 +52,7 @@
 <?php } ?>
     }
     $(function () {
+        initDialogAddPersonnage("<?php echo $this->translate("Ajout d'un joueur au roster") ?> [<?php echo $roster['nom']; ?>]")
 
-
-        $("#addPersonnage").click(function () {
-            $("#popupGlobal").dialog({
-                draggable: false,
-                modal: true,
-                autoOpen: false,
-                height: 350,
-                width: 400,
-                resizable: true,
-                title: "<?php echo $this->translate("Ajout d'un joueur au roster") ?> [<?php echo $roster['nom']; ?>]",
-                //position: {of: windows}
-            });
-            $("#popupGlobal").load($(this).attr('href'));
-            $("#popupGlobal").dialog("open");
-            return false;
-        });
     });
 </script>

@@ -250,6 +250,20 @@ CREATE TABLE IF NOT EXISTS `npc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
+-- Structure de la table `pallier`
+--
+
+CREATE TABLE IF NOT EXISTS `pallier` (
+  `idPallier` int(11) NOT NULL AUTO_INCREMENT,
+  `idZone` int(11) NOT NULL,
+  `ordre` int(11) NOT NULL,
+  `tiers` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idPallier`),
+  KEY `fk_pallier_zone1_idx` (`idZone`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+--
 -- Structure de la table `personnages`
 --
 
@@ -297,9 +311,13 @@ CREATE TABLE IF NOT EXISTS `raids` (
   `valeur` float(6,2) DEFAULT '0.00',
   `ajoutePar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `majPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `idRosterTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
+  `idZoneTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
   PRIMARY KEY (`idRaid`),
-  KEY `fk_raids_evenements1_idx` (`idEvenements`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  KEY `fk_raids_evenements1_idx` (`idEvenements`),
+  KEY `fk_raids_roster1_idx` (`idRosterTmp`),
+  KEY `fk_raids_zone1_idx` (`idZoneTmp`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 --
@@ -494,6 +512,12 @@ ALTER TABLE `item_personnage_raid`
   ADD CONSTRAINT `fk_item_personnage_raid_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
+-- Contraintes pour la table `pallier`
+--
+ALTER TABLE `pallier`
+  ADD CONSTRAINT `fk_pallier_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
 -- Contraintes pour la table `personnages`
 --
 ALTER TABLE `personnages`
@@ -507,6 +531,8 @@ ALTER TABLE `personnages`
 -- Contraintes pour la table `raids`
 --
 ALTER TABLE `raids`
+  ADD CONSTRAINT `fk_raids_roster1` FOREIGN KEY (`idRosterTmp`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_raids_zone1` FOREIGN KEY (`idZoneTmp`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_raids_evenements1` FOREIGN KEY (`idEvenements`) REFERENCES `evenements` (`idEvenements`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --

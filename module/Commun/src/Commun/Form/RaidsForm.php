@@ -6,25 +6,23 @@ namespace Commun\Form;
  * @author Antarus
  * @project Raid-TracKer
  */
-class RaidsForm extends \Core\Form\AbstractForm
-{
+class RaidsForm extends \Core\Form\AbstractForm {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct('raids');
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-           'name' => 'idRaid',
-           'attributes' => array(
-               'type'  => 'hidden',
-           ),
+            'name' => 'idRaid',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
         ));
 
         $this->add(array(
             'name' => 'idEvenements',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -35,7 +33,7 @@ class RaidsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'date',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -46,7 +44,7 @@ class RaidsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'note',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -57,7 +55,7 @@ class RaidsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'valeur',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -68,7 +66,7 @@ class RaidsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'ajoutePar',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -79,7 +77,7 @@ class RaidsForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'majPar',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -88,9 +86,20 @@ class RaidsForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
+            'name' => 'idRosterTmp',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'IdRoster',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type' => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
                 'class' => 'form-control btn-success',
@@ -99,6 +108,4 @@ class RaidsForm extends \Core\Form\AbstractForm
         ));
     }
 
-
 }
-

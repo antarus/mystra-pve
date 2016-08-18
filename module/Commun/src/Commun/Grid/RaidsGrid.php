@@ -50,6 +50,11 @@ class RaidsGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
+        'idRosterTmp' => array(
+            'title' => 'IdRoster',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'date' => array(
             'title' => 'Date',
             'width' => '100',

@@ -7,6 +7,10 @@
             <div class="controls">
                 <input name="serveur" type="text" value="<?php echo $this->import['serveur'] ?>"  required="true"/>
             </div>
+            <label class="control-label"><?php echo $this->translate("Nom du roster") ?></label>
+            <div class="controls">
+                <input name="roster" type="text" value="<?php echo $this->import['roster'] ?>"  required="true"/>
+            </div>
             <label class="control-label"><?php echo $this->translate("Xml eqdkp") ?></label>
             <div class="controls">
                 <textarea name="txtImport" rows="10" cols="50" required="true"><?php echo $import['eqdkp'] ?></textarea>

@@ -247,6 +247,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $aOptImpRaid = array(
             'serveur' => '',
             'eqdkp' => '',
+            'roster' => '',
         );
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
@@ -275,6 +276,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $aOptImpRaid = array(
             'serveur' => '',
             'eqdkp' => '',
+            'roster' => '',
         );
         $this->layout('layout/ajax');
 
