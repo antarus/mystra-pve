@@ -9,7 +9,7 @@ return array(
         /**
          * Set the list of allowed origins domain with protocol.
          */
-        'allowed_origins' => array('*'), //('212.227.107.198'),
+        'allowed_origins' => array('http://dev.raid-tracker.com/'), //('212.227.107.198'),
         /**
          * Set the list of HTTP verbs.
          */
