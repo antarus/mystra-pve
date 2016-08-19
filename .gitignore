@@ -44,6 +44,8 @@ Temporary Items
 
 
 .vagrant
+nbproject
+nbproject/*
 logs-mystra.txt
 config/development.config.php
 config/autoload/local.php
