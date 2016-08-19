@@ -63,6 +63,7 @@ return array(
             'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
                 0 => 'application/vnd.api-blizzard.v1+json',
                 1 => 'application/json',
+                2 => 'application/x-www-form-urlencoded',
             ),
         ),
     ),
