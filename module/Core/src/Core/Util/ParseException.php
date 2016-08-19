@@ -44,7 +44,7 @@ class ParseException {
                 $aReturn['msg'] = 'Timeout';
                 break;
             default:
-                $aReturn['code'] = 500;
+                $aReturn['code'] = 499;
                 $aReturn['type'] = 'Erreur interne';
         }
 
