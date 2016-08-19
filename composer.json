@@ -11,7 +11,8 @@
         "php": ">=5.5",
         "zendframework/zendframework": "~2.5",
         "dudapiotr/zftable": "dev-master",
-        "zfcampus/zf-apigility": "~1.0"
+        "zfcampus/zf-apigility": "~1.0",
+        "zfr/zfr-cors": "1.*"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.4",

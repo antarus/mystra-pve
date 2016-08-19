@@ -374,6 +374,10 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
         ),
         'Z' => 
         array (
+            'ZfrCors\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/zfr/zfr-cors/src',
+            ),
             'ZfTable' => 
             array (
                 0 => __DIR__ . '/..' . '/dudapiotr/zftable/src',

@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor' => array($vendorDir . '/phpdocumentor/reflection-docblock/src'),
+    'ZfrCors\\' => array($vendorDir . '/zfr/zfr-cors/src'),
     'ZfTable' => array($vendorDir . '/dudapiotr/zftable/src'),
     'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
