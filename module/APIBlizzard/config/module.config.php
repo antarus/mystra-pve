@@ -49,7 +49,7 @@ return array(
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => 'HalJson',
+            'APIBlizzard\\V1\\Rest\\Character\\Controller' => 'Json',
         ),
         'accept_whitelist' => array(
             'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
