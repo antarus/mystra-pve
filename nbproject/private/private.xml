@@ -2,19 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/ZoneController.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Exception/DatabaseException.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/raids/import/import.phtml</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/Module.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/ZoneTable.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Exception/BnetException.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Bnet/src/Bnet/Warcraft/Client.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/view/backend/zone/import/import.phtml</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/A_LIRE.txt</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Backend/src/Backend/Controller/PersonnagesController.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Bnet/src/Bnet/ClientFactory.php</file>
-            <file>file:/D:/developpement/php/lamp/src/mystra-pve/module/Commun/src/Commun/Table/PersonnagesTable.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
