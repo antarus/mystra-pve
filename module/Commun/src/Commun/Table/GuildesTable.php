@@ -110,9 +110,14 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
         try {
             $oTabGuilde = $this->selectBy(
                     array(
-                        "nom" => $oGuilde->getNom(),
-                        "serveur" => $oGuilde->getServeur(),
-                        "idFaction" => $oGuilde->getIdFaction()));
+                        "idGuildes" => $oGuilde->getIdGuildes()));
+            if (!$oTabGuilde) {
+                $oTabGuilde = $this->selectBy(
+                        array(
+                            "nom" => $oGuilde->getNom(),
+                            "serveur" => $oGuilde->getServeur(),
+                            "idFaction" => $oGuilde->getIdFaction()));
+            }
         } catch (\Exception $exc) {
             throw new DatabaseException(1000, 4, $this->_getServiceLocator()->get('translator'));
         }

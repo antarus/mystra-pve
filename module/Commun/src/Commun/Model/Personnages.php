@@ -105,6 +105,13 @@ class Personnages extends \Core\Model\AbstractModel {
     public $isTech = false;
 
     /**
+     * Colonne: ilvl
+     *
+     * @var int
+     */
+    public $ilvl = 0;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -378,6 +385,24 @@ class Personnages extends \Core\Model\AbstractModel {
      */
     public function setIsTech($value) {
         $this->isTech = $value;
+    }
+
+    /**
+     * Retourne la valeur ilvl.
+     *
+     * @return int
+     */
+    function getIlvl() {
+        return $this->ilvl;
+    }
+
+    /**
+     * Définit la valeur pour ilvl
+     *
+     * @param int
+     */
+    function setIlvl($ilvl) {
+        $this->ilvl = $ilvl;
     }
 
 }

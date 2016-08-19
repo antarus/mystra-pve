@@ -17,6 +17,7 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
     private $_tableRosterHasPersonnage = null;
     private $_tableRole = null;
     private $_tableRoster = null;
+    private $_tablePersonnage = null;
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -40,6 +41,18 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
             $this->_tableRosterHasPersonnage = $this->getServiceLocator()->get('\Commun\Table\RosterHasPersonnageTable');
         }
         return $this->_tableRosterHasPersonnage;
+    }
+
+    /**
+     * Returne une instance de la table Personnage en lazy.
+     *
+     * @return \Commun\Table\PersonnagesTable
+     */
+    public function getTablePersonnage() {
+        if (!$this->_tablePersonnage) {
+            $this->_tablePersonnage = $this->getServiceLocator()->get('\Commun\Table\PersonnagesTable');
+        }
+        return $this->_tablePersonnage;
     }
 
     /**
@@ -260,6 +273,55 @@ class RosterHasPersonnageController extends \Zend\Mvc\Controller\AbstractActionC
                 ->setStatusCode(200)
                 ->setContent($html);
         return $response;
+    }
+
+    /**
+     * Action pour la majour des personnage du roster.
+     *
+     * @return array
+     */
+    public function majAction() {
+        $id = (int) $this->params()->fromRoute('id', 0);
+        try {
+            $oEntite = $this->getTableRoster()->findRow($id);
+            if (!$oEntite) {
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
+                return $this->redirect()->toRoute('backend-roster-list');
+            }
+        } catch (\Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du roster."), 'error');
+            return $this->redirect()->toRoute('backend-roster-list');
+        }
+
+        $this->layout('layout/ajax');
+
+        $oRequest = $this->getRequest();
+
+        try {
+            $oTabRosterHasPersonnage = $this->getTableRosterHasPersonnage()->select(array('idRoster' => $id));
+            if (isset($oTabRosterHasPersonnage)) {
+                foreach ($oTabRosterHasPersonnage as $aCharacter) {
+
+                    $oPerso = $this->getTablePersonnage()->findRow($aCharacter['idPersonnage']);
+                    $aPersonnage = array('serveur' => $oPerso->getRoyaume(), 'nom' => $oPerso->getNom());
+
+                    $aPersoBnet = $this->getTablePersonnage()->importPersonnage($aPersonnage);
+                    $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
+                    $this->getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage);
+                }
+            }
+            return new JsonModel(array(
+                'success' => array(
+                    'msg' => $this->_getServTranslator()->translate('Personnage mis à jour avec succès')
+                )
+            ));
+        } catch (\Exception $ex) {
+            $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+            $result = new JsonModel(array(
+                'error' => $aAjaxEx
+            ));
+            return $result;
+        }
     }
 
 }

@@ -67,6 +67,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
         $query->columns(array(
                     'idPersonnage',
                     'nom',
+                    'ilvl',
                     'niveau',
                     'royaume',
                     'miniature',
@@ -83,7 +84,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('g' => 'guildes'), 'g.idGuildes = p.idGuildes', array('guilde' => 'nom',
                     'g_guildeId' => 'idGuildes'), \Zend\Db\Sql\Select::JOIN_LEFT);
         ;
-
+        $query->order(array('nom'));
         // $this->debug($query);
         return $query;
     }
@@ -92,10 +93,10 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      * import un personnage depuis un tableau.
      * @param array $aPost
      * @param \Commun\Model\Guildes $oGuilde
-     * @param array $OptionBnet
+     * @param array $aOptionBnet
      * @return  array bnet
      */
-    public function importPersonnage($aPost, $oGuilde = null, $OptionBnet = array()) {
+    public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
 //            $oTabPersonnage = $this->selectBy(
 //                    array(
@@ -103,10 +104,11 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
 //                        "royaume" => $aPost['serveur']));
 //// si n'existe pas on importe
 //            if (!$oTabPersonnage) {
+            $aOptionBnet[] = 'items';
             $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
             $personnageBnet->on($aPost['serveur']);
 
-            $aPersoBnet = $personnageBnet->find($aPost['nom'], $OptionBnet);
+            $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
                 throw new BnetException(299, $this->_getServiceLocator()->get('translator'));
             }
@@ -211,7 +213,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             );
         }
         if (!isset($aParam['champs_personnage'])) {
-            $aParam['champs_personage'] = array(
+            $aParam['champs_personnage'] = array(
                 'idPersonnage',
                 'nom',
                 'royaume',
@@ -242,6 +244,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
         if (isset($aParam['limit'])) {
             $oQuery->limit($aParam['limit']);
         }
+        $oQuery->order(array('nom'));
         //$this->debug($oQuery);
         $aReturn = $this->fetchAllArray($oQuery);
 

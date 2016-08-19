@@ -58,7 +58,6 @@ class CharacterResource extends AbstractResourceListener {
                 'nom' => $sNom
             );
             $aOptionBnet = array();
-            $aOptionBnet[] = 'items';
 //            try {
             $oPersonnage = $this->getTablePersonnage()->importPersonnage($aPost, null, $aOptionBnet);
             $oReturn = $oPersonnage->jsonSerialize();

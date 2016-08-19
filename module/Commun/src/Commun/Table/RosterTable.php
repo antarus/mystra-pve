@@ -150,4 +150,56 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
         }
     }
 
+    /**
+     *  Retourne une liste des roster avec les paramêtres passé.
+     * Les paramatres par defaut sont:
+     * $aParam = array(
+     *       'rech' => $aParam["rech"],
+     *        'champs_roster' => array(
+     *            'idRoster',
+     *            'nom'
+     *        ),
+     *        'limit' => 20
+     *    );
+     *
+     * @param type $aParam
+     * @return array
+     */
+    function getAutoComplete($aParam) {
+        if (!isset($aParam)) {
+            $aParam = array(
+                'rech' => $aParam["rech"],
+                'champs_roster' => array(
+                    'idRoster',
+                    'nom'
+                ),
+                'limit' => 20
+            );
+        }
+        if (!isset($aParam['champs_roster'])) {
+            $aParam['champs_roster'] = array(
+                'idRoster',
+                'nom'
+            );
+        }
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+
+        $oQuery->columns($aParam['champs_roster'])
+                ->from(array('r' => 'roster'));
+
+        if (isset($aParam['rech'])) {
+            $oQuery->where("r.nom like '%" . strtolower($aParam['rech']) . "%' ");
+        }
+        if (isset($aParam['limit'])) {
+            $oQuery->limit($aParam['limit']);
+        }
+        $oQuery->order(array('nom'));
+        //$this->debug($oQuery);
+        $aReturn = $this->fetchAllArray($oQuery);
+
+        return $aReturn;
+    }
+
 }

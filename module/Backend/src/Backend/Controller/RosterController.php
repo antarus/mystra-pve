@@ -3,6 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 
 /**
  * Controller pour la vue.
@@ -245,6 +246,32 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
                 ->setStatusCode(200)
                 ->setContent($html);
         return $response;
+    }
+
+    /**
+     * Action pour l'autocomplete
+     *
+     * @return array
+     */
+    public function autocompleteAction() {
+        $aParam = $this->params()->fromQuery();
+        if (!isset($aParam["rech"])) {
+            return array();
+        }
+        // TODO ne pas surchargé ici mais en JS
+        $aParam = array(
+            'rech' => $aParam["rech"],
+            'champs_roster' => array(
+                'idRoster',
+                'nom'
+            ),
+            'limit' => 20
+        );
+        $aReturn = array(
+            'rosters' => $this->getTableRoster()->getAutoComplete($aParam)
+        );
+
+        return new JsonModel($aReturn);
     }
 
 }

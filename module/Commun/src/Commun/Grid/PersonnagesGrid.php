@@ -50,6 +50,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
+        'ilvl' => array(
+            'title' => 'ilvl',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'niveau' => array(
             'title' => 'Niveau',
             'width' => '100',
@@ -198,7 +203,10 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                             }
                             $query->where("p.genre = '" . $value . "' ");
                         }
-
+                        $value = $this->getParamAdapter()->getValueOfFilter('ilvl');
+                        if ($value != null) {
+                            $query->where("p.ilvl = '" . $value . "' ");
+                        }
                         $value = $this->getParamAdapter()->getValueOfFilter('miniature');
                         if ($value != null) {
                             $query->where("p.miniature like '%" . $value . "%' ");

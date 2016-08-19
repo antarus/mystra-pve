@@ -1779,6 +1779,23 @@ return array(
                     ),
                 ),
             ),
+            'backend-roster-autocomplete' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/roster/autocomplete',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+'
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Roster',
+                        'action' => 'autocomplete',
+                    ),
+                ),
+            ),
             'backend-roster-has-personnage-list' =>
             array(
                 'type' => 'segment',
@@ -1830,6 +1847,24 @@ return array(
                     array(
                         'controller' => 'Backend\\Controller\\RosterHasPersonnage',
                         'action' => 'add',
+                    ),
+                ),
+            ),
+            'backend-roster-has-personnage-maj' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/roster/[:id]/maj',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\RosterHasPersonnage',
+                        'action' => 'maj',
                     ),
                 ),
             ),

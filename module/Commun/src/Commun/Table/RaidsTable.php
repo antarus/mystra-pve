@@ -38,21 +38,37 @@ class RaidsTable extends \Core\Table\AbstractTable {
      * @return  \Core\Model\Raids
      */
     public function saveOrUpdateRaid($oRaids) {
-
-        //recherche si le raid existe
-        /* @var $oTabRaid \Commun\Model\Raids */
-        $oTabRaid = $this->selectBy(
-                array(
-                    "date" => $oRaids->getDate()));
+        try {
+            //recherche si le raid existe
+            /* @var $oTabRaid \Commun\Model\Raids */
+            $oTabRaid = $this->selectBy(
+                    array(
+                        "idRaid" => $oRaids->getIdRaid()));
+            if (!$oTabRaid) {
+                $oTabRaid = $this->selectBy(
+                        array(
+                            "date" => $oRaids->getDate()));
+            }
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator()->get('translator'));
+        }
         // si n'existe pas on insert
         if (!$oTabRaid) {
-            $this->insert($oRaids);
-            $oRaids->setIdRaid($this->lastInsertValue);
+            try {
+                $this->insert($oRaids);
+                $oRaids->setIdRaid($this->lastInsertValue);
+            } catch (\Exception $exc) {
+                throw new DatabaseException(4000, 2, $this->_getServiceLocator()->get('translator'));
+            }
         } else {
-            // sinon on update
-            $oRaids->setIdRaid($oTabRaid->getIdRaid());
-            $oRaids->setMajPar("Import Raid-TracKer");
-            $this->update($oRaids);
+            try {
+                // sinon on update
+                $oRaids->setIdRaid($oTabRaid->getIdRaid());
+                $oRaids->setMajPar("Import Raid-TracKer");
+                $this->update($oRaids);
+            } catch (\Exception $exc) {
+                throw new DatabaseException(4000, 1, $this->_getServiceLocator()->get('translator'));
+            }
         }
         return $oRaids;
     }

@@ -20,6 +20,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
     private $_tableRaidPersonnages;
     private $_tableItemPersonnageRaid;
     private $_tableItem;
+    private $_tableZone;
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -43,6 +44,18 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $this->_tablePersonnage = $this->getServiceLocator()->get('\Commun\Table\PersonnagesTable');
         }
         return $this->_tablePersonnage;
+    }
+
+    /**
+     * Returne une instance de la table Zone en lazy.
+     *
+     * @return \Commun\Table\ZoneTable
+     */
+    public function getTableZone() {
+        if (!$this->_tableZone) {
+            $this->_tableZone = $this->getServiceLocator()->get('\Commun\Table\ZoneTable');
+        }
+        return $this->_tableZone;
     }
 
     /**
@@ -247,7 +260,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $aOptImpRaid = array(
             'serveur' => '',
             'eqdkp' => '',
-            'roster' => '',
+            'nomRoster' => '',
+            'idRoster' => '',
         );
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
@@ -276,7 +290,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $aOptImpRaid = array(
             'serveur' => '',
             'eqdkp' => '',
-            'roster' => '',
+            'nomRoster' => '',
+            'idRoster' => '',
         );
         $this->layout('layout/ajax');
 
@@ -296,7 +311,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                     ));
                     return $result;
                 } else {
-                    $this->saveImport($aRaid, $aPost['serveur']);
+                    $this->saveImport($aRaid, $aPost);
                 }
                 $this->getTableRaid()->commit();
             } catch (\Exception $ex) {
@@ -317,7 +332,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         return $result;
     }
 
-    private function saveImport(array $aRaid, $sServeur) {
+    private function saveImport(array $aRaid, $aPost) {
         $aLstPersonnage = array();
 
 //raidata:
@@ -346,8 +361,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         try {
             $oData = new \Zend\Config\Config(array(), true);
             $oWriter = new \Zend\Config\Writer\Json();
-            $oRaid = $this->saveRaid($aRaid['raiddata']['zones']['zone']);
-            $aLstPersonnage = $this->savePersonnages($aRaid['raiddata']['members']['member'], $oRaid, $sServeur, $oData, $oWriter);
+            $oRaid = $this->saveRaid($aRaid['raiddata']['zones']['zone'], $aPost['idRoster']);
+            $aLstPersonnage = $this->savePersonnages($aRaid['raiddata']['members']['member'], $oRaid, $aPost["serveur"], $oData, $oWriter);
             $this->saveItems($aRaid['raiddata']['items']['item'], $aLstPersonnage, $oRaid);
         } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de la sauvagarde de l'import", 0, $ex);
@@ -359,7 +374,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
      * @param array $aRaid
      * @return \Commun\Model\Raids
      */
-    private function saveRaid($aRaid) {
+    private function saveRaid($aRaid, $idRoster) {
         $sNom = $aRaid['name'];
         $iDifficulte = $aRaid['difficulty'];
         $sDifficulte = '';
@@ -402,6 +417,12 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $oRaid->setAjoutePar("Import Raid-TracKer");
         $oRaid->setNote($sNom . ' - ' . $sDifficulte);
         $oRaid->setDate(date('Y-m-d H:i:s', intval($aRaid['enter'])));
+        $oRaid->setIdRosterTmp($idRoster);
+        $oZone = $this->getTableZone()->selectBy(array('nom' => strtolower($sNom)));
+        if (!$oZone) {
+            throw new \Exception("Zone inconnue [ " . $sNom . " ]. Veuillez importer la zone ainsi que les boss associée.");
+        }
+        $oRaid->setIdZoneTmp($oZone->getIdZone());
         /* @var $oTabRaid \Commun\Model\Raids */
         $oRaid = $this->getTableRaid()->saveOrUpdateRaid($oRaid);
         return $oRaid;

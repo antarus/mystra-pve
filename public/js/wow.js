@@ -134,6 +134,49 @@ function autocompleteNomPersonnage($uri) {
 }
 
 
+/**
+ * Autcomplete pour le nom d'un roster
+ * @returns {undefined}
+ */
+function autocompleteNomRoster($uri) {
+    $("input[name=nomRoster]").autocomplete({
+        delay: 500,
+        minLength: 3,
+        source: function (request, response) {
+            $.getJSON($uri, {
+// do not copy the api key; get your own at developer.rottentomatoes.com
+                rech: request.term,
+                page_limit: 10
+            }, function (data) {
+// data is an array of objects and must be transformed for autocomplete to use
+                var array = data.error ? [] : $.map(data.rosters, function (m) {
+                    return {
+                        id: m.idRoster,
+                        nom: m.nom,
+                    };
+                });
+                response(array);
+            });
+        },
+        focus: function (event, ui) {
+// prevent autocomplete from updating the textbox
+            event.preventDefault();
+        },
+        select: function (event, ui) {
+// prevent autocomplete from updating the textbox
+            event.preventDefault();
+            $("input[name=nomRoster]").val(ui.item.nom);
+            $("input[name=idRoster]").val(ui.item.id);
+
+        }
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+        var $a = $("<a></a>");
+
+        $("<span class='m-nom'></span>").text(item.nom).appendTo($a);
+
+        return $("<li></li>").append($a).appendTo(ul);
+    };
+}
 
 /**
  * initialise le code pour la popup d'ajout de personnage

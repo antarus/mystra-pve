@@ -12,7 +12,9 @@
             <h3><?php echo $this->translate("Liste des joueurs") ?></h3>
 
             <a id="addPersonnage" href="<?php echo $this->url('backend-roster-has-personnage-add', array('id' => $this->id)) ?>">
-                <?php echo $this->translate("Ajouter un joueur au roster") ?></a>
+                <?php echo $this->translate("Ajouter un joueur au roster") ?></a> | 
+            <a id="majPersonnage" href="#">
+                <?php echo $this->translate("Met a jour les personnages du roster (ilvl)") ?></a>
             <?php foreach ($roster['roles'] as $role) { ?>
                 <h3><?php echo $this->translate($role["nom"]) ?></h3>
                 <div id="tableContainer<?php echo $role["idRole"] ?>">
@@ -45,6 +47,26 @@
 
 
 <script type="text/javascript">
+    $('#majPersonnage').click(function ()
+    {
+        $.ajax
+                ({
+                    url: "<?php echo $this->url('backend-roster-has-personnage-maj', array('id' => $this->id)) ?>",
+                    //data: {"book_id": book_id},
+                    type: 'post',
+                    complete: function (html) {
+                        $("#msg").removeClass('alert-success');
+                        $("#msg").removeClass('alert-danger');
+                        if (html.responseJSON.error) {
+                            $("#msg").addClass('alert-danger').text(html.responseJSON.error.msg);
+                        } else {
+                            $("#msg").addClass('alert-success').text(html.responseJSON.success.msg);
+                        }
+                    }
+                })
+    });
+
+
     function majListe() {
 <?php foreach ($roster['roles'] as $role) { ?>
             $("#tableContainer<?php echo $role["idRole"] ?>").html('');

@@ -249,6 +249,11 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 $oTabZone = $this->selectBy(
                         array(
                             "idZone" => $oZone->getIdZone()));
+                if (!$oTabZone) {
+                    $oTabZone = $this->selectBy(
+                            array(
+                                "nom" => $oZone->getNom()));
+                }
             } catch (\Exception $exc) {
                 throw new DatabaseException(7000, 4, $this->_getServiceLocator()->get('translator'));
             }

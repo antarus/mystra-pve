@@ -9,7 +9,8 @@
             </div>
             <label class="control-label"><?php echo $this->translate("Nom du roster") ?></label>
             <div class="controls">
-                <input name="roster" type="text" value="<?php echo $this->import['roster'] ?>"  required="true"/>
+                <input name="nomRoster" type="text" value="<?php echo $this->import['nomRoster'] ?>"  required="true"/>
+                <input type="hidden" name="idRoster"  value="<?php echo $this->import['idRoster']; ?>" />
             </div>
             <label class="control-label"><?php echo $this->translate("Xml eqdkp") ?></label>
             <div class="controls">
@@ -25,5 +26,13 @@
             </div>
     </fieldset>
 </form>
+<script type ="text/javascript">
 
+    $(function () {
+        autocompleteNomRoster("<?php echo $this->url('backend-roster-autocomplete', array('id' => $this->id)) ?>");
+        gestionAjoutPersonnageRoster();
+
+    });
+
+</script>
 <?= $this->render('layout/backend/js-ajax-import') ?>

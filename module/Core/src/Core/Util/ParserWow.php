@@ -85,11 +85,18 @@ class ParserWow {
         $oPersonnage->setNom($aDataPersonnageBnet['name']);
         $oPersonnage->setNiveau($aDataPersonnageBnet['level']);
         $oPersonnage->setIdClasses($aDataPersonnageBnet['class']);
-        // $oPersonnage->setIdFaction($aDataPersonnageBnet['faction']);
+        if (isset($aDataPersonnageBnet['faction'])) {
+            $oPersonnage->setIdFaction($aDataPersonnageBnet['faction']);
+        }
         $oPersonnage->setIdRace($aDataPersonnageBnet['race']);
         $oPersonnage->setGenre($aDataPersonnageBnet['gender']);
         $oPersonnage->setRoyaume($aDataPersonnageBnet['realm']);
         $oPersonnage->setminiature($aDataPersonnageBnet['thumbnail']);
+        $oPersonnage->setIsTech(false);
+        if (isset($aDataPersonnageBnet['items'])) {
+            $oPersonnage->setIlvl($aDataPersonnageBnet['items']['averageItemLevelEquipped']);
+        }
+
         return $oPersonnage;
     }
 
