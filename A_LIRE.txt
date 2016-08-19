@@ -27,7 +27,7 @@ CODE ERREUR :
 
 divers :
 ----------
-504 => "Timeout"
+498 => "Timeout"
 
 DatabaseException :
 --------------

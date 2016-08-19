@@ -39,7 +39,7 @@ class ParseException {
                 $aReturn['type'] = 'DatabaseException';
                 break;
             case $oExTmp instanceof \Zend\Http\Client\Adapter\Exception\RuntimeException;
-                $aReturn['code'] = 504;
+                $aReturn['code'] = 498;
                 $aReturn['type'] = 'TimeoutException';
                 $aReturn['msg'] = 'Timeout';
                 break;
