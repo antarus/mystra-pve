@@ -1,9 +1,8 @@
 <?php
-
 return array(
     'service_manager' => array(
         'factories' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\CharacterResource' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterResourceFactory'
+            'APIBlizzard\\V1\\Rest\\Character\\CharacterResource' => 'APIBlizzard\\V1\\Rest\\Character\\CharacterResourceFactory',
         ),
     ),
     'router' => array(
@@ -50,13 +49,14 @@ return array(
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
-            'APIBlizzard\\V1\\Rest\\Character\\Controller' => 'HalJson'
+            'APIBlizzard\\V1\\Rest\\Character\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'APIBlizzard\\V1\\Rest\\Character\\Controller' => array(
                 0 => 'application/vnd.api-blizzard.v1+json',
                 1 => 'application/hal+json',
                 2 => 'application/json',
+                3 => 'application/x-www-form-urlencoded',
             ),
         ),
         'content_type_whitelist' => array(
