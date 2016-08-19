@@ -59,6 +59,22 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel {
     public $bonus = null;
 
     /**
+     * Colonne: idBoss
+     *
+     * Reference to bosses.idBoss
+     *
+     * @var int
+     */
+    public $idBosses = null;
+
+    /**
+     * Colonne: note
+     *
+     * @var string
+     */
+    public $note = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -224,6 +240,42 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel {
      */
     public function setValeur($value) {
         $this->valeur = $value;
+    }
+
+    /**
+     * Retourne la valeur idBosses.
+     *
+     * @return string
+     */
+    function getIdBosses() {
+        return $this->idBosses;
+    }
+
+    /**
+     * Définit la valeur pour idBosses
+     *
+     * @param int
+     */
+    function setIdBosses($idBosses) {
+        $this->idBosses = $idBosses;
+    }
+
+    /**
+     * Retourne la valeur note.
+     *
+     * @return string
+     */
+    function getNote() {
+        return $this->note;
+    }
+
+    /**
+     * Définit la valeur pour note
+     *
+     * @param string
+     */
+    function setNote($note) {
+        $this->note = $note;
     }
 
 }

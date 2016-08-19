@@ -19,6 +19,9 @@ SET FOREIGN_KEY_CHECKS=0;
 --
 -- Base de données: `raid_tracker`
 --
+USE `raid_tracker`;
+
+-- --------------------------------------------------------
 
 --
 -- Vider la table avant d'insérer `bosses`
@@ -26,7 +29,6 @@ SET FOREIGN_KEY_CHECKS=0;
 
 TRUNCATE TABLE `bosses`;
 -- --------------------------------------------------------
-
 
 --
 -- Vider la table avant d'insérer `bosses_has_npc`
@@ -68,12 +70,14 @@ INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
 TRUNCATE TABLE `evenements`;
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `evenements_personnage`
 --
 
 TRUNCATE TABLE `evenements_personnage`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `evenements_roles`
@@ -90,12 +94,15 @@ TRUNCATE TABLE `evenements_roles`;
 TRUNCATE TABLE `evenements_template`;
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `evenements_template_roles`
 --
 
 TRUNCATE TABLE `evenements_template_roles`;
 -- --------------------------------------------------------
+
+
 
 --
 -- Vider la table avant d'insérer `faction`
@@ -112,12 +119,14 @@ INSERT INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
 
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `guildes`
 --
 
 TRUNCATE TABLE `guildes`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `items`
@@ -126,12 +135,14 @@ TRUNCATE TABLE `guildes`;
 TRUNCATE TABLE `items`;
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `item_personnage_raid`
 --
 
 TRUNCATE TABLE `item_personnage_raid`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `mode_difficulte`
@@ -153,6 +164,7 @@ INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `npc`
 --
@@ -162,11 +174,20 @@ TRUNCATE TABLE `npc`;
 
 
 --
+-- Vider la table avant d'insérer `pallier`
+--
+
+TRUNCATE TABLE `pallier`;
+-- --------------------------------------------------------
+
+
+--
 -- Vider la table avant d'insérer `personnages`
 --
 
 TRUNCATE TABLE `personnages`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `race`
@@ -245,6 +266,7 @@ TRUNCATE TABLE `roster`;
 TRUNCATE TABLE `roster_has_personnage`;
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `specialisation`
 --
@@ -292,12 +314,14 @@ INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, 
 
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `users`
 --
 
 TRUNCATE TABLE `users`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `zone`
@@ -306,12 +330,14 @@ TRUNCATE TABLE `users`;
 TRUNCATE TABLE `zone`;
 -- --------------------------------------------------------
 
+
 --
 -- Vider la table avant d'insérer `zone_has_bosses`
 --
 
 TRUNCATE TABLE `zone_has_bosses`;
 -- --------------------------------------------------------
+
 
 --
 -- Vider la table avant d'insérer `zone_has_mode_diffculte`
@@ -321,6 +347,7 @@ TRUNCATE TABLE `zone_has_mode_diffculte`;
 --
 -- Contraintes pour les tables exportées
 --
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -115,7 +115,7 @@ class Race extends \Core\Model\AbstractModel {
      * @return string
      */
     public function getNom() {
-        return ucfirst(strval($this->nom));
+        return strval($this->nom);
     }
 
     /**

@@ -90,6 +90,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
+        'isTech' => array(
+            'title' => 'isTech',
+            'width' => '100',
+            'filters' => 'text',
+        ),
 //        'idUsers' => array(
 //            'title' => 'IdUsers',
 //            'width' => '100',

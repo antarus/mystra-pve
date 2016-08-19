@@ -98,6 +98,13 @@ class Personnages extends \Core\Model\AbstractModel {
     public $idUsers = null;
 
     /**
+     * Colonne: isTech
+     *
+     * @var boolean
+     */
+    public $isTech = false;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -181,7 +188,7 @@ class Personnages extends \Core\Model\AbstractModel {
      * @return string
      */
     public function getNom() {
-        return ucfirst(strval($this->nom));
+        return strval($this->nom);
     }
 
     /**
@@ -353,6 +360,24 @@ class Personnages extends \Core\Model\AbstractModel {
      */
     public function setIdUsers($value) {
         $this->idUsers = $value;
+    }
+
+    /**
+     * Retourne la valeur isTech.
+     *
+     * @return boolean
+     */
+    public function getIsTech() {
+        return $this->isTech;
+    }
+
+    /**
+     * Définit la valeur pour isTech
+     *
+     * @param boolean
+     */
+    public function setIsTech($value) {
+        $this->isTech = $value;
     }
 
 }

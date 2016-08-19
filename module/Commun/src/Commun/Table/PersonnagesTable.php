@@ -70,7 +70,8 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                     'niveau',
                     'royaume',
                     'miniature',
-                    'genre'
+                    'genre',
+                    'isTech'
                 ))
                 ->from(array('p' => 'personnages'))
                 ->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('classe' => 'nom',
@@ -132,11 +133,17 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             $oPersonnage->setRoyaume(strtolower($oPersonnage->getRoyaume()));
             //recherche si le personnage existe
             try {
+
                 $oTabPersonnage = $this->selectBy(
                         array(
-                            "nom" => $oPersonnage->getNom(),
-                            "royaume" => $oPersonnage->getRoyaume(),
-                            "idFaction" => $oPersonnage->getIdFaction()));
+                            "idPersonnage" => $oPersonnage->getIdPersonnage()));
+                if (!$oTabPersonnage) {
+                    $oTabPersonnage = $this->selectBy(
+                            array(
+                                "nom" => $oPersonnage->getNom(),
+                                "royaume" => $oPersonnage->getRoyaume(),
+                                "idFaction" => $oPersonnage->getIdFaction()));
+                }
             } catch (\Exception $exc) {
                 throw new DatabaseException(2000, 4, $this->_getServiceLocator()->get('translator'));
             }

@@ -60,6 +60,16 @@ class ItemPersonnageRaidGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
+        'idBosses' => array(
+            'title' => 'IdBoss',
+            'width' => '100',
+            'filters' => 'text',
+        ),
+        'note' => array(
+            'title' => 'Note',
+            'width' => '100',
+            'filters' => 'text',
+        ),
         'valeur' => array(
             'title' => 'Valeur',
             'width' => '100',

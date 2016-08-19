@@ -181,6 +181,19 @@ class PersonnagesFilter extends \Core\Filter\AbstractFilter {
                         ),
                     )
         )));
+
+        $inputFilter->add($factory->createInput(array(
+                    'name' => 'istech',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'Boolean')
+                    ),
+//                    'validators' => array(
+//                        array(
+//                            'name' => 'Digits'
+//                        ),
+//                    )
+        )));
     }
 
 }
