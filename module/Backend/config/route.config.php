@@ -2470,6 +2470,93 @@ return array(
                     ),
                 ),
             ),
+            'backend-pallier-afficher-list' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pallier/list',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\PallierAfficher',
+                        'action' => 'list',
+                    ),
+                ),
+            ),
+            'backend-pallier-afficher-ajaxList' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pallier/ajaxList',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\PallierAfficher',
+                        'action' => 'ajaxList',
+                    ),
+                ),
+            ),
+            'backend-pallier-afficher-create' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pallier/create',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\PallierAfficher',
+                        'action' => 'create',
+                    ),
+                ),
+            ),
+            'backend-pallier-afficher-update' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pallier/update/[:id]',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\PallierAfficher',
+                        'action' => 'update',
+                    ),
+                ),
+            ),
+            'backend-pallier-afficher-delete' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pallier/delete/[:id]',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\PallierAfficher',
+                        'action' => 'delete',
+                    ),
+                ),
+            ),
         ),
     ),
 );

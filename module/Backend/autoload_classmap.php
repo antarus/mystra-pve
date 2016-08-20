@@ -17,6 +17,7 @@ return array(
     'Backend\Controller\ItemsController' => __DIR__ . '/src/Backend/Controller/ItemsController.php',
     'Backend\Controller\ModeDifficulteController' => __DIR__ . '/src/Backend/Controller/ModeDifficulteController.php',
     'Backend\Controller\NpcController' => __DIR__ . '/src/Backend/Controller/NpcController.php',
+    'Backend\Controller\PallierAfficherController' => __DIR__ . '/src/Backend/Controller/PallierAfficherController.php',
     'Backend\Controller\PersonnagesController' => __DIR__ . '/src/Backend/Controller/PersonnagesController.php',
     'Backend\Controller\PersonnagesHasSpecialisationController' => __DIR__ . '/src/Backend/Controller/PersonnagesHasSpecialisationController.php',
     'Backend\Controller\RaceController' => __DIR__ . '/src/Backend/Controller/RaceController.php',

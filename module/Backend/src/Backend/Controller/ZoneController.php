@@ -13,7 +13,6 @@ use Zend\View\Model\JsonModel;
  */
 class ZoneController extends \Zend\Mvc\Controller\AbstractActionController {
 
-    private $_servBnet;
     private $_servTranslator = null;
     private $_tableZone = null;
 

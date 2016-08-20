@@ -98,8 +98,13 @@ class Module {
                 'Commun\Table\NpcTable' => function($sm) {
                     return new \Commun\Table\NpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },
-                'Commun\Table\PersonnagesTable' => function($sm) {
-                    $oTable = new \Commun\Table\PersonnagesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                'Commun\Table\ItemPersonnageRaidTable' => function($sm) {
+                    $oTable = new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
+                'Commun\Table\PallierAfficherTable' => function($sm) {
+                    $oTable = new \Commun\Table\PallierAfficherTable($sm->get("\Zend\Db\Adapter\Adapter"));
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },
