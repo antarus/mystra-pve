@@ -1,14 +1,10 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bd1ecdb7658db62e7543197fb8f126437626ddb0
 @font-face {
     font-family: 'BebasNeueRegular';
-    src: url('/public/font/BebasNeue-webfont.eot');
-    src: url('/public/font/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/public/font/BebasNeue-webfont.woff') format('woff'),
-         url('/public/font/BebasNeue-webfont.ttf') format('truetype'),
-         url('/public/font/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    src: url('../fonts/BebasNeue-webfont.eot');
+    src: url('../fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BebasNeue-webfont.woff') format('woff'),
+         url('../fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('../fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 
