@@ -1,10 +1,11 @@
+@import url('http://fonts.googleapis.com/css?family=Oswald');
+
 /*     Theme Name: Iron Invasion     Theme URI: http://www.ejeet.net     Description: Iron Invasion     Author: Ejeet Networks     Author URI: http://www.ejeet.net     Version: 1.0     Tags: black, red, two-columns, right-sidebar */
 .fp-slides-items {
     width: 100% !IMPORTANT;
 }
 /* INDEX:     =GENERAL     =LAYOUT     =HEADER     =MENUS     =POST     =SITEMAP     =CONTACT FORM     =SLIDER     =WP-PAGENAVI     =FOOTER     =WIDGETS     =COMMENTS */
 /* =GENERAL -------------------------------------------------------------- */
-@import url(http://fonts.googleapis.com/css?family=Oswald);
 body {
     background: #000000 url(../img/body_bg.png) center center no-repeat;
     background-position: 0px 80px;
