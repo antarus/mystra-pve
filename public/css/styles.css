@@ -368,7 +368,7 @@ nav{
     height:40px;
     margin:0 auto;
     padding-top: 40px;
-
+    float:right;
 
 }
 
@@ -446,7 +446,7 @@ nav ul li a:hover{
     float:left;
     top:15px;
     left:-75px;
-    width:450px;
+    width:auto;
     height:160px;
 
 
