@@ -30,7 +30,7 @@ return array(
             'Accueil' => array(
                 'type' => 'Literal',
                 'options' => array(
-                    'route' => '/Accueil',
+                    'route' => '/accueil',
                     'defaults' => array(
                         '__NAMESPACE__' => 'Accueil\Controller',
                         'controller' => 'Index',
@@ -53,11 +53,22 @@ return array(
                     ),
                 ),
             ),
+            'Contact' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/contact',
+                    'defaults' => array(
+                        'controller' => 'Accueil\Controller\Contact',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
             'Accueil\Controller\Index' => 'Accueil\Controller\IndexController',
+            'Accueil\Controller\Contact' => 'Accueil\Controller\ContactController',
         ),
     ),
     'view_manager' => array(
