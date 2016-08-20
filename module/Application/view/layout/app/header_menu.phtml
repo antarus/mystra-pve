@@ -5,11 +5,23 @@
         </a>
         <nav>
             <ul>
-                <li><a href="#"><?php echo $this->translate('Encore') ?></a></li>
-                <li><a href="#"><?php echo $this->translate('En') ?></a></li>
-                <li><a href="#"><?php echo $this->translate('Developpement') ?></a></li>
                 <li>
-                    <a href="<?php echo $this->url('Contact'); ?>">
+                    <a href="<?php echo $this->url('home'); ?>">
+                        <?php echo $this->translate('home') ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('apropos'); ?>">
+                        <?php echo $this->translate('A propos') ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('discordbot'); ?>">
+                        <?php echo $this->translate('Discord BOT') ?>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?php echo $this->url('contact'); ?>">
                         <?php echo $this->translate('Contact') ?>
                     </a>
                 </li>

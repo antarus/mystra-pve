@@ -53,12 +53,32 @@ return array(
                     ),
                 ),
             ),
-            'Contact' => array(
+            'contact' => array(
                 'type' => 'Literal',
                 'options' => array(
                     'route' => '/contact',
                     'defaults' => array(
                         'controller' => 'Accueil\Controller\Contact',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'apropos' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/about',
+                    'defaults' => array(
+                        'controller' => 'Accueil\Controller\Apropos',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
+            'discordbot' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/discordbot',
+                    'defaults' => array(
+                        'controller' => 'Accueil\Controller\Discordbot',
                         'action' => 'index',
                     ),
                 ),
@@ -69,6 +89,8 @@ return array(
         'invokables' => array(
             'Accueil\Controller\Index' => 'Accueil\Controller\IndexController',
             'Accueil\Controller\Contact' => 'Accueil\Controller\ContactController',
+            'Accueil\Controller\Apropos' => 'Accueil\Controller\AproposController',
+            'Accueil\Controller\Discordbot' => 'Accueil\Controller\DiscordbotController',
         ),
     ),
     'view_manager' => array(
