@@ -161,6 +161,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                 return $record["genre"] == 0 ? 'Male' : 'Female';
             }
         ));
+        $this->getHeader("miniature")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                return "<center><img src='http://render-api-eu.worldofwarcraft.com/static-render/eu/{$record["miniature"]}' /></center>";
+            }
+        ));
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
                 return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-personnages-update', array('id' => $record["idPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPersonnage"]);
@@ -172,6 +177,8 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                         return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-personnages-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
                     }
                         ));
+                    
+                        
                     }
 
                     /**
