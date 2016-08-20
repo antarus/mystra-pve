@@ -1,15 +1,15 @@
 <?php echo $this->plugin('doctype')->setDoctype(\Zend\View\Helper\Doctype::HTML5); ?>
 <html lang="fr">
     <head>
-        <?= $this->render('layout/app/head') ?>
+        <?php echo $this->render('layout/app/head') ?>
     </head>
     <body>
        <!--                Header                   -->
-       <?= $this->render('layout/app/header_menu') ?>
+       <?php echo $this->render('layout/app/header_menu') ?>
        
        <!--                Container                -->
         <div id="container">
-            <?= $this->render('layout/app/messages') ?>   
+            <?php echo $this->render('layout/app/messages') ?>   
             <?php echo $this->content; ?> 
         </div> 
         

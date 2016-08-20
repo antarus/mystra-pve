@@ -1,4 +1,21 @@
+@font-face {
+    font-family: 'BebasNeueRegular';
+    src: url('/public/font/BebasNeue-webfont.eot');
+    src: url('/public/font/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/public/font/BebasNeue-webfont.woff') format('woff'),
+         url('/public/font/BebasNeue-webfont.ttf') format('truetype'),
+         url('/public/font/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
 
+}
+
+h1.fontface {font: 72px/80px 'BebasNeueRegular', Arial, sans-serif;letter-spacing: 0;}
+h2.fontface {font: 35px/43px 'BebasNeueRegular', Arial, sans-serif;letter-spacing: 0;}
+h3.fontface {font: 25px/33px 'BebasNeueRegular', Arial, sans-serif;letter-spacing: 2px;}
+h4.fontface {font: 20px/28px 'BebasNeueRegular', Arial, sans-serif;letter-spacing: 0;}
+
+p.style1 {font: 18px/27px 'BebasNeueRegular', Arial, sans-serif;}
 /*** The All So Important RESET! ***/
 
 html, body, div, span, h1, h2, h3, h4, h5, h6, p, ol, ul, li, form, label, legend, caption, aside, details, figcaption, figure, footer,header, hgroup, menu, nav, section, summary {
@@ -346,7 +363,7 @@ font-size: 11px;
 
 nav{
 	position:relative;
-	width:600px;
+	width:auto;
 	height:40px;
 	margin:0 auto;
 	padding-top: 40px;
@@ -365,11 +382,12 @@ nav ul li a{
 	font-size: 30px;
 	font-family:"BebasNeueRegular", Arial, Helvetica, sans-serif;
 	color:#fff;
-	text-transform:capitalize;
+        text-decoration:none;
+	text-transform:uppercase;
 	font-weight:normal;
 	display:block;	/* IE6, IE7 line height fix */
 	background-color:transparent;
-	text-decoration:none;
+	
 	margin-top:3px;
 	padding:5px;
 	
@@ -427,7 +445,7 @@ nav ul li a:hover{
    	float:left;
    	top:15px;
 	left:-75px;
-	width:250px;
+	width:450px;
 	height:160px;
 	
 	
