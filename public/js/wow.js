@@ -33,6 +33,8 @@ function gestionImportAjax()
                 $("#msg").removeClass('alert-danger');
                 if (html.responseJSON.error) {
                     $("#msg").addClass('alert-danger').text(html.responseJSON.error.msg);
+                } else if (html.responseJSON.trace) {
+                    $("#msg").addClass('alert-danger').text(html.responseJSON.title);
                 } else {
                     $("#msg").addClass('alert-success').text(html.responseJSON.success.msg);
                 }
@@ -68,7 +70,9 @@ function gestionAjoutPersonnageRoster()
                 $("#msgAjoutPersonnage").removeClass('alert-success');
                 $("#msgAjoutPersonnage").removeClass('alert-danger');
                 if (html.responseJSON.error) {
-                    $("#msgAjoutPersonnage").addClass('alert-danger').text(html.responseJSON.error.msg);
+                    $("#msg").addClass('alert-danger').text(html.responseJSON.error.msg);
+                } else if (html.responseJSON.status == 500) {
+                    $("#msg").addClass('alert-danger').text(html.responseJSON.title);
                 } else {
                     $("#msgAjoutPersonnage").addClass('alert-success').text(html.responseJSON.success.msg);
                     if (!vContinue) {
