@@ -83,7 +83,9 @@ class Module {
                     return $oTable;
                 },
                 'Commun\Table\ItemPersonnageRaidTable' => function($sm) {
-                    return new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ItemsTable' => function($sm) {
                     $oTable = new \Commun\Table\ItemsTable($sm->get("\Zend\Db\Adapter\Adapter"));

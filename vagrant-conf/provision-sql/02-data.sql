@@ -29,6 +29,8 @@ USE `raid_tracker`;
 
 TRUNCATE TABLE `bosses`;
 -- --------------------------------------------------------
+INSERT INTO `bosses` (`idBosses`, `nom`, `level`, `vie`) VALUES
+(-1, 'trash mob', 0, 0),
 
 --
 -- Vider la table avant d'insérer `bosses_has_npc`

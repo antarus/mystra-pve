@@ -199,8 +199,9 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                     // sinon on update
                     $this->_getTableBoss()->update($oBoss);
                 }
+
                 // table npc
-                //supprime toutes les clé correpsondnat au boss dans la table BossesHasNpc
+                //supprime toutes les clé correspondant au boss dans la table BossesHasNpc
                 $oTabBossHasNpc = $this->_getTableBossesHasNpc()->selectBy(
                         array("idBosses" => $oBoss->getIdBosses()));
                 if ($oTabBossHasNpc) {
@@ -212,8 +213,8 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                         $this->_getTableBossesHasNpc()->delete($oTabBossHasNpc);
                     }
                 }
-                foreach ($oBoss->getNpc() as $oNpc) {
 
+                foreach ($oBoss->getNpc() as $oNpc) {
                     $oTabNpc = $this->_getTableNpc()->selectBy(
                             array("idNpc" => $oNpc->getIdNpc()));
                     // si n'existe pas on insert

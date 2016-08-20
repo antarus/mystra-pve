@@ -4,6 +4,7 @@ namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use \Commun\Exception\DatabaseException;
 
 /**
  * Controller pour la vue.
@@ -21,6 +22,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
     private $_tableItemPersonnageRaid;
     private $_tableItem;
     private $_tableZone;
+    private $_config;
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -32,6 +34,17 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
         return $this->_servTranslator;
+    }
+
+    /**
+     * Retourne la configuration.
+     * @return Config
+     */
+    private function _getConfig() {
+        if (!$this->_config) {
+            $this->_config = $this->getServiceLocator()->get('Config');
+        }
+        return $this->_config['conf'];
     }
 
     /**
@@ -363,7 +376,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $oWriter = new \Zend\Config\Writer\Json();
             $oRaid = $this->saveRaid($aRaid['raiddata']['zones']['zone'], $aPost['idRoster']);
             $aLstPersonnage = $this->savePersonnages($aRaid['raiddata']['members']['member'], $oRaid, $aPost["serveur"], $oData, $oWriter);
-            $this->saveItems($aRaid['raiddata']['items']['item'], $aLstPersonnage, $oRaid);
+            $this->saveItems($aRaid['raiddata']['items']['item'], $aLstPersonnage, $oRaid, $aPost);
         } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de la sauvagarde de l'import", 0, $ex);
         }
@@ -453,6 +466,10 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $sServeurPersonnage = preg_replace('/(\w+)([A-Z])/U', '\\1 \\2', $sServeurPersonnage);
                 $sServeurPersonnage = str_replace('des', ' des', $sServeurPersonnage);
 
+                $sServeurPersonnage = str_replace('Croisadeécarlate', 'Croisade écarlate', $sServeurPersonnage);
+
+
+
                 $aOptPersonnage = array(
                     'nom' => $sNom,
                     'serveur' => $sServeurPersonnage);
@@ -486,21 +503,35 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
      *
      * @param array $aItems
      * @param array $aLstPersonnage
+     * @param array $aLstPersonnage*
      * @param \Commun\Model\Raids $oRaid
      */
-    private function saveItems($aItems, $aLstPersonnage, $oRaid) {
+    private function saveItems($aItems, $aLstPersonnage, $oRaid, $aRaidRoster) {
         try {
             foreach ($aItems as $aItem) {
 
                 $aInfoItem = $this->getTableItem()->extractInfoItem($aItem['itemid']);
                 $aPost = array('id' => $aInfoItem[0]);
                 $oItem = $this->getTableItem()->importItem($aPost);
+
+                if ($aItem['member'] == $this->_getConfig()["eqdkp"]["nom"]["bank"]) {
+                    $aItem['member'] = $aRaidRoster['nomRoster'] . $this->_getConfig()["roster"]["suffixe"]["bank"];
+                }
+                if ($aItem['member'] == $this->_getConfig()["eqdkp"]["nom"]["disenchanted"]) {
+                    $aItem['member'] = $aRaidRoster['nomRoster'] . $this->_getConfig()["roster"]["suffixe"]["disenchant"];
+                }
                 $oPersonnage = $this->findPersonnage($aLstPersonnage, $aItem['member']);
+                $sNote = "";
+
+                if (isset($aItem['note'])) {
+                    $sNote = $aItem['note'];
+                }
+
                 if (!isset($oPersonnage)) {
-                    throw new \Exception('erreur inconnue. le personnage n\'a pas ete trouvé dans la liste');
+                    throw new \Exception('Erreur inconnue. le personnage n\'a pas ete trouvé dans la liste');
                 } else {
                     $this->getTableItemPersonnageRaid()->removeAllItemForRaidAndPersonnage($oPersonnage, $oRaid);
-                    $this->getTableItemPersonnageRaid()->saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaid, $oItem, $aInfoItem[1]);
+                    $this->getTableItemPersonnageRaid()->saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaid, $oItem, $aItem['boss'], $aInfoItem[1], $sNote);
                 }
             }
         } catch (\Exception $ex) {
@@ -515,6 +546,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
      * @return \Commun\Model\Personnages
      */
     private function findPersonnage(array $aLstPersonnage, $sNom) {
+
+
         $pos = strrpos($sNom, "-");
         if ($pos !== false) {
             $sNom = substr($sNom, 0, $pos);
@@ -525,7 +558,12 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 return $oPersonnage;
             }
         }
-        return null;
+        try {
+            $oTabNom = $this->getTablePersonnage()->selectBy(array("nom" => $sNom));
+        } catch (\Exception $exc) {
+            throw new DatabaseException(2000, 4, $this->_getServiceLocator()->get('translator'));
+        }
+        return $oTabNom;
     }
 
 }

@@ -45,7 +45,7 @@ return array(
                     'action' => 'index',
                 ),
                 array(
-                    'label' => $translator->translate('Items - personnage -raid'),
+                    'label' => $translator->translate('Items - personnage -raid - boss'),
                     'route' => 'backend-item-personnage-raid-list',
                     'action' => 'index',
                 ),

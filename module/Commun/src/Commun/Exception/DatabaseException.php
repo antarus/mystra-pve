@@ -12,7 +12,9 @@ class DatabaseException extends \Exception {
         4000 => "raid",
         5000 => "roster/personnage",
         6000 => "roster",
-        7000 => "zone"
+        7000 => "zone",
+        8000 => "item/raid/personnage/boss",
+        9000 => "boss"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -20,10 +22,11 @@ class DatabaseException extends \Exception {
         2 => "create",
         3 => "delete",
         4 => "list",
-        5 => "contrainte unique"
+        5 => "contrainte unique",
+        6 => 'recherche'
     ];
 
-    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, Exception $previous = null) {
+    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, $aParam = array(), Exception $previous = null) {
         if (isset($this->message[$code + $erreurType])) {
             $msg = $this->message[$code + $erreurType];
             $codeErreur = $code + $erreurType;
@@ -33,7 +36,7 @@ class DatabaseException extends \Exception {
         }
 
         if (isset($oTanslator)) {
-            $msg = $oTanslator->translate($msg);
+            $msg = vsprintf($oTanslator->translate($msg), $aParam);
         }
         parent::__construct($msg, $codeErreur, $previous);
     }
@@ -76,6 +79,17 @@ class DatabaseException extends \Exception {
         7002 => "Erreur lors la création de la zone",
         7003 => "Erreur lors de la suppression de la zone",
         7004 => "Erreur lors du listing de la zone",
+        // item/raid/personnage/boss
+        8001 => "Erreur lors la mise à jour du lien item-raid-personnage-boss",
+        8002 => "Erreur lors la création du lien item-raid-personnage-boss",
+        8003 => "Erreur lors de la suppression du lien item-raid-personnage-boss",
+        8004 => "Erreur lors du listing du lien item-raid-personnage-boss",
+        // boss
+        9001 => "Erreur lors la mise à jour du boss [%s].",
+        9002 => "Erreur lors la création du boss [%s].",
+        9003 => "Erreur lors de la suppression du boss [%s].",
+        9004 => "Erreur lors du listing du boss [%s].",
+        9006 => "Erreur lors de la recherche du boss [%s].",
     );
 
 }

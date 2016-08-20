@@ -110,7 +110,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
-                throw new BnetException(299, $this->_getServiceLocator()->get('translator'));
+                throw new BnetException(299, $this->_getServiceLocator()->get('translator'), $aPost);
             }
             return $aPersoBnet;
 

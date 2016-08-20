@@ -33,6 +33,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
 
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
+    private $_config;
 
     /**
      * Retourne le service de battlnet.
@@ -43,6 +44,17 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             $this->_tablePersonnage = $this->_getServiceLocator()->get('Commun\Table\PersonnagesTable');
         }
         return $this->_tablePersonnage;
+    }
+
+    /**
+     * Retourne la configuration.
+     * @return Config
+     */
+    private function _getConfig() {
+        if (!$this->_config) {
+            $this->_config = $this->_getServiceLocator()->get('Config');
+        }
+        return $this->_config['conf'];
     }
 
     /**
@@ -89,11 +101,11 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
 
                     $this->update($oRoster);
                     // on recupere les anciens personnage bank et disenchant
-                    $oOldBank = $this->_getTablePersonnage()->selectBy(array('nom' => strtolower($oTabRoster->getNom() . "-bank")));
-                    $oOldDisenchant = $this->_getTablePersonnage()->selectBy(array('nom' => strtolower($oTabRoster->getNom() . "-disenchant")));
+                    $oOldBank = $this->_getTablePersonnage()->selectBy(array('nom' => strtolower($oTabRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["bank"])));
+                    $oOldDisenchant = $this->_getTablePersonnage()->selectBy(array('nom' => strtolower($oTabRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["disenchant"])));
                     // on met a jour leur nom
-                    $oOldBank->setNom($oRoster->getNom() . "-bank");
-                    $oOldDisenchant->setNom($oRoster->getNom() . "-disenchant");
+                    $oOldBank->setNom($oRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["bank"]);
+                    $oOldDisenchant->setNom($oRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["disenchant"]);
                     // on met a jour en base
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oOldBank);
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oOldDisenchant);
@@ -122,7 +134,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $oRoster->setIdRoster($this->lastInsertValue);
                     // on cree les deux personnage lié au roster
                     $oRosterBank = new \Commun\Model\Personnages();
-                    $oRosterBank->setNom($oRoster->getNom() . "-bank");
+                    $oRosterBank->setNom($oRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["bank"]);
                     $oRosterBank->setIsTech(true);
                     $oRosterBank->setGenre(1);
                     $oRosterBank->setIdClasses(1);
@@ -130,7 +142,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $oRosterBank->setIdFaction(1);
                     $oRosterBank->setRoyaume("bank");
                     $oRosterDisenchant = new \Commun\Model\Personnages();
-                    $oRosterDisenchant->setNom($oRoster->getNom() . "-disenchant");
+                    $oRosterDisenchant->setNom($oRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["disenchant"]);
                     $oRosterDisenchant->setIsTech(true);
                     $oRosterDisenchant->setGenre(1);
                     $oRosterDisenchant->setIdClasses(1);

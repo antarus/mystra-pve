@@ -40,7 +40,9 @@ class FactoryValidateur {
             $sNomClasse = self::$correspondance[$sNom];
             return new $sNomClasse($mValidateurOuValeur);
         } else {
-            throw new \Exception('Le validateur donné n\'existe pas....' . $sNom);
+            $sNomClasse = self::$correspondance['Required'];
+            return new $sNomClasse($mValidateurOuValeur);
+            // throw new \Exception('Le validateur donné n\'existe pas....' . $sNom);
         }
     }
 

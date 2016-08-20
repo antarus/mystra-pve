@@ -12,4 +12,17 @@ return array(
             'commun' => __DIR__ . '/../view',
         ),
     ),
+    'conf' => array(
+        'eqdkp' => array(
+            // nom des personnage utilisé par le logiciel eqdkp
+            'nom' => array(
+                'bank' => 'bank',
+                'disenchanted' => 'disenchanted',
+            )
+        ),
+        'roster' => array(
+            'suffixe' => array(
+                'bank' => '_bank',
+                'disenchant' => '_disenchant')
+        )),
 );
