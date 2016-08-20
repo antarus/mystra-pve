@@ -1,10 +1,10 @@
 @font-face {
     font-family: 'BebasNeueRegular';
-    src: url('/public/font/BebasNeue-webfont.eot');
-    src: url('/public/font/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
-         url('/public/font/BebasNeue-webfont.woff') format('woff'),
-         url('/public/font/BebasNeue-webfont.ttf') format('truetype'),
-         url('/public/font/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
+    src: url('../fonts/BebasNeue-webfont.eot');
+    src: url('../fonts/BebasNeue-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/BebasNeue-webfont.woff') format('woff'),
+         url('../fonts/BebasNeue-webfont.ttf') format('truetype'),
+         url('../fonts/BebasNeue-webfont.svg#BebasNeueRegular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -168,8 +168,9 @@ header{
 	height:100px;
 	background:url(../img/bg2.png) no-repeat;
 	background-position: center;	
-border-bottom: 3px solid #9acd32;
+        border-bottom: 3px solid #9acd32;
 	display:block;
+        padding-bottom: 1em;
 
 
 
@@ -366,8 +367,8 @@ nav{
 	width:auto;
 	height:40px;
 	margin:0 auto;
-	padding-top: 40px;
 	
+	padding-top:40px;
 
 }
 
@@ -389,7 +390,8 @@ nav ul li a{
 	background-color:transparent;
 	
 	margin-top:3px;
-	padding:5px;
+        padding:5px;
+
 	
 }
 
