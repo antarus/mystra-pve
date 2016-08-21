@@ -3,10 +3,11 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 21 Août 2016 à 19:52
+-- Généré le: Dim 21 Août 2016 à 22:30
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.19
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
@@ -19,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `raid_tracker`
 --
+CREATE DATABASE IF NOT EXISTS `raid_tracker` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `raid_tracker`;
 
 -- --------------------------------------------------------
 
@@ -26,6 +29,7 @@ SET time_zone = "+00:00";
 -- Structure de la table `bosses`
 --
 
+DROP TABLE IF EXISTS `bosses`;
 CREATE TABLE IF NOT EXISTS `bosses` (
   `idBosses` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id battlenet',
   `nom` varchar(155) NOT NULL,
@@ -36,10 +40,15 @@ CREATE TABLE IF NOT EXISTS `bosses` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93069 ;
 
 --
+-- Vider la table avant d'insérer `bosses`
+--
+
+TRUNCATE TABLE `bosses`;
+--
 -- Contenu de la table `bosses`
 --
 
-INSERT INTO `bosses` (`idBosses`, `nom`, `level`, `vie`) VALUES
+INSERT DELAYED IGNORE INTO `bosses` (`idBosses`, `nom`, `level`, `vie`) VALUES
 (-1, 'trash mob', 0, 0),
 (76809, 'blast furnace', 102, 523590),
 (76814, 'flamebender ka''graz', 102, 1633600),
@@ -71,6 +80,7 @@ INSERT INTO `bosses` (`idBosses`, `nom`, `level`, `vie`) VALUES
 -- Structure de la table `bosses_has_npc`
 --
 
+DROP TABLE IF EXISTS `bosses_has_npc`;
 CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
   `idBosses` int(11) NOT NULL,
   `idNpc` int(11) NOT NULL,
@@ -80,10 +90,15 @@ CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `bosses_has_npc`
+--
+
+TRUNCATE TABLE `bosses_has_npc`;
+--
 -- Contenu de la table `bosses_has_npc`
 --
 
-INSERT INTO `bosses_has_npc` (`idBosses`, `idNpc`) VALUES
+INSERT DELAYED IGNORE INTO `bosses_has_npc` (`idBosses`, `idNpc`) VALUES
 (76814, 76794),
 (76809, 76806),
 (76809, 76809),
@@ -147,6 +162,7 @@ INSERT INTO `bosses_has_npc` (`idBosses`, `idNpc`) VALUES
 -- Structure de la table `classes`
 --
 
+DROP TABLE IF EXISTS `classes`;
 CREATE TABLE IF NOT EXISTS `classes` (
   `idClasses` int(11) NOT NULL AUTO_INCREMENT,
   `couleur` varchar(7) NOT NULL,
@@ -156,10 +172,15 @@ CREATE TABLE IF NOT EXISTS `classes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
 --
+-- Vider la table avant d'insérer `classes`
+--
+
+TRUNCATE TABLE `classes`;
+--
 -- Contenu de la table `classes`
 --
 
-INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
+INSERT DELAYED IGNORE INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
 (1, '#C69B6D', 'Warrior', NULL),
 (2, '#F48CBA', 'Paladin', NULL),
 (3, '#AAD372', 'Hunter', NULL),
@@ -179,6 +200,7 @@ INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
 -- Structure de la table `evenements`
 --
 
+DROP TABLE IF EXISTS `evenements`;
 CREATE TABLE IF NOT EXISTS `evenements` (
   `idEvenements` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -203,12 +225,18 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   KEY `fk_evenements_user1_idx` (`idUsers`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements`
+--
+
+TRUNCATE TABLE `evenements`;
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_personnage`
 --
 
+DROP TABLE IF EXISTS `evenements_personnage`;
 CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   `idEvenement_personnage` int(11) NOT NULL AUTO_INCREMENT,
   `status` varchar(45) DEFAULT NULL COMMENT 'abs\nvalide\nconfirme\npresent',
@@ -221,12 +249,18 @@ CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   KEY `fk_evenement_personnage_personnage1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_personnage`
+--
+
+TRUNCATE TABLE `evenements_personnage`;
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_roles`
 --
 
+DROP TABLE IF EXISTS `evenements_roles`;
 CREATE TABLE IF NOT EXISTS `evenements_roles` (
   `idEvenements_roles` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` mediumint(9) NOT NULL,
@@ -238,12 +272,18 @@ CREATE TABLE IF NOT EXISTS `evenements_roles` (
   KEY `fk_evenements_roles_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_roles`
+--
+
+TRUNCATE TABLE `evenements_roles`;
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_template`
 --
 
+DROP TABLE IF EXISTS `evenements_template`;
 CREATE TABLE IF NOT EXISTS `evenements_template` (
   `idEvenements_template` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -264,12 +304,18 @@ CREATE TABLE IF NOT EXISTS `evenements_template` (
   KEY `fk_evenements_template_roster1_idx` (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_template`
+--
+
+TRUNCATE TABLE `evenements_template`;
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_template_roles`
 --
 
+DROP TABLE IF EXISTS `evenements_template_roles`;
 CREATE TABLE IF NOT EXISTS `evenements_template_roles` (
   `idEvenements_template_roles` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` mediumint(9) DEFAULT NULL,
@@ -280,12 +326,18 @@ CREATE TABLE IF NOT EXISTS `evenements_template_roles` (
   KEY `fk_evenements_template_roles_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_template_roles`
+--
+
+TRUNCATE TABLE `evenements_template_roles`;
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `faction`
 --
 
+DROP TABLE IF EXISTS `faction`;
 CREATE TABLE IF NOT EXISTS `faction` (
   `idFaction` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -294,10 +346,15 @@ CREATE TABLE IF NOT EXISTS `faction` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
+-- Vider la table avant d'insérer `faction`
+--
+
+TRUNCATE TABLE `faction`;
+--
 -- Contenu de la table `faction`
 --
 
-INSERT INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
+INSERT DELAYED IGNORE INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
 (0, 'Alliance', NULL),
 (1, 'Horde', NULL);
 
@@ -307,6 +364,7 @@ INSERT INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
 -- Structure de la table `guildes`
 --
 
+DROP TABLE IF EXISTS `guildes`;
 CREATE TABLE IF NOT EXISTS `guildes` (
   `idGuildes` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -319,10 +377,15 @@ CREATE TABLE IF NOT EXISTS `guildes` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
+-- Vider la table avant d'insérer `guildes`
+--
+
+TRUNCATE TABLE `guildes`;
+--
 -- Contenu de la table `guildes`
 --
 
-INSERT INTO `guildes` (`idGuildes`, `nom`, `serveur`, `niveau`, `miniature`, `idFaction`) VALUES
+INSERT DELAYED IGNORE INTO `guildes` (`idGuildes`, `nom`, `serveur`, `niveau`, `miniature`, `idFaction`) VALUES
 (1, 'wrath of god', 'Garona', 25, '', 0),
 (2, 'mystra', 'Garona', 25, '', 0);
 
@@ -332,6 +395,7 @@ INSERT INTO `guildes` (`idGuildes`, `nom`, `serveur`, `niveau`, `miniature`, `id
 -- Structure de la table `items`
 --
 
+DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `idItem` int(10) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
@@ -344,10 +408,15 @@ CREATE TABLE IF NOT EXISTS `items` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=137 ;
 
 --
+-- Vider la table avant d'insérer `items`
+--
+
+TRUNCATE TABLE `items`;
+--
 -- Contenu de la table `items`
 --
 
-INSERT INTO `items` (`idItem`, `nom`, `ajouterPar`, `majPar`, `idBnet`, `couleur`, `icon`) VALUES
+INSERT DELAYED IGNORE INTO `items` (`idItem`, `nom`, `ajouterPar`, `majPar`, `idBnet`, `couleur`, `icon`) VALUES
 (7, 'gorebound wristguards', 'Import Raid-TracKer', '', 124278, '', 'inv_leather_raidrogue_p_01bracer'),
 (8, 'powder-singed bracers', 'Import Raid-TracKer', '', 124183, '', 'inv_bracer_cloth_raidpriest_p_01'),
 (9, 'blastproof legguards', 'Import Raid-TracKer', '', 124335, '', 'inv_plate_raidwarrior_p_01pants'),
@@ -457,6 +526,7 @@ INSERT INTO `items` (`idItem`, `nom`, `ajouterPar`, `majPar`, `idBnet`, `couleur
 -- Structure de la table `item_personnage_raid`
 --
 
+DROP TABLE IF EXISTS `item_personnage_raid`;
 CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   `idItemRaidPersonnage` int(11) NOT NULL AUTO_INCREMENT,
   `idRaid` mediumint(8) NOT NULL,
@@ -471,13 +541,18 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_items1_idx` (`idItem`),
   KEY `fk_item_personnage_raid_personnages1_idx` (`idPersonnage`),
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=420 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=422 ;
 
+--
+-- Vider la table avant d'insérer `item_personnage_raid`
+--
+
+TRUNCATE TABLE `item_personnage_raid`;
 --
 -- Contenu de la table `item_personnage_raid`
 --
 
-INSERT INTO `item_personnage_raid` (`idItemRaidPersonnage`, `idRaid`, `idItem`, `idPersonnage`, `valeur`, `bonus`, `idBosses`, `note`) VALUES
+INSERT DELAYED IGNORE INTO `item_personnage_raid` (`idItemRaidPersonnage`, `idRaid`, `idItem`, `idPersonnage`, `valeur`, `bonus`, `idBosses`, `note`) VALUES
 (195, 16, 23, 2, 0.00, '1801:1472:529:', 92146, ''),
 (205, 16, 33, 45, 0.00, '1801:1472:529:', 90199, ''),
 (211, 16, 38, 347, 0.00, '1801:1472:529:', 90296, ''),
@@ -523,7 +598,9 @@ INSERT INTO `item_personnage_raid` (`idItemRaidPersonnage`, `idRaid`, `idItem`, 
 (416, 21, 133, 151, 0.00, '1798:41:1487:', 93068, 'spé2'),
 (417, 21, 134, 375, 0.00, '1798:1487:529:', 89890, ''),
 (418, 21, 135, 577, 0.00, '1798:41:1487:', 89890, ''),
-(419, 21, 136, 385, 0.00, '1798:1487:529:', 89890, '');
+(419, 21, 136, 385, 0.00, '1798:1487:529:', 89890, ''),
+(420, 16, 23, 179, 0.00, '1801:1472:529:', 92146, ''),
+(421, 22, 24, 179, 0.00, '1801:1472:529:', 92146, '');
 
 -- --------------------------------------------------------
 
@@ -531,6 +608,7 @@ INSERT INTO `item_personnage_raid` (`idItemRaidPersonnage`, `idRaid`, `idItem`, 
 -- Structure de la table `mode_difficulte`
 --
 
+DROP TABLE IF EXISTS `mode_difficulte`;
 CREATE TABLE IF NOT EXISTS `mode_difficulte` (
   `idMode` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
@@ -539,10 +617,15 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 --
+-- Vider la table avant d'insérer `mode_difficulte`
+--
+
+TRUNCATE TABLE `mode_difficulte`;
+--
 -- Contenu de la table `mode_difficulte`
 --
 
-INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
+INSERT DELAYED IGNORE INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 (1, 'Raid LFR', 'RAID_FLEX_LFR'),
 (5, 'Donjon NM', 'DUNGEON_NORMAL'),
 (6, 'Donjon HM', 'DUNGEON_HEROIC'),
@@ -557,6 +640,7 @@ INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 -- Structure de la table `npc`
 --
 
+DROP TABLE IF EXISTS `npc`;
 CREATE TABLE IF NOT EXISTS `npc` (
   `idNpc` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id battlenet',
   `nom` varchar(45) NOT NULL,
@@ -564,10 +648,15 @@ CREATE TABLE IF NOT EXISTS `npc` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=93069 ;
 
 --
+-- Vider la table avant d'insérer `npc`
+--
+
+TRUNCATE TABLE `npc`;
+--
 -- Contenu de la table `npc`
 --
 
-INSERT INTO `npc` (`idNpc`, `nom`) VALUES
+INSERT DELAYED IGNORE INTO `npc` (`idNpc`, `nom`) VALUES
 (76794, 'cinder wolf'),
 (76806, 'heart of the mountain'),
 (76809, 'foreman feldspar'),
@@ -631,6 +720,7 @@ INSERT INTO `npc` (`idNpc`, `nom`) VALUES
 -- Structure de la table `pallierAfficher`
 --
 
+DROP TABLE IF EXISTS `pallierAfficher`;
 CREATE TABLE IF NOT EXISTS `pallierAfficher` (
   `idPallierAffiche` int(11) NOT NULL AUTO_INCREMENT,
   `idModeDifficulte` int(11) NOT NULL,
@@ -643,12 +733,17 @@ CREATE TABLE IF NOT EXISTS `pallierAfficher` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
+-- Vider la table avant d'insérer `pallierAfficher`
+--
+
+TRUNCATE TABLE `pallierAfficher`;
+--
 -- Contenu de la table `pallierAfficher`
 --
 
-INSERT INTO `pallierAfficher` (`idPallierAffiche`, `idModeDifficulte`, `idZone`, `idRoster`) VALUES
+INSERT DELAYED IGNORE INTO `pallierAfficher` (`idPallierAffiche`, `idModeDifficulte`, `idZone`, `idRoster`) VALUES
 (1, 14, 7545, 1),
-(2, 15, 7545, 1),
+(2, 15, 6967, 1),
 (3, 14, 7545, 2),
 (4, 15, 7545, 2);
 
@@ -658,6 +753,7 @@ INSERT INTO `pallierAfficher` (`idPallierAffiche`, `idModeDifficulte`, `idZone`,
 -- Structure de la table `personnages`
 --
 
+DROP TABLE IF EXISTS `personnages`;
 CREATE TABLE IF NOT EXISTS `personnages` (
   `idPersonnage` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
@@ -681,10 +777,15 @@ CREATE TABLE IF NOT EXISTS `personnages` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=578 ;
 
 --
+-- Vider la table avant d'insérer `personnages`
+--
+
+TRUNCATE TABLE `personnages`;
+--
 -- Contenu de la table `personnages`
 --
 
-INSERT INTO `personnages` (`idPersonnage`, `nom`, `niveau`, `genre`, `miniature`, `royaume`, `ilvl`, `idFaction`, `idClasses`, `idRace`, `idGuildes`, `idUsers`, `isTech`) VALUES
+INSERT DELAYED IGNORE INTO `personnages` (`idPersonnage`, `nom`, `niveau`, `genre`, `miniature`, `royaume`, `ilvl`, `idFaction`, `idClasses`, `idRace`, `idGuildes`, `idUsers`, `isTech`) VALUES
 (1, 'akirian', 100, 0, 'garona/41/3881769-avatar.jpg', 'garona', 0, 0, 8, 7, 1, NULL, 0),
 (2, 'xéres', 100, 0, 'garona/5/22519557-avatar.jpg', 'garona', 708, 0, 2, 1, NULL, NULL, 0),
 (3, 'octav', 100, 0, 'garona/90/23131738-avatar.jpg', 'garona', 0, 0, 3, 3, 1, NULL, 0),
@@ -1131,6 +1232,7 @@ INSERT INTO `personnages` (`idPersonnage`, `nom`, `niveau`, `genre`, `miniature`
 -- Structure de la table `race`
 --
 
+DROP TABLE IF EXISTS `race`;
 CREATE TABLE IF NOT EXISTS `race` (
   `idRace` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(45) NOT NULL,
@@ -1139,10 +1241,15 @@ CREATE TABLE IF NOT EXISTS `race` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
+-- Vider la table avant d'insérer `race`
+--
+
+TRUNCATE TABLE `race`;
+--
 -- Contenu de la table `race`
 --
 
-INSERT INTO `race` (`idRace`, `nom`, `icon`) VALUES
+INSERT DELAYED IGNORE INTO `race` (`idRace`, `nom`, `icon`) VALUES
 (1, 'Human', NULL),
 (2, 'Orc', NULL),
 (3, 'Dwarf', NULL),
@@ -1165,6 +1272,7 @@ INSERT INTO `race` (`idRace`, `nom`, `icon`) VALUES
 -- Structure de la table `raids`
 --
 
+DROP TABLE IF EXISTS `raids`;
 CREATE TABLE IF NOT EXISTS `raids` (
   `idRaid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `idEvenements` int(11) DEFAULT NULL,
@@ -1181,15 +1289,21 @@ CREATE TABLE IF NOT EXISTS `raids` (
   KEY `fk_raids_roster1_idx` (`idRosterTmp`),
   KEY `fk_raids_zone1_idx` (`idZoneTmp`),
   KEY `fk_raids_mode_difficulte1_idx` (`idMode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=23 ;
 
+--
+-- Vider la table avant d'insérer `raids`
+--
+
+TRUNCATE TABLE `raids`;
 --
 -- Contenu de la table `raids`
 --
 
-INSERT INTO `raids` (`idRaid`, `idEvenements`, `date`, `note`, `valeur`, `ajoutePar`, `majPar`, `idRosterTmp`, `idZoneTmp`, `idMode`) VALUES
+INSERT DELAYED IGNORE INTO `raids` (`idRaid`, `idEvenements`, `date`, `note`, `valeur`, `ajoutePar`, `majPar`, `idRosterTmp`, `idZoneTmp`, `idMode`) VALUES
 (16, NULL, '2016-07-30 19:55:35', 'Hellfire Citadel - flex NM', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 7545, 14),
-(21, NULL, '2016-08-17 18:44:49', 'Hellfire Citadel - flex HM', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 7545, 15);
+(21, NULL, '2016-08-17 18:44:49', 'Hellfire Citadel - flex HM', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 7545, 15),
+(22, NULL, '2015-08-17 18:44:49', 'Hellfire Citadel - flex HM', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 6967, 15);
 
 -- --------------------------------------------------------
 
@@ -1197,6 +1311,7 @@ INSERT INTO `raids` (`idRaid`, `idEvenements`, `date`, `note`, `valeur`, `ajoute
 -- Structure de la table `raid_personnage`
 --
 
+DROP TABLE IF EXISTS `raid_personnage`;
 CREATE TABLE IF NOT EXISTS `raid_personnage` (
   `idRaid` mediumint(8) NOT NULL,
   `idPersonnage` int(11) NOT NULL,
@@ -1206,15 +1321,21 @@ CREATE TABLE IF NOT EXISTS `raid_personnage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `raid_personnage`
+--
+
+TRUNCATE TABLE `raid_personnage`;
+--
 -- Contenu de la table `raid_personnage`
 --
 
-INSERT INTO `raid_personnage` (`idRaid`, `idPersonnage`) VALUES
+INSERT DELAYED IGNORE INTO `raid_personnage` (`idRaid`, `idPersonnage`) VALUES
 (16, 2),
 (16, 45),
 (16, 67),
 (16, 73),
 (16, 112),
+(16, 179),
 (16, 180),
 (16, 214),
 (16, 269),
@@ -1267,7 +1388,8 @@ INSERT INTO `raid_personnage` (`idRaid`, `idPersonnage`) VALUES
 (21, 385),
 (21, 395),
 (21, 570),
-(21, 577);
+(21, 577),
+(22, 179);
 
 -- --------------------------------------------------------
 
@@ -1275,6 +1397,7 @@ INSERT INTO `raid_personnage` (`idRaid`, `idPersonnage`) VALUES
 -- Structure de la table `role`
 --
 
+DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `idRole` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(55) NOT NULL,
@@ -1282,10 +1405,15 @@ CREATE TABLE IF NOT EXISTS `role` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
 --
+-- Vider la table avant d'insérer `role`
+--
+
+TRUNCATE TABLE `role`;
+--
 -- Contenu de la table `role`
 --
 
-INSERT INTO `role` (`idRole`, `nom`) VALUES
+INSERT DELAYED IGNORE INTO `role` (`idRole`, `nom`) VALUES
 (1, 'Tank'),
 (2, 'Soigneur'),
 (3, 'DPS Cac'),
@@ -1297,6 +1425,7 @@ INSERT INTO `role` (`idRole`, `nom`) VALUES
 -- Structure de la table `roster`
 --
 
+DROP TABLE IF EXISTS `roster`;
 CREATE TABLE IF NOT EXISTS `roster` (
   `idRoster` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
@@ -1305,10 +1434,15 @@ CREATE TABLE IF NOT EXISTS `roster` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
+-- Vider la table avant d'insérer `roster`
+--
+
+TRUNCATE TABLE `roster`;
+--
 -- Contenu de la table `roster`
 --
 
-INSERT INTO `roster` (`idRoster`, `nom`) VALUES
+INSERT DELAYED IGNORE INTO `roster` (`idRoster`, `nom`) VALUES
 (1, 'mystra'),
 (2, 'mystra_1');
 
@@ -1318,6 +1452,7 @@ INSERT INTO `roster` (`idRoster`, `nom`) VALUES
 -- Structure de la table `roster_has_personnage`
 --
 
+DROP TABLE IF EXISTS `roster_has_personnage`;
 CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
   `idRoster` int(11) NOT NULL,
   `idPersonnage` int(11) NOT NULL,
@@ -1330,12 +1465,16 @@ CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `roster_has_personnage`
+--
+
+TRUNCATE TABLE `roster_has_personnage`;
+--
 -- Contenu de la table `roster_has_personnage`
 --
 
-INSERT INTO `roster_has_personnage` (`idRoster`, `idPersonnage`, `idRole`, `isApply`) VALUES
-(1, 179, 1, NULL),
-(2, 179, 1, NULL);
+INSERT DELAYED IGNORE INTO `roster_has_personnage` (`idRoster`, `idPersonnage`, `idRole`, `isApply`) VALUES
+(1, 179, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -1343,6 +1482,7 @@ INSERT INTO `roster_has_personnage` (`idRoster`, `idPersonnage`, `idRole`, `isAp
 -- Structure de la table `specialisation`
 --
 
+DROP TABLE IF EXISTS `specialisation`;
 CREATE TABLE IF NOT EXISTS `specialisation` (
   `idSpecialisation` int(11) NOT NULL AUTO_INCREMENT,
   `idClasses` int(11) NOT NULL,
@@ -1355,10 +1495,15 @@ CREATE TABLE IF NOT EXISTS `specialisation` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
 --
+-- Vider la table avant d'insérer `specialisation`
+--
+
+TRUNCATE TABLE `specialisation`;
+--
 -- Contenu de la table `specialisation`
 --
 
-INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, `icon`) VALUES
+INSERT DELAYED IGNORE INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, `icon`) VALUES
 (1, 1, 3, 'Armes', 'ability_warrior_savageblow'),
 (2, 1, 3, 'Fureur', 'ability_warrior_innerrage'),
 (3, 1, 1, 'Protection', 'ability_warrior_defensivestance'),
@@ -1400,6 +1545,7 @@ INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, 
 -- Structure de la table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
@@ -1413,10 +1559,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 --
+-- Vider la table avant d'insérer `user`
+--
+
+TRUNCATE TABLE `user`;
+--
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
+INSERT DELAYED IGNORE INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
 (1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL),
 (2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', NULL),
 (3, 'Kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', NULL);
@@ -1437,6 +1588,7 @@ DELIMITER ;
 -- Structure de la table `user_role`
 --
 
+DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE IF NOT EXISTS `user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -1448,10 +1600,15 @@ CREATE TABLE IF NOT EXISTS `user_role` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
 --
+-- Vider la table avant d'insérer `user_role`
+--
+
+TRUNCATE TABLE `user_role`;
+--
 -- Contenu de la table `user_role`
 --
 
-INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
+INSERT DELAYED IGNORE INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
 (9, 'guest', 1, NULL),
 (10, 'user', 0, 9),
 (11, 'admin', 0, 10);
@@ -1462,6 +1619,7 @@ INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
 -- Structure de la table `user_role_linker`
 --
 
+DROP TABLE IF EXISTS `user_role_linker`;
 CREATE TABLE IF NOT EXISTS `user_role_linker` (
   `user_id` int(11) unsigned NOT NULL,
   `role_id` varchar(255) NOT NULL,
@@ -1470,10 +1628,15 @@ CREATE TABLE IF NOT EXISTS `user_role_linker` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `user_role_linker`
+--
+
+TRUNCATE TABLE `user_role_linker`;
+--
 -- Contenu de la table `user_role_linker`
 --
 
-INSERT INTO `user_role_linker` (`user_id`, `role_id`) VALUES
+INSERT DELAYED IGNORE INTO `user_role_linker` (`user_id`, `role_id`) VALUES
 (3, '10'),
 (1, '11'),
 (2, '11');
@@ -1484,6 +1647,7 @@ INSERT INTO `user_role_linker` (`user_id`, `role_id`) VALUES
 -- Structure de la table `zone`
 --
 
+DROP TABLE IF EXISTS `zone`;
 CREATE TABLE IF NOT EXISTS `zone` (
   `idZone` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id battlenet',
   `nom` varchar(255) NOT NULL,
@@ -1499,10 +1663,15 @@ CREATE TABLE IF NOT EXISTS `zone` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7546 ;
 
 --
+-- Vider la table avant d'insérer `zone`
+--
+
+TRUNCATE TABLE `zone`;
+--
 -- Contenu de la table `zone`
 --
 
-INSERT INTO `zone` (`idZone`, `nom`, `lvlMin`, `lvlMax`, `tailleMin`, `tailleMax`, `patch`, `isDonjon`, `isRaid`) VALUES
+INSERT DELAYED IGNORE INTO `zone` (`idZone`, `nom`, `lvlMin`, `lvlMax`, `tailleMin`, `tailleMax`, `patch`, `isDonjon`, `isRaid`) VALUES
 (6967, 'blackrock foundry', 100, 100, 10, 30, '6.0', 0, 1),
 (7545, 'hellfire citadel', 100, 100, 10, 30, '6.2', 0, 1);
 
@@ -1512,6 +1681,7 @@ INSERT INTO `zone` (`idZone`, `nom`, `lvlMin`, `lvlMax`, `tailleMin`, `tailleMax
 -- Structure de la table `zone_has_bosses`
 --
 
+DROP TABLE IF EXISTS `zone_has_bosses`;
 CREATE TABLE IF NOT EXISTS `zone_has_bosses` (
   `idZone` int(11) NOT NULL,
   `idBosses` int(11) NOT NULL,
@@ -1521,10 +1691,15 @@ CREATE TABLE IF NOT EXISTS `zone_has_bosses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `zone_has_bosses`
+--
+
+TRUNCATE TABLE `zone_has_bosses`;
+--
 -- Contenu de la table `zone_has_bosses`
 --
 
-INSERT INTO `zone_has_bosses` (`idZone`, `idBosses`) VALUES
+INSERT DELAYED IGNORE INTO `zone_has_bosses` (`idZone`, `idBosses`) VALUES
 (6967, 76809),
 (6967, 76814),
 (6967, 76865),
@@ -1555,6 +1730,7 @@ INSERT INTO `zone_has_bosses` (`idZone`, `idBosses`) VALUES
 -- Structure de la table `zone_has_mode_diffculte`
 --
 
+DROP TABLE IF EXISTS `zone_has_mode_diffculte`;
 CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
   `idZone` int(11) NOT NULL,
   `idMode` int(11) NOT NULL,
@@ -1564,10 +1740,15 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `zone_has_mode_diffculte`
+--
+
+TRUNCATE TABLE `zone_has_mode_diffculte`;
+--
 -- Contenu de la table `zone_has_mode_diffculte`
 --
 
-INSERT INTO `zone_has_mode_diffculte` (`idZone`, `idMode`) VALUES
+INSERT DELAYED IGNORE INTO `zone_has_mode_diffculte` (`idZone`, `idMode`) VALUES
 (6967, 1),
 (6967, 14),
 (6967, 15),
@@ -1709,6 +1890,7 @@ ALTER TABLE `zone_has_bosses`
 ALTER TABLE `zone_has_mode_diffculte`
   ADD CONSTRAINT `fk_mode_difficulte_has_zone_mode_difficulte1` FOREIGN KEY (`idMode`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_mode_difficulte_has_zone_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
