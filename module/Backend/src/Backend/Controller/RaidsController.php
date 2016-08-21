@@ -314,7 +314,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             try {
                 $aPost = $oRequest->getPost();
                 $this->getTableRaid()->beginTransaction();
-                if (!isset($aPost['idRoster']) || $aPost['idRoster'] == '') {
+                if (!isset($aPost['idRoster']) || empty($aPost['idRoster'])) {
                     $result = new JsonModel(array(
                         'error' => array(
                             'code' => 500,
@@ -356,8 +356,9 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         return $result;
     }
 
-    private function saveImport(array $aRaid, $aPost) {
-        $aLstPersonnage = array();
+    private function saveImport(array$aRaid, $aPost) {
+        $aLstPersonnage = array(
+        );
 
 //raidata:
 //    -zones
