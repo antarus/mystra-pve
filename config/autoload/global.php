@@ -14,7 +14,7 @@ return array(
                 ));
 
                 $cache->setOptions(array(
-                    'cache_dir' => './data/cache'
+                    'cache_dir' => __DIR__ . '/../../data/cache'
                 ));
 
                 return $cache;

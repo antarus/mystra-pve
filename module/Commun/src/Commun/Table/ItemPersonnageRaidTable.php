@@ -90,7 +90,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
 
             $oBoss = $this->_getTableBoss()->selectBy(array('nom' => strtolower($sNomBoss)));
             if (!$oBoss) {
-                throw new DatabaseException(9000, 6, $this->_getServiceLocator()->get('translator'), array($sNomBoss));
+                throw new DatabaseException(9000, 6, $this->_getServiceLocator()->get('translator'), array(strtolower($sNomBoss)));
             }
             $oItemPersonnageRaid->setIdBosses($oBoss->getIdBosses());
 
@@ -99,7 +99,14 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $this->insert($oItemPersonnageRaid);
             return $oItemPersonnageRaid;
         } catch (\Exception $ex) {
-            throw new DatabaseException(2000, 2, $this->_getServiceLocator()->get('translator'));
+            $aError = array();
+            $aError[] = $oItemPersonnageRaid->getIdItemRaidPersonnage();
+            $aError[] = $oItemPersonnageRaid->getIdItem();
+            $aError[] = $oItemPersonnageRaid->getIdRaid();
+            $aError[] = $oItemPersonnageRaid->getIdBosses();
+            $aError[] = $oItemPersonnageRaid->getIdPersonnage();
+
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator()->get('translator'), $aError);
         }
     }
 
