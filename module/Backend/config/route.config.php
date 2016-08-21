@@ -2557,6 +2557,40 @@ return array(
                     ),
                 ),
             ),
+            'backend-zone-autocomplete' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/zone/autocomplete',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+'
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\Zone',
+                        'action' => 'autocomplete',
+                    ),
+                ),
+            ),
+            'backend-mode-autocomplete' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/mode/autocomplete',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+'
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\\Controller\\ModeDifficulte',
+                        'action' => 'autocomplete',
+                    ),
+                ),
+            ),
         ),
     ),
 );

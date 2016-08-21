@@ -141,10 +141,39 @@ function autocompleteNomPersonnage($uri) {
  * Transforme la reponse pour la page roster.
  * @returns {undefined}
  */
-function transformePourRoster($data) {
+function transformeAutoCompletePourRoster($data) {
     var array = $data.error ? [] : $.map($data.rosters, function (m) {
         return {
             id: m.idRoster,
+            nom: m.nom,
+        };
+    });
+    return array;
+
+}
+
+/**
+ * Transforme la reponse pour la page roster.
+ * @returns {undefined}
+ */
+function transformeAutoCompletePourZone($data) {
+    var array = $data.error ? [] : $.map($data.zones, function (m) {
+        return {
+            id: m.idZone,
+            nom: m.nom,
+        };
+    });
+    return array;
+
+}
+/**
+ * Transforme la reponse pour la page roster.
+ * @returns {undefined}
+ */
+function transformeAutoCompletePourMode($data) {
+    var array = $data.error ? [] : $.map($data.modes, function (m) {
+        return {
+            id: m.idMode,
             nom: m.nom,
         };
     });
@@ -168,11 +197,16 @@ function autocompleteBase($input, $inputId, $uri, $type) {
 // data is an array of objects and must be transformed for autocomplete to use
                 switch ($type) {
                     case 'roster':
-                        response(transformePourRoster(data));
+                        response(transformeAutoCompletePourRoster(data));
                         break;
-
+                    case 'zone':
+                        response(transformeAutoCompletePourZone(data));
+                        break;
+                    case 'mode':
+                        response(transformeAutoCompletePourMode(data));
+                        break;
                     default:
-                        response(transformePourRoster(data));
+                        response(transformeAutoCompletePourRoster(data));
                 }
 
             });

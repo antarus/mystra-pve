@@ -294,4 +294,56 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
         }
     }
 
+    /**
+     *  Retourne une liste des zone avec les paramêtres passé.
+     * Les paramatres par defaut sont:
+     * $aParam = array(
+     *       'rech' => $aParam["rech"],
+     *        'champs_zone' => array(
+     *            'idZone',
+     *            'nom'
+     *        ),
+     *        'limit' => 20
+     *    );
+     *
+     * @param type $aParam
+     * @return array
+     */
+    function getAutoComplete($aParam) {
+        if (!isset($aParam)) {
+            $aParam = array(
+                'rech' => $aParam["rech"],
+                'champs_zone' => array(
+                    'idZone',
+                    'nom'
+                ),
+                'limit' => 20
+            );
+        }
+        if (!isset($aParam['champs_zone'])) {
+            $aParam['champs_zone'] = array(
+                'idZone',
+                'nom'
+            );
+        }
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+
+        $oQuery->columns($aParam['champs_zone'])
+                ->from(array('z' => 'zone'));
+
+        if (isset($aParam['rech'])) {
+            $oQuery->where("z.nom like '%" . strtolower($aParam['rech']) . "%' ");
+        }
+        if (isset($aParam['limit'])) {
+            $oQuery->limit($aParam['limit']);
+        }
+        $oQuery->order(array('nom'));
+        //$this->debug($oQuery);
+        $aReturn = $this->fetchAllArray($oQuery);
+
+        return $aReturn;
+    }
+
 }

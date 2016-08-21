@@ -10,7 +10,20 @@ echo $this->partial('partial/form-partial', array(
 <script type ="text/javascript">
 
     $(function () {
+        autocompleteBase("input[name=mode]", "input[name=idModeDifficulte]", "<?php echo $this->url('backend-mode-autocomplete', array('id' => $this->id)) ?>", "mode");
+        autocompleteBase("input[name=zone]", "input[name=idZone]", "<?php echo $this->url('backend-zone-autocomplete', array('id' => $this->id)) ?>", "zone");
         autocompleteBase("input[name=roster]", "input[name=idRoster]", "<?php echo $this->url('backend-roster-autocomplete', array('id' => $this->id)) ?>", "roster");
+    });
+
+</script>
+
+
+<script type ="text/javascript">
+
+    $(function () {
+        autocompleteBase("input[name=mode]", "input[name=idModeDifficulte]", "/backend/mode/autocomplete", "mode");
+        autocompleteBase("input[name=zone]", "input[name=idZone]", "/backend/zone/autocomplete", "zone");
+        autocompleteBase("input[name=roster]", "input[name=idRoster]", "/backend/roster/autocomplete", "roster");
     });
 
 </script>

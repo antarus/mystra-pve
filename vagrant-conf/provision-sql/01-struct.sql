@@ -320,15 +320,33 @@ TRUNCATE TABLE `npc`;
 -- Structure de la table `pallier`
 --
 
-DROP TABLE IF EXISTS `pallier`;
-CREATE TABLE IF NOT EXISTS `pallier` (
-  `idPallier` int(11) NOT NULL AUTO_INCREMENT,
-  `idZone` int(11) NOT NULL,
-  `ordre` int(11) NOT NULL,
-  `tiers` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idPallier`),
-  KEY `fk_pallier_zone1_idx` (`idZone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+DROP TABLE IF EXISTS `pallierAfficher`;
+CREATE TABLE IF NOT EXISTS `pallierAfficher` (
+  `idPallierAffiche` INT(11) NOT NULL AUTO_INCREMENT,
+  `idModeDifficulte` INT(11) NOT NULL,
+  `idZone` INT(11) NOT NULL,
+  `idRoster` INT(11) NOT NULL,
+  PRIMARY KEY (`idPallierAffiche`),
+  INDEX `fk_roster_loot_mode_difficulte1_idx` (`idModeDifficulte` ASC),
+  INDEX `fk_roster_loot_zone1_idx` (`idZone` ASC),
+  INDEX `fk_roster_loot_roster1_idx` (`idRoster` ASC),
+  CONSTRAINT `fk_roster_loot_mode_difficulte1`
+    FOREIGN KEY (`idModeDifficulte`)
+    REFERENCES `raid_tracker`.`mode_difficulte` (`idMode`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_roster_loot_zone1`
+    FOREIGN KEY (`idZone`)
+    REFERENCES `raid_tracker`.`zone` (`idZone`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_roster_loot_roster1`
+    FOREIGN KEY (`idRoster`)
+    REFERENCES `raid_tracker`.`roster` (`idRoster`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 --
 -- Vider la table avant d'insérer `pallier`

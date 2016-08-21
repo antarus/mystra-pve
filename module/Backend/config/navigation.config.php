@@ -58,6 +58,10 @@ return array(
                     'label' => $translator->translate('Npc'),
                     'route' => 'backend-npc-list',
                     'action' => 'index',
+                ), array(
+                    'label' => $translator->translate('Pallier'),
+                    'route' => 'backend-pallier-afficher-list',
+                    'action' => 'index',
                 ),
                 array(
                     'label' => $translator->translate('Personnages'),
