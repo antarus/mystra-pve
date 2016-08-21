@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
- FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10)
+ FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10);
 
 
 SET FOREIGN_KEY_CHECKS=1;

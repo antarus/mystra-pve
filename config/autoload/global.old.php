@@ -14,14 +14,17 @@ return array(
                 ));
 
                 $cache->setOptions(array(
-                    'cache_dir' => './data/cache'
+                    'cache_dir' => __DIR__ . '/../../data/cache',
+                    'ttl' => 180
                 ));
-
                 return $cache;
             }),
                 'abstract_factories' => array(
                     0 => 'Zend\\Log\\LoggerAbstractServiceFactory',
                 ),
+            ),
+            'aliases' => array(
+                'cache' => 'Zend\Cache\Storage\Filesystem',
             ),
             'db' => array(
                 'driver' => 'pdo',

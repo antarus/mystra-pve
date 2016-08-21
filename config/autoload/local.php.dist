@@ -31,8 +31,9 @@ return array(
                             )
                 ));
 
-                $cache->setOptions(array(
-                    'cache_dir' => __DIR__ . '/../../data/cache'
+                 $cache->setOptions(array(
+                    'cache_dir' => __DIR__ . '/../../data/cache',
+                    'ttl' => 180,
                 ));
 
                 return $cache;
@@ -41,6 +42,7 @@ return array(
                     'Zend\Log\LoggerAbstractServiceFactory',
                 )
             ),
+
             'db' => array(
                 'driver' => 'pdo',
                 'dsn' => 'mysql:dbname=' . $dbParams['database'] . ';host=' . $dbParams['hostname'],

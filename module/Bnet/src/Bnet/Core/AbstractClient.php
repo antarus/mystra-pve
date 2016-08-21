@@ -115,6 +115,9 @@ abstract class AbstractClient {
 //                        'json' => $data,
 //                    ]);
                 }
+
+                $this->cache->setItem($key, $data);
+
                 return $data;
             case 304:
                 return $this->cache->getItem($key);
@@ -142,11 +145,12 @@ abstract class AbstractClient {
         $key = $this->getRequestKey($url, $options);
 
         if ($this->cache->hasItem($key) === true) {
-            $options = array_replace_recursive($options, [
-                'headers' => [
-                    'If-Modified-Since' => $this->cache->getMetadata($key)['mtime'],
-                ],
-            ]);
+            return $this->cache->getItem($key);
+//            $options = array_replace_recursive($options, [
+//                'headers' => [
+//                    'If-Modified-Since' => $this->cache->getMetadata($key)['mtime'],
+//                ],
+//            ]);
         }
 
         $options = array_replace_recursive($options, [
