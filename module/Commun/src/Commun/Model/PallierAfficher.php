@@ -43,6 +43,9 @@ class PallierAfficher extends \Core\Model\AbstractModel {
      * @var int
      */
     public $idRoster = null;
+    public $roster;
+    public $zone;
+    public $mode;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -104,6 +107,22 @@ class PallierAfficher extends \Core\Model\AbstractModel {
 
     }
 
+//    /**
+//     * Returne un array représentant l'objet.
+//     *
+//     * @return array
+//     */
+    public function getArrayCopySauvegarde() {
+
+        $array = array();
+
+        $array["idPallierAffiche"] = $this->idPallierAffiche;
+        $array["idModeDifficulte"] = $this->idModeDifficulte;
+        $array["idZone"] = $this->idZone;
+        $array["idRoster"] = $this->idRoster;
+        return $array;
+    }
+
     function getIdPallierAffiche() {
         return intval($this->idPallierAffiche);
     }
@@ -134,6 +153,30 @@ class PallierAfficher extends \Core\Model\AbstractModel {
 
     function setIdRoster($idRoster) {
         $this->idRoster = $idRoster;
+    }
+
+    function getRoster() {
+        return $this->roster;
+    }
+
+    function getZone() {
+        return $this->zone;
+    }
+
+    function getMode() {
+        return $this->mode;
+    }
+
+    function setRoster($roster) {
+        $this->roster = $roster;
+    }
+
+    function setZone($zone) {
+        $this->zone = $zone;
+    }
+
+    function setMode($mode) {
+        $this->mode = $mode;
     }
 
 }

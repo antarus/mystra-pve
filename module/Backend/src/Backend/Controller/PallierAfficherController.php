@@ -128,6 +128,8 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
 
         // masque l'id roster
         $oForm->get('idRoster')->setAttribute('type', 'hidden');
+        $oForm->get('roster')->setAttribute('type', 'hidden');
+
 
         $oForm->bind($oEntite);
 
@@ -137,7 +139,8 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $this->getTable()->update($oEntite);
+
+                $this->getTable()->saveOrUpdatePallier($oRequest->getPost());
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le pallier a été modifié avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-pallier-afficher-list');
             }

@@ -44,6 +44,37 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
     }
 
     /**
+     * Retourne une ligne pour une clé donnée dépendant du prototypeClass
+     *
+     * @param mixed | string | int $id
+     * @param null | string $protypeClass
+     * @return mixed Retourne le model dépendant du prototypeClass
+     */
+    public function findRow($id, $prototypeClass = null) {
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+        $oQuery->columns(array(
+                    'idPallierAffiche',
+                    'idModeDifficulte',
+                    'idZone',
+                    'idRoster'
+                ))
+                ->from(array('p' => 'pallierAfficher'))
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode = p.idModeDifficulte', array('mode' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone = p.idZone', array('zone' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('r' => 'roster'), 'r.idRoster = p.idRoster', array('roster' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->where(array('idPallierAffiche' => $id))
+        ;
+
+        $oRowSet = $this->selectWith($oQuery);
+        $arrayObjectPrototypeClass = ($prototypeClass) ? $prototypeClass : $this->arrayObjectPrototypeClass;
+        $oRowSet->setArrayObjectPrototype(new $arrayObjectPrototypeClass());
+        //  $this->debug($query);
+        return $oRowSet->current();
+    }
+
+    /**
      * Retourne la query de base pour l'affichage de la liste des pallier.
      * @return Zend\Db\Sql\Select
      */
@@ -103,7 +134,7 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                     if ($oTabLien->count() == $this->_getConfig()["pallier"]["max"]) {
                         throw new DatabaseException(10000, 7, $this->_getServiceLocator()->get('translator'));
                     }
-                    $this->insert($oPallier);
+                    $this->insert($oPallier->getArrayCopySauvegarde());
                     $oPallier->setIdPallierAffiche($this->lastInsertValue);
                 } catch (\Exception $exc) {
                     throw new DatabaseException(10000, 2, $this->_getServiceLocator()->get('translator'), array(), $exc);
@@ -112,7 +143,7 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                 try {
                     // sinon on update
                     $oPallier->setIdPallierAffiche($oTabLien->getIdPallierAffiche());
-                    $this->update($oPallier);
+                    $this->update($oPallier->getArrayCopySauvegarde());
                 } catch (\Exception $exc) {
                     throw new DatabaseException(10000, 1, $this->_getServiceLocator()->get('translator'), array(), $exc);
                 }
