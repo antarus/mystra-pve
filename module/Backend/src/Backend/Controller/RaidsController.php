@@ -314,6 +314,15 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             try {
                 $aPost = $oRequest->getPost();
                 $this->getTableRaid()->beginTransaction();
+                if (!isset($aPost['idRoster']) || $aPost['idRoster'] == '') {
+                    $result = new JsonModel(array(
+                        'error' => array(
+                            'code' => 500,
+                            'msg' => 'roster inconnu'
+                        )
+                    ));
+                    return $result;
+                }
                 $aRaid = $this->importEqdkp($aPost['txtImport']);
                 if (!isset($aRaid['head']['export']['name']) || $aRaid['head']['export']['name'] !== "EQdkp Plus XML") {
                     $result = new JsonModel(array(
@@ -326,6 +335,8 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 } else {
                     $this->saveImport($aRaid, $aPost);
                 }
+                $aRaid = $this->importEqdkp($aPost['txtImport']);
+
                 $this->getTableRaid()->commit();
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
@@ -431,6 +442,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $oRaid->setNote($sNom . ' - ' . $sDifficulte);
         $oRaid->setDate(date('Y-m-d H:i:s', intval($aRaid['enter'])));
         $oRaid->setIdRosterTmp($idRoster);
+        $oRaid->setIdMode($iDifficulte);
         $oZone = $this->getTableZone()->selectBy(array('nom' => strtolower($sNom)));
         if (!$oZone) {
             throw new \Exception("Zone inconnue [ " . $sNom . " ]. Veuillez importer la zone ainsi que les boss associée.");

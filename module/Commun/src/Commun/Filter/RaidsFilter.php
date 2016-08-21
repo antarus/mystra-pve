@@ -55,7 +55,18 @@ class RaidsFilter extends \Core\Filter\AbstractFilter {
                         ),
                     )
         )));
-
+        $inputFilter->add($factory->createInput(array(
+                    'name' => 'idMode',
+                    'required' => false,
+                    'filters' => array(
+                        array('name' => 'Int')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'Digits'
+                        ),
+                    )
+        )));
         $inputFilter->add($factory->createInput(array(
                     'name' => 'date',
                     'required' => false,

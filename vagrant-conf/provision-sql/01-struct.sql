@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 21 Août 2016 à 13:43
+-- Généré le: Dim 21 Août 2016 à 13:52
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.19
 
@@ -38,11 +38,6 @@ CREATE TABLE IF NOT EXISTS `bosses` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `bosses`
---
-
-TRUNCATE TABLE `bosses`;
 -- --------------------------------------------------------
 
 --
@@ -58,11 +53,6 @@ CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
   KEY `fk_bosses_has_npc_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `bosses_has_npc`
---
-
-TRUNCATE TABLE `bosses_has_npc`;
 -- --------------------------------------------------------
 
 --
@@ -76,13 +66,8 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `nom` varchar(45) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idClasses`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
 
---
--- Vider la table avant d'insérer `classes`
---
-
-TRUNCATE TABLE `classes`;
 -- --------------------------------------------------------
 
 --
@@ -114,11 +99,6 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   KEY `fk_evenements_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `evenements`
---
-
-TRUNCATE TABLE `evenements`;
 -- --------------------------------------------------------
 
 --
@@ -138,11 +118,6 @@ CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   KEY `fk_evenement_personnage_personnage1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `evenements_personnage`
---
-
-TRUNCATE TABLE `evenements_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -161,11 +136,6 @@ CREATE TABLE IF NOT EXISTS `evenements_roles` (
   KEY `fk_evenements_roles_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `evenements_roles`
---
-
-TRUNCATE TABLE `evenements_roles`;
 -- --------------------------------------------------------
 
 --
@@ -193,11 +163,6 @@ CREATE TABLE IF NOT EXISTS `evenements_template` (
   KEY `fk_evenements_template_roster1_idx` (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `evenements_template`
---
-
-TRUNCATE TABLE `evenements_template`;
 -- --------------------------------------------------------
 
 --
@@ -215,11 +180,6 @@ CREATE TABLE IF NOT EXISTS `evenements_template_roles` (
   KEY `fk_evenements_template_roles_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `evenements_template_roles`
---
-
-TRUNCATE TABLE `evenements_template_roles`;
 -- --------------------------------------------------------
 
 --
@@ -232,13 +192,8 @@ CREATE TABLE IF NOT EXISTS `faction` (
   `nom` varchar(45) NOT NULL,
   `logo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idFaction`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
---
--- Vider la table avant d'insérer `faction`
---
-
-TRUNCATE TABLE `faction`;
 -- --------------------------------------------------------
 
 --
@@ -257,11 +212,6 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   KEY `fk_guildes_faction1_idx` (`idFaction`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `guildes`
---
-
-TRUNCATE TABLE `guildes`;
 -- --------------------------------------------------------
 
 --
@@ -280,11 +230,6 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `items`
---
-
-TRUNCATE TABLE `items`;
 -- --------------------------------------------------------
 
 --
@@ -308,11 +253,6 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `item_personnage_raid`
---
-
-TRUNCATE TABLE `item_personnage_raid`;
 -- --------------------------------------------------------
 
 --
@@ -325,13 +265,8 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
   `nom` varchar(100) NOT NULL,
   `nom_bnet` varchar(100) DEFAULT NULL COMMENT 'nom battle net',
   PRIMARY KEY (`idMode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
---
--- Vider la table avant d'insérer `mode_difficulte`
---
-
-TRUNCATE TABLE `mode_difficulte`;
 -- --------------------------------------------------------
 
 --
@@ -345,11 +280,6 @@ CREATE TABLE IF NOT EXISTS `npc` (
   PRIMARY KEY (`idNpc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `npc`
---
-
-TRUNCATE TABLE `npc`;
 -- --------------------------------------------------------
 
 --
@@ -368,11 +298,6 @@ CREATE TABLE IF NOT EXISTS `pallierAfficher` (
   KEY `fk_pallier_roster_idx` (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `pallierAfficher`
---
-
-TRUNCATE TABLE `pallierAfficher`;
 -- --------------------------------------------------------
 
 --
@@ -402,11 +327,6 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   KEY `fk_personnages_race1_idx` (`idRace`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `personnages`
---
-
-TRUNCATE TABLE `personnages`;
 -- --------------------------------------------------------
 
 --
@@ -419,13 +339,8 @@ CREATE TABLE IF NOT EXISTS `race` (
   `nom` varchar(45) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idRace`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
---
--- Vider la table avant d'insérer `race`
---
-
-TRUNCATE TABLE `race`;
 -- --------------------------------------------------------
 
 --
@@ -451,11 +366,6 @@ CREATE TABLE IF NOT EXISTS `raids` (
   KEY `fk_raids_mode_difficulte1_idx` (`idMode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `raids`
---
-
-TRUNCATE TABLE `raids`;
 -- --------------------------------------------------------
 
 --
@@ -471,11 +381,6 @@ CREATE TABLE IF NOT EXISTS `raid_personnage` (
   KEY `fk_raid_personnage_personnages1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `raid_personnage`
---
-
-TRUNCATE TABLE `raid_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -487,13 +392,8 @@ CREATE TABLE IF NOT EXISTS `role` (
   `idRole` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(55) NOT NULL,
   PRIMARY KEY (`idRole`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Vider la table avant d'insérer `role`
---
-
-TRUNCATE TABLE `role`;
 -- --------------------------------------------------------
 
 --
@@ -508,11 +408,6 @@ CREATE TABLE IF NOT EXISTS `roster` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `roster`
---
-
-TRUNCATE TABLE `roster`;
 -- --------------------------------------------------------
 
 --
@@ -531,11 +426,6 @@ CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
   KEY `fk_roster_has_personnage_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `roster_has_personnage`
---
-
-TRUNCATE TABLE `roster_has_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -552,13 +442,8 @@ CREATE TABLE IF NOT EXISTS `specialisation` (
   PRIMARY KEY (`idSpecialisation`),
   KEY `fk_specialisation_classes1_idx` (`idClasses`),
   KEY `fk_specialisation_role1_idx` (`idRole`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
 
---
--- Vider la table avant d'insérer `specialisation`
---
-
-TRUNCATE TABLE `specialisation`;
 -- --------------------------------------------------------
 
 --
@@ -578,11 +463,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`idUsers`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `users`
---
-
-TRUNCATE TABLE `users`;
 -- --------------------------------------------------------
 
 --
@@ -604,11 +484,6 @@ CREATE TABLE IF NOT EXISTS `zone` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
---
--- Vider la table avant d'insérer `zone`
---
-
-TRUNCATE TABLE `zone`;
 -- --------------------------------------------------------
 
 --
@@ -624,11 +499,6 @@ CREATE TABLE IF NOT EXISTS `zone_has_bosses` (
   KEY `fk_zone_has_bosses_zone1_idx` (`idZone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `zone_has_bosses`
---
-
-TRUNCATE TABLE `zone_has_bosses`;
 -- --------------------------------------------------------
 
 --
@@ -644,11 +514,6 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
   KEY `fk_mode_difficulte_has_zone_mode_difficulte1_idx` (`idMode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Vider la table avant d'insérer `zone_has_mode_diffculte`
---
-
-TRUNCATE TABLE `zone_has_mode_diffculte`;
 --
 -- Contraintes pour les tables exportées
 --
