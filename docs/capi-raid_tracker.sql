@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 21 Août 2016 à 15:12
+-- Généré le: Dim 21 Août 2016 à 17:03
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
--- Version de PHP: 5.5.9-1ubuntu4.19
+-- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Base de données: `raid_tracker`
 --
-CREATE DATABASE IF NOT EXISTS `raid_tracker` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE IF NOT EXISTS `raid_tracker` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `raid_tracker`;
 
 -- --------------------------------------------------------
@@ -39,6 +39,11 @@ CREATE TABLE IF NOT EXISTS `bosses` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `bosses`
+--
+
+TRUNCATE TABLE `bosses`;
 -- --------------------------------------------------------
 
 --
@@ -54,6 +59,11 @@ CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
   KEY `fk_bosses_has_npc_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `bosses_has_npc`
+--
+
+TRUNCATE TABLE `bosses_has_npc`;
 -- --------------------------------------------------------
 
 --
@@ -68,6 +78,29 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idClasses`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+--
+-- Vider la table avant d'insérer `classes`
+--
+
+TRUNCATE TABLE `classes`;
+--
+-- Contenu de la table `classes`
+--
+
+INSERT INTO `classes` (`idClasses`, `couleur`, `nom`, `icon`) VALUES
+(1, '#C69B6D', 'Warrior', NULL),
+(2, '#F48CBA', 'Paladin', NULL),
+(3, '#AAD372', 'Hunter', NULL),
+(4, '#FFF468', 'Rogue', NULL),
+(5, '#AAAAAA', 'Priest', NULL),
+(6, '#C41E3B', 'Death Knight', NULL),
+(7, '#2359FF', 'Shaman', NULL),
+(8, '#68CCEF', 'Mage', NULL),
+(9, '#9382C9', 'Warlock', NULL),
+(10, '#008467', 'Monk', NULL),
+(11, '#FF7C0A', 'Druid', NULL),
+(12, '#A330C9', 'Demon Hunter', NULL);
 
 -- --------------------------------------------------------
 
@@ -88,18 +121,23 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   `dateCreation` datetime DEFAULT NULL,
   `dateModification` datetime DEFAULT NULL,
   `idDonjon` int(11) NOT NULL,
+  `idUsers` int(11) NOT NULL,
   `idGuildes` int(11) DEFAULT NULL,
   `idRoster` int(11) DEFAULT NULL,
   `idEvenements_template` int(11) DEFAULT NULL,
-  `idUsers` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`idEvenements`),
   KEY `fk_evenements_donjon1_idx` (`idDonjon`),
+  KEY `fk_evenements_users1_idx` (`idUsers`),
   KEY `fk_evenements_guildes1_idx` (`idGuildes`),
   KEY `fk_evenements_roster1_idx` (`idRoster`),
-  KEY `fk_evenements_evenements_template1_idx` (`idEvenements_template`),
-  KEY `fk_evenements_user1_idx` (`idUsers`)
+  KEY `fk_evenements_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements`
+--
+
+TRUNCATE TABLE `evenements`;
 -- --------------------------------------------------------
 
 --
@@ -119,6 +157,11 @@ CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   KEY `fk_evenement_personnage_personnage1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_personnage`
+--
+
+TRUNCATE TABLE `evenements_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -137,6 +180,11 @@ CREATE TABLE IF NOT EXISTS `evenements_roles` (
   KEY `fk_evenements_roles_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_roles`
+--
+
+TRUNCATE TABLE `evenements_roles`;
 -- --------------------------------------------------------
 
 --
@@ -164,6 +212,11 @@ CREATE TABLE IF NOT EXISTS `evenements_template` (
   KEY `fk_evenements_template_roster1_idx` (`idRoster`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_template`
+--
+
+TRUNCATE TABLE `evenements_template`;
 -- --------------------------------------------------------
 
 --
@@ -181,6 +234,11 @@ CREATE TABLE IF NOT EXISTS `evenements_template_roles` (
   KEY `fk_evenements_template_roles_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_template_roles`
+--
+
+TRUNCATE TABLE `evenements_template_roles`;
 -- --------------------------------------------------------
 
 --
@@ -194,6 +252,19 @@ CREATE TABLE IF NOT EXISTS `faction` (
   `logo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idFaction`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Vider la table avant d'insérer `faction`
+--
+
+TRUNCATE TABLE `faction`;
+--
+-- Contenu de la table `faction`
+--
+
+INSERT INTO `faction` (`idFaction`, `nom`, `logo`) VALUES
+(0, 'Alliance', NULL),
+(1, 'Horde', NULL);
 
 -- --------------------------------------------------------
 
@@ -213,6 +284,18 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   KEY `fk_guildes_faction1_idx` (`idFaction`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+--
+-- Vider la table avant d'insérer `guildes`
+--
+
+TRUNCATE TABLE `guildes`;
+--
+-- Contenu de la table `guildes`
+--
+
+INSERT INTO `guildes` (`idGuildes`, `nom`, `serveur`, `niveau`, `miniature`, `idFaction`) VALUES
+(1, 'wrath of god', 'Garona', 25, '', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -231,6 +314,11 @@ CREATE TABLE IF NOT EXISTS `items` (
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `items`
+--
+
+TRUNCATE TABLE `items`;
 -- --------------------------------------------------------
 
 --
@@ -254,6 +342,11 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `item_personnage_raid`
+--
+
+TRUNCATE TABLE `item_personnage_raid`;
 -- --------------------------------------------------------
 
 --
@@ -268,6 +361,24 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
   PRIMARY KEY (`idMode`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
+--
+-- Vider la table avant d'insérer `mode_difficulte`
+--
+
+TRUNCATE TABLE `mode_difficulte`;
+--
+-- Contenu de la table `mode_difficulte`
+--
+
+INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
+(1, 'Raid LFR', 'RAID_FLEX_LFR'),
+(2, 'Raid NM', 'RAID_FLEX_NORMAL'),
+(3, 'Raid HM', 'RAID_FLEX_HEROIC'),
+(4, 'Raid MM', 'RAID_MYTHIC'),
+(5, 'Donjon NM', 'DUNGEON_NORMAL'),
+(6, 'Donjon HM', 'DUNGEON_HEROIC'),
+(7, 'Donjon MM', 'DUNGEON_MYTHIC');
+
 -- --------------------------------------------------------
 
 --
@@ -281,24 +392,32 @@ CREATE TABLE IF NOT EXISTS `npc` (
   PRIMARY KEY (`idNpc`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `npc`
+--
+
+TRUNCATE TABLE `npc`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pallierAfficher`
+-- Structure de la table `pallier`
 --
 
-DROP TABLE IF EXISTS `pallierAfficher`;
-CREATE TABLE IF NOT EXISTS `pallierAfficher` (
-  `idPallierAffiche` int(11) NOT NULL AUTO_INCREMENT,
-  `idModeDifficulte` int(11) NOT NULL,
+DROP TABLE IF EXISTS `pallier`;
+CREATE TABLE IF NOT EXISTS `pallier` (
+  `idPallier` int(11) NOT NULL AUTO_INCREMENT,
   `idZone` int(11) NOT NULL,
-  `idRoster` int(11) NOT NULL,
-  PRIMARY KEY (`idPallierAffiche`),
-  KEY `fk_pallier_mode_idx` (`idModeDifficulte`),
-  KEY `fk_pallier_zone_idx` (`idZone`),
-  KEY `fk_pallier_roster_idx` (`idRoster`)
+  `ordre` int(11) NOT NULL,
+  `tiers` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idPallier`),
+  KEY `fk_pallier_zone1_idx` (`idZone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `pallier`
+--
+
+TRUNCATE TABLE `pallier`;
 -- --------------------------------------------------------
 
 --
@@ -318,15 +437,34 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   `idClasses` int(11) NOT NULL,
   `idRace` int(11) NOT NULL,
   `idGuildes` int(11) DEFAULT NULL,
-  `idUsers` int(10) unsigned DEFAULT NULL,
-  `isTech` tinyint(1) DEFAULT '0' COMMENT 'personnage dit technique. utiliser lors de la creation du roster. bank et disenchant',
+  `idUsers` int(11) DEFAULT NULL,
+  `isTech` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idPersonnage`),
+  KEY `fk_personnage_users1_idx` (`idUsers`),
   KEY `fk_personnage_guildes1_idx` (`idGuildes`),
   KEY `fk_personnages_faction1_idx` (`idFaction`),
   KEY `fk_personnages_classes1_idx` (`idClasses`),
-  KEY `fk_personnages_race1_idx` (`idRace`),
-  KEY `fk_personnages_user1_idx` (`idUsers`)
+  KEY `fk_personnages_race1_idx` (`idRace`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Vider la table avant d'insérer `personnages`
+--
+
+TRUNCATE TABLE `personnages`;
+--
+-- Contenu de la table `personnages`
+--
+
+INSERT INTO `personnages` (`idPersonnage`, `nom`, `niveau`, `genre`, `miniature`, `royaume`, `ilvl`, `idFaction`, `idClasses`, `idRace`, `idGuildes`, `idUsers`, `isTech`) VALUES
+(1, 'akirian', 100, 0, 'garona/41/3881769-avatar.jpg', 'garona', 0, 0, 8, 7, 1, NULL, 0),
+(2, 'xéres', 100, 0, 'garona/5/22519557-avatar.jpg', 'garona', 0, 0, 2, 1, 1, NULL, 0),
+(3, 'octav', 100, 0, 'garona/90/23131738-avatar.jpg', 'garona', 0, 0, 3, 3, 1, NULL, 0),
+(4, 'arkös', 100, 0, 'garona/22/28675094-avatar.jpg', 'garona', 0, 0, 6, 11, 1, NULL, 0),
+(5, 'wôlff', 100, 0, 'garona/11/49420299-avatar.jpg', 'garona', 0, 0, 11, 22, 1, NULL, 0),
+(6, 'Àbigaëlle', 100, 1, 'garona/178/53469618-avatar.jpg', 'garona', 0, 0, 8, 4, 1, NULL, 0),
+(7, 'chomano', 100, 0, 'garona/175/57910447-avatar.jpg', 'garona', 0, 0, 10, 25, 1, NULL, 0),
+(8, 'prôzzak', 100, 0, 'garona/177/103369649-avatar.jpg', 'garona', 0, 0, 9, 7, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -341,6 +479,32 @@ CREATE TABLE IF NOT EXISTS `race` (
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idRace`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+
+--
+-- Vider la table avant d'insérer `race`
+--
+
+TRUNCATE TABLE `race`;
+--
+-- Contenu de la table `race`
+--
+
+INSERT INTO `race` (`idRace`, `nom`, `icon`) VALUES
+(1, 'Human', NULL),
+(2, 'Orc', NULL),
+(3, 'Dwarf', NULL),
+(4, 'Night Elf', NULL),
+(5, 'Undead', NULL),
+(6, 'Tauren', NULL),
+(7, 'Gnome', NULL),
+(8, 'Troll', NULL),
+(9, 'Goblin', NULL),
+(10, 'Blood Elf', NULL),
+(11, 'Draeneï', NULL),
+(22, 'Worgen', NULL),
+(24, 'Pandaren', NULL),
+(25, 'Pandaren', NULL),
+(26, 'Pandaren', NULL);
 
 -- --------------------------------------------------------
 
@@ -359,14 +523,17 @@ CREATE TABLE IF NOT EXISTS `raids` (
   `majPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `idRosterTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
   `idZoneTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
-  `idMode` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
   PRIMARY KEY (`idRaid`),
   KEY `fk_raids_evenements1_idx` (`idEvenements`),
   KEY `fk_raids_roster1_idx` (`idRosterTmp`),
-  KEY `fk_raids_zone1_idx` (`idZoneTmp`),
-  KEY `fk_raids_mode_difficulte1_idx` (`idMode`)
+  KEY `fk_raids_zone1_idx` (`idZoneTmp`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `raids`
+--
+
+TRUNCATE TABLE `raids`;
 -- --------------------------------------------------------
 
 --
@@ -382,6 +549,11 @@ CREATE TABLE IF NOT EXISTS `raid_personnage` (
   KEY `fk_raid_personnage_personnages1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `raid_personnage`
+--
+
+TRUNCATE TABLE `raid_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -394,6 +566,21 @@ CREATE TABLE IF NOT EXISTS `role` (
   `nom` varchar(55) NOT NULL,
   PRIMARY KEY (`idRole`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Vider la table avant d'insérer `role`
+--
+
+TRUNCATE TABLE `role`;
+--
+-- Contenu de la table `role`
+--
+
+INSERT INTO `role` (`idRole`, `nom`) VALUES
+(1, 'Tank'),
+(2, 'Soigneur'),
+(3, 'DPS Cac'),
+(4, 'DPS Distant');
 
 -- --------------------------------------------------------
 
@@ -409,6 +596,11 @@ CREATE TABLE IF NOT EXISTS `roster` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `roster`
+--
+
+TRUNCATE TABLE `roster`;
 -- --------------------------------------------------------
 
 --
@@ -427,6 +619,11 @@ CREATE TABLE IF NOT EXISTS `roster_has_personnage` (
   KEY `fk_roster_has_personnage_role1_idx` (`idRole`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `roster_has_personnage`
+--
+
+TRUNCATE TABLE `roster_has_personnage`;
 -- --------------------------------------------------------
 
 --
@@ -444,6 +641,51 @@ CREATE TABLE IF NOT EXISTS `specialisation` (
   KEY `fk_specialisation_classes1_idx` (`idClasses`),
   KEY `fk_specialisation_role1_idx` (`idRole`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+
+--
+-- Vider la table avant d'insérer `specialisation`
+--
+
+TRUNCATE TABLE `specialisation`;
+--
+-- Contenu de la table `specialisation`
+--
+
+INSERT INTO `specialisation` (`idSpecialisation`, `idClasses`, `idRole`, `nom`, `icon`) VALUES
+(1, 1, 3, 'Armes', 'ability_warrior_savageblow'),
+(2, 1, 3, 'Fureur', 'ability_warrior_innerrage'),
+(3, 1, 1, 'Protection', 'ability_warrior_defensivestance'),
+(4, 2, 2, 'Sacré', 'spell_holy_holybolt'),
+(5, 2, 1, 'Protection', 'ability_paladin_shieldofthetemplar'),
+(6, 2, 3, 'Vindicte', 'spell_holy_auraoflight'),
+(7, 3, 4, 'Maîtrise des bêtes', 'ability_hunter_bestialdiscipline'),
+(8, 3, 4, 'Précision', 'ability_hunter_focusedaim'),
+(9, 3, 4, 'Survie', 'ability_hunter_camouflage'),
+(10, 4, 3, 'Assassinat', 'ability_rogue_eviscerate'),
+(11, 4, 3, 'Combat', 'ability_backstab'),
+(12, 4, 3, 'Finesse', 'ability_stealth'),
+(13, 5, 2, 'Discipline', 'spell_holy_powerwordshield'),
+(14, 5, 2, 'Sacré', 'spell_holy_guardianspirit'),
+(15, 5, 4, 'Ombre', 'spell_shadow_shadowwordpain'),
+(16, 6, 1, 'Sang', 'spell_deathknight_bloodpresence'),
+(17, 6, 3, 'Givre', 'spell_deathknight_frostpresence'),
+(18, 6, 3, 'Impie', 'spell_deathknight_unholypresence'),
+(19, 7, 4, 'Élémentaire', 'spell_nature_lightning'),
+(20, 7, 3, 'Amélioration', 'spell_shaman_improvedstormstrike'),
+(21, 7, 2, 'Restauration', 'spell_nature_magicimmunity'),
+(22, 8, 4, 'Arcanes', 'spell_holy_magicalsentry'),
+(23, 8, 4, 'Feu', 'spell_fire_firebolt02'),
+(24, 8, 4, 'Givre', 'spell_frost_frostbolt02'),
+(25, 9, 4, 'Affliction', 'spell_shadow_deathcoil'),
+(26, 9, 4, 'Démonologie', 'spell_shadow_metamorphosis'),
+(27, 9, 4, 'Destruction', 'spell_shadow_rainoffire'),
+(28, 10, 1, 'Maître brasseur', 'spell_monk_brewmaster_spec'),
+(29, 10, 2, 'Tisse-brume', 'spell_monk_mistweaver_spec'),
+(30, 10, 3, 'Marche-vent', 'spell_monk_windwalker_spec'),
+(31, 11, 4, 'Équilibre', 'spell_nature_starfall'),
+(32, 11, 3, 'Farouche', 'ability_druid_catform'),
+(33, 11, 1, 'Gardien', 'ability_racial_bearform'),
+(34, 11, 2, 'Restauration', 'spell_nature_healingtouch');
 
 -- --------------------------------------------------------
 
@@ -464,6 +706,43 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
+--
+-- Vider la table avant d'insérer `user`
+--
+
+TRUNCATE TABLE `user`;
+--
+-- Contenu de la table `user`
+--
+
+INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
+(1, 'kkk', 'kkk@kkk.com', 'kkk', '$2y$14$oDA64h8drCr1S57lGZ0HfuWk6OCmuMeiWdjkNEErP9hpvvBHvJvcK', NULL),
+(2, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE IF NOT EXISTS `users` (
+  `idUsers` int(11) NOT NULL AUTO_INCREMENT,
+  `login` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `pwd` varchar(150) NOT NULL,
+  `pseudo` varchar(150) DEFAULT NULL,
+  `email` varchar(250) DEFAULT NULL,
+  `avatar` varchar(150) DEFAULT NULL,
+  `admin` tinyint(1) DEFAULT NULL,
+  `forgetPass` varchar(500) DEFAULT NULL,
+  PRIMARY KEY (`idUsers`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+
+--
+-- Vider la table avant d'insérer `users`
+--
+
+TRUNCATE TABLE `users`;
 -- --------------------------------------------------------
 
 --
@@ -481,6 +760,20 @@ CREATE TABLE IF NOT EXISTS `user_role` (
   KEY `idx_parent_id` (`parent_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=12 ;
 
+--
+-- Vider la table avant d'insérer `user_role`
+--
+
+TRUNCATE TABLE `user_role`;
+--
+-- Contenu de la table `user_role`
+--
+
+INSERT INTO `user_role` (`id`, `role_id`, `is_default`, `parent_id`) VALUES
+(9, 'guest', 1, NULL),
+(10, 'user', 0, 9),
+(11, 'admin', 0, 10);
+
 -- --------------------------------------------------------
 
 --
@@ -494,6 +787,18 @@ CREATE TABLE IF NOT EXISTS `user_role_linker` (
   PRIMARY KEY (`user_id`,`role_id`),
   KEY `role_id` (`role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Vider la table avant d'insérer `user_role_linker`
+--
+
+TRUNCATE TABLE `user_role_linker`;
+--
+-- Contenu de la table `user_role_linker`
+--
+
+INSERT INTO `user_role_linker` (`user_id`, `role_id`) VALUES
+(2, '11');
 
 -- --------------------------------------------------------
 
@@ -516,6 +821,11 @@ CREATE TABLE IF NOT EXISTS `zone` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `zone`
+--
+
+TRUNCATE TABLE `zone`;
 -- --------------------------------------------------------
 
 --
@@ -531,6 +841,11 @@ CREATE TABLE IF NOT EXISTS `zone_has_bosses` (
   KEY `fk_zone_has_bosses_zone1_idx` (`idZone`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `zone_has_bosses`
+--
+
+TRUNCATE TABLE `zone_has_bosses`;
 -- --------------------------------------------------------
 
 --
@@ -547,6 +862,11 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Vider la table avant d'insérer `zone_has_mode_diffculte`
+--
+
+TRUNCATE TABLE `zone_has_mode_diffculte`;
+--
 -- Contraintes pour les tables exportées
 --
 
@@ -561,11 +881,11 @@ ALTER TABLE `bosses_has_npc`
 -- Contraintes pour la table `evenements`
 --
 ALTER TABLE `evenements`
-  ADD CONSTRAINT `fk_evenements_user1` FOREIGN KEY (`idUsers`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_evenements_donjon1` FOREIGN KEY (`idDonjon`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_evenements_evenements_template1` FOREIGN KEY (`idEvenements_template`) REFERENCES `evenements_template` (`idEvenements_template`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_evenements_guildes1` FOREIGN KEY (`idGuildes`) REFERENCES `guildes` (`idGuildes`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_evenements_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_evenements_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_evenements_users1` FOREIGN KEY (`idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `evenements_personnage`
@@ -611,31 +931,28 @@ ALTER TABLE `item_personnage_raid`
   ADD CONSTRAINT `fk_item_personnage_raid_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `pallierAfficher`
+-- Contraintes pour la table `pallier`
 --
-ALTER TABLE `pallierAfficher`
-  ADD CONSTRAINT `fk_roster_loot_mode_difficulte1` FOREIGN KEY (`idModeDifficulte`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_roster_loot_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_roster_loot_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `pallier`
+  ADD CONSTRAINT `fk_pallier_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `personnages`
 --
 ALTER TABLE `personnages`
-  ADD CONSTRAINT `fk_personnages_user1` FOREIGN KEY (`idUsers`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_personnages_classes1` FOREIGN KEY (`idClasses`) REFERENCES `classes` (`idClasses`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_personnages_faction1` FOREIGN KEY (`idFaction`) REFERENCES `faction` (`idFaction`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_personnages_race1` FOREIGN KEY (`idRace`) REFERENCES `race` (`idRace`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_personnage_guildes1` FOREIGN KEY (`idGuildes`) REFERENCES `guildes` (`idGuildes`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_personnage_guildes1` FOREIGN KEY (`idGuildes`) REFERENCES `guildes` (`idGuildes`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_personnage_users1` FOREIGN KEY (`idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `raids`
 --
 ALTER TABLE `raids`
-  ADD CONSTRAINT `fk_raids_mode` FOREIGN KEY (`idMode`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_raids_evenements1` FOREIGN KEY (`idEvenements`) REFERENCES `evenements` (`idEvenements`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_raids_roster1` FOREIGN KEY (`idRosterTmp`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_raids_zone1` FOREIGN KEY (`idZoneTmp`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_raids_zone1` FOREIGN KEY (`idZoneTmp`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_raids_evenements1` FOREIGN KEY (`idEvenements`) REFERENCES `evenements` (`idEvenements`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `raid_personnage`
