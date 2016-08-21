@@ -137,7 +137,6 @@ abstract class AbstractClient {
             $this->client = new HttpClient();
             $adapter = new \Zend\Http\Client\Adapter\Curl();
             $adapter->setCurlOption(CURLOPT_SSL_VERIFYPEER, false);
-
             $this->client->setAdapter($adapter);
         }
         $key = $this->getRequestKey($url, $options);
