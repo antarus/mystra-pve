@@ -25,6 +25,13 @@
                         <?php echo $this->translate('Contact') ?>
                     </a>
                 </li>
+                <li>
+                <?php if($this->isAllowed( 'menu', 'menu_admin' )):?>
+                    <a href="<?php echo $this->url('backend-index'); ?>">
+                        <?php echo $this->translate('Backend') ?>
+                    </a>
+                <?php endif;?>
+                </li>
             </ul>
         </nav>
     </div> 
