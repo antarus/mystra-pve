@@ -127,9 +127,9 @@ TRUNCATE TABLE `mode_difficulte`;
 
 INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 (1, 'Raid LFR', 'RAID_FLEX_LFR'),
-(2, 'Raid NM', 'RAID_FLEX_NORMAL'),
-(3, 'Raid HM', 'RAID_FLEX_HEROIC'),
-(4, 'Raid MM', 'RAID_MYTHIC'),
+(14, 'Raid NM', 'RAID_FLEX_NORMAL'),
+(15, 'Raid HM', 'RAID_FLEX_HEROIC'),
+(16, 'Raid MM', 'RAID_MYTHIC'),
 (5, 'Donjon NM', 'DUNGEON_NORMAL'),
 (6, 'Donjon HM', 'DUNGEON_HEROIC'),
 (7, 'Donjon MM', 'DUNGEON_MYTHIC');
