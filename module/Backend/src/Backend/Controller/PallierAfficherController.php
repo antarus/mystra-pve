@@ -58,9 +58,9 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
      * @return reponse au format Ztable
      */
     public function ajaxListAction() {
-        $oTable = new \Commun\Grid\ItemPersonnageRaidGrid($this->getServiceLocator(), $this->getPluginManager());
+        $oTable = new \Commun\Grid\PallierAfficherGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
-                ->setSource($this->getTable()->getBaseQuery())
+                ->setSource($this->getTable()->getQueryAjaxListe())
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
     }
@@ -71,22 +71,32 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
      * @return array
      */
     public function createAction() {
-        $oForm = new \Commun\Form\ItemPersonnageRaidForm(); //new \Commun\Form\ItemPersonnageRaidForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\PallierAfficherForm(); //new \Commun\Form\PallierAfficherForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
 
-        $oFiltre = new \Commun\Filter\ItemPersonnageRaidFilter();
+        $oFiltre = new \Commun\Filter\PallierAfficherFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
 
         if ($oRequest->isPost()) {
-            $oEntite = new \Commun\Model\ItemPersonnageRaid();
+            $oEntite = new \Commun\Model\PallierAfficher();
 
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $oEntite->exchangeArray($oForm->getData());
-                $this->getTable()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La item-personnage-raid a été créé avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-pallier-afficher-list');
+                // $oEntite->exchangeArray($oForm->getData());
+                $this->getTable()->beginTransaction();
+                try {
+                    $this->getTable()->saveOrUpdatePallier($oForm->getData());
+                    $this->getTable()->commit();
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le pallier a été créé avec succès."), 'success');
+                    return $this->redirect()->toRoute('backend-pallier-afficher-list');
+                } catch (\Exception $ex) {
+                    // on rollback en cas d'erreur
+                    $this->getTable()->rollback();
+                    $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la création du pallier."), 'error');
+                    $this->flashMessenger()->addMessage($aAjaxEx['msg'], 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -105,16 +115,20 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
         try {
             $oEntite = $this->getTable()->findRow($id);
             if (!$oEntite) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de item-personnage-raid inconnu."), 'error');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de pallier inconnu."), 'error');
                 return $this->redirect()->toRoute('backend-pallier-afficher-list');
             }
         } catch (\Exception $ex) {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la item-personnage-raid."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération du pallier."), 'error');
             return $this->redirect()->toRoute('backend-pallier-afficher-list');
         }
-        $oForm = new \Commun\Form\ItemPersonnageRaidForm(); //new \Commun\Form\ItemPersonnageRaidForm($this->getServiceLocator());
-        $oFiltre = new \Commun\Filter\ItemPersonnageRaidFilter();
+        $oForm = new \Commun\Form\PallierAfficherForm(); //new \Commun\Form\PallierAfficherForm($this->getServiceLocator());
+        $oFiltre = new \Commun\Filter\PallierAfficherFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
+
+        // masque l'id roster
+        $oForm->get('idRoster')->setAttribute('type', 'hidden');
+
         $oForm->bind($oEntite);
 
         $oRequest = $this->getRequest();
@@ -124,7 +138,7 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
 
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La item-personnage-raid a été modifié avec succès."), 'success');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le pallier a été modifié avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-pallier-afficher-list');
             }
         }
@@ -147,7 +161,7 @@ class PallierAfficherController extends \Zend\Mvc\Controller\AbstractActionContr
         $oTable = $this->getTable();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La item-personnage-raid a été supprimé avec succès."), 'success');
+        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le pallier a été supprimé avec succès."), 'success');
         return $this->redirect()->toRoute('backend-pallier-afficher-list');
     }
 

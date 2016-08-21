@@ -30,5 +30,97 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
      * @var int
      */
     protected $nomCle = 'idPallierAffiche';
+    private $_config;
+
+    /**
+     * Retourne la configuration.
+     * @return Config
+     */
+    private function _getConfig() {
+        if (!$this->_config) {
+            $this->_config = $this->_getServiceLocator()->get('Config');
+        }
+        return $this->_config['conf'];
+    }
+
+    /**
+     * Retourne la query de base pour l'affichage de la liste des pallier.
+     * @return Zend\Db\Sql\Select
+     */
+    function getQueryAjaxListe() {
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $query = $sql->select();
+
+        $query->columns(array(
+                    'idPallierAffiche',
+                    'idModeDifficulte',
+                    'idZone',
+                    'idRoster'
+                ))
+                ->from(array('p' => 'pallierAfficher'))
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode = p.idModeDifficulte', array('mode' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone = p.idZone', array('zone' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('r' => 'roster'), 'r.idRoster = p.idRoster', array('roster' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+        ;
+        $query->order(array('zone'));
+        //  $this->debug($query);
+        return $query;
+    }
+
+    /**
+     * Sauvegarde ou met a jour le personnage passé.
+     * @param array $aPallier
+     * @return  \Core\Model\PallierAfficher
+     */
+    public function saveOrUpdatePallier($aPallier) {
+        try {
+            //recherche si le lien existe
+            try {
+
+                $oTabLien = $this->selectBy(
+                        array(
+                            "idPallierAffiche" => $aPallier['idPallierAffiche']));
+                if (!$oTabLien) {
+                    $oTabLien = $this->selectBy(
+                            array(
+                                "idModeDifficulte" => $aPallier['idModeDifficulte'],
+                                "idZone" => $aPallier['idZone'],
+                                "idRoster" => $aPallier['idRoster']));
+                }
+            } catch (\Exception $exc) {
+                throw new DatabaseException(10000, 4, $this->_getServiceLocator()->get('translator'), $aPallier, $exc);
+            }
+            $oPallier = new \Commun\Model\PallierAfficher();
+            $oPallier->setIdModeDifficulte($aPallier['idModeDifficulte']);
+            $oPallier->setIdZone($aPallier['idZone']);
+            $oPallier->setIdRoster($aPallier['idRoster']);
+            // si n'existe pas on insert
+            if (!$oTabLien) {
+                try {
+                    $oTabLien = $this->select(
+                            array("idRoster" => $aPallier['idRoster']));
+                    if ($oTabLien->count() == $this->_getConfig()["pallier"]["max"]) {
+                        throw new DatabaseException(10000, 7, $this->_getServiceLocator()->get('translator'));
+                    }
+                    $this->insert($oPallier);
+                    $oPallier->setIdPallierAffiche($this->lastInsertValue);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(10000, 2, $this->_getServiceLocator()->get('translator'), array(), $exc);
+                }
+            } else {
+                try {
+                    // sinon on update
+                    $oPallier->setIdPallierAffiche($oTabLien->getIdPallierAffiche());
+                    $this->update($oPallier);
+                } catch (\Exception $exc) {
+                    throw new DatabaseException(10000, 1, $this->_getServiceLocator()->get('translator'), array(), $exc);
+                }
+            }
+            return $oPallier;
+        } catch (\Exception $ex) {
+            throw new \Exception($this->_getServiceLocator()->get('translator')->translate("Erreur lors de la sauvegarde du pallier."), 0, $ex);
+        }
+    }
 
 }

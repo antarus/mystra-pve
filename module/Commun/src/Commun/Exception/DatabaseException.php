@@ -14,7 +14,8 @@ class DatabaseException extends \Exception {
         6000 => "roster",
         7000 => "zone",
         8000 => "item/raid/personnage/boss",
-        9000 => "boss"
+        9000 => "boss",
+        10000 => "pallier"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -23,10 +24,11 @@ class DatabaseException extends \Exception {
         3 => "delete",
         4 => "list",
         5 => "contrainte unique",
-        6 => 'recherche'
+        6 => 'recherche',
+        7 => 'limite',
     ];
 
-    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, $aParam = array(), Exception $previous = null) {
+    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, $aParam = array(), \Exception $previous = null) {
         if (isset($this->message[$code + $erreurType])) {
             $msg = $this->message[$code + $erreurType];
             $codeErreur = $code + $erreurType;
@@ -34,10 +36,19 @@ class DatabaseException extends \Exception {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-
+        //handle error }
         if (isset($oTanslator)) {
-            $msg = vsprintf($oTanslator->translate($msg), $aParam);
+            if (substr_count($msg, '%s') < count($aParam)) {
+                $msg = vsprintf($oTanslator->translate($msg), $aParam);
+            } else {
+                $msg = $oTanslator->translate($msg);
+            }
+        } else {
+            if (substr_count($msg, '%s') < count($aParam)) {
+                $msg = vsprintf($msg, $aParam);
+            }
         }
+
         parent::__construct($msg, $codeErreur, $previous);
     }
 
@@ -90,6 +101,13 @@ class DatabaseException extends \Exception {
         9003 => "Erreur lors de la suppression du boss [%s].",
         9004 => "Erreur lors du listing du boss [%s].",
         9006 => "Erreur lors de la recherche du boss [%s].",
+        // pallier
+        10001 => "Erreur lors la mise à jour du pallier.",
+        10002 => "Erreur lors la création du pallier.",
+        10003 => "Erreur lors de la suppression du pallier.",
+        10004 => "Erreur lors du listing du pallier.",
+        10006 => "Erreur lors de la recherche du pallier.",
+        10007 => "Vous avez atteinte le nombre maximal de pallier pouvant être créer.",
     );
 
 }

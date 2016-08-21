@@ -27,7 +27,7 @@ return array(
             'Backend\\Controller\\Items' => 'Backend\\Controller\\ItemsController',
             'Backend\\Controller\\ModeDifficulte' => 'Backend\\Controller\\ModeDifficulteController',
             'Backend\\Controller\\Npc' => 'Backend\\Controller\\NpcController',
-            'Backend\\Controller\\PallierAfficherController' => 'Backend\\Controller\\PallierAfficherController',
+            'Backend\\Controller\\PallierAfficher' => 'Backend\\Controller\\PallierAfficherController',
             'Backend\\Controller\\Personnages' => 'Backend\\Controller\\PersonnagesController',
             'Backend\\Controller\\PersonnagesHasSpecialisation' => 'Backend\\Controller\\PersonnagesHasSpecialisationController',
             'Backend\\Controller\\Race' => 'Backend\\Controller\\RaceController',

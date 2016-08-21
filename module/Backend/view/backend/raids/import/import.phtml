@@ -29,7 +29,7 @@
 <script type ="text/javascript">
 
     $(function () {
-        autocompleteNomRoster("<?php echo $this->url('backend-roster-autocomplete', array('id' => $this->id)) ?>");
+        autocompleteBase("input[name=nomRoster]", "input[name=idRoster]", "<?php echo $this->url('backend-roster-autocomplete', array('id' => $this->id)) ?>", "roster");
         gestionAjoutPersonnageRoster();
 
     });

@@ -137,13 +137,26 @@ function autocompleteNomPersonnage($uri) {
     };
 }
 
-
 /**
- * Autcomplete pour le nom d'un roster
+ * Transforme la reponse pour la page roster.
  * @returns {undefined}
  */
-function autocompleteNomRoster($uri) {
-    $("input[name=nomRoster]").autocomplete({
+function transformePourRoster($data) {
+    var array = $data.error ? [] : $.map($data.rosters, function (m) {
+        return {
+            id: m.idRoster,
+            nom: m.nom,
+        };
+    });
+    return array;
+
+}
+/**
+ * Autcomplete de base.
+ * @returns {undefined}
+ */
+function autocompleteBase($input, $inputId, $uri, $type) {
+    $($input).autocomplete({
         delay: 500,
         minLength: 3,
         source: function (request, response) {
@@ -153,13 +166,15 @@ function autocompleteNomRoster($uri) {
                 page_limit: 10
             }, function (data) {
 // data is an array of objects and must be transformed for autocomplete to use
-                var array = data.error ? [] : $.map(data.rosters, function (m) {
-                    return {
-                        id: m.idRoster,
-                        nom: m.nom,
-                    };
-                });
-                response(array);
+                switch ($type) {
+                    case 'roster':
+                        response(transformePourRoster(data));
+                        break;
+
+                    default:
+                        response(transformePourRoster(data));
+                }
+
             });
         },
         focus: function (event, ui) {
@@ -169,8 +184,8 @@ function autocompleteNomRoster($uri) {
         select: function (event, ui) {
 // prevent autocomplete from updating the textbox
             event.preventDefault();
-            $("input[name=nomRoster]").val(ui.item.nom);
-            $("input[name=idRoster]").val(ui.item.id);
+            $($input).val(ui.item.nom);
+            $($inputId).val(ui.item.id);
 
         }
     }).data("ui-autocomplete")._renderItem = function (ul, item) {

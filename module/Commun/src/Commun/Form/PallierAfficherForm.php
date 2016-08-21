@@ -22,33 +22,50 @@ class PallierAfficherForm extends \Core\Form\AbstractForm {
         $this->add(array(
             'name' => 'idModeDifficulte',
             'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'mode',
+            'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'idModeDifficulte',
+                'label' => 'Mode de Difficulte',
             ),
         ));
 
         $this->add(array(
             'name' => 'idZone',
             'attributes' => array(
-                'type' => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'idZone',
+                'type' => 'hidden',
             ),
         ));
-
         $this->add(array(
-            'name' => 'idRoster',
+            'name' => 'zone',
             'attributes' => array(
                 'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'IdRoster',
+                'label' => 'Zone',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'idRoster',
+            'attributes' => array(
+                'type' => 'hidden',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'roster',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Roster',
             ),
         ));
 

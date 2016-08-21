@@ -24,5 +24,10 @@ return array(
             'suffixe' => array(
                 'bank' => '_bank',
                 'disenchant' => '_disenchant')
-        )),
+        ),
+        'pallier' => array(
+            // Le nombre maximal de pallier
+            'max' => '2'
+        ),
+    ),
 );

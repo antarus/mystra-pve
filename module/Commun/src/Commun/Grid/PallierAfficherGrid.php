@@ -40,23 +40,23 @@ class PallierAfficherGrid extends \ZfTable\AbstractTable {
         'showColumnFilters' => true,
     );
     protected $headers = array(
-        'idPallierAffiche' => array(
-            'title' => 'IdPallierAffiche',
+//        'idPallierAffiche' => array(
+//            'title' => 'IdPallierAffiche',
+//            'width' => '100',
+//            'filters' => 'text',
+//        ),
+        'mode' => array(
+            'title' => 'ModeDifficulte',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idModeDifficulte' => array(
-            'title' => 'IdModeDifficulte',
+        'zone' => array(
+            'title' => 'Zone',
             'width' => '100',
             'filters' => 'text',
         ),
-        'idZone' => array(
-            'title' => 'IdZone',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idRoster' => array(
-            'title' => 'IdRoster',
+        'roster' => array(
+            'title' => 'Roster',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -108,13 +108,13 @@ class PallierAfficherGrid extends \ZfTable\AbstractTable {
     public function init() {
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-item-personnage-raid-update', array('id' => $record["idItemRaidPersonnage"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idItemRaidPersonnage"]);
+                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-pallier-afficher-update', array('id' => $record["idPallierAffiche"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idPallierAffiche"]);
             }
                 ));
 
                 $this->getHeader("delete")->getCell()->addDecorator("callable", array(
                     "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-item-personnage-raid-delete', array('id' => $record["idItemRaidPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idItemRaidPersonnage"]);
+                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-pallier-afficher-delete', array('id' => $record["idPallierAffiche"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPallierAffiche"]);
                     }
                         ));
                     }
@@ -126,27 +126,22 @@ class PallierAfficherGrid extends \ZfTable\AbstractTable {
                     protected function initFilters($query) {
                         $value = $this->getParamAdapter()->getValueOfFilter('idItemRaidPersonnage');
                         if ($value != null) {
-                            $query->where("idItemRaidPersonnage = '" . $value . "' ");
+                            $query->where("idPallierAffiche = '" . $value . "' ");
                         }
 
                         $value = $this->getParamAdapter()->getValueOfFilter('idRaid');
                         if ($value != null) {
-                            $query->where("idRaid like '%" . $value . "%' ");
+                            $query->where("idModeDifficulte like '%" . $value . "%' ");
                         }
 
                         $value = $this->getParamAdapter()->getValueOfFilter('idItem');
                         if ($value != null) {
-                            $query->where("idItem = '" . $value . "' ");
+                            $query->where("idZone = '" . $value . "' ");
                         }
 
                         $value = $this->getParamAdapter()->getValueOfFilter('idPersonnage');
                         if ($value != null) {
-                            $query->where("idPersonnage = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('valeur');
-                        if ($value != null) {
-                            $query->where("valeur = '" . $value . "' ");
+                            $query->where("idRoster = '" . $value . "' ");
                         }
                     }
 
