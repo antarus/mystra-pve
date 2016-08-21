@@ -40,7 +40,7 @@ a img {border:none}
 
 
 aside, details, figcaption, figure,
-footer, header, hgroup, menu, nav, section {display: block}
+footer,  hgroup, menu, section {display: block}
 
 
 
@@ -163,16 +163,15 @@ h4 span{
 }
 
 header{
-    position: relative;
 
+    position : relative;
     width: 100%;
-    height:100px;
+    height:135px;
     background:url(../img/bg2.png) no-repeat;
     background-position: center;
-    border-bottom: 3px solid #9acd32;
-    display:block;
 
-
+    display: bloc;
+        
 
 }
 
@@ -189,11 +188,6 @@ footer{
 
 
 }
-
-
-
-
-
 
 
 /************************ Containers ************************/
@@ -215,117 +209,17 @@ footer{
 }
 
 .container{
-    width:980px;
+/*    width: 980px*/
+    width: 100%;
     margin: 0 auto;
 
     background-color:transparent;
     padding-top: 20px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
 
-
-}
-
-
-
-.content1 {
-    position: relative;
-    float: left;
-    width: 100%;
-    margin-top:-10px;
-    margin-bottom:16px;
-    margin-left:26px;
-    background:transparent;
-
-
-
-}
-
-.content2 {
-    position: relative;
-    float: left;
-    width: 100%;
-    margin-top:-12px;
-    margin-bottom:20px;
-
-
-
-}
-
-
-
-.news {
-    float: left;
-    width: 200px;
-    position: relative;
-    background:transparent;
-    padding:15px;
-    padding-right:100px;
-    margin-bottom:10px;
-}
-
-.group2 {
-    float: left;
-    width: 200px;
-    position: relative;
-    background:transparent;
-    padding:15px;
-    margin-bottom:10px;
-
-
-}
-
-.group3 {
-    float: left;
-    width: 200px;
-    position: relative;
-    background:transparent;
-    padding:15px;
-    margin-bottom:10px;
-
-
-}
-
-.group4 {
-    float: left;
-    width: 200px;
-    position: relative;
-    background:transparent;
-    padding:15px;
-    margin-bottom:10px;
-
-
-}
-
-
-
-
-.group6 {
-    float: left;
-    width: 945px;
-    position: relative;
-    padding:15px;
-    background:transparent;
-    margin-top:16px;
-
-
-}
-
-
-
-
-
-
-
-
-#intro{
-    width: 960px;
-    position: relative;
-    float: left;
-    height:auto;
-    padding:10px;
-    background:transparent;
-    margin-top:52px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
 
 * {
@@ -334,55 +228,28 @@ footer{
 }
 
 
-
-
-/************************ Slider ************************/
-
-#slider-one p, #slider-two p, #slider-three p, #slider-four p, #slider-five p {
-    font-size: 11px;
-    color: #ccc;
-    text-transform:uppercase;
-    position:relative;
-    top:-2.8em;
-    text-align:center;
-    font-weight:bold;
-    font-family:Arial, Helvetica, sans-serif;
-    text-shadow: 0px 0px 2px #000
-}
-
-.mb-inside a, .mb-inside a:visited {color:#0CF; text-decoration:none; font-size:13px; }
-.mb-inside a:hover {color:#fff; text-decoration:none; font-size:13px; cursor:pointer}
-
-
-
-
-
-
-
 /************************ Navigation Menu ************************/
 
 
 nav{
-    position:relative;
-    width:auto;
-    height:40px;
-    margin:0 auto;
-    padding-top: 40px;
-    float:right;
-
+    margin:0 auto;  
+    min-width: 500px;
 }
-
-
+nav ul{
+    display:flex;
+    flex-direction: row;
+    
+}
 nav ul li{
-    float: left;
+    margin-left: 15px;
     line-height:normal;
-    margin-left:15px;
+   
 }
 
 nav ul li a{
     font-size: 30px;
     font-family:"BebasNeueRegular", Arial, Helvetica, sans-serif;
-    color:#fff;
+    color:#191919;
     text-decoration:none;
     text-transform:uppercase;
     font-weight:normal;
@@ -390,12 +257,12 @@ nav ul li a{
     background-color:transparent;
 
     margin-top:3px;
-    padding:5px;
+    padding:5px 5px 15px 5px;
 
 }
 
 nav ul li a:hover{
-    color:#9acd32;
+    color:#fff;
 
 
 }
@@ -441,18 +308,30 @@ nav ul li a:hover{
 
 
 }
-#title{
-    position:relative;
-    float:left;
-    top:15px;
-    left:-75px;
-    width:auto;
-    height:160px;
 
+#logo
+{
+    display: flex;
 
-
+    margin:auto;
 }
-
+#border-bg
+{
+    position: absolute;
+    top:75px;
+    width: 100%;
+    height : 60px;
+/*    border-top:2px solid black;
+    border-bottom:2px solid black;*/
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#191919+0,9acb32+50,9acb32+50,9acb32+50,191919+100&0.5+0,1+50,0.5+100 */
+    background: -moz-linear-gradient(top, rgba(25,25,25,0.5) 0%, rgba(154,203,50,1) 50%, rgba(25,25,25,0.5) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(25,25,25,0.5) 0%,rgba(154,203,50,1) 50%,rgba(25,25,25,0.5) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(25,25,25,0.5) 0%,rgba(154,203,50,1) 50%,rgba(25,25,25,0.5) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80191919', endColorstr='#80191919',GradientType=0 ); /* IE6-9 */
+    
+    z-index: -1;
+    
+}
 
 .green {
     color:#9acd32;}
