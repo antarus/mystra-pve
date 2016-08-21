@@ -378,6 +378,14 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
             array (
                 0 => __DIR__ . '/..' . '/zfr/zfr-cors/src',
             ),
+            'ZfcUser' => 
+            array (
+                0 => __DIR__ . '/..' . '/zf-commons/zfc-user/src',
+            ),
+            'ZfcBase' => 
+            array (
+                0 => __DIR__ . '/..' . '/zf-commons/zfc-base/src',
+            ),
             'ZfTable' => 
             array (
                 0 => __DIR__ . '/..' . '/dudapiotr/zftable/src',
@@ -947,6 +955,8 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
         'ZF\\Versioning\\Module' => __DIR__ . '/..' . '/zfcampus/zf-versioning/Module.php',
         'Zend\\I18n\\Translator\\Resources' => __DIR__ . '/..' . '/zendframework/zend-i18n-resources/src/Resources.php',
         'ZfTable\\Module' => __DIR__ . '/..' . '/dudapiotr/zftable/Module.php',
+        'ZfcBase\\Module' => __DIR__ . '/..' . '/zf-commons/zfc-base/Module.php',
+        'ZfcUser\\Module' => __DIR__ . '/..' . '/zf-commons/zfc-user/Module.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

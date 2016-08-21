@@ -12,7 +12,8 @@
         "zendframework/zendframework": "~2.5",
         "dudapiotr/zftable": "dev-master",
         "zfcampus/zf-apigility": "~1.0",
-        "zfr/zfr-cors": "1.*"
+        "zfr/zfr-cors": "1.*",
+        "zf-commons/zfc-user": "dev-master"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.4",

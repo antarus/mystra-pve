@@ -29,7 +29,10 @@ return array(
         'Commun',
         'APIBlizzard',
         'APIRtK',
-        'ZfrCors'
+        'ZfrCors',
+        'BjyAuthorize',
+        'ZfcBase',
+        'ZfcUser',
     ),
     'module_listener_options' => array(
         'module_paths' => array(

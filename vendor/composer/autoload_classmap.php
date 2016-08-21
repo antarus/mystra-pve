@@ -527,4 +527,6 @@ return array(
     'ZF\\Versioning\\Module' => $vendorDir . '/zfcampus/zf-versioning/Module.php',
     'Zend\\I18n\\Translator\\Resources' => $vendorDir . '/zendframework/zend-i18n-resources/src/Resources.php',
     'ZfTable\\Module' => $vendorDir . '/dudapiotr/zftable/Module.php',
+    'ZfcBase\\Module' => $vendorDir . '/zf-commons/zfc-base/Module.php',
+    'ZfcUser\\Module' => $vendorDir . '/zf-commons/zfc-user/Module.php',
 );
