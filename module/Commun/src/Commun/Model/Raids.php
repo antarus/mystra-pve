@@ -76,6 +76,13 @@ class Raids extends \Core\Model\AbstractModel {
     public $idZoneTmp = null;
 
     /**
+     * Colonne: idMode
+     *
+     * @var int
+     */
+    public $idMode = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -295,6 +302,24 @@ class Raids extends \Core\Model\AbstractModel {
      */
     function setIdZoneTmp($value) {
         $this->idZoneTmp = $value;
+    }
+
+    /**
+     * Retourne la valeur idMode.
+     *
+     * @return int
+     */
+    function getIdMode() {
+        return intval($this->idMode);
+    }
+
+    /**
+     * Définit la valeur pour idMode
+     *
+     * @param int
+     */
+    function setIdMode($idMode) {
+        $this->idMode = $idMode;
     }
 
 }

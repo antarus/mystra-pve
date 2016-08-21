@@ -95,6 +95,26 @@ class RaidsForm extends \Core\Form\AbstractForm {
                 'label' => 'IdRoster',
             ),
         ));
+        $this->add(array(
+            'name' => 'idMode',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'IdMode',
+            ),
+        ));
+        $this->add(array(
+            'name' => 'idZoneTmp',
+            'attributes' => array(
+                'type' => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'idZone',
+            ),
+        ));
 
         $this->add(array(
             'name' => 'submit',
