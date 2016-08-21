@@ -1,0 +1,28 @@
+-- pour les loots d'un personnage appartenant a un roster
+
+-- select la limation des 2 palliers max autorisé
+select idModeDifficulte, idZone, idRoster from pallierAfficher where idRoster = 1 order by idModeDifficulte ;
+
+
+-- requete ok mais necessite un boucle php pour géré la partie where
+select ipr.idItem, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone
+from item_personnage_raid ipr
+inner join raids r on r.idRaid=ipr.idRaid
+inner join zone z on z.idZone=r.idZoneTmp
+inner join mode_difficulte m on m.idMode=r.idMode
+inner join roster ro on ro.idRoster=r.idRosterTmp
+inner join personnages p on p.idPersonnage=ipr.idPersonnage
+where (p.nom ='antaruss' and p.royaume='garona')
+-- if pallier 
+and 
+-- fi
+-- if pallier > 1
+(
+-- fi
+-- affiche pallier 1
+(m.idMode = 14 and z.idZone = 7545 and ro.idRoster = 1)
+-- afficher pallier 2
+or 
+(m.idMode = 15 and z.idZone = 6967 and ro.idRoster = 1)
+);
+-- fin
