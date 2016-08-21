@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 19 Août 2016 à 07:41
+-- Généré le: Dim 21 Août 2016 à 13:43
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
--- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
+-- Version de PHP: 5.5.9-1ubuntu4.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,6 +38,12 @@ CREATE TABLE IF NOT EXISTS `bosses` (
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `bosses`
+--
+
+TRUNCATE TABLE `bosses`;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `bosses_has_npc`
@@ -52,6 +58,12 @@ CREATE TABLE IF NOT EXISTS `bosses_has_npc` (
   KEY `fk_bosses_has_npc_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Vider la table avant d'insérer `bosses_has_npc`
+--
+
+TRUNCATE TABLE `bosses_has_npc`;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `classes`
@@ -64,9 +76,13 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `nom` varchar(45) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idClasses`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `classes`
+--
 
+TRUNCATE TABLE `classes`;
 -- --------------------------------------------------------
 
 --
@@ -76,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `classes` (
 DROP TABLE IF EXISTS `evenements`;
 CREATE TABLE IF NOT EXISTS `evenements` (
   `idEvenements` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(45) NOT NULL,
+  `nom` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `dateHeureDebutInvitation` datetime DEFAULT NULL,
   `dateHeureDebutEvenement` datetime DEFAULT NULL,
@@ -98,6 +114,11 @@ CREATE TABLE IF NOT EXISTS `evenements` (
   KEY `fk_evenements_evenements_template1_idx` (`idEvenements_template`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements`
+--
+
+TRUNCATE TABLE `evenements`;
 -- --------------------------------------------------------
 
 --
@@ -117,6 +138,12 @@ CREATE TABLE IF NOT EXISTS `evenements_personnage` (
   KEY `fk_evenement_personnage_personnage1_idx` (`idPersonnage`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `evenements_personnage`
+--
+
+TRUNCATE TABLE `evenements_personnage`;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `evenements_roles`
@@ -205,10 +232,13 @@ CREATE TABLE IF NOT EXISTS `faction` (
   `nom` varchar(45) NOT NULL,
   `logo` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idFaction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `faction`
+--
 
-
+TRUNCATE TABLE `faction`;
 -- --------------------------------------------------------
 
 --
@@ -218,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `faction` (
 DROP TABLE IF EXISTS `guildes`;
 CREATE TABLE IF NOT EXISTS `guildes` (
   `idGuildes` int(11) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(45) NOT NULL,
+  `nom` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `serveur` varchar(150) NOT NULL,
   `niveau` mediumint(9) DEFAULT NULL,
   `miniature` varchar(100) DEFAULT NULL,
@@ -241,11 +271,11 @@ TRUNCATE TABLE `guildes`;
 DROP TABLE IF EXISTS `items`;
 CREATE TABLE IF NOT EXISTS `items` (
   `idItem` int(10) NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `ajouterPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `majPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `nom` varchar(255) DEFAULT NULL,
+  `ajouterPar` varchar(30) NOT NULL,
+  `majPar` varchar(30) DEFAULT NULL,
   `idBnet` int(10) DEFAULT NULL,
-  `couleur` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `couleur` varchar(255) DEFAULT NULL,
   `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -291,12 +321,18 @@ TRUNCATE TABLE `item_personnage_raid`;
 
 DROP TABLE IF EXISTS `mode_difficulte`;
 CREATE TABLE IF NOT EXISTS `mode_difficulte` (
-  `idMode` int(11) NOT NULL AUTO_INCREMENT  COMMENT 'Id battle net',
+  `idMode` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `nom_bnet` varchar(100) DEFAULT NULL COMMENT 'nom battle net',
   PRIMARY KEY (`idMode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `mode_difficulte`
+--
+
+TRUNCATE TABLE `mode_difficulte`;
+-- --------------------------------------------------------
 
 --
 -- Structure de la table `npc`
@@ -317,42 +353,26 @@ TRUNCATE TABLE `npc`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `pallier`
+-- Structure de la table `pallierAfficher`
 --
 
 DROP TABLE IF EXISTS `pallierAfficher`;
 CREATE TABLE IF NOT EXISTS `pallierAfficher` (
-  `idPallierAffiche` INT(11) NOT NULL AUTO_INCREMENT,
-  `idModeDifficulte` INT(11) NOT NULL,
-  `idZone` INT(11) NOT NULL,
-  `idRoster` INT(11) NOT NULL,
+  `idPallierAffiche` int(11) NOT NULL AUTO_INCREMENT,
+  `idModeDifficulte` int(11) NOT NULL,
+  `idZone` int(11) NOT NULL,
+  `idRoster` int(11) NOT NULL,
   PRIMARY KEY (`idPallierAffiche`),
-  INDEX `fk_roster_loot_mode_difficulte1_idx` (`idModeDifficulte` ASC),
-  INDEX `fk_roster_loot_zone1_idx` (`idZone` ASC),
-  INDEX `fk_roster_loot_roster1_idx` (`idRoster` ASC),
-  CONSTRAINT `fk_roster_loot_mode_difficulte1`
-    FOREIGN KEY (`idModeDifficulte`)
-    REFERENCES `raid_tracker`.`mode_difficulte` (`idMode`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_roster_loot_zone1`
-    FOREIGN KEY (`idZone`)
-    REFERENCES `raid_tracker`.`zone` (`idZone`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_roster_loot_roster1`
-    FOREIGN KEY (`idRoster`)
-    REFERENCES `raid_tracker`.`roster` (`idRoster`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+  KEY `fk_pallier_mode_idx` (`idModeDifficulte`),
+  KEY `fk_pallier_zone_idx` (`idZone`),
+  KEY `fk_pallier_roster_idx` (`idRoster`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Vider la table avant d'insérer `pallier`
+-- Vider la table avant d'insérer `pallierAfficher`
 --
 
-TRUNCATE TABLE `pallier`;
+TRUNCATE TABLE `pallierAfficher`;
 -- --------------------------------------------------------
 
 --
@@ -373,7 +393,7 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   `idRace` int(11) NOT NULL,
   `idGuildes` int(11) DEFAULT NULL,
   `idUsers` int(11) DEFAULT NULL,
-  `isTech` tinyint(1) DEFAULT '0',
+  `isTech` tinyint(1) DEFAULT '0' COMMENT 'personnage dit technique. utiliser lors de la creation du roster. bank et disenchant',
   PRIMARY KEY (`idPersonnage`),
   KEY `fk_personnage_users1_idx` (`idUsers`),
   KEY `fk_personnage_guildes1_idx` (`idGuildes`),
@@ -399,9 +419,13 @@ CREATE TABLE IF NOT EXISTS `race` (
   `nom` varchar(45) NOT NULL,
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idRace`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `race`
+--
 
+TRUNCATE TABLE `race`;
 -- --------------------------------------------------------
 
 --
@@ -413,16 +437,18 @@ CREATE TABLE IF NOT EXISTS `raids` (
   `idRaid` mediumint(8) NOT NULL AUTO_INCREMENT,
   `idEvenements` int(11) DEFAULT NULL,
   `date` timestamp NULL DEFAULT NULL,
-  `note` text CHARACTER SET utf8 COLLATE utf8_bin,
+  `note` text,
   `valeur` float(6,2) DEFAULT '0.00',
-  `ajoutePar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
-  `majPar` varchar(30) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `ajoutePar` varchar(30) DEFAULT NULL,
+  `majPar` varchar(30) DEFAULT NULL,
   `idRosterTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
   `idZoneTmp` int(11) NOT NULL COMMENT 'A virer une fois le lien vers evenement codé',
+  `idMode` int(11) NOT NULL,
   PRIMARY KEY (`idRaid`),
   KEY `fk_raids_evenements1_idx` (`idEvenements`),
   KEY `fk_raids_roster1_idx` (`idRosterTmp`),
-  KEY `fk_raids_zone1_idx` (`idZoneTmp`)
+  KEY `fk_raids_zone1_idx` (`idZoneTmp`),
+  KEY `fk_raids_mode_difficulte1_idx` (`idMode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
@@ -461,10 +487,13 @@ CREATE TABLE IF NOT EXISTS `role` (
   `idRole` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(55) NOT NULL,
   PRIMARY KEY (`idRole`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `role`
+--
 
-
+TRUNCATE TABLE `role`;
 -- --------------------------------------------------------
 
 --
@@ -523,9 +552,13 @@ CREATE TABLE IF NOT EXISTS `specialisation` (
   PRIMARY KEY (`idSpecialisation`),
   KEY `fk_specialisation_classes1_idx` (`idClasses`),
   KEY `fk_specialisation_role1_idx` (`idRole`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+--
+-- Vider la table avant d'insérer `specialisation`
+--
 
+TRUNCATE TABLE `specialisation`;
 -- --------------------------------------------------------
 
 --
@@ -632,10 +665,10 @@ ALTER TABLE `bosses_has_npc`
 --
 ALTER TABLE `evenements`
   ADD CONSTRAINT `fk_evenements_donjon1` FOREIGN KEY (`idDonjon`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_evenements_evenements_template1` FOREIGN KEY (`idEvenements_template`) REFERENCES `evenements_template` (`idEvenements_template`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_evenements_users1` FOREIGN KEY (`idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_evenements_guildes1` FOREIGN KEY (`idGuildes`) REFERENCES `guildes` (`idGuildes`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_evenements_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_evenements_users1` FOREIGN KEY (`idUsers`) REFERENCES `users` (`idUsers`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_evenements_evenements_template1` FOREIGN KEY (`idEvenements_template`) REFERENCES `evenements_template` (`idEvenements_template`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `evenements_personnage`
@@ -675,16 +708,18 @@ ALTER TABLE `guildes`
 -- Contraintes pour la table `item_personnage_raid`
 --
 ALTER TABLE `item_personnage_raid`
-  ADD CONSTRAINT `fk_item_personnage_raid_personnages1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_item_personnage_raid_bosses1` FOREIGN KEY (`idBosses`) REFERENCES `bosses` (`idBosses`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_item_personnage_raid_items1` FOREIGN KEY (`idItem`) REFERENCES `items` (`idItem`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_item_personnage_raid_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_item_personnage_raid_personnages1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_item_personnage_raid_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_item_personnage_raid_bosses1` FOREIGN KEY (`idBosses`) REFERENCES `bosses` (`idBosses`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
--- Contraintes pour la table `pallier`
+-- Contraintes pour la table `pallierAfficher`
 --
-ALTER TABLE `pallier`
-  ADD CONSTRAINT `fk_pallier_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `pallierAfficher`
+  ADD CONSTRAINT `fk_roster_loot_mode_difficulte1` FOREIGN KEY (`idModeDifficulte`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_roster_loot_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_roster_loot_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `personnages`
@@ -700,24 +735,25 @@ ALTER TABLE `personnages`
 -- Contraintes pour la table `raids`
 --
 ALTER TABLE `raids`
+  ADD CONSTRAINT `fk_raids_evenements1` FOREIGN KEY (`idEvenements`) REFERENCES `evenements` (`idEvenements`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_raids_roster1` FOREIGN KEY (`idRosterTmp`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_raids_zone1` FOREIGN KEY (`idZoneTmp`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_raids_evenements1` FOREIGN KEY (`idEvenements`) REFERENCES `evenements` (`idEvenements`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_raids_mode` FOREIGN KEY (`idMode`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `raid_personnage`
 --
 ALTER TABLE `raid_personnage`
-  ADD CONSTRAINT `fk_raid_personnage_personnages1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_raid_personnage_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_raid_personnage_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_raid_personnage_personnages1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `roster_has_personnage`
 --
 ALTER TABLE `roster_has_personnage`
-  ADD CONSTRAINT `fk_roster_has_personnage_role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`idRole`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_roster_has_personnage_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_roster_has_personnage_personnage1` FOREIGN KEY (`idPersonnage`) REFERENCES `personnages` (`idPersonnage`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_roster_has_personnage_roster1` FOREIGN KEY (`idRoster`) REFERENCES `roster` (`idRoster`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_roster_has_personnage_role1` FOREIGN KEY (`idRole`) REFERENCES `role` (`idRole`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `specialisation`
@@ -730,8 +766,8 @@ ALTER TABLE `specialisation`
 -- Contraintes pour la table `zone_has_bosses`
 --
 ALTER TABLE `zone_has_bosses`
-  ADD CONSTRAINT `fk_zone_has_bosses_bosses1` FOREIGN KEY (`idBosses`) REFERENCES `bosses` (`idBosses`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_zone_has_bosses_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_zone_has_bosses_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_zone_has_bosses_bosses1` FOREIGN KEY (`idBosses`) REFERENCES `bosses` (`idBosses`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `zone_has_mode_diffculte`
