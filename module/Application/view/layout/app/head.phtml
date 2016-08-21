@@ -14,7 +14,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 //        ->appendStylesheet($this->basePath('css/bootstrap-theme.min.css'))
 //        ->appendStylesheet($this->basePath('css/zf-table/zf-table.css'))
         ->appendStylesheet($this->basePath('css/styles.css'))
-        ->appendStylesheet($this->basePath('css/fancymoves.css'))
+        ->appendStylesheet($this->basePath('css/handheld-style.css'),'handheld')
 ?>
 
 <!-- Scripts -->
@@ -29,9 +29,5 @@ echo $this->headScript()
 //        ->appendFile($this->basePath('js/jquery.dataTables.min.js'))
 //        ->appendFile($this->basePath('js/zf-table.js'))
 //        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
-        ->appendFile($this->basePath('js/jquery.easing.1.2.js'))
-        ->appendFile($this->basePath('js/slider.js'))
-        ->appendFile($this->basePath('js/slides.min.jquery.js'))
-
 ;
 ?>
