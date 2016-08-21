@@ -277,9 +277,10 @@ TRUNCATE TABLE `user`;
 --
 -- Contenu de la table `user`
 --
-
 INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
-(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL);
+(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL),
+(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', NULL),
+(3, 'kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', NULL);
 
 --
 -- Vider la table avant d'insérer `user_role`
@@ -305,7 +306,10 @@ TRUNCATE TABLE `user_role_linker`;
 --
 
 INSERT INTO `user_role_linker` (`user_id`, `role_id`) VALUES
-(1, '11');
+(1, '11'),
+(2, '11'),
+(3, '11');
+
 
 --
 -- Vider la table avant d'insérer `zone`
