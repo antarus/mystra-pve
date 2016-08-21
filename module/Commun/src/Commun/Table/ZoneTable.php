@@ -177,17 +177,17 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 $aBossZone = array();
             }
             //supprime toutes les clé correpsondnat au zone dans la table ZoneHasBosses
-            $oTabZoneHasBoss = $this->_getTableZoneHasBosses()->selectBy(
-                    array("idZone" => $oZone->getIdZone()));
-            if ($oTabZoneHasBoss) {
-                if (is_array($oTabZoneHasBoss)) {
-                    foreach ($oTabZoneHasBoss as $oZoneHasBoss) {
-                        $this->_getTableZoneHasBosses()->delete($oZoneHasBoss);
-                    }
-                } else {
-                    $this->_getTableZoneHasBosses()->delete($oTabZoneHasBoss);
-                }
-            }
+//            $oTabZoneHasBoss = $this->_getTableZoneHasBosses()->selectBy(
+//                    array("idZone" => $oZone->getIdZone()));
+//            if ($oTabZoneHasBoss) {
+//                if (is_array($oTabZoneHasBoss)) {
+//                    foreach ($oTabZoneHasBoss as $oZoneHasBoss) {
+//                        $this->_getTableZoneHasBosses()->delete($oZoneHasBoss);
+//                    }
+//                } else {
+//                    $this->_getTableZoneHasBosses()->delete($oTabZoneHasBoss);
+//                }
+//            }
             foreach ($aBossZone as $oBoss) {
                 // table boss
                 $oTabBoss = $this->_getTableBoss()->selectBy(
@@ -201,18 +201,18 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 }
 
                 // table npc
-                //supprime toutes les clé correspondant au boss dans la table BossesHasNpc
-                $oTabBossHasNpc = $this->_getTableBossesHasNpc()->selectBy(
-                        array("idBosses" => $oBoss->getIdBosses()));
-                if ($oTabBossHasNpc) {
-                    if (is_array($oTabBossHasNpc)) {
-                        foreach ($oTabBossHasNpc as $oNpc) {
-                            $this->_getTableBossesHasNpc()->delete($oNpc);
-                        }
-                    } else {
-                        $this->_getTableBossesHasNpc()->delete($oTabBossHasNpc);
-                    }
-                }
+//                //supprime toutes les clé correspondant au boss dans la table BossesHasNpc
+//                $oTabBossHasNpc = $this->_getTableBossesHasNpc()->selectBy(
+//                        array("idBosses" => $oBoss->getIdBosses()));
+//                if ($oTabBossHasNpc) {
+//                    if (is_array($oTabBossHasNpc)) {
+//                        foreach ($oTabBossHasNpc as $oNpc) {
+//                            $this->_getTableBossesHasNpc()->delete($oNpc);
+//                        }
+//                    } else {
+//                        $this->_getTableBossesHasNpc()->delete($oTabBossHasNpc);
+//                    }
+//                }
 
                 foreach ($oBoss->getNpc() as $oNpc) {
                     $oTabNpc = $this->_getTableNpc()->selectBy(
@@ -227,12 +227,25 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                     $oBossHasNpc = new \Commun\Model\BossesHasNpc();
                     $oBossHasNpc->setIdBosses($oBoss->getIdBosses());
                     $oBossHasNpc->setIdNpc($oNpc->getIdNpc());
-                    $this->_getTableBossesHasNpc()->insert($oBossHasNpc);
+
+                    $oTabBossANpc = $this->_getTableBossesHasNpc()->selectBy(
+                            array("idNpc" => $oBossHasNpc->getIdNpc(),
+                                'idBosses' => $oBossHasNpc->getIdBosses()));
+                    // si le lien boss / npc n'existe pas on le cree
+                    if (!$oTabBossANpc) {
+                        $this->_getTableBossesHasNpc()->insert($oBossHasNpc);
+                    }
                 }
                 $oZoneHasBoss = new \Commun\Model\ZoneHasBosses();
                 $oZoneHasBoss->setIdBosses($oBoss->getIdBosses());
                 $oZoneHasBoss->setIdZone($oZone->getIdZone());
-                $this->_getTableZoneHasBosses()->insert($oZoneHasBoss);
+                $oTabZoneABoss = $this->_getTableZoneHasBosses()->selectBy(
+                        array("idZone" => $oZoneHasBoss->getIdZone(),
+                            'idBosses' => $oZoneHasBoss->getIdBosses()));
+                // si le lien zone / boss n'existe pas on le cree
+                if (!$oTabZoneABoss) {
+                    $this->_getTableZoneHasBosses()->insert($oZoneHasBoss);
+                }
             }
         } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de l'import de zone", 0, $ex);

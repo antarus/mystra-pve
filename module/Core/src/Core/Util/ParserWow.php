@@ -23,6 +23,28 @@ class ParserWow {
     }
 
     /**
+     * Génèrer un lien de zone vers wowhead.
+     * exemple :
+     * <code>http://www.wowhead.com/?zone=6967</code>
+
+     * @param int $iIdZone
+     */
+    public static function genereLienZoneWowHead(array $iIdZone) {
+        return "http://www.wowhead.com/?zone=" . $iIdZone;
+    }
+
+    /**
+     * Génèrer un lien NPC vers wowhead.
+     * exemple :
+     * <code>http://www.wowhead.com/?npc=90284</code>
+
+     * @param int $iIdNpc
+     */
+    public static function genereLienNbcWowHead(array $iIdNpc) {
+        return "http://www.wowhead.com/?npc=" . $iIdNpc;
+    }
+
+    /**
      * Extrait les membre des donnes de battlnet et et les transforme en objet utilisable de notre coté.
      * @param type $aDataGuildeBnet
      * @param \Core\Model\Guildes $oGuilde
