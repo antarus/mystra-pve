@@ -108,6 +108,11 @@ class Module {
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },
+                'Commun\Table\PersonnagesTable' => function($sm) {
+                    $oTable = new \Commun\Table\PersonnagesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
                 'Commun\Table\PersonnagesHasSpecialisationTable' => function($sm) {
                     return new \Commun\Table\PersonnagesHasSpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));
                 },

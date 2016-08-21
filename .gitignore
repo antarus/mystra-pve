@@ -56,3 +56,4 @@ data/cache/*
 docs/mystra-pve.mwb.bak
 *.bak
 nbproject/project.properties
+nbproject/private/private.xml

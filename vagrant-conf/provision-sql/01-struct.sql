@@ -291,7 +291,7 @@ TRUNCATE TABLE `item_personnage_raid`;
 
 DROP TABLE IF EXISTS `mode_difficulte`;
 CREATE TABLE IF NOT EXISTS `mode_difficulte` (
-  `idMode` int(11) NOT NULL AUTO_INCREMENT  COMMENT 'Id battle net',,
+  `idMode` int(11) NOT NULL AUTO_INCREMENT  COMMENT 'Id battle net',
   `nom` varchar(100) NOT NULL,
   `nom_bnet` varchar(100) DEFAULT NULL COMMENT 'nom battle net',
   PRIMARY KEY (`idMode`)
