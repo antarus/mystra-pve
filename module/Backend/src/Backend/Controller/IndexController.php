@@ -52,7 +52,7 @@ class IndexController extends AbstractActionController {
         exec('php public/index.php cache CacheBnet --flush -f',$outputBnet);
         exec('php public/index.php cache CacheApi --flush -f',$outputApi);
         
-        if($outputBnet =="Cache flushed" && $outputApi=="Cache flushed")
+        if($outputBnet[0] =="Cache flushed" && $outputApi[0]=="Cache flushed")
         {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le cache à été reset avec succès."), 'success');
             $this->_getLogService()->log(LogService::NOTICE, "Cache supprimer", LogService::LOGICIEL);
