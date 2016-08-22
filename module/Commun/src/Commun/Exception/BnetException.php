@@ -21,7 +21,7 @@ class BnetException extends LogException {
             $code = 500;
         }
 
-        $msg = vsprintf($this->_getTranslator()->translate($msg), implode(',', $aData));
+        $msg = vsprintf($this->_getTranslator()->translate($msg), implode(', ', $aData));
         parent::__construct($msg, $code, $oService, null);
     }
 

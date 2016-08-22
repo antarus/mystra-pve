@@ -43,9 +43,9 @@ class DatabaseException extends \Commun\Exception\LogException {
             if (substr_count($msg, '%s') == count($aParam)) {
                 $msg = vsprintf($this->_getTranslator()->translate($msg), $aParam);
             } else if (substr_count($msg, '%s') < count($aParam)) {
-                $msg = vsprintf($this->_getTranslator()->translate($msg), implode(',', $aParam));
+                $msg = vsprintf($this->_getTranslator()->translate($msg), implode(', ', $aParam));
             } else if (substr_count($msg, '%s') == 0) {
-                $msg = $this->_getTranslator()->translate($msg) . ' [ ' . implode(',', $aParam) . ' ] ';
+                $msg = $this->_getTranslator()->translate($msg) . ' [ ' . implode(', ', $aParam) . ' ] ';
             } else {
                 $msg = $this->_getTranslator()->translate($msg);
             }
@@ -53,9 +53,9 @@ class DatabaseException extends \Commun\Exception\LogException {
             if (substr_count($msg, '%s') == count($aParam)) {
                 $msg = vsprintf($msg, $aParam);
             } else if (substr_count($msg, '%s') < count($aParam)) {
-                $msg = vsprintf($msg, implode(',', $aParam));
+                $msg = vsprintf($msg, implode(', ', $aParam));
             } else if (substr_count($msg, '%s') == 0) {
-                $msg = $msg . ' [ ' . implode(',', $aParam) . ' ] ';
+                $msg = $msg . ' [ ' . implode(', ', $aParam) . ' ] ';
             }
         }
 
