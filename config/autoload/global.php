@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'caches' => array(
         'CacheBnet' => array(
@@ -79,6 +78,28 @@ return array(
             'map' => array(
                 'APIrTk\\V1' => 'rtk',
                 'APIBlizzard\\V1' => 'blizzard',
+            ),
+        ),
+    ),
+    'log-user' => array(
+        '\Log-user' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => 'data/log/users.log',),
+                ),
+            ),
+        ),
+        '\Log-logiciel' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => 'data/log/rtk.log',),
+                ),
             ),
         ),
     ),
