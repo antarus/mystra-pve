@@ -13,6 +13,8 @@ namespace Application;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 
+use Application\Service\LogService;
+
 class Module {
 
     public function onBootstrap(MvcEvent $e) {
@@ -30,6 +32,15 @@ class Module {
             'Zend\Loader\ClassMapAutoloader' => array(
                 __DIR__ . '/autoload_classmap.php',
             ),
+        );
+    }
+    
+    public function getServiceConfig() {
+        return array(
+            'invokables' => array(
+                'ModuleManagerService' => 'Application\Service\ModuleManagerService',
+                'LogService' => 'Application\Service\LogService',
+            )
         );
     }
 
