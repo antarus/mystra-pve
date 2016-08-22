@@ -35,7 +35,7 @@ return array(
             'Zend\\Db\\Adapter\\Adapter' => 'Zend\\Db\\Adapter\\AdapterServiceFactory'
         ),
         'abstract_factories' => array(
-            'Zend\\Log\\LoggerAbstractServiceFactory',
+            'Zend\Log\LoggerAbstractServiceFactory',
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory'
         ),
     ),
@@ -81,7 +81,7 @@ return array(
             ),
         ),
     ),
-    'log-user' => array(
+    'log' => array(
         '\Log-user' => array(
             'writers' => array(
                 array(

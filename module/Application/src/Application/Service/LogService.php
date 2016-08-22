@@ -137,16 +137,6 @@ class LogService implements ServiceLocatorAwareInterface {
     }
 
     /**
-     * Lazy getter pour la session Opérateur
-     * @return \Zend\Session\Container Informations de la session opérateur
-     */
-    private function _getOperatorSession() {
-        return  $this->_operatorSession ?
-                    $this->_operatorSession :
-                    $this->_operatorSession = new \Zend\Session\Container('operateur');
-    }
-
-    /**
      * Lazy getter pour le nom de l'utilisateur
      * Si il est connecté via l'interface web, c'est son nom d'opérateur
      * Si il est connecté via SSH sur le serveur, c'est USER@IP
@@ -156,10 +146,11 @@ class LogService implements ServiceLocatorAwareInterface {
     private function _getUserName() {
         return  $this->_userName ?
                     $this->userName :
-                    $this->userName = ($this->zfcUserAuthentication()->hasIdentity())?
+                    $this->userName = "thomas";
+                            /*($this->zfcUserAuthentication()->hasIdentity())?
                             $this->zfcUserAuthentication()->getIdentity()->getId().':'.
-                            $this->zfcUserAuthentication()->getIdentity()->getDisplayname()
-                        : "undifined";
+                            $this->zfcUserAuthentication()->getIdentity()->getDisplayname()*/
+                       // : "undefined";
                                 
         ;
     }
