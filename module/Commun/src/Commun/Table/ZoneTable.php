@@ -145,7 +145,9 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
             $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->zones();
             $aZoneBnet = $zone->find($aPost['idZone']);
             if (!$aZoneBnet) {
-                throw new BnetException(499, $this->_getServiceLocator()->get('translator'));
+                $aError = array();
+                $aError[] = $aPost['idZone'];
+                throw new BnetException(499, $this->_getServiceLocator(), $aError);
             }
             $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet);
             $oZone = $this->saveOrUpdateZone($oZone);
@@ -248,7 +250,7 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 }
             }
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de l'import de zone", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de zone", 0, $this->_getServiceLocator(), $ex);
         }
     }
 
@@ -269,7 +271,7 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                                 "nom" => $oZone->getNom()));
                 }
             } catch (\Exception $exc) {
-                throw new DatabaseException(7000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(7000, 4, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
             }
 
             // si n'existe pas on insert
@@ -278,19 +280,19 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                     $this->insert($oZone);
                     $oZone->setIdZone($this->lastInsertValue);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(7000, 2, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(7000, 2, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
                 }
             } else {
                 try {
                     // sinon on update
                     $this->update($oZone);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(7000, 1, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(7000, 1, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
                 }
             }
             return $oZone;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de la sauvegarde de la zone", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde de la zone", 0, $this->_getServiceLocator(), $ex);
         }
     }
 

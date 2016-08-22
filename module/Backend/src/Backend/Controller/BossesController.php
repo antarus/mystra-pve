@@ -10,20 +10,28 @@ use Zend\View\Model\ViewModel;
  * @author Antarus
  * @project Raid-TracKer
  */
-class BossesController extends \Zend\Mvc\Controller\AbstractActionController
-{
+class BossesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
-
     public $_table = null;
+    private $_logService;
+
+    /**
+     * Lazy getter pour le service de logs
+     * @return \Application\Service\LogService
+     */
+    protected function _getLogService() {
+        return $this->_logService ?
+                $this->_logService :
+                $this->_logService = $this->getServiceLocator()->get('LogService');
+    }
 
     /**
      * Retourne le service de traduction en mode lazy.
      *
      * @return
      */
-    public function _getServTranslator()
-    {
+    public function _getServTranslator() {
         if (!$this->_servTranslator) {
             $this->_servTranslator = $this->getServiceLocator()->get('translator');
         }
@@ -35,8 +43,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return
      */
-    public function getTable()
-    {
+    public function getTable() {
         if (!$this->_table) {
             $this->_table = $this->getServiceLocator()->get('\Commun\Table\BossesTable');
         }
@@ -49,8 +56,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return le template de la page liste.
      */
-    public function listAction()
-    {
+    public function listAction() {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('backend/bosses/list');
@@ -62,9 +68,8 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return reponse au format Ztable
      */
-    public function ajaxListAction()
-    {
-        $oTable = new \Commun\Grid\BossesGrid($this->getServiceLocator(),$this->getPluginManager());
+    public function ajaxListAction() {
+        $oTable = new \Commun\Grid\BossesGrid($this->getServiceLocator(), $this->getPluginManager());
         $oTable->setAdapter($this->getAdapter())
                 ->setSource($this->getTable()->getBaseQuery())
                 ->setParamAdapter($this->getRequest()->getPost());
@@ -76,19 +81,18 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function createAction()
-    {
-        $oForm = new \Commun\Form\BossesForm();//new \Commun\Form\BossesForm($this->getServiceLocator());
+    public function createAction() {
+        $oForm = new \Commun\Form\BossesForm(); //new \Commun\Form\BossesForm($this->getServiceLocator());
         $oRequest = $this->getRequest();
-        
+
         $oFiltre = new \Commun\Filter\BossesFilter();
         $oForm->setInputFilter($oFiltre->getInputFilter());
-        
+
         if ($oRequest->isPost()) {
             $oEntite = new \Commun\Model\Bosses();
-        
+
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
@@ -107,8 +111,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return array
      */
-    public function updateAction()
-    {
+    public function updateAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         try {
             $oEntite = $this->getTable()->findRow($id);
@@ -117,19 +120,20 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
                 return $this->redirect()->toRoute('backend-bosses-list');
             }
         } catch (\Exception $ex) {
-           $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la bosses."), 'error');
-           return $this->redirect()->toRoute('backend-bosses-list');
+
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la bosses."), 'error');
+            return $this->redirect()->toRoute('backend-bosses-list');
         }
-        $oForm = new \Commun\Form\BossesForm();//new \Commun\Form\BossesForm($this->getServiceLocator());
+        $oForm = new \Commun\Form\BossesForm(); //new \Commun\Form\BossesForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\BossesFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
         $oForm->bind($oEntite);
-        
+
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
             $oForm->setData($oRequest->getPost());
-        
+
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La bosses a été modifié avec succès."), 'success');
@@ -147,8 +151,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return redirection vers la liste
      */
-    public function deleteAction()
-    {
+    public function deleteAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
         if (!$id) {
             return $this->redirect()->toRoute('backend-bosses-list');
@@ -165,8 +168,7 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return \Zend\Db\Adapter\Adapter
      */
-    public function getAdapter()
-    {
+    public function getAdapter() {
         return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
     }
 
@@ -175,14 +177,11 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController
      *
      * @return page html
      */
-    public function htmlResponse($html)
-    {
+    public function htmlResponse($html) {
         $response = $this->getResponse()
-        ->setStatusCode(200)
-        ->setContent($html);
+                ->setStatusCode(200)
+                ->setContent($html);
         return $response;
     }
 
-
 }
-

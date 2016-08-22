@@ -574,7 +574,10 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         try {
             $oTabNom = $this->getTablePersonnage()->selectBy(array("nom" => $sNom));
         } catch (\Exception $exc) {
-            throw new DatabaseException(2000, 4, $this->_getServiceLocator()->get('translator'));
+            $aError = array();
+            $aError[] = $aLstPersonnage;
+            $aError[] = $sNom;
+            throw new DatabaseException(2000, 4, $this->_getServiceLocator(), $aError, $exc);
         }
         return $oTabNom;
     }

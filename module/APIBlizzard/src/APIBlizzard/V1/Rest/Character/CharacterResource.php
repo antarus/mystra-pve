@@ -106,7 +106,7 @@ class CharacterResource extends AbstractResourceListener {
 
             return $oReturn;
         } catch (\Exception $ex) {
-
+            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
         }
     }

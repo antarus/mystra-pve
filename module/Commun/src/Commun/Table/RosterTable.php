@@ -72,7 +72,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                         array(
                             "idRoster" => $oRoster->getIdRoster()));
             } catch (\Exception $exc) {
-                throw new DatabaseException(6000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getArrayCopy(), $exc);
             }
             //si l'e nom existe et que c'est le meme id'identifiant existe,
             if ($oTabRoster) {
@@ -81,12 +81,12 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                             array(
                                 "nom" => $oRoster->getNom()));
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(6000, 4, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getNom(), $exc);
                 }
                 //si le nom existe
                 if ($oRosterTmp) {
                     // on leve un exception de contrainte unique
-                    throw new DatabaseException(6000, 5, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(6000, 5, $this->_getServiceLocator(), $oRoster->getNom());
                 }
 
 
@@ -110,7 +110,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oOldBank);
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oOldDisenchant);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(6000, 1, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(6000, 1, $this->_getServiceLocator(), $oRoster->getArrayCopy(), $exc);
                 }
             }
             try {
@@ -118,13 +118,13 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                         array(
                             "nom" => $oRoster->getNom()));
             } catch (\Exception $exc) {
-                throw new DatabaseException(6000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getArrayCopy(), $exc);
             }
 
             //si le nom existe et que les id sont differents
             if ($oTabRoster && $oTabRoster->getIdRoster() != $oRoster->getIdRoster()) {
                 // on leve un exception de contrainte unique
-                throw new DatabaseException(6000, 5, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(6000, 5, $this->_getServiceLocator(), $oRoster->getArrayCopy());
             }
 
             // si n'existe pas on insert
@@ -153,12 +153,16 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oRosterBank);
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oRosterDisenchant);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(6000, 2, $this->_getServiceLocator()->get('translator'));
+                    $aError = array();
+                    $aError[] = $oRoster->getArrayCopy();
+                    $aError[] = $oRosterBank->getArrayCopy();
+                    $aError[] = $oRosterDisenchant->getArrayCopy();
+                    throw new DatabaseException(6000, 2, $this->_getServiceLocator(), $aError, $exc);
                 }
             }
             return $oRoster;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de la sauvegarde ou mise à jour du roster", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde ou mise à jour du roster", 0, $this->_getServiceLocator(), $ex);
         }
     }
 

@@ -4,6 +4,7 @@
 return array(
     'Commun\Exception\BnetException' => __DIR__ . '/src/Commun/Exception/BnetException.php',
     'Commun\Exception\DatabaseException' => __DIR__ . '/src/Commun/Exception/DatabaseException.php',
+    'Commun\Exception\LogException' => __DIR__ . '/src/Commun/Exception/LogException.php',
     'Commun\Filter\BossesFilter' => __DIR__ . '/src/Commun/Filter/BossesFilter.php',
     'Commun\Filter\BossesHasNpcFilter' => __DIR__ . '/src/Commun/Filter/BossesHasNpcFilter.php',
     'Commun\Filter\ClassesFilter' => __DIR__ . '/src/Commun/Filter/ClassesFilter.php',

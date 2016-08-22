@@ -50,7 +50,7 @@ class RaidsTable extends \Core\Table\AbstractTable {
                             "date" => $oRaids->getDate()));
             }
         } catch (\Exception $exc) {
-            throw new DatabaseException(4000, 4, $this->_getServiceLocator()->get('translator'));
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $oRaids->getArrayCopy(), $exc);
         }
         // si n'existe pas on insert
         if (!$oTabRaid) {
@@ -58,7 +58,7 @@ class RaidsTable extends \Core\Table\AbstractTable {
                 $this->insert($oRaids);
                 $oRaids->setIdRaid($this->lastInsertValue);
             } catch (\Exception $exc) {
-                throw new DatabaseException(4000, 2, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(4000, 2, $this->_getServiceLocator(), $oRaids->getArrayCopy(), $exc);
             }
         } else {
             try {
@@ -67,7 +67,7 @@ class RaidsTable extends \Core\Table\AbstractTable {
                 $oRaids->setMajPar("Import Raid-TracKer");
                 $this->update($oRaids);
             } catch (\Exception $exc) {
-                throw new DatabaseException(4000, 1, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(4000, 1, $this->_getServiceLocator(), $oRaids->getArrayCopy(), $exc);
             }
         }
         return $oRaids;

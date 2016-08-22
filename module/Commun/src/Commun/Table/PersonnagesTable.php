@@ -110,7 +110,10 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
-                throw new BnetException(299, $this->_getServiceLocator()->get('translator'), $aPost);
+                $aError = array();
+                $aError[] = $aPost['serveur'];
+                $aError[] = $aPost['nom'];
+                throw new BnetException(299, $this->_getServiceLocator(), $aError);
             }
             return $aPersoBnet;
 
@@ -147,7 +150,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                                 "idFaction" => $oPersonnage->getIdFaction()));
                 }
             } catch (\Exception $exc) {
-                throw new DatabaseException(2000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(2000, 4, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
             }
             // si n'existe pas on insert
             if (!$oTabPersonnage) {
@@ -159,7 +162,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                     $this->insert($oPersonnage);
                     $oPersonnage->setIdPersonnage($this->lastInsertValue);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(2000, 2, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(2000, 2, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
                 }
             } else {
                 try {
@@ -171,12 +174,12 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                     $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
                     $this->update($oPersonnage);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(2000, 1, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(2000, 1, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
                 }
             }
             return $oPersonnage;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de la sauvegarde du personnage", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde du personnage", 0, $this->_getServiceLocator(), $ex);
         }
     }
 

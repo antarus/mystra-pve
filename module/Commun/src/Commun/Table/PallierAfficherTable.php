@@ -120,7 +120,7 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                                 "idRoster" => $aPallier['idRoster']));
                 }
             } catch (\Exception $exc) {
-                throw new DatabaseException(10000, 4, $this->_getServiceLocator()->get('translator'), $aPallier, $exc);
+                throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $aPallier, $exc);
             }
             $oPallier = new \Commun\Model\PallierAfficher();
             $oPallier->setIdModeDifficulte($aPallier['idModeDifficulte']);
@@ -132,12 +132,12 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                     $oTabLien = $this->select(
                             array("idRoster" => $aPallier['idRoster']));
                     if ($oTabLien->count() == $this->_getConfig()["pallier"]["max"]) {
-                        throw new DatabaseException(10000, 7, $this->_getServiceLocator()->get('translator'));
+                        throw new DatabaseException(10000, 7, $this->_getServiceLocator(), $aPallier);
                     }
                     $this->insert($oPallier->getArrayCopySauvegarde());
                     $oPallier->setIdPallierAffiche($this->lastInsertValue);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(10000, 2, $this->_getServiceLocator()->get('translator'), array(), $exc);
+                    throw new DatabaseException(10000, 2, $this->_getServiceLocator(), $oPallier->getArrayCopy(), $exc);
                 }
             } else {
                 try {
@@ -145,12 +145,12 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                     $oPallier->setIdPallierAffiche($oTabLien->getIdPallierAffiche());
                     $this->update($oPallier->getArrayCopySauvegarde());
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(10000, 1, $this->_getServiceLocator()->get('translator'), array(), $exc);
+                    throw new DatabaseException(10000, 1, $this->_getServiceLocator(), $oPallier->getArrayCopy(), $exc);
                 }
             }
             return $oPallier;
         } catch (\Exception $ex) {
-            throw new \Exception($this->_getServiceLocator()->get('translator')->translate("Erreur lors de la sauvegarde du pallier."), 0, $ex);
+            throw new \Commun\Exception\LogException($this->_getServiceLocator()->get('translator')->translate("Erreur lors de la sauvegarde du pallier."), 0, $this->_getServiceLocator(), $ex);
         }
     }
 
