@@ -50,7 +50,7 @@ return array(
             1002 => 'SET NAMES \'UTF8\'',
         ),
     ),
-    'urlProjet' => 'dev.Raid-TracKer.com',
+    //Auth
     'zf-mvc-auth' => array(
         'authentication' => array(
             'adapters' => array(
@@ -99,6 +99,16 @@ return array(
                     'priority' => 1000,
                     'options' => array(
                         'stream' => 'data/log/rtk.log',),
+                ),
+            ),
+        ),
+        '\Log-debug' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => 'data/log/debug.log',),
                 ),
             ),
         ),

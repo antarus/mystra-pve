@@ -37,7 +37,7 @@ class LogService implements ServiceLocatorAwareInterface {
     /**
      * Constante désignant le plus bas niveau de criticité (7)
      */
-    const DEBUG     = \Zend\Log\Logger::DEBUG;
+    const TRACE     = \Zend\Log\Logger::DEBUG;
 
     private $_critArray = array(
         self::EMERG,
@@ -47,7 +47,7 @@ class LogService implements ServiceLocatorAwareInterface {
         self::WARN,
         self::NOTICE,
         self::INFO,
-        self::DEBUG,
+        self::TRACE,
     );
 
 
@@ -59,10 +59,15 @@ class LogService implements ServiceLocatorAwareInterface {
      * Constante désignant la cible des logs utilisateur
      */
     const USER = 11;
+    /**
+     * Constante désignant la cible des logs debug
+     */
+    const DEBUG = 12;
 
     private $_logArray = array(
         self::USER,
         self::LOGICIEL,
+        self::DEBUG,
     );
 
     /**
@@ -75,7 +80,11 @@ class LogService implements ServiceLocatorAwareInterface {
      * @var string Le nom donné au logger Logiciel
      */
     private $_logUserName = '\Log-user';
-
+    /**
+     * Le nom donné au logger Utilisateur
+     * @var string Le nom donné au logger Logiciel
+     */
+    private $_logDebugName = '\Log-debug';
 
     /**
      * Le ServiceLocator de ce Service
@@ -95,10 +104,12 @@ class LogService implements ServiceLocatorAwareInterface {
      */
     private $_logService;
     /**
-     * Un Container contenant la session de l'opérateur
-     * @var \Zend\Session\Container Informations de la session de l'opérateur
+     * Le service de debug log logiciel, pour garder une trace des actions effectuées.
+     * Utilisable à travers le lazy getter.
+     * @var service Service de log logiciel.
      */
-    private $_operatorSession;
+    private $_debuglogService;
+    
     /**
      * Le nom de l'utilisateur sous forme de chaine de caractères
      * @var string Le nom de l'utilisateur
@@ -135,7 +146,16 @@ class LogService implements ServiceLocatorAwareInterface {
                     $this->_logService :
                     $this->_logService = $this->getServiceLocator()->get($this->_logLogicielName);
     }
-
+    /**
+     * Lazy getter pour le service des logs logiciel
+     * @return service Service de log logiciel
+     */
+    private function _getDebugLogService() {
+        return $this->_debuglogService ?
+                    $this->_debuglogService :
+                    $this->_debuglogService = $this->getServiceLocator()->get($this->_logDebugName);
+    }
+    
     /**
      * Lazy getter pour le nom de l'utilisateur
      * Si il est connecté via l'interface web, c'est son nom d'opérateur
@@ -234,6 +254,9 @@ class LogService implements ServiceLocatorAwareInterface {
             case self::USER :
                 $this->_logUser($crit, $filteredMessage);
                 break;
+            case self::DEBUG :
+                if($this->_getConfigService()['conf']['debug']) $this->_logDebug($crit, $filteredMessage);
+                break;
             default :
                 throw new \Exception('Cible non gérée : ' . $target);
         }
@@ -276,6 +299,10 @@ class LogService implements ServiceLocatorAwareInterface {
             case self::LOGICIEL:
                 $headerArray = array('INFORMATIONS', 'MODULE', 'FICHIER', 'LIGNE', 'UTILISATEUR', 'PROVENANCE', 'MESSAGE');
                 $logPath = $this->_getPathToLogLogiciel();
+                break;
+            case self::DEBUG:
+                $headerArray = array('INFORMATIONS', 'MODULE', 'FICHIER', 'LIGNE', 'UTILISATEUR', 'PROVENANCE', 'MESSAGE');
+                $logPath = $this->_getPathToLogDebug();
                 break;
             default :
                 throw new \Exception('Type de log non géré : ' . $logs);
@@ -326,6 +353,18 @@ class LogService implements ServiceLocatorAwareInterface {
             '| ' . $module . ' | ' . $this->_getUserName() . ' | ' . $this->_getRemoteAddr() . ' | ' . $msg
         );
     }
+    
+    private function _logDebug($crit, $msg) {
+        $trace = debug_backtrace();
+        $module = explode('\\', $trace[2]['class'])[0];
+        $file = str_replace($this->_getPathToRoot(), '', $trace[1]['file']);
+        $line = $trace[1]['line'];
+
+        $this->_getDebugLogService()->log(
+            $crit,
+            '| ' . $module . ' | ' . $file . ' | ' . $line . ' | ' . $this->_getUserName() . ' | ' . $this->_getRemoteAddr() . ' | ' . $msg
+        );
+    }
 
     /**
      * Méthode retournant le chemin vers la racine de WebKiosk
@@ -349,5 +388,9 @@ class LogService implements ServiceLocatorAwareInterface {
      */
     private function _getPathToLogUser() {
         return $this->_getPathToRoot() . '/' . $this->_getConfigService()['log'][$this->_logUserName]['writers'][0]['options']['stream'];
+    }
+    
+    private function _getPathToLogDebug() {
+        return $this->_getPathToRoot() . '/' . $this->_getConfigService()['log'][$this->_logDebugName]['writers'][0]['options']['stream'];
     }
 }
