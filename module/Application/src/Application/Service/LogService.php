@@ -144,13 +144,13 @@ class LogService implements ServiceLocatorAwareInterface {
      * @return string Le nom de l'utilisateur
      */
     private function _getUserName() {
+        
+        $sm = $this->getServiceLocator();
+        $auth = $sm->get('zfcuser_auth_service');
         return  $this->_userName ?
                     $this->userName :
-                    $this->userName = "thomas";
-                            /*($this->zfcUserAuthentication()->hasIdentity())?
-                            $this->zfcUserAuthentication()->getIdentity()->getId().':'.
-                            $this->zfcUserAuthentication()->getIdentity()->getDisplayname()*/
-                       // : "undefined";
+                    $this->userName =($auth->hasIdentity())?
+                            $auth->getIdentity()->getId().':'.$auth->getIdentity()->getUsername() : "undefined";
                                 
         ;
     }
