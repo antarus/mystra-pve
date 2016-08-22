@@ -9,6 +9,7 @@ use Zend\Cache\Storage\ClearByPrefixInterface;
 use Zend\Cache\Storage\OptimizableInterface;
 use Zend\Cache\Storage\AvailableSpaceCapableInterface;
 use Zend\Cache\Storage\TotalSpaceCapableInterface;
+use Zend\Cache\Storage\TaggableInterface;
 use Zend\Cache\Storage\StorageInterface;
 use Zend\Console\ColorInterface as Color;
 use Zend\Console\Prompt\Select as ConsoleSelect;
@@ -140,7 +141,7 @@ class CacheController extends AbstractActionController {
             $namespace = $this->params('by-namespace', false);
             if ($namespace) {
                 if (!$cache instanceof ClearByNamespaceInterface) {
-                    $console->writeLine(sprintf('Cache does not supprt to clear by namespace'), Color::WHITE, Color::RED);
+                    $console->writeLine(sprintf('Cache does not support to clear by namespace'), Color::WHITE, Color::RED);
                     return;
                 }
 
@@ -158,6 +159,19 @@ class CacheController extends AbstractActionController {
 
                 $cache->clearByPrefix($prefix);
                 $console->writeLine('Cache cleared all items prefixed with ' . $prefix);
+                return;
+            }
+
+            $tag = $this->params('by-tag', false);
+            if ($tag) {
+                //  $console->writeLine(var_dump($cache));
+                if (!$cache instanceof TaggableInterface) {
+                    $console->writeLine(sprintf('Cache does not support to clear by tag'), Color::WHITE, Color::RED);
+                    return;
+                }
+
+                $cache->clearByTags(array($tag));
+                $console->writeLine('Cache cleared all items tag with ' . $prefix);
                 return;
             }
         }
@@ -223,7 +237,6 @@ class CacheController extends AbstractActionController {
 
     protected function getCaches() {
         $config = $this->getServiceLocator()->get('Config');
-        echo 'getCaches';
         if (!array_key_exists('caches', $config)) {
             throw new \Exception('No abstract caches registerd to select');
         }

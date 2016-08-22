@@ -22,7 +22,7 @@ class Module {
                 'Bnet\ClientFactory' => function($sm) {
                     $config = $sm->get('config');
                     $cache = $sm->get('CacheBnet');
-                    return new ClientFactory($config['battlenet']['apikey'], $cache);
+                    return new ClientFactory($config['battlenet']['apikey'], $sm, $cache);
                 },
             )
         );

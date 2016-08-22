@@ -54,7 +54,22 @@ class CharacterResource extends AbstractResourceListener {
      * @return string
      */
     protected function getRequestKey($url, array $options) {
+        $options[] = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
         return hash_hmac('md5', $url, serialize($options));
+    }
+
+    /**
+     * Ajoute un item au cache et le tag avec "id:nomId" de l'utilisateur connecté.
+     * @param type $key
+     * @param type $data
+     */
+    protected function addItem($key, $data) {
+        $auth = $this->service->get('zfcuser_auth_service');
+        $tag = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $this->cache->addItem($key, $data);
+        $this->cache->setTags($key, array($tag));
     }
 
     /**
@@ -87,7 +102,7 @@ class CharacterResource extends AbstractResourceListener {
             $oReturn['class'] = $this->_tableClasses->findRow($oReturn['class'])->getNom();
             $oReturn['gender'] = $oReturn['gender'] == 0 ? "Male" : "Female";
 
-            $this->cache->setItem($key, $oReturn);
+            $this->addItem($key, $oReturn);
 
             return $oReturn;
         } catch (\Exception $ex) {

@@ -34,7 +34,7 @@ return array(
                 ),
                 'cache-clear' => array(
                     'options' => array(
-                        'route' => 'cache (--clear|--flush):mode [--force|-f] [<name>] [--expired|-e] [--by-namespace=] [--by-prefix=]',
+                        'route' => 'cache (--clear|--flush):mode [--force|-f] [<name>] [--expired|-e] [--by-namespace=] [--by-prefix=] [--by-tag=]',
                         'defaults' => array(
                             'controller' => 'Backend\\Controller\\Cache',
                             'action' => 'clear'

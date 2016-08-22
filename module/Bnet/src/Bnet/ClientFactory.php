@@ -21,12 +21,17 @@ class ClientFactory {
     protected $cache;
 
     /**
+     * @var service
+     */
+    protected $service;
+
+    /**
      * @param string        $apiKey
      * @param StorageInterface $cache
      */
-    public function __construct($apiKey, StorageInterface $cache = null) {
+    public function __construct($apiKey, $service, StorageInterface $cache = null) {
         $this->apiKey = $apiKey;
-
+        $this->service = $service;
         if ($cache === null) {
             $cache = StorageFactory::adapterFactory('memory ', array('ttl' => 600));
         }
@@ -56,7 +61,7 @@ class ClientFactory {
      * @return DiabloClient
      */
     public function diablo(Region $region) {
-        return new DiabloClient($this->apiKey, $region, $this->cache);
+        return new DiabloClient($this->apiKey, $this->service, $region, $this->cache);
     }
 
     /**
@@ -65,7 +70,7 @@ class ClientFactory {
      * @return StarcraftClient
      */
     public function starcraft(Region $region) {
-        return new StarcraftClient($this->apiKey, $region, $this->cache);
+        return new StarcraftClient($this->apiKey, $this->service, $region, $this->cache);
     }
 
     /**
@@ -74,7 +79,7 @@ class ClientFactory {
      * @return WarcraftClient
      */
     public function warcraft(Region $region) {
-        return new WarcraftClient($this->apiKey, $region, $this->cache);
+        return new WarcraftClient($this->apiKey, $this->service, $region, $this->cache);
     }
 
 }
