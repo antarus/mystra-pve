@@ -32,4 +32,6 @@ return array(
     'Backend\Controller\ZoneHasBossesController' => __DIR__ . '/src/Backend/Controller/ZoneHasBossesController.php',
     'Backend\Controller\ZoneHasModeDiffculteController' => __DIR__ . '/src/Backend/Controller/ZoneHasModeDiffculteController.php',
     'Backend\Module' => __DIR__ . '/Module.php',
+    'Backend\Controller\CacheController' => __DIR__ . '/src/Backend/Controller/CacheController.php',
+    'Backend\Controller\OpcodeCacheController' => __DIR__ . '/src/Backend/Controller/OpcodeCacheController.php',
 );

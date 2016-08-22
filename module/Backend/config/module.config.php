@@ -41,6 +41,8 @@ return array(
             'Backend\\Controller\\Zone' => 'Backend\\Controller\\ZoneController',
             'Backend\\Controller\\ZoneHasBosses' => 'Backend\\Controller\\ZoneHasBossesController',
             'Backend\\Controller\\ZoneHasModeDiffculte' => 'Backend\\Controller\\ZoneHasModeDiffculteController',
+            'Backend\\Controller\\Cache' => 'Backend\\Controller\\CacheController',
+            'Backend\\Controller\\Opcode' => 'Backend\\Controller\\OpcodeCacheController',
         ),
     ),
     'view_manager' => array(

@@ -21,7 +21,7 @@ class Module {
             'factories' => array(
                 'Bnet\ClientFactory' => function($sm) {
                     $config = $sm->get('config');
-                    $cache = $sm->get('Zend\Cache\Storage\Filesystem');
+                    $cache = $sm->get('CacheBnet');
                     return new ClientFactory($config['battlenet']['apikey'], $cache);
                 },
             )

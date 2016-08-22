@@ -1,19 +1,17 @@
 <?php
+
 /**
  * BjyAuthorize Module (https://github.com/bjyoungblood/BjyAuthorize)
  *
  * @link https://github.com/bjyoungblood/BjyAuthorize for the canonical source repository
  * @license http://framework.zend.com/license/new-bsd New BSD License
  */
-
 return array(
     'bjyauthorize' => array(
         // default role for unauthenticated users
-        'default_role'          => 'guest',
-
+        'default_role' => 'guest',
         // identity provider service name
-        'identity_provider'     => 'BjyAuthorize\Provider\Identity\ZfcUserZendDb',
-
+        'identity_provider' => 'BjyAuthorize\Provider\Identity\ZfcUserZendDb',
         // Role providers to be used to load all available roles into Zend\Permissions\Acl\Acl
         // Keys are the provider service names, values are the options to be passed to the provider
         'role_providers' => array(
@@ -23,18 +21,16 @@ return array(
                 'parent_role_field' => 'parent'
             )
         ),
-
         // Resource providers to be used to load all available resources into Zend\Permissions\Acl\Acl
         // Keys are the provider service names, values are the options to be passed to the provider
-        'resource_providers'    => array(
-                'BjyAuthorize\Provider\Resource\Config' => array(
-        'menu' => array(),
-    ),
+        'resource_providers' => array(
+            'BjyAuthorize\Provider\Resource\Config' => array(
+                'menu' => array(),
+            ),
         ),
-
         // Rule providers to be used to load all available rules into Zend\Permissions\Acl\Acl
         // Keys are the provider service names, values are the options to be passed to the provider
-        'rule_providers'        => array(   
+        'rule_providers' => array(
             'BjyAuthorize\Provider\Rule\Config' => array(
                 'allow' => array(
                     array(array('admin'), 'menu', 'menu_admin')
@@ -43,25 +39,20 @@ return array(
                 ),
             ),
         ),
-
         // Guard listeners to be attached to the application event manager
-        'guards'                => array(
+        'guards' => array(
             'BjyAuthorize\Guard\Route' => array(
-                array('route' => 'zfcuser', 'roles' => array('user','guest','admin')),
-                array('route' => 'zfcuser/logout', 'roles' => array('user','admin')),
+                array('route' => 'zfcuser', 'roles' => array('user', 'guest', 'admin')),
+                array('route' => 'zfcuser/logout', 'roles' => array('user', 'admin')),
                 array('route' => 'zfcuser/login', 'roles' => array('guest')),
                 array('route' => 'zfcuser/register', 'roles' => array('guest')),
-                
-                array('route' => 'home', 'roles' => array('guest','user','admin')),
-                array('route' => 'contact', 'roles' => array('guest', 'user','admin')),
-                array('route' => 'apropos', 'roles' => array('guest', 'user','admin')),
-                array('route' => 'discordbot', 'roles' => array('guest', 'user','admin')),
-                
-                array('route' => 'api-blizzard.rest.character', 'roles' => array('guest', 'user','admin')),
-                
-                array('route' => 'api-rt-k.rest.loot', 'roles' => array('guest', 'user','admin')),
-                array('route' => 'api-rt-k.rest.roster', 'roles' => array('guest', 'user','admin')),
-                
+                array('route' => 'home', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'contact', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'apropos', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'discordbot', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'api-blizzard.rest.character', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'api-rt-k.rest.loot', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'api-rt-k.rest.roster', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'backend-index', 'roles' => array('admin')),
                 array('route' => 'backend-bosses-list', 'roles' => array('admin')),
                 array('route' => 'backend-bosses-ajaxList', 'roles' => array('admin')),
@@ -230,78 +221,76 @@ return array(
                 array('route' => 'backend-pallier-afficher-delete', 'roles' => array('admin')),
                 array('route' => 'backend-zone-autocomplete', 'roles' => array('admin')),
                 array('route' => 'backend-mode-autocomplete', 'roles' => array('admin')),
-                
-                
+                array('route' => 'cache-list', 'roles' => array('admin')),
+                array('route' => 'cache-status', 'roles' => array('admin')),
+                array('route' => 'cache-status-list', 'roles' => array('admin')),
+                array('route' => 'cache-clear', 'roles' => array('admin')),
+                array('route' => 'cache-optimize', 'roles' => array('admin')),
+                array('route' => 'opcode-cache-clear', 'roles' => array('admin')),
             ),
         ),
-
         // strategy service name for the strategy listener to be used when permission-related errors are detected
         'unauthorized_strategy' => 'BjyAuthorize\View\UnauthorizedStrategy',
-
         // Template name for the unauthorized strategy
-        'template'              => 'error/403',
-
+        'template' => 'error/403',
         // cache options have to be compatible with Zend\Cache\StorageFactory::factory
-        'cache_options'         => array(
-            'adapter'   => array(
+        'cache_options' => array(
+            'adapter' => array(
                 'name' => 'memory',
             ),
-            'plugins'   => array(
+            'plugins' => array(
                 'serializer',
             )
         ),
-
         // Key used by the cache for caching the acl
-        'cache_key'             => 'bjyauthorize_acl'
+        'cache_key' => 'bjyauthorize_acl'
     ),
-
     'service_manager' => array(
         'factories' => array(
-            'BjyAuthorize\Cache'                    => 'BjyAuthorize\Service\CacheFactory',
-            'BjyAuthorize\CacheKeyGenerator'        => 'BjyAuthorize\Service\CacheKeyGeneratorFactory',
-            'BjyAuthorize\Config'                   => 'BjyAuthorize\Service\ConfigServiceFactory',
-            'BjyAuthorize\Guards'                   => 'BjyAuthorize\Service\GuardsServiceFactory',
-            'BjyAuthorize\RoleProviders'            => 'BjyAuthorize\Service\RoleProvidersServiceFactory',
-            'BjyAuthorize\ResourceProviders'        => 'BjyAuthorize\Service\ResourceProvidersServiceFactory',
-            'BjyAuthorize\RuleProviders'            => 'BjyAuthorize\Service\RuleProvidersServiceFactory',
-            'BjyAuthorize\Guard\Controller'         => 'BjyAuthorize\Service\ControllerGuardServiceFactory',
-            'BjyAuthorize\Guard\Route'              => 'BjyAuthorize\Service\RouteGuardServiceFactory',
-            'BjyAuthorize\Provider\Role\Config'     => 'BjyAuthorize\Service\ConfigRoleProviderServiceFactory',
-            'BjyAuthorize\Provider\Role\ZendDb'     => 'BjyAuthorize\Service\ZendDbRoleProviderServiceFactory',
-            'BjyAuthorize\Provider\Rule\Config'     => 'BjyAuthorize\Service\ConfigRuleProviderServiceFactory',
+            'BjyAuthorize\Cache' => 'BjyAuthorize\Service\CacheFactory',
+            'BjyAuthorize\CacheKeyGenerator' => 'BjyAuthorize\Service\CacheKeyGeneratorFactory',
+            'BjyAuthorize\Config' => 'BjyAuthorize\Service\ConfigServiceFactory',
+            'BjyAuthorize\Guards' => 'BjyAuthorize\Service\GuardsServiceFactory',
+            'BjyAuthorize\RoleProviders' => 'BjyAuthorize\Service\RoleProvidersServiceFactory',
+            'BjyAuthorize\ResourceProviders' => 'BjyAuthorize\Service\ResourceProvidersServiceFactory',
+            'BjyAuthorize\RuleProviders' => 'BjyAuthorize\Service\RuleProvidersServiceFactory',
+            'BjyAuthorize\Guard\Controller' => 'BjyAuthorize\Service\ControllerGuardServiceFactory',
+            'BjyAuthorize\Guard\Route' => 'BjyAuthorize\Service\RouteGuardServiceFactory',
+            'BjyAuthorize\Provider\Role\Config' => 'BjyAuthorize\Service\ConfigRoleProviderServiceFactory',
+            'BjyAuthorize\Provider\Role\ZendDb' => 'BjyAuthorize\Service\ZendDbRoleProviderServiceFactory',
+            'BjyAuthorize\Provider\Rule\Config' => 'BjyAuthorize\Service\ConfigRuleProviderServiceFactory',
             'BjyAuthorize\Provider\Resource\Config' => 'BjyAuthorize\Service\ConfigResourceProviderServiceFactory',
-            'BjyAuthorize\Service\Authorize'        => 'BjyAuthorize\Service\AuthorizeFactory',
+            'BjyAuthorize\Service\Authorize' => 'BjyAuthorize\Service\AuthorizeFactory',
             'BjyAuthorize\Provider\Identity\ProviderInterface'
-                => 'BjyAuthorize\Service\IdentityProviderServiceFactory',
+            => 'BjyAuthorize\Service\IdentityProviderServiceFactory',
             'BjyAuthorize\Provider\Identity\AuthenticationIdentityProvider'
-                => 'BjyAuthorize\Service\AuthenticationIdentityProviderServiceFactory',
+            => 'BjyAuthorize\Service\AuthenticationIdentityProviderServiceFactory',
             'BjyAuthorize\Provider\Role\ObjectRepositoryProvider'
-                => 'BjyAuthorize\Service\ObjectRepositoryRoleProviderFactory',
-            'BjyAuthorize\Collector\RoleCollector'  => 'BjyAuthorize\Service\RoleCollectorServiceFactory',
+            => 'BjyAuthorize\Service\ObjectRepositoryRoleProviderFactory',
+            'BjyAuthorize\Collector\RoleCollector' => 'BjyAuthorize\Service\RoleCollectorServiceFactory',
             'BjyAuthorize\Provider\Identity\ZfcUserZendDb'
-                => 'BjyAuthorize\Service\ZfcUserZendDbIdentityProviderServiceFactory',
+            => 'BjyAuthorize\Service\ZfcUserZendDbIdentityProviderServiceFactory',
             'BjyAuthorize\View\UnauthorizedStrategy'
-                => 'BjyAuthorize\Service\UnauthorizedStrategyServiceFactory',
+            => 'BjyAuthorize\Service\UnauthorizedStrategyServiceFactory',
             'BjyAuthorize\Service\RoleDbTableGateway' => 'BjyAuthorize\Service\UserRoleServiceFactory',
         ),
-        'invokables'  => array(
+        'invokables' => array(
             'BjyAuthorize\View\RedirectionStrategy' => 'BjyAuthorize\View\RedirectionStrategy',
         ),
-        'aliases'     => array(
+        'aliases' => array(
             'bjyauthorize_zend_db_adapter' => 'Zend\Db\Adapter\Adapter',
         ),
         'initializers' => array(
             'BjyAuthorize\Service\AuthorizeAwareServiceInitializer'
-                => 'BjyAuthorize\Service\AuthorizeAwareServiceInitializer'
+            => 'BjyAuthorize\Service\AuthorizeAwareServiceInitializer'
         ),
     ),
     'view_manager' => array(
-    'template_map' => array(
-        'error/403' => realpath('./module/Application/view/error/403.phtml'),
-        'zend-developer-tools/toolbar/bjy-authorize-role' => __DIR__ . '/../view/zend-developer-tools/toolbar/bjy-authorize-role.phtml'
+        'template_map' => array(
+            'error/403' => realpath('./module/Application/view/error/403.phtml'),
+            'zend-developer-tools/toolbar/bjy-authorize-role' => __DIR__ . '/../view/zend-developer-tools/toolbar/bjy-authorize-role.phtml'
         )
     ),
-
     'zenddevelopertools' => array(
         'profiler' => array(
             'collectors' => array(

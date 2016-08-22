@@ -108,14 +108,6 @@ abstract class AbstractClient {
         switch ((int) $response->getStatusCode()) {
             case 200:
                 $data = json_decode($response->getBody(), true);
-                if ($response->getHeaders()->has('Last-Modified') === true) {
-                    $this->cache->replaceItem($key, $data);
-//                    $key->set([
-//                        'modified' => $response->getHeaders()->get('Last-Modified'),
-//                        'json' => $data,
-//                    ]);
-                }
-
                 $this->cache->setItem($key, $data);
 
                 return $data;

@@ -1,5 +1,7 @@
 <?php
 
+use Zend\Console\Console;
+
 /**
  * This makes our life easier when dealing with paths. Everything is relative
  * to the application root now.
@@ -29,5 +31,11 @@ if (file_exists(APPLICATION_PATH . '/config/development.config.php')) {
     $appConfig = Zend\Stdlib\ArrayUtils::merge($appConfig, include APPLICATION_PATH . '/config/development.config.php');
 }
 //fin apigility
+if (Console::isConsole()) {
+    // pas besoin d'authorization en console
+    array_splice($appConfig['modules'], array_search('BjyAuthorize', $appConfig['modules']), 1);
+} else {
+    $appConfig['module_listener_options']['config_glob_paths'][] = 'config/autoload/module.bjyauthorize.optional.php';
+}
 // Run the application!
 Zend\Mvc\Application::init($appConfig)->run();
