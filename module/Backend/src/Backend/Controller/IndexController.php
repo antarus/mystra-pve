@@ -59,7 +59,7 @@ class IndexController extends AbstractActionController {
         }
         else
         {            
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le cache n'a put être supprimer ( voir droit www-data)."), 'erreur');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Le cache n'a put être supprimer ( voir droit www-data)."), 'error');
             $this->_getLogService()->log(LogService::ALERT, "Cache non supprimer , erreur lors de la demande.", LogService::LOGICIEL);
         }
         
