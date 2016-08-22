@@ -20,8 +20,13 @@ class CacheController extends AbstractActionController {
         $console = $this->getConsole();
         $caches = array_keys($this->getCaches());
 
+        $request = $this->getRequest();
+
+
         foreach ($caches as $cache) {
-            $console->writeLine($cache);
+            if ($request instanceof ConsoleRequest) {
+                $console->writeLine($cache);
+            }
         }
     }
 

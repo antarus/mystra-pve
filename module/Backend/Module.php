@@ -18,6 +18,9 @@ use Zend\Console\Adapter\AdapterInterface as Console;
 
 class Module {
 
+    private $app;
+    private $serviceManager;
+
     public function init(\Zend\ModuleManager\ModuleManager $mm) {
         $mm->getEventManager()->getSharedManager()->attach(__NAMESPACE__, 'dispatch', function($e) {
             $e->getTarget()->layout('backend/layout');
@@ -28,6 +31,8 @@ class Module {
         $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+        $this->app = $e->getApplication();
+        $this->serviceManager = $this->app->getServiceManager();
     }
 
     public function getConfig() {
@@ -58,27 +63,28 @@ class Module {
     }
 
     public function getConsoleUsage(Console $console) {
+        $oTranslator = $this->serviceManager->get('translator');
         $usage = array(
-            'Suppression',
-            'cache --flush [--force|-f] [<name>]' => 'Flush completement le cache',
-            'cache --clear [--force|-f] [<name>] --expired|-e' => 'Supprime le cache expiré',
-            'cache --clear [--force|-f] [<name>] --by-namespace=' => 'Supprime le cache par namespace',
-            'cache --clear [--force|-f] [<name>] --by-prefix=' => 'Supprime le cache par prefix',
-            array('<name>', 'Nom optionel du service de cache'),
-            array('--expired|-e', 'Supprime tous les éléments expirés du cache'),
-            array('--by-namespace=', 'Supprime tous les éléments du cache ayant le namespace donné'),
-            array('--by-prefix=', 'Supprime tous les éléments du cache ayant le préfixe donné'),
-            array('--force|-f', 'Force la suppression sans demandé de confirmation'),
-            'Optimisation',
-            'cache --optimize [<name>]' => 'Optimise le cache',
-            array('<name>', 'Nom optionel du service de cache'),
-            'Information',
-            'cache --status [<name>] [-h]' => 'Affiche les informations concernant le cache',
-            array('<name>', 'Nom optionel du service de cache'),
-            array('-h', 'Affiche les information de manière lisible'),
-            'Fichier de configuration applicative',
-            'cache --clear-config' => 'Supprime le fichier de configuration fusionné',
-            'cache --clear-module-map' => 'Supprime le fichier de mappage de module',
+            $oTranslator->translate('Suppression'),
+            'cache --flush [--force|-f] [<name>]' => $oTranslator->translate('Flush completement le cache'),
+            'cache --clear [--force|-f] [<name>] --expired|-e' => $oTranslator->translate('Supprime le cache expiré'),
+            'cache --clear [--force|-f] [<name>] --by-namespace=' => $oTranslator->translate('Supprime le cache par namespace'),
+            'cache --clear [--force|-f] [<name>] --by-prefix=' => $oTranslator->translate('Supprime le cache par prefix'),
+            array('<name>', $oTranslator->translate('Nom optionel du service de cache')),
+            array('--expired|-e', $oTranslator->translate('Supprime tous les éléments expirés du cache')),
+            array('--by-namespace=', $oTranslator->translate('Supprime tous les éléments du cache ayant le namespace donné')),
+            array('--by-prefix=', $oTranslator->translate('Supprime tous les éléments du cache ayant le préfixe donné')),
+            array('--force|-f', $oTranslator->translate('Force la suppression sans demandé de confirmation')),
+            $oTranslator->translate('Optimisation'),
+            'cache --optimize [<name>]' => $oTranslator->translate('Optimise le cache'),
+            array('<name>', $oTranslator->translate('Nom optionel du service de cache')),
+            $oTranslator->translate('Information'),
+            'cache --status [<name>] [-h]' => $oTranslator->translate('Affiche les informations concernant le cache'),
+            array('<name>', $oTranslator->translate('Nom optionel du service de cache')),
+            array('-h', $oTranslator->translate('Affiche les information de manière lisible')),
+            $oTranslator->translate('Fichier de configuration applicative'),
+            'cache --clear-config' => $oTranslator->translate('Supprime le fichier de configuration fusionné'),
+            'cache --clear-module-map' => $oTranslator->translate('Supprime le fichier de mappage de module'),
         );
 
 
