@@ -41,15 +41,20 @@ abstract class AbstractClient {
     protected $version;
 
     /**
+     * @var Service
+     */
+    protected $service;
+
+    /**
      * @param string        $apiKey
      * @param Region        $region
      * @param StorageInterface $cache
      */
-    public function __construct($apiKey, Region $region, StorageInterface $cache) {
+    public function __construct($apiKey, $service, Region $region, StorageInterface $cache) {
         $this->apiKey = $apiKey;
         $this->cache = $cache;
         $this->region = $region;
-        //$this->cache->setNamespace(str_replace('\\', '', get_class($this)));
+        $this->service = $service;
     }
 
     /**
@@ -83,6 +88,19 @@ abstract class AbstractClient {
     }
 
     /**
+     * Ajoute un item au cache et le tag avec "id:nomId" de l'utilisateur connecté.
+     * @param type $key
+     * @param type $data
+     */
+    protected function addItem($key, $data) {
+        $auth = $this->service->get('zfcuser_auth_service');
+        $tag = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $this->cache->addItem($key, $data);
+        $this->cache->setTags($key, array($tag));
+    }
+
+    /**
      * @return string
      */
     protected function getUserAgent() {
@@ -108,11 +126,11 @@ abstract class AbstractClient {
         switch ((int) $response->getStatusCode()) {
             case 200:
                 $data = json_decode($response->getBody(), true);
-                $this->cache->setItem($key, $data);
+                $this->addItem($key, $data);
 
                 return $data;
             case 304:
-                return $this->cache->getItem($key);
+                return $this->cache->addItem($key);
                 ;
             case 404:
                 return null;
