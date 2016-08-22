@@ -27,7 +27,7 @@ return array(
                 'type' => 'segment',
                 'options' =>
                 array(
-                    'route' => '/backend/',
+                    'route' => '/backend/[:action]',
                     'constraints' =>
                     array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]+',

@@ -1,5 +1,5 @@
 <div class="row">
-    <form action="" name="" >
-        
+    <form action="<?php echo $this->url('backend-index',array('action'=>'resetcache')) ?>" name="reset-cache" >
+        <input type="submit" value="<?php echo $this->translate('Reset cache');?>" />
     </form>
 </div>
