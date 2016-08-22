@@ -13,6 +13,8 @@ class RosterResource extends AbstractResourceListener {
     private $_servTranslator;
     /* @var $_service */
     private $_service;
+    /* @var $cache StorageInterface    */
+    private $cache;
 
     /**
      * Retourne la table RosterTable.
@@ -67,6 +69,17 @@ class RosterResource extends AbstractResourceListener {
      */
     public function __construct($services) {
         $this->_service = $services;
+        $this->cache = $services->get('CacheApi');
+    }
+
+    /**
+     * @param string $url
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function getRequestKey($url, array $options) {
+        return hash_hmac('md5', $url, serialize($options));
     }
 
     /**
@@ -78,7 +91,11 @@ class RosterResource extends AbstractResourceListener {
     public function fetch($id) {
         try {
             $sNom = $this->getEvent()->getRouteParam('roster_name');
+            $key = $this->getRequestKey('APIRtK-roster', array($sNom));
 
+            if ($this->cache->hasItem($key) === true) {
+                return $this->cache->getItem($key);
+            }
             /* @var $oTabRoster \Commun\Model\Roster  */
             $oTabRoster = $this->getTableRoster()->selectBy(
                     array(
@@ -93,11 +110,12 @@ class RosterResource extends AbstractResourceListener {
             $aRoleModifie = array();
             foreach ($aRoles as $aRole) {
                 $aLstPerso = $this->getTableRosterHasPersonnage()->getListePersonnage($aRole['idRole'], $oTabRoster->getIdRoster());
-
                 $aRole["personnages"] = $aLstPerso;
                 $aRoleModifie[] = $aRole;
             }
             $oResult->setRoles($aRoleModifie);
+
+            $this->cache->setItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);

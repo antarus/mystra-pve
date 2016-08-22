@@ -22,6 +22,9 @@ class CharacterResource extends AbstractResourceListener {
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable  */
     private $_tablePersonnage;
 
+    /* @var $cache StorageInterface    */
+    private $cache;
+
     /**
      * Retourne la table PersonnagesTable.
      * @return \Commun\Table\PersonnagesTable
@@ -41,6 +44,17 @@ class CharacterResource extends AbstractResourceListener {
         $this->_service = $services;
         $this->_tableRace = $services->get('\Commun\Table\RaceTable');
         $this->_tableClasses = $services->get('\Commun\Table\ClassesTable');
+        $this->cache = $services->get('CacheApi');
+    }
+
+    /**
+     * @param string $url
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function getRequestKey($url, array $options) {
+        return hash_hmac('md5', $url, serialize($options));
     }
 
     /**
@@ -53,26 +67,29 @@ class CharacterResource extends AbstractResourceListener {
         try {
             $sNom = $this->getEvent()->getRouteParam('character_id');
             $sServer = $this->getEvent()->getRouteParam('api-character-server');
+
+            $key = $this->getRequestKey('APIBlizzard-character', array($sNom, $sServer));
+
+            if ($this->cache->hasItem($key) === true) {
+                return $this->cache->getItem($key);
+            }
+
             $aPost = array(
                 'serveur' => $sServer,
                 'nom' => $sNom
             );
             $aOptionBnet = array();
-//            try {
+
             $oPersonnage = $this->getTablePersonnage()->importPersonnage($aPost, null, $aOptionBnet);
             $oReturn = $oPersonnage->jsonSerialize();
 
             $oReturn['race'] = $this->_tableRace->findRow($oReturn['race'])->getNom();
             $oReturn['class'] = $this->_tableClasses->findRow($oReturn['class'])->getNom();
             $oReturn['gender'] = $oReturn['gender'] == 0 ? "Male" : "Female";
+
+            $this->cache->setItem($key, $oReturn);
+
             return $oReturn;
-//            } catch (\Exception $ex) {
-//                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
-//                if ($aAjaxEx["code"] == 299) {
-//                    return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"));
-//                }
-//                return new ApiProblem(500, $aAjaxEx['msg'], $this->_getServTranslator()->translate("Erreur interne"), $this->_getServTranslator()->translate("Erreur interne du serveur"));
-//            }
         } catch (\Exception $ex) {
 
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);

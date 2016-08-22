@@ -19,6 +19,8 @@ class LootResource extends AbstractResourceListener {
 
     /* @var $_tableItems \Commun\Table\ItemsTable */
     private $_tableItems;
+    /* @var $cache StorageInterface    */
+    private $cache;
 
     /**
      * Retourne la table ItemsTable.
@@ -71,6 +73,17 @@ class LootResource extends AbstractResourceListener {
      */
     public function __construct($services) {
         $this->_service = $services;
+        $this->cache = $services->get('CacheApi');
+    }
+
+    /**
+     * @param string $url
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function getRequestKey($url, array $options) {
+        return hash_hmac('md5', $url, serialize($options));
     }
 
     /**
@@ -83,6 +96,12 @@ class LootResource extends AbstractResourceListener {
         try {
             $sServer = $this->getEvent()->getRouteParam('loot_server');
             $sNom = $this->getEvent()->getRouteParam('loot_name');
+            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer));
+
+            if ($this->cache->hasItem($key) === true) {
+                return $this->cache->getItem($key);
+            }
+
             $oTabPersonnage = $this->getTablePersonnage()->selectBy(
                     array(
                         "nom" => $sNom,
@@ -115,6 +134,7 @@ class LootResource extends AbstractResourceListener {
                 $aItemsPersonnage[] = $aItem;
             }
             $oResult->setItems($aItemsPersonnage);
+            $this->cache->setItem($key, $oResult);
 
             return $oResult;
         } catch (\Exception $ex) {
