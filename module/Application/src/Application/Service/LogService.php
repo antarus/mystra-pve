@@ -156,14 +156,12 @@ class LogService implements ServiceLocatorAwareInterface {
     private function _getUserName() {
         return  $this->_userName ?
                     $this->userName :
-                    $this->userName = (
-                        $this->_getOperatorSession()->offsetGet('user') ?
-                            $this->_getOperatorSession()->offsetGet('user') : (
-                                isset($_SERVER) && !empty($_SERVER['USER']) && !empty($_SERVER['SSH_CLIENT']) ?
-                                    $_SERVER['USER'] . '@' . split(' ', $_SERVER['SSH_CLIENT'])[0] :
-                                    'Utilisateur non loggé'
-                                )
-                    );
+                    $this->userName = ($this->zfcUserAuthentication()->hasIdentity())?
+                            $this->zfcUserAuthentication()->getIdentity()->getId().':'.
+                            $this->zfcUserAuthentication()->getIdentity()->getDisplayname()
+                        : "undifined";
+                                
+        ;
     }
 
     /**

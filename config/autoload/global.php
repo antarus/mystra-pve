@@ -82,13 +82,13 @@ return array(
         ),
     ),
     'log-user' => array(
-        '\Log' => array(
+        '\Log-user' => array(
             'writers' => array(
                 array(
                     'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                        'stream' => 'log/webkiosk.log',),
+                        'stream' => 'data/log/users.log',),
                 ),
             ),
         ),
@@ -98,7 +98,7 @@ return array(
                     'name' => 'stream',
                     'priority' => 1000,
                     'options' => array(
-                        'stream' => 'log/err.log',),
+                        'stream' => 'data/log/rtk.log',),
                 ),
             ),
         ),
