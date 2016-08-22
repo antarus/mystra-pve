@@ -28,6 +28,9 @@ return array(
         'pallier' => array(
             // Le nombre maximal de pallier
             'max' => '2'
-        ),
+        ),        
+        'urlProjet' => 'dev.Raid-TracKer.com',
+        // si true, enregistre les log de debug. (passer à false en prod).
+        'debug' => true,
     ),
 );

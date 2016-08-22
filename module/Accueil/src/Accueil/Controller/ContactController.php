@@ -32,6 +32,7 @@ class ContactController extends AbstractActionController
           // Log de l'update
         $this->_getLogService()->log(LogService::NOTICE, "test de log user", LogService::USER);
         $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::LOGICIEL);
+        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::DEBUG);
         
         return new ViewModel();
     }

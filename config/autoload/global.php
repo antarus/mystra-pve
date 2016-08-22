@@ -35,7 +35,7 @@ return array(
             'Zend\\Db\\Adapter\\Adapter' => 'Zend\\Db\\Adapter\\AdapterServiceFactory'
         ),
         'abstract_factories' => array(
-            'Zend\\Log\\LoggerAbstractServiceFactory',
+            'Zend\Log\LoggerAbstractServiceFactory',
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory'
         ),
     ),
@@ -50,7 +50,7 @@ return array(
             1002 => 'SET NAMES \'UTF8\'',
         ),
     ),
-    'urlProjet' => 'dev.Raid-TracKer.com',
+    //Auth
     'zf-mvc-auth' => array(
         'authentication' => array(
             'adapters' => array(
@@ -81,7 +81,7 @@ return array(
             ),
         ),
     ),
-    'log-user' => array(
+    'log' => array(
         '\Log-user' => array(
             'writers' => array(
                 array(
@@ -99,6 +99,16 @@ return array(
                     'priority' => 1000,
                     'options' => array(
                         'stream' => 'data/log/rtk.log',),
+                ),
+            ),
+        ),
+        '\Log-debug' => array(
+            'writers' => array(
+                array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => 'data/log/debug.log',),
                 ),
             ),
         ),
