@@ -10,6 +10,9 @@ $form->prepare();
 $form->setAttribute('action', $this->url('zfcuser/register'));
 $form->setAttribute('method', 'post');
 $form->setAttribute('autocomplete', 'off');
+
+$recaptcha = new ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_umUP0WK_JY-I',
+                                                 '6LcEWCgTAAAAAFUOb_kRkfLiQ2aZaxjgTKCDI74v');
 ?>
 
 <?php echo $this->form()->openTag($form) ?>
@@ -19,6 +22,7 @@ $form->setAttribute('autocomplete', 'off');
             <dt><?php echo $this->formLabel($element) ?></dt>
         <?php endif ?>
         <?php if ($element instanceof Zend\Form\Element\Button): ?>
+            <dd><?php echo $recaptcha->getHTML();?></dd>
             <dd><?php echo $this->formButton($element) ?></dd>
         <?php elseif ($element instanceof Zend\Form\Element\Captcha): ?>
             <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
@@ -26,6 +30,8 @@ $form->setAttribute('autocomplete', 'off');
             <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
         <?php endif ?>
     <?php endforeach ?>
+       
+
     </dl>
     <?php if ($this->redirect): ?>
         <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />

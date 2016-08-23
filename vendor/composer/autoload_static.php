@@ -394,6 +394,10 @@ class ComposerStaticInit8db416c586b988f14419f4ba1edd8198
             array (
                 0 => __DIR__ . '/..' . '/zendframework/zendxml/library',
             ),
+            'ZendService' => 
+            array (
+                0 => __DIR__ . '/..' . '/zendframework/zendservice-recaptcha/library',
+            ),
         ),
         'P' => 
         array (

@@ -41,32 +41,11 @@ class Module {
     {
         $events = $e->getApplication()->getEventManager()->getSharedManager();
         $events->attach('ZfcUser\Form\Register','init', function($e) {
-            $form = $e->getTarget();
-//             $form->add( array(
-//                                'name' => 'captcha',
-//                                'label'      => 'Please enter the 5 letters displayed below:',
-//                                'required'   => true,
-//                                'type' => 'Zend\Captcha\ReCaptcha',
-//                                'options' => array(
-//                                    'wordLen'    => 6,
-//                                    'expiration' => 300,
-//                                    'timeout'    => 300,
-//                                ), 
-//                            )
-//            );         
+            $form = $e->getTarget();     
             
         });
         $events->attach('ZfcUser\Form\RegisterFilter','init', function($e) {
             $filter = $e->getTarget();
-//            $filter->add(array(
-//                'username' => array(
-//                    'validators' => array(
-//                        array(
-//                            'name' => 'alnum'
-//                        ),
-//                    ),
-//                ),
-//            ));
         });
     }
     

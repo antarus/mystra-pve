@@ -13,7 +13,8 @@
         "dudapiotr/zftable": "dev-master",
         "zfcampus/zf-apigility": "~1.0",
         "zfr/zfr-cors": "1.*",
-        "zf-commons/zfc-user": "dev-master"
+        "zf-commons/zfc-user": "dev-master",
+        "zendframework/zendservice-recaptcha": "^2.0"
     },
     "require-dev": {
         "mockery/mockery": "^0.9.4",

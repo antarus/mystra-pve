@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "16dd4aeca392f9f92b6b8dd1a273e7ef",
-    "content-hash": "778fe93f7a258000cfcd661eb34e905f",
+    "hash": "bf504734e0cabb3cdc10551f14c676ff",
+    "content-hash": "cc74f1230ee2801b0d131b494c08b44e",
     "packages": [
         {
             "name": "bshaffer/oauth2-server-php",
@@ -4195,6 +4195,49 @@
                 "zf2"
             ],
             "time": "2016-01-27 18:00:44"
+        },
+        {
+            "name": "zendframework/zendservice-recaptcha",
+            "version": "2.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zendframework/ZendService_ReCaptcha.git",
+                "reference": "4324cca8502d9f47b3b43a18acdd3fdbeb965536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zendframework/ZendService_ReCaptcha/zipball/4324cca8502d9f47b3b43a18acdd3fdbeb965536",
+                "reference": "4324cca8502d9f47b3b43a18acdd3fdbeb965536",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "zendframework/zend-http": ">=2.0.0",
+                "zendframework/zend-uri": ">=2.0.0",
+                "zendframework/zend-version": ">=2.0.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "ZendService": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "OOP wrapper for the ReCaptcha web service",
+            "homepage": "http://packages.zendframework.com/",
+            "keywords": [
+                "recaptcha",
+                "zf2"
+            ],
+            "time": "2012-09-24 15:18:29"
         },
         {
             "name": "zendframework/zendxml",

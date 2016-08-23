@@ -12,6 +12,7 @@ return array(
     'ZfcBase' => array($vendorDir . '/zf-commons/zfc-base/src'),
     'ZfTable' => array($vendorDir . '/dudapiotr/zftable/src'),
     'ZendXml\\' => array($vendorDir . '/zendframework/zendxml/library'),
+    'ZendService' => array($vendorDir . '/zendframework/zendservice-recaptcha/library'),
     'Psr\\Log\\' => array($vendorDir . '/psr/log'),
     'Prophecy\\' => array($vendorDir . '/phpspec/prophecy/src'),
     'OAuth2' => array($vendorDir . '/bshaffer/oauth2-server-php/src'),
