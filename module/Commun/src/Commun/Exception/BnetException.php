@@ -2,7 +2,7 @@
 
 namespace Commun\Exception;
 
-class BnetException extends \Exception {
+class BnetException extends LogException {
 
     protected $ERROR = [
         500 => "Erreur inconnue [ %s ]",
@@ -12,14 +12,27 @@ class BnetException extends \Exception {
         499 => "Zone inconnu [ %s ]"
     ];
 
-    public function __construct($code = 500, $oTranslator, $aData = array()) {
+    public function __construct($code = 500, $oService, $aParam = array()) {
+        $this->setService($oService);
         if (isset($this->ERROR[$code])) {
             $msg = $this->ERROR[$code];
         } else {
             $msg = $this->ERROR[500];
             $code = 500;
         }
-        parent::__construct(vsprintf($oTranslator->translate($msg), implode(',', $aData)), $code, null);
+        if (isset($this->_getTranslator())) {
+            $msg = $this->_getTranslator()->translate($msg);
+        }
+        if (isset($aParam)) {
+            $msg.= " [ ";
+            foreach ($aParam as $key => $value) {
+                $msg.= $key . " => " . $value . ", ";
+            }
+            $msg.= " ]";
+        }
+
+
+        parent::__construct($msg, $code, $oService, null, $aParam);
     }
 
 }

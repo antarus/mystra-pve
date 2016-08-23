@@ -75,7 +75,11 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             $aGuildeBnet = $guild->find($aPost['guilde'], $aOptionBnet);
             if (!$aGuildeBnet) {
-                throw new BnetException(199, $this->_getServiceLocator()->get('translator'));
+                $aError = array();
+                $aError[] = $aPost['serveur'];
+                $aError[] = $aPost['guilde'];
+                $aError[] = $aPost['imp-membre'];
+                throw new BnetException(199, $this->_getServiceLocator(), $aError);
             }
 
             $aOptionFiltre = array();
@@ -95,7 +99,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             return $oGuilde;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de guilde", 0, $this->_getServiceLocator(), $ex);
         }
     }
 
@@ -119,7 +123,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                             "idFaction" => $oGuilde->getIdFaction()));
             }
         } catch (\Exception $exc) {
-            throw new DatabaseException(1000, 4, $this->_getServiceLocator()->get('translator'));
+            throw new DatabaseException(1000, 4, $this->_getServiceLocator(), $oGuilde->getArrayCopy(), $exc);
         }
         // si n'existe pas on insert
         if (!$oTabGuilde) {
@@ -127,7 +131,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                 $this->insert($oGuilde);
                 $oGuilde->setIdGuildes($this->lastInsertValue);
             } catch (\Exception $exc) {
-                throw new DatabaseException(1000, 2, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(1000, 2, $this->_getServiceLocator(), $oGuilde->getArrayCopy(), $exc);
             }
         } else {
             try {
@@ -135,7 +139,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
                 $oGuilde->setIdGuildes($oTabGuilde->getIdGuildes());
                 $this->update($oGuilde);
             } catch (\Exception $exc) {
-                throw new DatabaseException(1000, 1, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(1000, 1, $this->_getServiceLocator(), $oGuilde->getArrayCopy(), $exc);
             }
         }
         return $oGuilde;

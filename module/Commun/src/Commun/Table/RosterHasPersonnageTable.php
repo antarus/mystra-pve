@@ -76,12 +76,12 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
     public function supprimerRosterPersonnage($idRoster, $idPerso) {
         //recherche si le personnage existe dans le roster
         try {
-            $oTabRosterPersonnage = $this->selectBy(
-                    array(
-                        "idRoster" => $idRoster,
-                        "idPersonnage" => $idPerso));
+            $aRech = array(
+                "idRoster" => $idRoster,
+                "idPersonnage" => $idPerso);
+            $oTabRosterPersonnage = $this->selectBy($aRech);
         } catch (\Exception $exc) {
-            throw new DatabaseException(5000, 4, $this->_getServiceLocator()->get('translator'));
+            throw new DatabaseException(5000, 4, $this->_getServiceLocator(), $aRech, $exc);
         }
         if ($oTabRosterPersonnage) {
             try {
@@ -92,7 +92,7 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
 
                 $this->delete($cleCompose);
             } catch (\Exception $exc) {
-                throw new DatabaseException(5000, 3, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(5000, 3, $this->_getServiceLocator(), $cleCompose, $exc);
             }
         }
     }
@@ -107,30 +107,30 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
 
             //recherche si le personnage existe
             try {
-                $oTabRosterPersonnage = $this->selectBy(
-                        array(
-                            "idRoster" => $oLienRosterPers->getIdRoster(),
-                            "idPersonnage" => $oLienRosterPers->getIdPersonnage()));
+                $aRech = array(
+                    "idRoster" => $oLienRosterPers->getIdRoster(),
+                    "idPersonnage" => $oLienRosterPers->getIdPersonnage());
+                $oTabRosterPersonnage = $this->selectBy($aRech);
             } catch (\Exception $exc) {
-                throw new DatabaseException(5000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(5000, 4, $this->_getServiceLocator(), $aRech, $exc);
             }
             // si n'existe pas on insert
             if (!$oTabRosterPersonnage) {
                 try {
                     $this->insert($oLienRosterPers);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(5000, 2, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(5000, 2, $this->_getServiceLocator(), $aRech, $exc);
                 }
             } else {
                 try {
                     $this->update($oLienRosterPers, array('idRoster' => $oLienRosterPers->getIdRoster(), 'idPersonnage' => $oLienRosterPers->getIdPersonnage()));
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(5000, 1, $this->_getServiceLocator()->get('translator'));
+                    throw new DatabaseException(5000, 1, $this->_getServiceLocator(), $aRech, $exc);
                 }
             }
             return $oLienRosterPers;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de l'import de guilde", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de guilde", 0, $this->_getServiceLocator(), $ex);
         }
     }
 

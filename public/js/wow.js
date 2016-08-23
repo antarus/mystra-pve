@@ -32,7 +32,11 @@ function gestionImportAjax()
                 $("#msg").removeClass('alert-success');
                 $("#msg").removeClass('alert-danger');
                 if (html.responseJSON.error) {
-                    $("#msg").addClass('alert-danger').text(html.responseJSON.error.msg);
+                    if (html.responseJSON.error.msg) {
+                        $("#msg").addClass('alert-danger').text(html.responseJSON.error.msg);
+                    } else {
+                        $("#msg").addClass('alert-danger').text(html.responseJSON.error.type);
+                    }
                 } else if (html.responseJSON.trace) {
                     $("#msg").addClass('alert-danger').text(html.responseJSON.title);
                 } else {

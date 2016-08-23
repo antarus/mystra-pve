@@ -59,14 +59,14 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
                         array(
                             "idBnet" => $aInfoItem[0]));
             } catch (\Exception $exc) {
-                throw new DatabaseException(3000, 4, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(3000, 4, $this->_getServiceLocator(), $aPost, $exc);
             }
             // si n'existe pas on importe
             if (!$oTabItems) {
                 $itemBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->items();
                 $oBnetItem = $itemBnet->find($aInfoItem[0]);
                 if (!$oBnetItem) {
-                    throw new BnetException(399, $this->_getServiceLocator()->get('translator'));
+                    throw new BnetException(399, $this->_getServiceLocator(), $aPost);
                 }
                 $oItem = \Core\Util\ParserWow::extraitItemDepuisBnet($oBnetItem);
                 return $this->saveOrUpdateItem($oItem);
@@ -108,7 +108,7 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
         try {
             $oTabItem = $this->selectBy(array('idBnet' => $oItems->getIdBnet()));
         } catch (\Exception $exc) {
-            throw new DatabaseException(3000, 4, $this->_getServiceLocator()->get('translator'));
+            throw new DatabaseException(3000, 4, $this->_getServiceLocator(), $oItems->getArrayCopy(), $exc);
         }
         //si il existe pas on le cree
         if (!$oTabItem) {
@@ -121,7 +121,7 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
                 $this->insert($oTabItem);
                 $oTabItem->setIdItem($this->lastInsertValue);
             } catch (\Exception $exc) {
-                throw new DatabaseException(3000, 2, $this->_getServiceLocator()->get('translator'));
+                throw new DatabaseException(3000, 2, $this->_getServiceLocator(), $oItems->getArrayCopy(), $exc);
             }
         }
 

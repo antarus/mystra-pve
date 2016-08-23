@@ -2,7 +2,7 @@
 
 namespace Commun\Exception;
 
-class DatabaseException extends \Exception {
+class DatabaseException extends \Commun\Exception\LogException {
 
     protected $ERREUR_PRINC = [
         5000 => "Erreur inconnue",
@@ -28,7 +28,10 @@ class DatabaseException extends \Exception {
         7 => 'limite',
     ];
 
-    public function __construct($code = 5000, $erreurType = 0, $oTanslator = null, $aParam = array(), \Exception $previous = null) {
+    public function __construct($code = 5000, $erreurType = 0, $oService = null, $aParam = array(), \Exception $previous = null) {
+        $this->setService($oService);
+
+
         if (isset($this->message[$code + $erreurType])) {
             $msg = $this->message[$code + $erreurType];
             $codeErreur = $code + $erreurType;
@@ -36,24 +39,27 @@ class DatabaseException extends \Exception {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-        //handle error }
-        if (isset($oTanslator)) {
+        if (isset($this->_getTranslator())) {
             if (substr_count($msg, '%s') == count($aParam)) {
-                $msg = vsprintf($oTanslator->translate($msg), $aParam);
-            } if (substr_count($msg, '%s') < count($aParam)) {
-                $msg = vsprintf($oTanslator->translate($msg), implode(',', $aParam));
+                $msg = vsprintf($this->_getTranslator()->translate($msg), $aParam);
+            } else if (substr_count($msg, '%s') < count($aParam)) {
+                $msg = vsprintf($this->_getTranslator()->translate($msg), implode(', ', $aParam));
+            } else if (substr_count($msg, '%s') == 0) {
+                $msg = $this->_getTranslator()->translate($msg) . ' [ ' . implode(', ', $aParam) . ' ] ';
             } else {
-                $msg = $oTanslator->translate($msg);
+                $msg = $this->_getTranslator()->translate($msg);
             }
         } else {
             if (substr_count($msg, '%s') == count($aParam)) {
                 $msg = vsprintf($msg, $aParam);
-            } if (substr_count($msg, '%s') < count($aParam)) {
-                $msg = vsprintf($msg, implode(',', $aParam));
+            } else if (substr_count($msg, '%s') < count($aParam)) {
+                $msg = vsprintf($msg, implode(', ', $aParam));
+            } else if (substr_count($msg, '%s') == 0) {
+                $msg = $msg . ' [ ' . implode(', ', $aParam) . ' ] ';
             }
-
-            parent::__construct($msg, $codeErreur, $previous);
         }
+
+        parent::__construct($msg, $codeErreur, $oService, $previous, $aParam);
     }
 
     protected $message = array(

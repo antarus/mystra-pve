@@ -4,6 +4,7 @@ namespace APIRtK\V1\Rest\Roster;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Application\Service\LogService;
 
 class RosterResource extends AbstractResourceListener {
 
@@ -134,6 +135,7 @@ class RosterResource extends AbstractResourceListener {
             $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
+            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
         }
     }
