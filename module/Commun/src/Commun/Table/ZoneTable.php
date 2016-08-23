@@ -145,9 +145,7 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
             $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->zones();
             $aZoneBnet = $zone->find($aPost['idZone']);
             if (!$aZoneBnet) {
-                $aError = array();
-                $aError[] = $aPost['idZone'];
-                throw new BnetException(499, $this->_getServiceLocator(), $aError);
+                throw new BnetException(499, $this->_getServiceLocator(), $aPost);
             }
             $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet);
             $oZone = $this->saveOrUpdateZone($oZone);
@@ -250,7 +248,7 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 }
             }
         } catch (\Exception $ex) {
-            throw new \Commun\Exception\LogException("Erreur lors de l'import de zone", 0, $this->_getServiceLocator(), $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de zone", 0, $this->_getServiceLocator(), $ex, $aPost);
         }
     }
 
@@ -292,7 +290,7 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
             }
             return $oZone;
         } catch (\Exception $ex) {
-            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde de la zone", 0, $this->_getServiceLocator(), $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde de la zone", 0, $this->_getServiceLocator(), $ex, $oZone->getArrayCopy());
         }
     }
 

@@ -5,11 +5,11 @@ namespace Commun\Exception;
 class BnetException extends LogException {
 
     protected $ERROR = [
-        500 => "Erreur inconnue [ %s ]",
-        199 => "Guilde ou Serveur inconnue [ %s ].",
-        299 => "Personnage ou Serveur inconnu [ %s ].",
-        399 => "Item inconnu [ %s ]",
-        499 => "Zone inconnu [ %s ]"
+        500 => "Erreur inconnue",
+        199 => "Guilde ou Serveur inconnue.",
+        299 => "Personnage ou Serveur inconnu.",
+        399 => "Item inconnu",
+        499 => "Zone inconnu"
     ];
 
     public function __construct($code = 500, $oService, $aParam = array()) {
@@ -20,16 +20,19 @@ class BnetException extends LogException {
             $msg = $this->ERROR[500];
             $code = 500;
         }
-        if (isset($this->_getTranslator())) {
+        if ($this->_getTranslator() != null) {
             $msg = $this->_getTranslator()->translate($msg);
         }
-        if (isset($aParam)) {
-            $msg.= " [ ";
-            foreach ($aParam as $key => $value) {
-                $msg.= $key . " => " . $value . ", ";
-            }
-            $msg.= " ]";
-        }
+//        if (isset($aParam)) {
+//            $msg.= " [ ";
+//            foreach ($aParam as $value) {
+//                if (!empty($value)) {
+//                    $msg.= $value . ", ";
+//                }
+//            }
+//            $msg = substr($msg, 0, -2);
+//            $msg.= " ]";
+//        }
 
 
         parent::__construct($msg, $code, $oService, null, $aParam);

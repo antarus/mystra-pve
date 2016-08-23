@@ -239,6 +239,27 @@ class LogService implements ServiceLocatorAwareInterface {
         $this->_serviceLocator = $serviceLocator;
     }
 
+    public function genererParametre($aParam, $niv) {
+        if ($aParam instanceof \Zend\Stdlib\Parameters) {
+            $aParam = $aParam->getArrayCopy();
+        }
+        if (!isset($aParam) || empty($aParam)) {
+            return "";
+        }
+        if (is_array($aParam)) {
+            $msgParam = " @" . $niv . " [ ";
+            foreach ($aParam as $key => $value) {
+                $msgParam.= $key . " => " . $this->genererParametre($value, $niv + 1) . ", ";
+            }
+            $msgParam = substr($msgParam, 0, -2);
+            $msgParam .= " ] " . $niv . "@ ";
+
+            return $msgParam;
+        } else {
+            return $aParam;
+        }
+    }
+
     /**
      * Méthode permettant de logger des informations dans le logger cible
      * @param int $crit La criticité du log, de 0 à 7. Définie par les constantes
@@ -261,14 +282,8 @@ class LogService implements ServiceLocatorAwareInterface {
             $this->log(self::WARN, 'Tentative de log d\'un message contenant des caractères interdits.', self::LOGICIEL);
         }
         $filteredMessage = str_replace(array('|', PHP_EOL), array(':', ';'), $message);
-        if (isset($aParam) && !empty($aParam)) {
-            $filteredMessage.= " [ ";
-            foreach ($aParam as $key => $value) {
-                $filteredMessage.= $key . " => " . $value . ", ";
-            }
-            $filteredMessage.= " ]";
-        }
 
+        $filteredMessage.= $this->genererParametre($aParam, 0);
         switch ($target) {
             case self::LOGICIEL :
                 $this->_logLogiciel($crit, $filteredMessage);

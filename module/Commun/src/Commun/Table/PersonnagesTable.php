@@ -47,19 +47,8 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
         return $this->_servBnet;
     }
 
-    private $_logService;
-
     /**
-     * Lazy getter pour le service de logs
-     * @return service Le service de logs
-     */
-    private function _getLogService() {
-        return $this->_logService ?
-                $this->_logService :
-                $this->_logService = $this->_getServiceLocator()->get('LogService');
-    }
-
-    /**
+      /**
      * Retourne la query de base pour l'affichage de la liste des personnages.
      * @return Zend\Db\Sql\Select
      */
@@ -111,21 +100,17 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      */
     public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
-            $this->_getLogService()->log(LogService::NOTICE, "Début import personnage", LogService::DEBUG, $aPost);
+
             $aOptionBnet[] = 'items';
             $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
             $personnageBnet->on($aPost['serveur']);
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
+
                 throw new BnetException(299, $this->_getServiceLocator(), $aPost);
             }
             return $aPersoBnet;
-
-//                $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
-//                return $this->saveOrUpdatePersonnage($oPersonnage, $oGuilde);
-//            }
-//            return $oTabPersonnage;
         } catch (\Exception $ex) {
             throw new \Commun\Exception\LogException("Erreur lors de l'import de personnage", 0, $this->_getServiceLocator(), $ex, $aPost);
         }
@@ -155,7 +140,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                                 "idFaction" => $oPersonnage->getIdFaction()));
                 }
             } catch (\Exception $exc) {
-                throw new DatabaseException(2000, 4, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
+                throw new DatabaseException(2000, 4, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc, $oPersonnage->getArrayCopy());
             }
             // si n'existe pas on insert
             if (!$oTabPersonnage) {
@@ -167,7 +152,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                     $this->insert($oPersonnage);
                     $oPersonnage->setIdPersonnage($this->lastInsertValue);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(2000, 2, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
+                    throw new DatabaseException(2000, 2, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc, $oPersonnage->getArrayCopy());
                 }
             } else {
                 try {
@@ -179,12 +164,13 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
                     $oPersonnage->setIdPersonnage($oTabPersonnage->getIdPersonnage());
                     $this->update($oPersonnage);
                 } catch (\Exception $exc) {
-                    throw new DatabaseException(2000, 1, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc);
+                    throw new DatabaseException(2000, 1, $this->_getServiceLocator(), $oPersonnage->getArrayCopy(), $exc, $oPersonnage->getArrayCopy());
                 }
             }
+
             return $oPersonnage;
         } catch (\Exception $ex) {
-            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde du personnage", 0, $this->_getServiceLocator(), $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde du personnage", 0, $this->_getServiceLocator(), $ex, $oPersonnage->getArrayCopy());
         }
     }
 

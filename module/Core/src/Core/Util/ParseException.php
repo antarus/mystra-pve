@@ -7,7 +7,7 @@ use ZF\ApiProblem\ApiProblem;
 class ParseException {
 
     /**
-     * Retourne la première erreur de la chaine d'exception.
+     * Retourne la première erreur typé de la chaine d'exception.
      * @param \Exception $oException
      * @return \Exception
      */
@@ -15,6 +15,15 @@ class ParseException {
         $oExTmp = $oException;
         while (!empty($oExTmp->getPrevious())) {
             $oExTmp = $oExTmp->getPrevious();
+            switch ($oExTmp) {
+                case $oExTmp instanceof \Commun\Exception\BnetException;
+                    return $oExTmp;
+                    break;
+                case $oExTmp instanceof \Commun\Exception\DatabaseException;
+                    return $oExTmp;
+                    break;
+                default:
+            }
         }
         return $oExTmp;
     }

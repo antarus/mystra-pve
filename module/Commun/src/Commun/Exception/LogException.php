@@ -9,6 +9,7 @@ class LogException extends \Exception {
     private $_oService;
     private $_translator;
     private $_logService;
+    private $_param;
 
     /**
      * Lazy getter pour le service de logs
@@ -32,27 +33,19 @@ class LogException extends \Exception {
 
     public function __construct($message, $code = 500, $oService = null, \Exception $previous = null, $aParam = array()) {
         $this->_oService = $oService;
-        $this->_getLogService()->log(LogService::ERR, $message, LogService::LOGICIEL);
-        if (isset($aParam)) {
-            $msgParam = "paramètres : [ ";
-            foreach ($aParam as $key => $value) {
-                $msgParam .= $key . " => " . $value . ", ";
-            }
-            $msgParam .= " ]";
-            $this->_getLogService()->log(LogService::ERR, $msgParam, LogService::LOGICIEL);
-        }
+        $this->_getLogService()->log(LogService::ERR, $message, LogService::LOGICIEL, $aParam);
         if (isset($previous)) {
             $oExTmp = $previous;
             while (!empty($oExTmp->getPrevious())) {
-                $this->_getLogService()->log(LogService::ERR, $oExTmp->getMessage(), LogService::LOGICIEL);
+                $this->_getLogService()->log(LogService::ERR, $oExTmp->getMessage(), LogService::LOGICIEL, $aParam);
                 $oExTmp = $oExTmp->getPrevious();
             }
         }
+        $this->_param = $aParam;
         parent::__construct($message, $code, $previous);
     }
 
-    protected
-            function setService($_oService) {
+    protected function setService($_oService) {
         $this->_oService = $_oService;
     }
 

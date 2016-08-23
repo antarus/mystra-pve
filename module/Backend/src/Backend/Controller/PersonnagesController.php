@@ -4,6 +4,7 @@ namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Application\Service\LogService;
 
 /**
  * Controller pour la vue.
@@ -15,6 +16,17 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
 
     private $_servTranslator = null;
     private $_table = null;
+    private $_logService;
+
+    /**
+     * Lazy getter pour le service de logs
+     * @return \Application\Service\LogService
+     */
+    protected function _getLogService() {
+        return $this->_logService ?
+                $this->_logService :
+                $this->_logService = $this->getServiceLocator()->get('LogService');
+    }
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -86,7 +98,9 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTablePersonnage()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été créé avec succès."), 'success');
+                $msg = $this->_getServTranslator()->translate("Le personnages a été créé avec succès.");
+                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
+                $this->flashMessenger()->addMessage($msg, 'success');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
         }
@@ -125,7 +139,9 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
 
             if ($oForm->isValid()) {
                 $this->getTablePersonnage()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été modifié avec succès."), 'success');
+                $msg = $this->_getServTranslator()->translate("Le personnages a été modifié avec succès.");
+                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
+                $this->flashMessenger()->addMessage($msg, 'success');
                 return $this->redirect()->toRoute('backend-personnages-list');
             }
         }
@@ -148,7 +164,12 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         $oTable = $this->getTablePersonnage();
         $oEntite = $oTable->findRow($id);
         $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La personnages a été supprimé avec succès."), 'success');
+
+        $msg = $this->_getServTranslator()->translate("Le personnage a été supprimé avec succès.");
+        $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
+        $this->flashMessenger()->addMessage($msg, 'success');
+
+
         return $this->redirect()->toRoute('backend-personnages-list');
     }
 
@@ -213,11 +234,14 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
                 $aPersoBnet = $this->getTablePersonnage()->importPersonnage($aPost);
                 $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
                 $this->getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage);
-
                 $this->getTablePersonnage()->commit();
+
+                $msg = $this->_getServTranslator()->translate("Le personnage a été importé avec succès.");
+                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
             } catch (\Exception $ex) {
                 // on rollback en cas d'erreur
                 $this->getTablePersonnage()->rollback();
+                $this->_getLogService()->log(LogService::ERR, $this->_getServTranslator()->translate("Erreur lors de l'import du personnage."), LogService::USER, $aParam);
                 $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx

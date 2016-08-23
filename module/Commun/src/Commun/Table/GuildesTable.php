@@ -99,7 +99,7 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
             }
             return $oGuilde;
         } catch (\Exception $ex) {
-            throw new \Commun\Exception\LogException("Erreur lors de l'import de guilde", 0, $this->_getServiceLocator(), $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de guilde", 0, $this->_getServiceLocator(), $ex, $aPost);
         }
     }
 

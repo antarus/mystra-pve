@@ -14,17 +14,6 @@ class BossesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public $_servTranslator = null;
     public $_table = null;
-    private $_logService;
-
-    /**
-     * Lazy getter pour le service de logs
-     * @return \Application\Service\LogService
-     */
-    protected function _getLogService() {
-        return $this->_logService ?
-                $this->_logService :
-                $this->_logService = $this->getServiceLocator()->get('LogService');
-    }
 
     /**
      * Retourne le service de traduction en mode lazy.
