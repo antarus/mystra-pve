@@ -12,7 +12,7 @@ class BnetException extends LogException {
         499 => "Zone inconnu [ %s ]"
     ];
 
-    public function __construct($code = 500, $oService, $aData = array()) {
+    public function __construct($code = 500, $oService, $aParam = array()) {
         $this->setService($oService);
         if (isset($this->ERROR[$code])) {
             $msg = $this->ERROR[$code];
@@ -20,9 +20,19 @@ class BnetException extends LogException {
             $msg = $this->ERROR[500];
             $code = 500;
         }
+        if (isset($this->_getTranslator())) {
+            $msg = $this->_getTranslator()->translate($msg);
+        }
+        if (isset($aParam)) {
+            $msg.= " [ ";
+            foreach ($aParam as $key => $value) {
+                $msg.= $key . " => " . $value . ", ";
+            }
+            $msg.= " ]";
+        }
 
-        $msg = vsprintf($this->_getTranslator()->translate($msg), implode(', ', $aData));
-        parent::__construct($msg, $code, $oService, null);
+
+        parent::__construct($msg, $code, $oService, null, $aParam);
     }
 
 }

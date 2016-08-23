@@ -4,8 +4,7 @@ namespace APIBlizzard\V1\Rest\Character;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use \Bnet\Region;
-use \Bnet\ClientFactory;
+use Application\Service\LogService;
 
 class CharacterResource extends AbstractResourceListener {
     /* @var $_service */

@@ -4,6 +4,7 @@ namespace APIRtK\V1\Rest\Roster;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Application\Service\LogService;
 
 class RosterResource extends AbstractResourceListener {
 

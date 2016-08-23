@@ -6,6 +6,7 @@ use \Bnet\Region;
 use \Bnet\ClientFactory;
 use \Commun\Exception\BnetException;
 use \Commun\Exception\DatabaseException;
+use Application\Service\LogService;
 
 /**
  * @author Antarus
@@ -44,6 +45,18 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             $this->_servBnet = $this->_getServiceLocator()->get('Bnet\ClientFactory');
         }
         return $this->_servBnet;
+    }
+
+    private $_logService;
+
+    /**
+     * Lazy getter pour le service de logs
+     * @return service Le service de logs
+     */
+    private function _getLogService() {
+        return $this->_logService ?
+                $this->_logService :
+                $this->_logService = $this->_getServiceLocator()->get('LogService');
     }
 
     /**
@@ -98,22 +111,14 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      */
     public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
-//            $oTabPersonnage = $this->selectBy(
-//                    array(
-//                        "nom" => $aPost['nom'],
-//                        "royaume" => $aPost['serveur']));
-//// si n'existe pas on importe
-//            if (!$oTabPersonnage) {
+            $this->_getLogService()->log(LogService::NOTICE, "Début import personnage", LogService::DEBUG, $aPost);
             $aOptionBnet[] = 'items';
             $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
             $personnageBnet->on($aPost['serveur']);
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
-                $aError = array();
-                $aError[] = $aPost['serveur'];
-                $aError[] = $aPost['nom'];
-                throw new BnetException(299, $this->_getServiceLocator(), $aError);
+                throw new BnetException(299, $this->_getServiceLocator(), $aPost);
             }
             return $aPersoBnet;
 
@@ -122,7 +127,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
 //            }
 //            return $oTabPersonnage;
         } catch (\Exception $ex) {
-            throw new \Exception("Erreur lors de l'import de personnage", 0, $ex);
+            throw new \Commun\Exception\LogException("Erreur lors de l'import de personnage", 0, $this->_getServiceLocator(), $ex, $aPost);
         }
     }
 

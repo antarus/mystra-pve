@@ -4,6 +4,7 @@ namespace APIRtK\V1\Rest\Loot;
 
 use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
+use Application\Service\LogService;
 
 class LootResource extends AbstractResourceListener {
     /* @var $_service */

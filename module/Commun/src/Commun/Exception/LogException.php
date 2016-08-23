@@ -30,16 +30,29 @@ class LogException extends \Exception {
                 $this->_translator = $this->_oService->get('translator');
     }
 
-    public function __construct($message, $code = 500, $oService = null, \Exception $previous = null) {
+    public function __construct($message, $code = 500, $oService = null, \Exception $previous = null, $aParam = array()) {
         $this->_oService = $oService;
         $this->_getLogService()->log(LogService::ERR, $message, LogService::LOGICIEL);
+        if (isset($aParam)) {
+            $msgParam = "paramètres : [ ";
+            foreach ($aParam as $key => $value) {
+                $msgParam .= $key . " => " . $value . ", ";
+            }
+            $msgParam .= " ]";
+            $this->_getLogService()->log(LogService::ERR, $msgParam, LogService::LOGICIEL);
+        }
         if (isset($previous)) {
-            $this->_getLogService()->log(LogService::ERR, $previous->getMessage(), LogService::LOGICIEL);
+            $oExTmp = $previous;
+            while (!empty($oExTmp->getPrevious())) {
+                $this->_getLogService()->log(LogService::ERR, $oExTmp->getMessage(), LogService::LOGICIEL);
+                $oExTmp = $oExTmp->getPrevious();
+            }
         }
         parent::__construct($message, $code, $previous);
     }
 
-    protected function setService($_oService) {
+    protected
+            function setService($_oService) {
         $this->_oService = $_oService;
     }
 

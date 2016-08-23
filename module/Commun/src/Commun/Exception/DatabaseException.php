@@ -59,7 +59,7 @@ class DatabaseException extends \Commun\Exception\LogException {
             }
         }
 
-        parent::__construct($msg, $codeErreur, $oService, $previous);
+        parent::__construct($msg, $codeErreur, $oService, $previous, $aParam);
     }
 
     protected $message = array(
