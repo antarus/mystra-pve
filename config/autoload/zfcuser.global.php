@@ -13,7 +13,7 @@ $settings = array(
     'use_registration_form_captcha' => true,
     'use_redirect_parameter_if_present' => true,
 
-    //'user_login_widget_view_template' => 'zfc-user/user/login.phtml',
+    'user_login_widget_view_template' => 'users/widgetLogin.phtml',
     'login_redirect_route' => 'home',
     'logout_redirect_route' => 'home',
 
