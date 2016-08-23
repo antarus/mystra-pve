@@ -1,8 +1,6 @@
-<a href="<?php echo $this->url('backend-guildes-create'); ?>" class="btn btn-success"><?php echo $this->translate("Créer") ?></a>
-<a href="<?php echo $this->url('backend-guildes-import'); ?>" class="btn btn-success"><?php echo $this->translate("Importer") ?></a>
+<a href="<?php echo $this->url('backend-guildes-import'); ?>" class="btn btn-success"><?php echo $this->translate("Importer / maj") ?></a>
 <div id="tableContainer">
 </div>
 <script>
     $("#tableContainer").zfTable('<?php echo $this->url('backend-guildes-ajaxList'); ?>');
-
 </script>

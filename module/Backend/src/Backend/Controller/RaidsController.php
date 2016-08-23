@@ -5,6 +5,7 @@ namespace Backend\Controller;
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
 use \Commun\Exception\DatabaseException;
+use Application\Service\LogService;
 
 /**
  * Controller pour la vue.
@@ -23,6 +24,17 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
     private $_tableItem;
     private $_tableZone;
     private $_config;
+    private $_logService;
+
+    /**
+     * Lazy getter pour le service de logs
+     * @return \Application\Service\LogService
+     */
+    protected function _getLogService() {
+        return $this->_logService ?
+                $this->_logService :
+                $this->_logService = $this->getServiceLocator()->get('LogService');
+    }
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -175,10 +187,18 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $oEntite->exchangeArray($oForm->getData());
-                $this->getTableRaid()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La raids a été créé avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-raids-list');
+                try {
+                    $oEntite->exchangeArray($oForm->getData());
+                    $this->getTableRaid()->insert($oEntite);
+                    $msg = $this->_getServTranslator()->translate("Le raid a été créé avec succès.");
+                    $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'success');
+                    return $this->redirect()->toRoute('backend-raids-list');
+                } catch (\Exception $exc) {
+                    $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la création du raid.");
+                    $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -215,9 +235,17 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $this->getTableRaid()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La raids a été modifié avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-raids-list');
+                try {
+                    $this->getTableRaid()->update($oEntite);
+                    $msg = $this->_getServTranslator()->translate("Le raid a été modifié avec succès.");
+                    $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'success');
+                    return $this->redirect()->toRoute('backend-raids-list');
+                } catch (\Exception $exc) {
+                    $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la modification du raid.");
+                    $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -236,10 +264,20 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         if (!$id) {
             return $this->redirect()->toRoute('backend-raids-list');
         }
-        $oTable = $this->getTableRaid();
-        $oEntite = $oTable->findRow($id);
-        $oTable->delete($oEntite);
-        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La raids a été supprimé avec succès."), 'success');
+        try {
+            $oTable = $this->getTableRaid();
+            $oEntite = $oTable->findRow($id);
+            $oTable->delete($oEntite);
+            $msg = $this->_getServTranslator()->translate("Le raid a été supprimé avec succès.");
+            $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $id);
+            $this->flashMessenger()->addMessage($msg, 'success');
+        } catch (Exception $exc) {
+            $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la suppression du raid.");
+            $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $id);
+            $this->flashMessenger()->addMessage($msg, 'error');
+        }
+
+
         return $this->redirect()->toRoute('backend-raids-list');
     }
 

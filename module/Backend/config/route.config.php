@@ -839,41 +839,6 @@ return array(
                     ),
                 ),
             ),
-            'backend-guildes-create' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/guildes/create',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\Guildes',
-                        'action' => 'create',
-                    ),
-                ),
-            ),
-            'backend-guildes-update' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/backend/guildes/update/[:id]',
-                    'constraints' =>
-                    array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
-                        'id' => '[0-9]+',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Backend\\Controller\\Guildes',
-                        'action' => 'update',
-                    ),
-                ),
-            ),
             'backend-guildes-delete' =>
             array(
                 'type' => 'segment',

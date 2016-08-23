@@ -100,8 +100,6 @@ return array(
                 array('route' => 'backend-faction-delete', 'roles' => array('admin')),
                 array('route' => 'backend-guildes-list', 'roles' => array('admin')),
                 array('route' => 'backend-guildes-ajaxList', 'roles' => array('admin')),
-                array('route' => 'backend-guildes-create', 'roles' => array('admin')),
-                array('route' => 'backend-guildes-update', 'roles' => array('admin')),
                 array('route' => 'backend-guildes-delete', 'roles' => array('admin')),
                 array('route' => 'backend-item-personnage-raid-list', 'roles' => array('admin')),
                 array('route' => 'backend-item-personnage-raid-ajaxList', 'roles' => array('admin')),
