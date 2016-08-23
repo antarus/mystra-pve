@@ -25,6 +25,11 @@ class CharacterResource extends AbstractResourceListener {
     private $cache;
 
     /**
+     * Authentification zend.
+     */
+    private $auth;
+
+    /**
      * Retourne la table PersonnagesTable.
      * @return \Commun\Table\PersonnagesTable
      */
@@ -41,9 +46,10 @@ class CharacterResource extends AbstractResourceListener {
      */
     public function __construct($services) {
         $this->_service = $services;
-        $this->_tableRace = $services->get('\Commun\Table\RaceTable');
-        $this->_tableClasses = $services->get('\Commun\Table\ClassesTable');
-        $this->cache = $services->get('CacheApi');
+        $this->_tableRace = $this->_service->get('\Commun\Table\RaceTable');
+        $this->_tableClasses = $this->_service->get('\Commun\Table\ClassesTable');
+        $this->cache = $this->_service->get('CacheApi');
+        $this->auth = $this->_service->get('zfcuser_auth_service');
     }
 
     /**
@@ -53,8 +59,8 @@ class CharacterResource extends AbstractResourceListener {
      * @return string
      */
     protected function getRequestKey($url, array $options) {
-        $options[] = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $options[] = ($this->auth->hasIdentity()) ?
+                $this->auth->getIdentity()->getId() . ':' . $this->auth->getIdentity()->getUsername() : "undefined";
         return hash_hmac('md5', $url, serialize($options));
     }
 
@@ -64,9 +70,9 @@ class CharacterResource extends AbstractResourceListener {
      * @param type $data
      */
     protected function addItem($key, $data) {
-        $auth = $this->service->get('zfcuser_auth_service');
-        $tag = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $this->auth = $this->service->get('zfcuser_auth_service');
+        $tag = ($this->auth->hasIdentity()) ?
+                $this->auth->getIdentity()->getId() . ':' . $this->auth->getIdentity()->getUsername() : "undefined";
         $this->cache->addItem($key, $data);
         $this->cache->setTags($key, array($tag));
     }

@@ -1,4 +1,4 @@
--- pour les loots d'un personnage appartenant a un roster
+﻿-- pour les loots d'un personnage appartenant a un roster
 
 -- select la limation des 2 palliers max autorisé
 -- select idModeDifficulte, idZone, idRoster from pallierAfficher where idRoster = 1 order by idModeDifficulte ;
@@ -8,7 +8,7 @@
 
 -- requete ok
 -- roster 1
-select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone
+select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone, i.bonus
 from item_personnage_raid ipr
 inner join raids r on r.idRaid=ipr.idRaid
 inner join zone z on z.idZone=r.idZoneTmp
@@ -17,8 +17,8 @@ inner join roster ro on ro.idRoster=r.idRosterTmp
 inner join items i on ipr.idItem=i.idItem
 inner join personnages p on p.idPersonnage=ipr.idPersonnage
 where
--- (p.nom ='antaruss' and p.royaume='garona')
--- and
+(p.nom ='antaruss' and p.royaume='garona')
+and
 (
 (m.idMode = 14 and z.idZone = 7545 and ro.idRoster = 1)
 or
@@ -26,7 +26,7 @@ or
 );
 
 -- roster 2
-select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone
+select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone, i.bonus
 from item_personnage_raid ipr
 inner join raids r on r.idRaid=ipr.idRaid
 inner join zone z on z.idZone=r.idZoneTmp
