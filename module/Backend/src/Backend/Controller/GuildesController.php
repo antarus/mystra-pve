@@ -68,75 +68,6 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
     }
 
     /**
-     * Action pour la création.
-     *
-     * @return array
-     */
-    public function createAction() {
-        $oForm = new \Commun\Form\GuildesForm(); //new \Commun\Form\GuildesForm($this->getServiceLocator());
-        $oRequest = $this->getRequest();
-
-        $oFiltre = new \Commun\Filter\GuildesFilter();
-        $oForm->setInputFilter($oFiltre->getInputFilter());
-
-        if ($oRequest->isPost()) {
-            $oEntite = new \Commun\Model\Guildes();
-
-            $oForm->setData($oRequest->getPost());
-
-            if ($oForm->isValid()) {
-                $oEntite->exchangeArray($oForm->getData());
-                $this->getTableGuilde()->insert($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été créée avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-guildes-list');
-            }
-        }
-        // Pour optimiser le rendu
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/guildes/create');
-        return $oViewModel->setVariables(array('form' => $oForm));
-    }
-
-    /**
-     * Action pour la mise à jour.
-     *
-     * @return array
-     */
-    public function updateAction() {
-        $id = (int) $this->params()->fromRoute('id', 0);
-        try {
-            $oEntite = $this->getTableGuilde()->findRow($id);
-            if (!$oEntite) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de guilde inconnu."), 'error');
-                return $this->redirect()->toRoute('backend-guildes-list');
-            }
-        } catch (\Exception $ex) {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la guilde."), 'error');
-            return $this->redirect()->toRoute('backend-guildes-list');
-        }
-        $oForm = new \Commun\Form\GuildesForm(); //new \Commun\Form\GuildesForm($this->getServiceLocator());
-        $oFiltre = new \Commun\Filter\GuildesFilter();
-        $oEntite->setInputFilter($oFiltre->getInputFilter());
-        $oForm->bind($oEntite);
-
-        $oRequest = $this->getRequest();
-        if ($oRequest->isPost()) {
-            $oForm->setInputFilter($oFiltre->getInputFilter());
-            $oForm->setData($oRequest->getPost());
-
-            if ($oForm->isValid()) {
-                $this->getTableGuilde()->update($oEntite);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La guilde a été modifiée avec succès."), 'success');
-                return $this->redirect()->toRoute('backend-guildes-list');
-            }
-        }
-        // Pour optimiser le rendu
-        $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/guildes/update');
-        return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
-    }
-
-    /**
      * Action pour la suppression.
      *
      * @return redirection vers la liste
@@ -215,10 +146,16 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
             try {
                 $this->getTableGuilde()->importGuilde($aPost);
                 $this->getTableGuilde()->commit();
-            } catch (\Exception $ex) {
+                $msg = $this->_getServTranslator()->translate("La guilde a été importé avec succès.");
+                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aPost);
+                // $this->flashMessenger()->addMessage($msg, 'success');
+            } catch (\Exception $exc) {
                 // on rollback en cas d'erreur
                 $this->getTableGuilde()->rollback();
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+
+                $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $aPost);
+
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($exc);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));

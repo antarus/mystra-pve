@@ -70,10 +70,10 @@ class GuildesGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'edit' => array(
-            'title' => 'Modifier',
-            'width' => '100',
-        ),
+//        'edit' => array(
+//            'title' => 'Modifier',
+//            'width' => '100',
+//        ),
         'delete' => array(
             'title' => 'Supprimer',
             'width' => '100',
@@ -116,53 +116,53 @@ class GuildesGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
-        $this->getHeader("edit")->getCell()->addDecorator("callable", array(
+//        $this->getHeader("edit")->getCell()->addDecorator("callable", array(
+//            "callable" => function($context, $record) {
+//                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-guildes-update', array('id' => $record["idGuildes"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idGuildes"]);
+//            }
+//                ));
+
+        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-guildes-update', array('id' => $record["idGuildes"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idGuildes"]);
+                return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-guildes-delete', array('id' => $record["idGuildes"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idGuildes"]);
             }
                 ));
+            }
 
-                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-                    "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-guildes-delete', array('id' => $record["idGuildes"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idGuildes"]);
-                    }
-                        ));
-                    }
-
-                    /**
-                     *
-                     * @param \Zend\Db\Sql\Select $query
-                     */
-                    protected function initFilters($query) {
-                        $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
-                        if ($value != null) {
-                            $query->where("idGuildes = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('nom');
-                        if ($value != null) {
-                            $query->where("nom like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('serveur');
-                        if ($value != null) {
-                            $query->where("serveur like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('niveau');
-                        if ($value != null) {
-                            $query->where("niveau like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('miniature');
-                        if ($value != null) {
-                            $query->where("miniature like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
-                        if ($value != null) {
-                            $query->where("idFaction = '" . $value . "' ");
-                        }
-                    }
-
+            /**
+             *
+             * @param \Zend\Db\Sql\Select $query
+             */
+            protected function initFilters($query) {
+                $value = $this->getParamAdapter()->getValueOfFilter('idGuildes');
+                if ($value != null) {
+                    $query->where("idGuildes = '" . $value . "' ");
                 }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('nom');
+                if ($value != null) {
+                    $query->where("nom like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('serveur');
+                if ($value != null) {
+                    $query->where("serveur like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('niveau');
+                if ($value != null) {
+                    $query->where("niveau like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('miniature');
+                if ($value != null) {
+                    $query->where("miniature like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('idFaction');
+                if ($value != null) {
+                    $query->where("idFaction = '" . $value . "' ");
+                }
+            }
+
+        }

@@ -96,12 +96,18 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $oEntite->exchangeArray($oForm->getData());
-                $this->getTablePersonnage()->insert($oEntite);
-                $msg = $this->_getServTranslator()->translate("Le personnages a été créé avec succès.");
-                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
-                $this->flashMessenger()->addMessage($msg, 'success');
-                return $this->redirect()->toRoute('backend-personnages-list');
+                try {
+                    $oEntite->exchangeArray($oForm->getData());
+                    $this->getTablePersonnage()->insert($oEntite);
+                    $msg = $this->_getServTranslator()->translate("Le personnage a été créé avec succès.");
+                    $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'success');
+                    return $this->redirect()->toRoute('backend-personnages-list');
+                } catch (\Exception $exc) {
+                    $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la création du personnage.");
+                    $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -138,11 +144,17 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             $oForm->setData($oRequest->getPost());
 
             if ($oForm->isValid()) {
-                $this->getTablePersonnage()->update($oEntite);
-                $msg = $this->_getServTranslator()->translate("Le personnages a été modifié avec succès.");
-                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
-                $this->flashMessenger()->addMessage($msg, 'success');
-                return $this->redirect()->toRoute('backend-personnages-list');
+                try {
+                    $this->getTablePersonnage()->update($oEntite);
+                    $msg = $this->_getServTranslator()->translate("Le personnage a été modifié avec succès.");
+                    $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'success');
+                    return $this->redirect()->toRoute('backend-personnages-list');
+                } catch (\Exception $exc) {
+                    $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la modification du personnage.");
+                    $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $oRequest->getPost());
+                    $this->flashMessenger()->addMessage($msg, 'error');
+                }
             }
         }
         // Pour optimiser le rendu
@@ -161,14 +173,19 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
         if (!$id) {
             return $this->redirect()->toRoute('backend-personnages-list');
         }
-        $oTable = $this->getTablePersonnage();
-        $oEntite = $oTable->findRow($id);
-        $oTable->delete($oEntite);
+        try {
+            $oTable = $this->getTablePersonnage();
+            $oEntite = $oTable->findRow($id);
+            $oTable->delete($oEntite);
 
-        $msg = $this->_getServTranslator()->translate("Le personnage a été supprimé avec succès.");
-        $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
-        $this->flashMessenger()->addMessage($msg, 'success');
-
+            $msg = $this->_getServTranslator()->translate("Le personnage a été supprimé avec succès.");
+            $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $id);
+            $this->flashMessenger()->addMessage($msg, 'success');
+        } catch (\Exception $exc) {
+            $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de la suppression du personnage.");
+            $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $id);
+            $this->flashMessenger()->addMessage($msg, 'error');
+        }
 
         return $this->redirect()->toRoute('backend-personnages-list');
     }
@@ -238,11 +255,13 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
 
                 $msg = $this->_getServTranslator()->translate("Le personnage a été importé avec succès.");
                 $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
-            } catch (\Exception $ex) {
+            } catch (\Exception $exc) {
                 // on rollback en cas d'erreur
                 $this->getTablePersonnage()->rollback();
-                $this->_getLogService()->log(LogService::ERR, $this->_getServTranslator()->translate("Erreur lors de l'import du personnage."), LogService::USER, $aParam);
-                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($ex);
+
+                $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $aPost);
+
+                $aAjaxEx = \Core\Util\ParseException::tranformeExceptionToArray($exc);
                 $result = new JsonModel(array(
                     'error' => $aAjaxEx
                 ));
