@@ -273,11 +273,19 @@ class UserController extends AbstractActionController
         $recaptcha = new \ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_umUP0WK_JY-I',
                                                  '6LcEWCgTAAAAAFUOb_kRkfLiQ2aZaxjgTKCDI74v');
         
-        if(!isset($prg['recaptcha_response_field']) || empty($prg['recaptcha_response_field'])) $prg['recaptcha_response_field'] ='1';
-
+        if(empty($prg['g-recaptcha-response']))
+        {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Veuillez valider votre captcha."), 'error');
+            return array(
+                'registerForm' => $form,
+                'enableRegistration' => $this->options->getEnableRegistration(),
+                'redirect' => $redirect,
+            );
+                
+        }
+        
         $result = $recaptcha->verify(
-            $prg['recaptcha_challenge_field'],
-            $prg['recaptcha_response_field']
+            $prg['g-recaptcha-response']
         );
         
         if (!$result->isValid()) {
