@@ -18,6 +18,11 @@ class RosterResource extends AbstractResourceListener {
     private $cache;
 
     /**
+     * Authentification zend.
+     */
+    private $auth;
+
+    /**
      * Retourne la table RosterTable.
      * @return \Commun\Table\RosterTable
      */
@@ -70,7 +75,8 @@ class RosterResource extends AbstractResourceListener {
      */
     public function __construct($services) {
         $this->_service = $services;
-        $this->cache = $services->get('CacheApi');
+        $this->cache = $this->_service->get('CacheApi');
+        $this->auth = $this->_service->get('zfcuser_auth_service');
     }
 
     /**
@@ -80,8 +86,8 @@ class RosterResource extends AbstractResourceListener {
      * @return string
      */
     protected function getRequestKey($url, array $options) {
-        $options[] = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $options[] = ($this->auth->hasIdentity()) ?
+                $this->auth->getIdentity()->getId() . ':' . $this->auth->getIdentity()->getUsername() : "undefined";
         return hash_hmac('md5', $url, serialize($options));
     }
 
@@ -91,9 +97,9 @@ class RosterResource extends AbstractResourceListener {
      * @param type $data
      */
     protected function addItem($key, $data) {
-        $auth = $this->service->get('zfcuser_auth_service');
-        $tag = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $this->auth = $this->service->get('zfcuser_auth_service');
+        $tag = ($this->auth->hasIdentity()) ?
+                $this->auth->getIdentity()->getId() . ':' . $this->auth->getIdentity()->getUsername() : "undefined";
         $this->cache->addItem($key, $data);
         $this->cache->setTags($key, array($tag));
     }

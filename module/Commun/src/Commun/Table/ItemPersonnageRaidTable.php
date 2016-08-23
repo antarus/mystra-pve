@@ -99,15 +99,52 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $this->insert($oItemPersonnageRaid);
             return $oItemPersonnageRaid;
         } catch (\Exception $ex) {
-//            $aError = array();
-//            $aError[] = $oItemPersonnageRaid->getIdItemRaidPersonnage();
-//            $aError[] = $oItemPersonnageRaid->getIdItem();
-//            $aError[] = $oItemPersonnageRaid->getIdRaid();
-//            $aError[] = $oItemPersonnageRaid->getIdBosses();
-//            $aError[] = $oItemPersonnageRaid->getIdPersonnage();
-
-            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), $oItemPersonnageRaid->getArrayCopy(), $ex);
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
         }
+    }
+
+    /**
+     * Retourne les loots du rosters correspondnat aux pallier définit.
+     */
+    public function getLootDuRoster($iIdRoster, $sNom, $sRoyaume) {
+
+        try {
+            return $this->fetchAllArray($this->getQueryBaseLootRoster($iIdRoster, $sNom, $sRoyaume));
+        } catch (\Exception $ex) {
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
+        }
+    }
+
+    function getQueryBaseLootRoster($iIdRoster, $sNom, $sRoyaume) {
+
+        //  $this->getAdapter()->getDriver()->getConnection()->execute($sql)
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $query = $sql->select();
+
+        $query->columns(array(
+                    'idItem',
+                    'idRaid',
+                    'idPersonnage',
+                    'bonus'
+                ))
+                ->from(array('ipr' => 'item_personnage_raid'))
+                ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+
+        $query->where->NEST->equalTo("p.nom", $sNom)->AND->equalTo("p.royaume", $sRoyaume)->UNNEST
+                ->AND->NEST
+                ->NEST->equalTo("m.idMode", 14)->AND->equalTo("z.idZone", 7545)->AND->equalTo("ro.idRoster", 1)->UNNEST
+                ->OR
+                ->NEST->equalTo("m.idMode", 15)->AND->equalTo("z.idZone", 6967)->AND->equalTo("ro.idRoster", 1)->UNNEST
+                ->UNNEST;
+        //   $query->order(array('nom'));
+        // $this->debug($query);
+
+        return $query;
     }
 
 }
