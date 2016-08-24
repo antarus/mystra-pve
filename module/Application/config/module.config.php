@@ -11,10 +11,6 @@
 namespace Application;
 
 return array(
-    'router' => array(
-        'routes' => array(
-        ),
-    ),
     'service_manager' => array(
         'abstract_factories' => array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory',
@@ -34,11 +30,6 @@ return array(
             ),
         ),
     ),
-    'controllers' => array(
-        'invokables' => array(
-            'Application\Controller\Index' => Controller\IndexController::class
-        ),
-    ),
     'view_manager' => array(
         'display_not_found_reason' => true,
         'display_exceptions' => true,
@@ -50,6 +41,7 @@ return array(
             'layout/ajax' => __DIR__ . '/../view/layout/ajax.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',
             'error/404' => __DIR__ . '/../view/error/404.phtml',
+            'error/403' => __DIR__ . '/../view/error/403.phtml',
             'error/index' => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
