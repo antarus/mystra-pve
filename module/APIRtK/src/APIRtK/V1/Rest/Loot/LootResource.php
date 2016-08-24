@@ -157,7 +157,7 @@ class LootResource extends AbstractResourceListener {
                 $aItem['date'] = $item['date'];
                 $aItem['roster'] = $item['roster'];
                 $aItem['zone'] = $item['zone'];
-                $aItem['boss'] = $item['idBosses'];
+                $aItem['boss'] = $item['boss'];
                 $aItem['mode'] = $item['mode'];
                 $aItemsPersonnage[] = $aItem;
             }
