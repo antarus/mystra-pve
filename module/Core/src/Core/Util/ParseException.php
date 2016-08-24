@@ -2,7 +2,7 @@
 
 namespace Core\Util;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
 
 class ParseException {
 
@@ -63,13 +63,13 @@ class ParseException {
     /**
      * Retourne la première erreur de la chaine d'exception au format ApiProblem.
      * @param \Exception $oException
-     * @return \ZF\ApiProblem\ApiProblem
+     * @return \Commun\Model\LogApiProblem
      */
-    public static function tranformeExceptionToApiProblem($oException) {
+    public static function tranformeExceptionToApiProblem($oException, $service) {
         $aReturn = ParseException::tranformeExceptionToArray($oException);
-        // le code si supperieur a 599 est remplacer par 500.
+        // le code si supperieur a 599 est remplacer par 499.
         // pour plus de detail on met le code erreur original dans le type
-        return new ApiProblem($aReturn["code"], $aReturn['msg'], $aReturn['code'], $aReturn['type']);
+        return new LogApiProblem($aReturn["code"], $aReturn['msg'], $aReturn['code'], $aReturn['type'], array(), $service);
     }
 
 }

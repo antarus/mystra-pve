@@ -2,9 +2,9 @@
 
 namespace APIRtK\V1\Rest\Loot;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
+use ZF\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Application\Service\LogService;
 
 class LootResource extends AbstractResourceListener {
     /* @var $_service */
@@ -116,9 +116,11 @@ class LootResource extends AbstractResourceListener {
      */
     public function fetch($id) {
         try {
+
             $sServer = $this->getEvent()->getRouteParam('loot_server');
             $sNom = $this->getEvent()->getRouteParam('loot_name');
-            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer));
+            $bWithId = $this->getEvent()->getQueryParam('withids', 0);
+            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer, $bWithId));
 
             if ($this->cache->hasItem($key) === true) {
                 return $this->cache->getItem($key);
@@ -129,42 +131,22 @@ class LootResource extends AbstractResourceListener {
                         "nom" => $sNom,
                         "royaume" => $sServer));
             if (!$oTabPersonnage) {
-                return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"));
+                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
             }
 
             $oResult = new LootEntity();
-            $oResult->setNom($oTabPersonnage->getNom());
-//            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->fetchAllWhere(
-//                            array(
-//                                "idPersonnage" => $oTabPersonnage->getIdPersonnage()))->toArray();
+            $oResult->setNom($sNom);
+            $oResult->setServeur($sServer);
 
-            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->getLootDuRoster(1, "antaruss", "garona");
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage("antaruss", "garona", $bWithId);
 
-            $aItemsPersonnage = array();
-            foreach ($oTabItemPersonnageRaid as $item) {
-                $oTabItem = $this->getTableItems()->selectBy(
-                        array(
-                            "idItem" => $item['idItem']));
-                if (!$oTabItem) {
-                    return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("L'item [ %s ] n'a pas été trouvé.")), $this->_getServTranslator()->translate("Non trouvé"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(
-                        "idItem" => $item['idItem']));
-                }
 
-                $aLien = array();
-                $aLien['idBnet'] = $oTabItem->getIdBnet();
-                $aLien['bonus'] = $item['bonus'];
-                $aItem = array();
-                $aItem['nom'] = $oTabItem->getNom();
-                $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
-                $aItemsPersonnage[] = $aItem;
-            }
             $oResult->setItems($aItemsPersonnage);
 
             $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
-            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
-            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);
         }
     }
 

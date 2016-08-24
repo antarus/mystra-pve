@@ -1,5 +1,7 @@
+<?php $this->headScript()->prependFile($this->basePath('js/user/user.js'), $type = 'text/javascript'); ?>
+<?php echo $this->headTitle($this->translate('Raid-Tracker - Nouveaux compte')) ?>
 <h1><?php echo $this->translate('Register'); ?></h1>
-coucou
+
 <?php
 if (!$this->enableRegistration) {
     echo $this->translate('Registration is disabled');
@@ -11,15 +13,24 @@ $form->setAttribute('action', $this->url('zfcuser/register'));
 $form->setAttribute('method', 'post');
 $form->setAttribute('autocomplete', 'off');
 
+$settings = array(
+                    'img_size'    => 100,
+                    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
+                    'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
+                    'secure'      => null,
+                    );
+
+
 $recaptcha = new ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_umUP0WK_JY-I',
-                                                 '6LcEWCgTAAAAAFUOb_kRkfLiQ2aZaxjgTKCDI74v');
+                                                 '6LcEWCgTAAAAAFUOb_kRkfLiQ2aZaxjgTKCDI74v', null, array('lang'=>'fr'));
 ?>
 
 <?php echo $this->form()->openTag($form) ?>
     <dl class="zend_form">
+        
     <?php foreach ($form as $element): ?>
         <?php if (!$element instanceof Zend\Form\Element\Button): ?>
-            <dt><?php echo $this->formLabel($element) ?></dt>
+        <dt><?php echo $this->formLabel($element) ?> <span class='required'>*</span></dt>
         <?php endif ?>
         <?php if ($element instanceof Zend\Form\Element\Button): ?>
             <dd><?php echo $recaptcha->getHTML();?></dd>
@@ -28,12 +39,16 @@ $recaptcha = new ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_um
             <dd><?php echo $this->formCaptcha($element) . $this->formElementErrors($element) ?></dd>
         <?php else: ?>
             <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
+            <?php if( $element->getAttribute('id')== "gravatarEmail"): ?>
+                <dt id='titleGravatar' style='display: none;'><a href="https://fr.gravatar.com" target="_blank"><?php echo $this->translate('Votre Gravatar :');?></a> </dt>
+                <dd id='gravatar'><?php if($element->getValue())echo $this->gravatar($element->getValue(), $settings);?></dd>
+            <?php endif;?>
         <?php endif ?>
     <?php endforeach ?>
-       
-
     </dl>
+    
     <?php if ($this->redirect): ?>
         <input type="hidden" name="redirect" value="<?php echo $this->escapeHtml($this->redirect) ?>" />
     <?php endif ?>
+        <input type='hidden' id='getUrl' value='<?php echo $this->url('register-ajax') ?>'/>
 <?php echo $this->form()->closeTag() ?>

@@ -2,9 +2,8 @@
 
 namespace APIRtK\V1\Rest\Roster;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Application\Service\LogService;
 
 class RosterResource extends AbstractResourceListener {
 
@@ -108,7 +107,7 @@ class RosterResource extends AbstractResourceListener {
      * Fetch a resource
      *
      * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return LogApiProblem|mixed
      */
     public function fetch($id) {
         try {
@@ -123,7 +122,7 @@ class RosterResource extends AbstractResourceListener {
                     array(
                         "nom" => $sNom));
             if (!$oTabRoster) {
-                return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] demandé n'a pas été trouvé."), $sNom), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Roster inconnu"));
+                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] demandé n'a pas été trouvé."), $sNom), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Roster inconnu"), array('nomRoster' => $sNom), $this->_service);
             }
 
             $aRoles = $this->getTableRole()->fetchAll()->toArray();
@@ -141,8 +140,7 @@ class RosterResource extends AbstractResourceListener {
             $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
-            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
-            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);
         }
     }
 
