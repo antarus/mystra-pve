@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -113,7 +114,7 @@ return array(
             'APIRtK\\V1\\Rest\\Loot\\LootEntity' => array(
                 'entity_identifier_name' => 'nom',
                 'route_name' => 'api-rt-k.rest.loot',
-                'route_identifier_name' => 'loot_server',
+                'route_identifier_name' => 'loot_server, loot_name',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
             'APIRtK\\V1\\Rest\\Loot\\LootCollection' => array(

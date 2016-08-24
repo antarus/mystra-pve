@@ -2,9 +2,9 @@
 
 namespace APIRtK\V1\Rest\Loot;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
+use ZF\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Application\Service\LogService;
 
 class LootResource extends AbstractResourceListener {
     /* @var $_service */
@@ -116,6 +116,7 @@ class LootResource extends AbstractResourceListener {
      */
     public function fetch($id) {
         try {
+
             $sServer = $this->getEvent()->getRouteParam('loot_server');
             $sNom = $this->getEvent()->getRouteParam('loot_name');
             $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer));
@@ -129,7 +130,7 @@ class LootResource extends AbstractResourceListener {
                         "nom" => $sNom,
                         "royaume" => $sServer));
             if (!$oTabPersonnage) {
-                return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"));
+                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
             }
 
             $oResult = new LootEntity();
@@ -146,8 +147,8 @@ class LootResource extends AbstractResourceListener {
                         array(
                             "idItem" => $item['idItem']));
                 if (!$oTabItem) {
-                    return new ApiProblem(404, sprintf($this->_getServTranslator()->translate("L'item [ %s ] n'a pas été trouvé.")), $this->_getServTranslator()->translate("Non trouvé"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(
-                        "idItem" => $item['idItem']));
+                    return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("L'item [ %s ] n'a pas été trouvé.")), $this->_getServTranslator()->translate("Non trouvé"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(
+                        "idItem" => $item['idItem']), $this->_service);
                 }
 
                 $aLien = array();
@@ -163,8 +164,7 @@ class LootResource extends AbstractResourceListener {
             $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
-            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
-            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);
         }
     }
 

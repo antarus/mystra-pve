@@ -2,9 +2,8 @@
 
 namespace APIBlizzard\V1\Rest\Character;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
 use ZF\Rest\AbstractResourceListener;
-use Application\Service\LogService;
 
 class CharacterResource extends AbstractResourceListener {
     /* @var $_service */
@@ -81,7 +80,7 @@ class CharacterResource extends AbstractResourceListener {
      * Fetch a resource
      *
      * @param  mixed $id
-     * @return ApiProblem|mixed
+     * @return LogApiProblem|mixed
      */
     public function fetch($id) {
         try {
@@ -111,8 +110,7 @@ class CharacterResource extends AbstractResourceListener {
 
             return $oReturn;
         } catch (\Exception $ex) {
-            $this->_service->get('LogService')->log(LogService::ERR, $ex->getMessage(), LogService::LOGICIEL);
-            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex);
+            return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);
         }
     }
 

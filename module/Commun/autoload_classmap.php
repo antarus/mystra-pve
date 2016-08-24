@@ -117,6 +117,7 @@ return array(
     'Commun\Model\ZoneHasBosses' => __DIR__ . '/src/Commun/Model/ZoneHasBosses.php',
     'Commun\Model\ZoneHasModeDiffculte' => __DIR__ . '/src/Commun/Model/ZoneHasModeDiffculte.php',
     'Commun\Model\PallierAfficher' => __DIR__ . '/src/Commun/Model/PallierAfficher.php',
+    'Commun\Model\LogApiProblem' => __DIR__ . '/src/Commun/Model/LogApiProblem.php',
     'Commun\Module' => __DIR__ . '/Module.php',
     'Commun\Table\BossesHasNpcTable' => __DIR__ . '/src/Commun/Table/BossesHasNpcTable.php',
     'Commun\Table\BossesTable' => __DIR__ . '/src/Commun/Table/BossesTable.php',
