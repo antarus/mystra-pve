@@ -119,7 +119,8 @@ class LootResource extends AbstractResourceListener {
 
             $sServer = $this->getEvent()->getRouteParam('loot_server');
             $sNom = $this->getEvent()->getRouteParam('loot_name');
-            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer));
+            $bWithId = $this->getEvent()->getQueryParam('withids', 0);
+            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer, $bWithId));
 
             if ($this->cache->hasItem($key) === true) {
                 return $this->cache->getItem($key);
@@ -134,33 +135,12 @@ class LootResource extends AbstractResourceListener {
             }
 
             $oResult = new LootEntity();
-            $oResult->setNom($oTabPersonnage->getNom());
+            $oResult->setNom($sNom);
+            $oResult->setServeur($sServer);
 
-            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->getLootPersonnage("antaruss", "garona");
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage("antaruss", "garona", $bWithId);
 
-            $aItemsPersonnage = array();
-            foreach ($oTabItemPersonnageRaid as $item) {
-                $oTabItem = $this->getTableItems()->selectBy(
-                        array(
-                            "idItem" => $item['idItem']));
-                if (!$oTabItem) {
-                    return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("L'item [ %s ] n'a pas été trouvé.")), $this->_getServTranslator()->translate("Non trouvé"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(
-                        "idItem" => $item['idItem']), $this->_service);
-                }
 
-                $aLien = array();
-                $aLien['idBnet'] = $oTabItem->getIdBnet();
-                $aLien['bonus'] = $item['bonus'];
-                $aItem = array();
-                $aItem['nom'] = $oTabItem->getNom();
-                $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
-                $aItem['date'] = $item['date'];
-                $aItem['roster'] = $item['roster'];
-                $aItem['zone'] = $item['zone'];
-                $aItem['boss'] = $item['boss'];
-                $aItem['mode'] = $item['mode'];
-                $aItemsPersonnage[] = $aItem;
-            }
             $oResult->setItems($aItemsPersonnage);
 
             $this->addItem($key, $oResult);

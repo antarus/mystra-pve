@@ -8,7 +8,15 @@ class LootEntity extends \Core\Model\AbstractModel {
      *
      * @var $items string
      */
-    public $nom;/**
+    public $nom;
+
+    /**
+     *
+     * @var $items string
+     */
+    public $serveur;
+
+    /**
      *
      * @var $items array
      */
@@ -48,6 +56,24 @@ class LootEntity extends \Core\Model\AbstractModel {
      */
     public function setItems($value) {
         $this->items = $value;
+    }
+
+    /**
+     * Retourne la valeur serveur.
+     *
+     * @return string
+     */
+    function getServeur() {
+        return $this->serveur;
+    }
+
+    /**
+     * Définit la valeur pour serveur
+     *
+     * @param string
+     */
+    function setServeur($serveur) {
+        $this->serveur = $serveur;
     }
 
 }
