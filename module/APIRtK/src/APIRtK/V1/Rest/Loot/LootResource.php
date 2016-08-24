@@ -135,11 +135,8 @@ class LootResource extends AbstractResourceListener {
 
             $oResult = new LootEntity();
             $oResult->setNom($oTabPersonnage->getNom());
-//            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->fetchAllWhere(
-//                            array(
-//                                "idPersonnage" => $oTabPersonnage->getIdPersonnage()))->toArray();
 
-            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->getLootDuRoster(1, "antaruss", "garona");
+            $oTabItemPersonnageRaid = $this->getTableItemPersonnageRaid()->getLootPersonnage("antaruss", "garona");
 
             $aItemsPersonnage = array();
             foreach ($oTabItemPersonnageRaid as $item) {
@@ -157,6 +154,11 @@ class LootResource extends AbstractResourceListener {
                 $aItem = array();
                 $aItem['nom'] = $oTabItem->getNom();
                 $aItem['lien'] = \Core\Util\ParserWow::genereLienItemWowHead($aLien);
+                $aItem['date'] = $item['date'];
+                $aItem['roster'] = $item['roster'];
+                $aItem['zone'] = $item['zone'];
+                $aItem['boss'] = $item['idBosses'];
+                $aItem['mode'] = $item['mode'];
                 $aItemsPersonnage[] = $aItem;
             }
             $oResult->setItems($aItemsPersonnage);

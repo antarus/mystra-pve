@@ -109,13 +109,43 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     public function getLootDuRoster($iIdRoster, $sNom, $sRoyaume) {
 
         try {
-            return $this->fetchAllArray($this->getQueryBaseLootRoster($iIdRoster, $sNom, $sRoyaume));
+            $oQuery = $this->getQueryBaseLoot($sNom, $sRoyaume);
+            $oQuery->AND->NEST
+                    ->NEST->equalTo("m.idMode", 14)->AND->equalTo("z.idZone", 7545)->AND->equalTo("ro.idRoster", 1)->UNNEST
+                    ->OR
+                    ->NEST->equalTo("m.idMode", 15)->AND->equalTo("z.idZone", 6967)->AND->equalTo("ro.idRoster", 1)->UNNEST
+                    ->UNNEST;
+            return $this->fetchAllArray($oQuery);
         } catch (\Exception $ex) {
             throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
         }
     }
 
-    function getQueryBaseLootRoster($iIdRoster, $sNom, $sRoyaume) {
+    /**
+     * Retourne les loots du rosters correspondnat aux pallier définit.
+     */
+    public function getLootPersonnage($sNom, $sRoyaume) {
+
+        try {
+            $oQuery = $this->getQueryBaseLoot($sNom, $sRoyaume);
+//            $oQuery->AND->NEST
+//                    ->NEST->equalTo("m.idMode", 14)->AND->equalTo("z.idZone", 7545)->AND->equalTo("ro.idRoster", 1)->UNNEST
+//                    ->OR
+//                    ->NEST->equalTo("m.idMode", 15)->AND->equalTo("z.idZone", 6967)->AND->equalTo("ro.idRoster", 1)->UNNEST
+//                    ->UNNEST;
+            return $this->fetchAllArray($oQuery);
+        } catch (\Exception $ex) {
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
+        }
+    }
+
+    /**
+     * Fonction commune au loot d'un personnage et un personnage par roster
+     * @param type $sNom
+     * @param type $sRoyaume
+     * @return \Zend\Db\Sql\Sql
+     */
+    function getQueryBaseLoot($sNom, $sRoyaume) {
 
         //  $this->getAdapter()->getDriver()->getConnection()->execute($sql)
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
@@ -125,22 +155,21 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                     'idItem',
                     'idRaid',
                     'idPersonnage',
+                    'idBosses',
                     'bonus'
                 ))
                 ->from(array('ipr' => 'item_personnage_raid'))
-                ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone'), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode'), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster'), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array('date'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone', "zone" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode', "mode" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster', "roster" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
 
-        $query->where->NEST->equalTo("p.nom", $sNom)->AND->equalTo("p.royaume", $sRoyaume)->UNNEST
-                ->AND->NEST
-                ->NEST->equalTo("m.idMode", 14)->AND->equalTo("z.idZone", 7545)->AND->equalTo("ro.idRoster", 1)->UNNEST
-                ->OR
-                ->NEST->equalTo("m.idMode", 15)->AND->equalTo("z.idZone", 6967)->AND->equalTo("ro.idRoster", 1)->UNNEST
-                ->UNNEST;
+        $query->where->NEST->equalTo("p.nom", $sNom)->AND->equalTo("p.royaume", $sRoyaume)->UNNEST;
+        $query->order('r.date');
+        $query->limit(20);
+
         //   $query->order(array('nom'));
         // $this->debug($query);
 
