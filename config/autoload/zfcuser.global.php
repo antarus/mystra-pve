@@ -18,10 +18,10 @@ $settings = array(
     'logout_redirect_route' => 'home',
 
     //'password_cost' => 14,
-    //'enable_user_state' => true,
+    'enable_user_state' => true,
 
-    //'default_user_state' => 1,
-    //'allowed_login_states' => array( null, 1 ),
+    'default_user_state' => false,
+    'allowed_login_states' => array( 1 ),
     
     'table_name' => 'user',
 );

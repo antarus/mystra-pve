@@ -40,8 +40,10 @@ $recaptcha = new ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_um
         <?php else: ?>
             <dd><?php echo $this->formInput($element) . $this->formElementErrors($element) ?></dd>
             <?php if( $element->getAttribute('id')== "gravatarEmail"): ?>
-                <dt id='titleGravatar' style='display: none;'><a href="https://fr.gravatar.com" target="_blank"><?php echo $this->translate('Votre Gravatar :');?></a> </dt>
+            <a href="https://fr.gravatar.com" target="_blank">
+                <dt id='titleGravatar' style='display: none;'><?php echo $this->translate('Votre Gravatar :');?></dt>
                 <dd id='gravatar'><?php if($element->getValue())echo $this->gravatar($element->getValue(), $settings);?></dd>
+            </a>
             <?php endif;?>
         <?php endif ?>
     <?php endforeach ?>
