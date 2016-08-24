@@ -42,6 +42,16 @@ class Module {
         $events = $e->getApplication()->getEventManager()->getSharedManager();
         $events->attach('ZfcUser\Form\Register','init', function($e) {
             $form = $e->getTarget();     
+            $form->add(array(
+            'name' => 'email',
+            'options' => array(
+                'label' => 'Email',
+            ),
+            'attributes' => array(
+                'type' => 'text',
+                'id' => 'gravatarEmail',
+            ),
+        ));
             
         });
         $events->attach('ZfcUser\Form\RegisterFilter','init', function($e) {
@@ -75,7 +85,15 @@ class Module {
      * Configuration des modules a charger
      */
     public function getConfig() {
-        $config = require __DIR__ . '/config/module.config.php';
+        $config = array();
+        $aFichiersConf = array(
+            __DIR__ . '/config/route.config.php',
+            __DIR__ . '/config/module.config.php',
+        );
+        foreach ($aFichiersConf as $aFichConf) {
+            $config = \Zend\Stdlib\ArrayUtils::merge($config, include $aFichConf);
+        }
+
         return $config;
     }
 

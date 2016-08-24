@@ -20,7 +20,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 <!-- Scripts -->
 <?php
 echo $this->headScript()
-        ->appendFile($this->basePath('js/jquery.min.js'))
+        ->prependFile($this->basePath('js/jquery.min.js'))
 //        ->appendFile($this->basePath('js/bootstrap.min.js'))
 //        ->appendFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
 //        ->appendFile($this->basePath('js/jquery/validate/jquery.validate.min.js'))

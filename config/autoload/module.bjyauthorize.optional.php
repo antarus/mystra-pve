@@ -42,14 +42,11 @@ return array(
         // Guard listeners to be attached to the application event manager
         'guards' => array(
             'BjyAuthorize\Guard\Route' => array(
-                array('route' => 'zfcuser', 'roles' => array('user', 'guest', 'admin')),
-                array('route' => 'zfcuser/logout', 'roles' => array('user', 'admin')),
-                array('route' => 'zfcuser/login', 'roles' => array('guest')),
-                array('route' => 'zfcuser/register', 'roles' => array('guest')),
                 array('route' => 'home', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'contact', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'apropos', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'discordbot', 'roles' => array('guest', 'user', 'admin')),
+                // backend Module
                 array('route' => 'backend-index', 'roles' => array('admin')),
                 array('route' => 'backend-bosses-list', 'roles' => array('admin')),
                 array('route' => 'backend-bosses-ajaxList', 'roles' => array('admin')),
@@ -263,6 +260,12 @@ return array(
                 array('route' => 'api-blizzard.rest.character', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'api-rt-k.rest.loot', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'api-rt-k.rest.roster', 'roles' => array('guest', 'user', 'admin')),
+                //Users Module
+                array('route' => 'register-ajax', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'zfcuser', 'roles' => array('user', 'guest', 'admin')),
+                array('route' => 'zfcuser/logout', 'roles' => array('user', 'admin')),
+                array('route' => 'zfcuser/login', 'roles' => array('guest')),
+                array('route' => 'zfcuser/register', 'roles' => array('guest')),
             ),
         ),
         // strategy service name for the strategy listener to be used when permission-related errors are detected
