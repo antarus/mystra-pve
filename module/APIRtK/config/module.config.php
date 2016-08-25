@@ -5,6 +5,8 @@ return array(
         'factories' => array(
             'APIRtK\\V1\\Rest\\Loot\\LootResource' => 'APIRtK\\V1\\Rest\\Loot\\LootResourceFactory',
             'APIRtK\\V1\\Rest\\Roster\\RosterResource' => 'APIRtK\\V1\\Rest\\Roster\\RosterResourceFactory',
+            'APIRtK\\V1\\Rest\\LootRoster\\LootRosterResource' => 'APIRtK\\V1\\Rest\\LootRoster\\LootRosterResourceFactory',
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageResource' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageResourceFactory',
         ),
     ),
     'router' => array(
@@ -21,9 +23,27 @@ return array(
             'api-rt-k.rest.roster' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/api/roster[/:roster_name]',
+                    'route' => '/api/roster/:roster_name',
                     'defaults' => array(
                         'controller' => 'APIRtK\\V1\\Rest\\Roster\\Controller',
+                    ),
+                ),
+            ),
+            'api-rt-k.rest.loot-roster' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/api/loot-roster/:roster_name',
+                    'defaults' => array(
+                        'controller' => 'APIRtK\\V1\\Rest\\LootRoster\\Controller',
+                    ),
+                ),
+            ),
+            'api-rt-k.rest.loot-roster-personnage' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/loot-roster-personnage/:loot_roster_personnage_id',
+                    'defaults' => array(
+                        'controller' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller',
                     ),
                 ),
             ),
@@ -33,6 +53,8 @@ return array(
         'uri' => array(
             0 => 'api-rt-k.rest.loot',
             1 => 'api-rt-k.rest.roster',
+            2 => 'api-rt-k.rest.loot-roster',
+            3 => 'api-rt-k.rest.loot-roster-personnage',
         ),
     ),
     'zf-rest' => array(
@@ -80,11 +102,51 @@ return array(
             'collection_class' => 'APIRtK\\V1\\Rest\\Roster\\RosterCollection',
             'service_name' => 'roster',
         ),
+        'APIRtK\\V1\\Rest\\LootRoster\\Controller' => array(
+            'listener' => 'APIRtK\\V1\\Rest\\LootRoster\\LootRosterResource',
+            'route_name' => 'api-rt-k.rest.loot-roster',
+            'route_identifier_name' => 'roster_name',
+            'collection_name' => 'loot_roster',
+            'entity_http_methods' => array(
+                0 => 'GET',
+            ),
+            'collection_http_methods' => array(),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'APIRtK\\V1\\Rest\\LootRoster\\LootRosterEntity',
+            'collection_class' => 'APIRtK\\V1\\Rest\\LootRoster\\LootRosterCollection',
+            'service_name' => 'lootRoster',
+        ),
+        'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
+            'listener' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageResource',
+            'route_name' => 'api-rt-k.rest.loot-roster-personnage',
+            'route_identifier_name' => 'loot_roster_personnage_id',
+            'collection_name' => 'loot_roster_personnage',
+            'entity_http_methods' => array(
+                0 => 'GET',
+                1 => 'PATCH',
+                2 => 'PUT',
+                3 => 'DELETE',
+            ),
+            'collection_http_methods' => array(
+                0 => 'GET',
+                1 => 'POST',
+            ),
+            'collection_query_whitelist' => array(),
+            'page_size' => 25,
+            'page_size_param' => null,
+            'entity_class' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageEntity',
+            'collection_class' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageCollection',
+            'service_name' => 'lootRosterPersonnage',
+        ),
     ),
     'zf-content-negotiation' => array(
         'controllers' => array(
             'APIRtK\\V1\\Rest\\Loot\\Controller' => 'HalJson',
             'APIRtK\\V1\\Rest\\Roster\\Controller' => 'HalJson',
+            'APIRtK\\V1\\Rest\\LootRoster\\Controller' => 'HalJson',
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => 'HalJson',
         ),
         'accept_whitelist' => array(
             'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
@@ -97,6 +159,16 @@ return array(
                 1 => 'application/hal+json',
                 2 => 'application/json',
             ),
+            'APIRtK\\V1\\Rest\\LootRoster\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
+                1 => 'application/hal+json',
+                2 => 'application/json',
+            ),
         ),
         'content_type_whitelist' => array(
             'APIRtK\\V1\\Rest\\Loot\\Controller' => array(
@@ -104,6 +176,14 @@ return array(
                 1 => 'application/json',
             ),
             'APIRtK\\V1\\Rest\\Roster\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
+                1 => 'application/json',
+            ),
+            'APIRtK\\V1\\Rest\\LootRoster\\Controller' => array(
+                0 => 'application/vnd.api-rt-k.v1+json',
+                1 => 'application/json',
+            ),
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
                 0 => 'application/vnd.api-rt-k.v1+json',
                 1 => 'application/json',
             ),
@@ -133,6 +213,30 @@ return array(
                 'entity_identifier_name' => 'nom',
                 'route_name' => 'api-rt-k.rest.roster',
                 'route_identifier_name' => 'roster_name',
+                'is_collection' => true,
+            ),
+            'APIRtK\\V1\\Rest\\LootRoster\\LootRosterEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'api-rt-k.rest.loot-roster',
+                'route_identifier_name' => 'roster_name',
+                'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
+            ),
+            'APIRtK\\V1\\Rest\\LootRoster\\LootRosterCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'api-rt-k.rest.loot-roster',
+                'route_identifier_name' => 'roster_name',
+                'is_collection' => true,
+            ),
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageEntity' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'api-rt-k.rest.loot-roster-personnage',
+                'route_identifier_name' => 'loot_roster_personnage_id',
+                'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
+            ),
+            'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageCollection' => array(
+                'entity_identifier_name' => 'id',
+                'route_name' => 'api-rt-k.rest.loot-roster-personnage',
+                'route_identifier_name' => 'loot_roster_personnage_id',
                 'is_collection' => true,
             ),
         ),

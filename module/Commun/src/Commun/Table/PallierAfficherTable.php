@@ -154,4 +154,41 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
         }
     }
 
+    /**
+     * Retourne les palliers renseigné pour le roster ayant le nom passé en paramètre.
+     * @param string $sNomRoster
+     * @return array
+     */
+    public function getPallierPourNomRoster($sNomRoster) {
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQuery = $sql->select();
+            $oQuery->from(array('p' => 'pallierAfficher'))
+                    ->order('idModeDifficulte')
+                    ->join(array('r' => 'roster'), 'r.idRoster=p.idRoster', array('nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+            ->where->equalTo("nom", $sNomRoster);
+            return $this->fetchAllArray($oQuery);
+        } catch (\Exception $exc) {
+            throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $sNomRoster, $exc);
+        }
+    }
+
+    /**
+     * Retourne les palliers renseigné pour le roster ayant l'identififant passé en paramètre.
+     * @param int $iIdRoster
+     * @return array
+     */
+    public function getPallierPourIdRoster($iIdRoster) {
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQuery = $sql->select();
+            $oQuery->from(array('pallierAfficher'))
+                    ->order('idModeDifficulte')
+            ->where->equalTo("idRoster", $iIdRoster);
+            return $this->fetchAllArray($oQuery);
+        } catch (\Exception $exc) {
+            throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
+    }
+
 }

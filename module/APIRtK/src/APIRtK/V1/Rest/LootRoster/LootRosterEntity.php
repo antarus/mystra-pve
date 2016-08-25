@@ -1,8 +1,8 @@
 <?php
 
-namespace APIRtK\V1\Rest\Loot;
+namespace APIRtK\V1\Rest\LootRoster;
 
-class LootEntity extends \Core\Model\AbstractModel {
+class LootRosterEntity extends \Core\Model\AbstractModel {
 
     /**
      *
@@ -15,12 +15,6 @@ class LootEntity extends \Core\Model\AbstractModel {
      * @var string $nom
      */
     public $nom;
-
-    /**
-     *
-     * @var string $serveur
-     */
-    public $serveur;
 
     /**
      *
@@ -62,24 +56,6 @@ class LootEntity extends \Core\Model\AbstractModel {
      */
     public function setItems($value) {
         $this->items = $value;
-    }
-
-    /**
-     * Retourne la valeur serveur.
-     *
-     * @return string
-     */
-    function getServeur() {
-        return $this->serveur;
-    }
-
-    /**
-     * Définit la valeur pour serveur
-     *
-     * @param string
-     */
-    function setServeur($serveur) {
-        $this->serveur = $serveur;
     }
 
     /**

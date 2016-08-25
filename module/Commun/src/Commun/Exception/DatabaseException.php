@@ -43,17 +43,6 @@ class DatabaseException extends \Commun\Exception\LogException {
         if ($this->_getTranslator() != null) {
             $msg = $this->_getTranslator()->translate($msg);
         }
-//        if (isset($aParam)) {
-//            $msg.= " [ ";
-//            foreach ($aParam as $value) {
-//                if (!empty($value)) {
-//                    $msg.= $value . ", ";
-//                }
-//            }
-//            $msg = substr($msg, 0, -2);
-//            $msg.= " ]";
-//        }
-
         parent::__construct($msg, $codeErreur, $oService, $previous, $aParam);
     }
 

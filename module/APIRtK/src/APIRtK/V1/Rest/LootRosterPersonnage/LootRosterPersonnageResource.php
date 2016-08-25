@@ -1,12 +1,11 @@
 <?php
 
-namespace APIRtK\V1\Rest\Loot;
+namespace APIRtK\V1\Rest\LootRosterPersonnage;
 
-use Commun\Model\LogApiProblem;
-use ZF\ApiProblem;
+use ZF\ApiProblem\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
-class LootResource extends AbstractResourceListener {
+class LootRosterPersonnageResource extends AbstractResourceListener {
     /* @var $_service */
 
     private $_service;
@@ -142,7 +141,9 @@ class LootResource extends AbstractResourceListener {
             $oResult->setNom($sNom);
             $oResult->setServeur($sServer);
 
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sNom, $sServer, $bWithId, $iSpe);
+            //$aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage($sNom, $sServer, $bWithId, $iSpe);
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster("mystra", "antaruss", "garona", $bWithId, $iSpe);
+
             $oResult->setItems($aItemsPersonnage);
 
             $this->addItem($key, $oResult);
