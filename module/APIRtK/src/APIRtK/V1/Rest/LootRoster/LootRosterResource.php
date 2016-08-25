@@ -141,7 +141,7 @@ class LootRosterResource extends AbstractResourceListener {
 
             $oResult->setItems($aItemsPersonnage);
 
-            //     $this->addItem($key, $oResult);
+            $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);
