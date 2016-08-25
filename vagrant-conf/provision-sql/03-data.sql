@@ -274,8 +274,7 @@ TRUNCATE TABLE `user`;
 INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
 (1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', 1),
 (2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', 1),
-(3, 'kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', 1),
-(4, 'test', 'test@raid-tracker.com', 'test client normal 2', '$2y$14$SNxtDZgzXYH2xKZ2BdHBleBP9XLz2CkRPrdZtTpVzhzDwHfYRn.GK', 1);
+(3, 'kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', 1);
 
 --
 -- Vider la table avant d'insérer `user_role`

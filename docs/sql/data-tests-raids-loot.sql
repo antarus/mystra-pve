@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 25 Août 2016 à 09:22
+-- Généré le: Jeu 25 Août 2016 à 18:23
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.19
 
@@ -448,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_items1_idx` (`idItem`),
   KEY `fk_item_personnage_raid_personnages1_idx` (`idPersonnage`),
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=428 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=429 ;
 
 --
 -- Vider la table avant d'insérer `item_personnage_raid`
@@ -468,7 +468,8 @@ INSERT INTO `item_personnage_raid` (`idItemRaidPersonnage`, `idRaid`, `idItem`, 
 (424, 25, 139, 179, 0.00, '1801:1472:529:', 92146, ''),
 (425, 16, 140, 73, 0.00, '1801:1472:529:', 92146, ''),
 (426, 23, 141, 73, 0.00, '1801:1472:529:', 92146, ''),
-(427, 22, 142, 73, 0.00, '1801:1472:529:', 92146, '');
+(427, 22, 142, 73, 0.00, '1801:1472:529:', 92146, ''),
+(428, 16, 23, 1, 0.00, '1801:1472:529:', 77692, '');
 
 -- --------------------------------------------------------
 
@@ -1157,7 +1158,7 @@ CREATE TABLE IF NOT EXISTS `raids` (
   KEY `fk_raids_roster1_idx` (`idRosterTmp`),
   KEY `fk_raids_zone1_idx` (`idZoneTmp`),
   KEY `fk_raids_mode_difficulte1_idx` (`idMode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=26 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=27 ;
 
 --
 -- Vider la table avant d'insérer `raids`
@@ -1174,7 +1175,8 @@ INSERT INTO `raids` (`idRaid`, `idEvenements`, `date`, `note`, `valeur`, `ajoute
 (22, NULL, '2015-08-17 18:44:49', 'raid 3', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 2, 7545, 15),
 (23, NULL, '2015-08-17 18:44:49', 'raid 4', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 6967, 15),
 (24, NULL, '2015-08-17 18:44:49', 'raid 5', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 2, 6967, 15),
-(25, NULL, '2015-08-17 18:44:49', 'raid 6', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 2, 7545, 14);
+(25, NULL, '2015-08-17 18:44:49', 'raid 6', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 2, 7545, 14),
+(26, NULL, '2015-08-17 18:44:49', 'raid 7', 0.00, 'Import Raid-TracKer', 'Import Raid-TracKer', 1, 7545, 14);
 
 -- --------------------------------------------------------
 
@@ -1206,7 +1208,8 @@ INSERT INTO `raid_personnage` (`idRaid`, `idPersonnage`) VALUES
 (22, 179),
 (23, 179),
 (24, 179),
-(25, 179);
+(25, 179),
+(26, 3);
 
 -- --------------------------------------------------------
 
@@ -1388,9 +1391,9 @@ TRUNCATE TABLE `user`;
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`, `lastConnection`, `lastUpdate`, `keyValidMail`) VALUES
-(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL),
-(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL),
-(3, 'Kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL);
+(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', 1, '0000-00-00', '0000-00-00 00:00:00', NULL),
+(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', 1, '0000-00-00', '0000-00-00 00:00:00', NULL),
+(3, 'Kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', 1, '0000-00-00', '0000-00-00 00:00:00', NULL);
 
 --
 -- Déclencheurs `user`

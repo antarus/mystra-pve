@@ -4,6 +4,7 @@ namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
 use Zend\View\Model\JsonModel;
+use Application\Service\LogService;
 
 /**
  * Controller pour la vue.
@@ -15,6 +16,17 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     private $_servTranslator = null;
     private $_tableGuilde = null;
+    private $_logService;
+
+    /**
+     * Lazy getter pour le service de logs
+     * @return \Application\Service\LogService
+     */
+    protected function getLogService() {
+        return $this->_logService ?
+                $this->_logService :
+                $this->_logService = $this->getServiceLocator()->get('LogService');
+    }
 
     /**
      * Retourne le service de traduction en mode lazy.
@@ -142,12 +154,13 @@ class GuildesController extends \Zend\Mvc\Controller\AbstractActionController {
 
         if ($oRequest->isPost()) {
             $aPost = $oRequest->getPost();
-            $this->getTableGuilde()->beginTransaction();
+
             try {
+                $this->getTableGuilde()->beginTransaction();
                 $this->getTableGuilde()->importGuilde($aPost);
                 $this->getTableGuilde()->commit();
                 $msg = $this->_getServTranslator()->translate("La guilde a été importé avec succès.");
-                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aPost);
+                $this->getLogService()->log(LogService::INFO, $msg, LogService::USER, $aPost);
                 // $this->flashMessenger()->addMessage($msg, 'success');
             } catch (\Exception $exc) {
                 // on rollback en cas d'erreur
