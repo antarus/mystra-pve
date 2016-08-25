@@ -8,7 +8,7 @@
 
 -- requete ok
 -- roster 1
-select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone, i.bonus
+select ipr.idItem,i.nom, ipr.idRaid,ipr.idPersonnage, ro.idRoster as roster, m.idMode, z.idZone, ipr.bonus
 from item_personnage_raid ipr
 inner join raids r on r.idRaid=ipr.idRaid
 inner join zone z on z.idZone=r.idZoneTmp
@@ -23,6 +23,7 @@ and
 (m.idMode = 14 and z.idZone = 7545 and ro.idRoster = 1)
 or
 (m.idMode = 15 and z.idZone = 6967 and ro.idRoster =1)
+);
 );
 
 -- roster 2
@@ -42,3 +43,30 @@ where
 or
 (m.idMode = 15 and z.idZone = 7545 and ro.idRoster =2)
 );
+
+
+
+-- nb loot par personne pour un roster
+SELECT 
+    COUNT(ipr.idItem) as nbItem, ipr.idPersonnage,p.nom, MAX(r.date) as lastDateLoot
+FROM
+    item_personnage_raid ipr
+        INNER JOIN
+    raids r ON r.idRaid = ipr.idRaid    
+        INNER JOIN
+    zone z ON z.idZone = r.idZoneTmp
+        INNER JOIN
+    mode_difficulte m ON m.idMode = r.idMode
+        INNER JOIN
+    roster ro ON ro.idRoster = r.idRosterTmp
+        INNER JOIN
+    items i ON ipr.idItem = i.idItem
+        INNER JOIN
+    personnages p ON p.idPersonnage = ipr.idPersonnage
+WHERE
+    ((m.idMode = 14 AND z.idZone = 7545
+        AND ro.idRoster = 1)
+        OR (m.idMode = 15 AND z.idZone = 6967
+        AND ro.idRoster = 1))
+GROUP BY ipr.idPersonnage
+ORDER BY r.date

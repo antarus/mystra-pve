@@ -137,11 +137,11 @@ class LootRosterResource extends AbstractResourceListener {
             $oResult->setId($oTabRoster->getIdRoster());
             $oResult->setNom($sRoster);
 
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sRoster, null, null, $bWithId, $iSpe);
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootStatDuRoster($sRoster, $bWithId, $iSpe);
 
             $oResult->setItems($aItemsPersonnage);
 
-            $this->addItem($key, $oResult);
+            //     $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);

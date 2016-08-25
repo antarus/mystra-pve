@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Lun 22 Août 2016 à 15:10
+-- Généré le: Jeu 25 Août 2016 à 09:22
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
--- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
+-- Version de PHP: 5.5.9-1ubuntu4.19
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -581,8 +581,6 @@ INSERT INTO `npc` (`idNpc`, `nom`) VALUES
 (92146, 'gurtogg bloodboil'),
 (93023, 'siegemaster mar''tak'),
 (93068, 'xhul''horac');
-
--- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -1372,6 +1370,9 @@ CREATE TABLE IF NOT EXISTS `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
+  `lastConnection` date NOT NULL,
+  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `keyValidMail` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
@@ -1386,10 +1387,10 @@ TRUNCATE TABLE `user`;
 -- Contenu de la table `user`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
-(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL),
-(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', NULL),
-(3, 'Kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', NULL);
+INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`, `lastConnection`, `lastUpdate`, `keyValidMail`) VALUES
+(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL),
+(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL),
+(3, 'Kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', NULL, '0000-00-00', '0000-00-00 00:00:00', NULL);
 
 --
 -- Déclencheurs `user`
@@ -1400,8 +1401,6 @@ CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
  FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10)
 //
 DELIMITER ;
-
--- --------------------------------------------------------
 
 -- --------------------------------------------------------
 
@@ -1642,12 +1641,6 @@ ALTER TABLE `item_personnage_raid`
   ADD CONSTRAINT `fk_item_personnage_raid_bosses1` FOREIGN KEY (`idBosses`) REFERENCES `bosses` (`idBosses`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_item_personnage_raid_items1` FOREIGN KEY (`idItem`) REFERENCES `items` (`idItem`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_item_personnage_raid_raids1` FOREIGN KEY (`idRaid`) REFERENCES `raids` (`idRaid`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
---
--- Contraintes pour la table `pallier`
---
-ALTER TABLE `pallier`
-  ADD CONSTRAINT `fk_pallier_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `pallierAfficher`

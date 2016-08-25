@@ -3,6 +3,7 @@
 namespace Commun\Table;
 
 use \Commun\Exception\DatabaseException;
+use \Zend\Db\Sql\Expression;
 
 /**
  * @author Antarus
@@ -188,18 +189,93 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             }
 
             if ($bWithId) {
-                $aItem['ids']['idItem'] = $item['idItem'];
-                $aItem['ids']['idRaid'] = $item['idRaid'];
-                $aItem['ids']['idPersonnage'] = $item['idPersonnage'];
-                $aItem['ids']['idBosses'] = $item['idBosses'];
-                $aItem['ids']['idZone'] = $item['idZone'];
-                $aItem['ids']['idMode'] = $item['idMode'];
-                $aItem['ids']['idRoster'] = $item['idRoster'];
+                $this->ajouteIds($aItem, $item);
             }
             $aReturn[] = $aItem;
         }
 
         return $aReturn;
+    }
+
+    public function ajouteIds($aItem, $item) {
+        if ($bWithId) {
+            $aItem['ids']['idItem'] = $item['idItem'];
+            $aItem['ids']['idRaid'] = $item['idRaid'];
+            $aItem['ids']['idPersonnage'] = $item['idPersonnage'];
+            $aItem['ids']['idBosses'] = $item['idBosses'];
+            $aItem['ids']['idZone'] = $item['idZone'];
+            $aItem['ids']['idMode'] = $item['idMode'];
+            $aItem['ids']['idRoster'] = $item['idRoster'];
+        }
+    }
+
+    /**
+     * Convertit le retour de getQueryBaseLoot (id entre autre) en version lisible
+     * @param type $aAllItemPersonnage
+     * @return \Commun\Table\LogApiProblem
+     */
+    public function traiterItemsLootStat($aAllItemPersonnage, $bWithId = false) {
+        $aReturn = array();
+        foreach ($aAllItemPersonnage as $item) {
+
+            $aItem = array();
+            $aItem['nbItem'] = $item['nbItem'];
+            $aItem['lastDateLoot'] = $item['lastDateLoot'];
+            if ($bWithId) {
+                $aItem['idPersonnage'] = $item['idPersonnage'];
+            }
+            $aItem['nom_personnage'] = $item['nom_personnage'];
+
+            $aReturn[] = $aItem;
+        }
+
+        return $aReturn;
+    }
+
+    /**
+     * Retourne le nombre de loot du roster regroupé par personnage, ainsi que la derniere date de loot du joueur.
+     * @param string $sRoster
+     * @return \Zend\Db\Sql\Sql
+     */
+    public function getLootStatDuRoster($sRoster, $bWithId = false, $iSpe = -1) {
+
+        try {
+            $oQuery = $this->getQueryBaseLootStat($iSpe);
+
+            $aPalliers = $this->getTablePallier()->getPallierPourNomRoster($sRoster);
+            if (!$aPalliers) {
+                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ].", $sRoster));
+                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $sRoster);
+            }
+            $predicateGlobal = new \Zend\Db\Sql\Where();
+
+
+            $predicatePallierGlobal = new \Zend\Db\Sql\Where();
+
+
+            foreach ($aPalliers as $key => $aPallier) {
+
+                $predicatePallier = new \Zend\Db\Sql\Where();
+                $predicatePallier->NEST->equalTo("m.idMode", $aPallier['idModeDifficulte'])->AND->equalTo("z.idZone", $aPallier['idZone'])->AND->equalTo("ro.idRoster", $aPallier['idRoster'])->UNNEST;
+
+                if ($key == 1) {
+                    $predicatePallierGlobal->addPredicate($predicatePallier, 'OR');
+                } else {
+                    $predicatePallierGlobal->addPredicate($predicatePallier);
+                }
+            }
+
+            $predicateGlobal->NEST->addPredicate($predicatePallierGlobal)->UNNEST;
+            if (isset($predicatePersonnage)) {
+                $predicateGlobal->addPredicate($predicatePersonnage, 'AND');
+            }
+            $oQuery->where($predicateGlobal);
+
+            //   $this->debug($oQuery);
+            return $this->traiterItemsLootStat($this->fetchAllArray($oQuery), $bWithId);
+        } catch (\Exception $ex) {
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($sRoster), $ex);
+        }
     }
 
     /**
@@ -325,7 +401,59 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
 
 
         //   $query->order(array('nom'));
-        // $this->debug($query);
+        // $this->debug($oQuery);
+
+        return $oQuery;
+    }
+
+    /**
+     * Fonction commune pour les stats de loot
+     * @return \Zend\Db\Sql\Sql
+     */
+    function getQueryBaseLootStat($iSpe) {
+
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+
+        $oQuery->columns(array(
+                    'nbItem' => new Expression('COUNT(ipr.idItem)'),
+                    'idPersonnage'
+                ))
+                ->from(array('ipr' => 'item_personnage_raid'))
+                ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array('lastDateLoot' => new Expression('MAX(r.date)')), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone', "zone" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode', "mode" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster', "roster" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array('idBosses', "boss" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
+        switch ($iSpe) {
+            //spé 1
+            case 0:
+                $oQuery->where->equalTo("ipr.valeur", 0.00);
+                break;
+            //spé 2
+            case 1:
+                $oQuery->where->equalTo("ipr.valeur", 1.00);
+                break;
+            //spé 3
+            case 2:
+                $oQuery->where->equalTo("ipr.valeur", 2.00);
+                break;
+            //spé 4
+            case 3:
+                $oQuery->where->equalTo("ipr.valeur", 3.00);
+                break;
+            default:
+                break;
+        }
+
+        $oQuery->group("ipr.idPersonnage");
+        $oQuery->order('r.date');
+
+
+        //   $query->order(array('nom'));
+        // $this->debug($oQuery);
 
         return $oQuery;
     }
