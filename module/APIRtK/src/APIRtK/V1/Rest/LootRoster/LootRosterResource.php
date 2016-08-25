@@ -137,9 +137,7 @@ class LootRosterResource extends AbstractResourceListener {
             $oResult->setId($oTabRoster->getIdRoster());
             $oResult->setNom($sRoster);
 
-
-            //$aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage($sNom, $sServer, $bWithId, $iSpe);
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster("mystra", null, null, $bWithId, $iSpe);
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sRoster, null, null, $bWithId, $iSpe);
 
             $oResult->setItems($aItemsPersonnage);
 

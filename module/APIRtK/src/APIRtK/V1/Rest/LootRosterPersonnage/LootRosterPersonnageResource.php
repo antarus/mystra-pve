@@ -11,6 +11,9 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
     private $_service;
     private $_servTranslator;
 
+    /* @var $_tableRoster \Commun\Table\PersonnagesTable */
+    private $_tableRoster;
+
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
 
@@ -73,6 +76,17 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
     }
 
     /**
+     * Retourne la table PersonnagesTable.
+     * @return \Commun\Table\RosterTable
+     */
+    private function getTableRoster() {
+        if (!$this->_tableRoster) {
+            $this->_tableRoster = $this->_service->get('Commun\Table\RosterTable');
+        }
+        return $this->_tableRoster;
+    }
+
+    /**
      * Constructeur.
      * @param $services
      */
@@ -117,9 +131,9 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
      */
     public function fetch($id) {
         try {
-
-            $sServer = $this->getEvent()->getRouteParam('loot_server');
-            $sNom = $this->getEvent()->getRouteParam('loot_name');
+            $sRoster = $this->getEvent()->getRouteParam('roster');
+            $sServer = $this->getEvent()->getRouteParam('server');
+            $sNom = $this->getEvent()->getRouteParam('nom_personnage');
             $bWithId = $this->getEvent()->getQueryParam('withids', 0);
             $iSpe = $this->getEvent()->getQueryParam('spe', -1);
             $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer, $bWithId, $iSpe));
@@ -135,14 +149,18 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
             if (!$oTabPersonnage) {
                 return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
             }
+            $oTabRoster = $this->getTableRoster()->selectBy(
+                    array("nom" => $sRoster));
+            if (!$oTabRoster) {
+                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] n'a pas été trouvé."), $sRoster), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
+            }
 
-            $oResult = new LootEntity();
+            $oResult = new LootRosterPersonnageEntity();
             $oResult->setId($oTabPersonnage->getIdPersonnage());
             $oResult->setNom($sNom);
             $oResult->setServeur($sServer);
 
-            //$aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage($sNom, $sServer, $bWithId, $iSpe);
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster("mystra", "antaruss", "garona", $bWithId, $iSpe);
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sRoster, $sNom, $sServer, $bWithId, $iSpe);
 
             $oResult->setItems($aItemsPersonnage);
 

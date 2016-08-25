@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'service_manager' => array(
         'factories' => array(
@@ -41,7 +40,7 @@ return array(
             'api-rt-k.rest.loot-roster-personnage' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/loot-roster-personnage/:loot_roster_personnage_id',
+                    'route' => '/api/loot-roster-personnage/:roster/:server/:nom_personnage',
                     'defaults' => array(
                         'controller' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller',
                     ),
@@ -121,18 +120,13 @@ return array(
         'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
             'listener' => 'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageResource',
             'route_name' => 'api-rt-k.rest.loot-roster-personnage',
-            'route_identifier_name' => 'loot_roster_personnage_id',
+            'route_identifier_name' => 'nom_personnage',
             'collection_name' => 'loot_roster_personnage',
             'entity_http_methods' => array(
-                0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
+                0 => 'PATCH',
+                1 => 'GET',
             ),
-            'collection_http_methods' => array(
-                0 => 'GET',
-                1 => 'POST',
-            ),
+            'collection_http_methods' => array(),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
@@ -230,13 +224,13 @@ return array(
             'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageEntity' => array(
                 'entity_identifier_name' => 'id',
                 'route_name' => 'api-rt-k.rest.loot-roster-personnage',
-                'route_identifier_name' => 'loot_roster_personnage_id',
+                'route_identifier_name' => 'nom_personnage',
                 'hydrator' => 'Zend\\Hydrator\\ArraySerializable',
             ),
             'APIRtK\\V1\\Rest\\LootRosterPersonnage\\LootRosterPersonnageCollection' => array(
                 'entity_identifier_name' => 'id',
                 'route_name' => 'api-rt-k.rest.loot-roster-personnage',
-                'route_identifier_name' => 'loot_roster_personnage_id',
+                'route_identifier_name' => 'nom_personnage',
                 'is_collection' => true,
             ),
         ),
