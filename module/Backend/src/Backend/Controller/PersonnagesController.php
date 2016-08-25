@@ -254,7 +254,7 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
                 $this->getTablePersonnage()->commit();
 
                 $msg = $this->_getServTranslator()->translate("Le personnage a été importé avec succès.");
-                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aParam);
+                $this->_getLogService()->log(LogService::INFO, $msg, LogService::USER, $aPost);
             } catch (\Exception $exc) {
                 // on rollback en cas d'erreur
                 $this->getTablePersonnage()->rollback();
