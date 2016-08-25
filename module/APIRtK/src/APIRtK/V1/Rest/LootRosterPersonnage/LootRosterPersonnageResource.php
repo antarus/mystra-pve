@@ -2,7 +2,8 @@
 
 namespace APIRtK\V1\Rest\LootRosterPersonnage;
 
-use ZF\ApiProblem\ApiProblem;
+use Commun\Model\LogApiProblem;
+use ZF\ApiProblem;
 use ZF\Rest\AbstractResourceListener;
 
 class LootRosterPersonnageResource extends AbstractResourceListener {

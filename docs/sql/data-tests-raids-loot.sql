@@ -584,25 +584,6 @@ INSERT INTO `npc` (`idNpc`, `nom`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `pallier`
---
-
-DROP TABLE IF EXISTS `pallier`;
-CREATE TABLE IF NOT EXISTS `pallier` (
-  `idPallier` int(11) NOT NULL AUTO_INCREMENT,
-  `idZone` int(11) NOT NULL,
-  `ordre` int(11) NOT NULL,
-  `tiers` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idPallier`),
-  KEY `fk_pallier_zone1_idx` (`idZone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Vider la table avant d'insérer `pallier`
---
-
-TRUNCATE TABLE `pallier`;
 -- --------------------------------------------------------
 
 --
@@ -1422,28 +1403,6 @@ DELIMITER ;
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `users`
---
-
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `idUsers` int(11) NOT NULL AUTO_INCREMENT,
-  `login` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `pwd` varchar(150) NOT NULL,
-  `pseudo` varchar(150) DEFAULT NULL,
-  `email` varchar(250) DEFAULT NULL,
-  `avatar` varchar(150) DEFAULT NULL,
-  `admin` tinyint(1) DEFAULT NULL,
-  `forgetPass` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`idUsers`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
---
--- Vider la table avant d'insérer `users`
---
-
-TRUNCATE TABLE `users`;
 -- --------------------------------------------------------
 
 --

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 21 Août 2016 à 15:13
+-- Généré le: Jeu 25 Août 2016 à 00:44
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.19
 
@@ -28,9 +28,13 @@ USE `raid_tracker`;
 --
 
 TRUNCATE TABLE `bosses`;
+--
+-- Contenu de la table `bosses`
+--
 
 INSERT INTO `bosses` (`idBosses`, `nom`, `level`, `vie`) VALUES
 (-1, 'trash mob', 0, 0);
+
 --
 -- Vider la table avant d'insérer `bosses_has_npc`
 --
@@ -106,10 +110,6 @@ TRUNCATE TABLE `guildes`;
 -- Contenu de la table `guildes`
 --
 
-INSERT INTO `guildes` (`idGuildes`, `nom`, `serveur`, `niveau`, `miniature`, `idFaction`) VALUES
-(1, 'wrath of god', 'Garona', 25, '', 0);
-
---
 -- Vider la table avant d'insérer `items`
 --
 
@@ -130,12 +130,12 @@ TRUNCATE TABLE `mode_difficulte`;
 
 INSERT INTO `mode_difficulte` (`idMode`, `nom`, `nom_bnet`) VALUES
 (1, 'Raid LFR', 'RAID_FLEX_LFR'),
-(14, 'Raid NM', 'RAID_FLEX_NORMAL'),
-(15, 'Raid HM', 'RAID_FLEX_HEROIC'),
-(16, 'Raid MM', 'RAID_MYTHIC'),
 (5, 'Donjon NM', 'DUNGEON_NORMAL'),
 (6, 'Donjon HM', 'DUNGEON_HEROIC'),
-(7, 'Donjon MM', 'DUNGEON_MYTHIC');
+(7, 'Donjon MM', 'DUNGEON_MYTHIC'),
+(14, 'Raid NM', 'RAID_FLEX_NORMAL'),
+(15, 'Raid HM', 'RAID_FLEX_HEROIC'),
+(16, 'Raid MM', 'RAID_MYTHIC');
 
 --
 -- Vider la table avant d'insérer `npc`
@@ -155,16 +155,6 @@ TRUNCATE TABLE `personnages`;
 --
 -- Contenu de la table `personnages`
 --
-
-INSERT INTO `personnages` (`idPersonnage`, `nom`, `niveau`, `genre`, `miniature`, `royaume`, `ilvl`, `idFaction`, `idClasses`, `idRace`, `idGuildes`, `idUsers`, `isTech`) VALUES
-(1, 'akirian', 100, 0, 'garona/41/3881769-avatar.jpg', 'garona', 0, 0, 8, 7, 1, NULL, 0),
-(2, 'xéres', 100, 0, 'garona/5/22519557-avatar.jpg', 'garona', 0, 0, 2, 1, 1, NULL, 0),
-(3, 'octav', 100, 0, 'garona/90/23131738-avatar.jpg', 'garona', 0, 0, 3, 3, 1, NULL, 0),
-(4, 'arkös', 100, 0, 'garona/22/28675094-avatar.jpg', 'garona', 0, 0, 6, 11, 1, NULL, 0),
-(5, 'wôlff', 100, 0, 'garona/11/49420299-avatar.jpg', 'garona', 0, 0, 11, 22, 1, NULL, 0),
-(6, 'Àbigaëlle', 100, 1, 'garona/178/53469618-avatar.jpg', 'garona', 0, 0, 8, 4, 1, NULL, 0),
-(7, 'chomano', 100, 0, 'garona/175/57910447-avatar.jpg', 'garona', 0, 0, 10, 25, 1, NULL, 0),
-(8, 'prôzzak', 100, 0, 'garona/177/103369649-avatar.jpg', 'garona', 0, 0, 9, 7, 1, NULL, 0);
 
 --
 -- Vider la table avant d'insérer `race`
@@ -280,11 +270,12 @@ TRUNCATE TABLE `user`;
 --
 -- Contenu de la table `user`
 --
-INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`, `lastConnection`, `lastUpdate`, `keyValidMail`) VALUES
-(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', 1, '0000-00-00', '0000-00-00 00:00:00', NULL),
-(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', 1, '0000-00-00', '0000-00-00 00:00:00', NULL),
-(3, 'kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', 1, '0000-00-00', '0000-00-00 00:00:00', NULL),
-(4, 'test', 'test@raid-tracker.com', 'test client normal 2', '$2y$14$SNxtDZgzXYH2xKZ2BdHBleBP9XLz2CkRPrdZtTpVzhzDwHfYRn.GK', 1, '0000-00-00', '0000-00-00 00:00:00', NULL);
+
+INSERT INTO `user` (`id`, `username`, `email`, `display_name`, `password`, `state`) VALUES
+(1, 'capi', 'capi@raid-tracker.com', 'capi', '$2y$14$0tqFA6/YrHNyOOW9npmPde0ErTKZ2zSxuJNvk.zh1d0Lpg0xFjWUm', 1),
+(2, 'antarus', 'antarus74@gmail.com', 'antarus', '$2y$14$LGzQvjtuiGVzwNd.hkchH.FUN4/aqz00GsR3UgVsXJOUDfNhjJfby', 1),
+(3, 'kadyll', 'Kadyll@raid-tracker.com', 'Kadyll', '$2y$14$lNwq73CC6IwKswrOYGVHu.MaKd9MDbI.Rllj4b.sKZP16fdcGKLPK', 1),
+(4, 'test', 'test@raid-tracker.com', 'test client normal 2', '$2y$14$SNxtDZgzXYH2xKZ2BdHBleBP9XLz2CkRPrdZtTpVzhzDwHfYRn.GK', 1);
 
 --
 -- Vider la table avant d'insérer `user_role`
@@ -310,11 +301,10 @@ TRUNCATE TABLE `user_role_linker`;
 --
 
 INSERT INTO `user_role_linker` (`user_id`, `role_id`) VALUES
+(4, '10'),
 (1, '11'),
 (2, '11'),
-(3, '11'),
-(4, '10');
-
+(3, '11');
 
 --
 -- Vider la table avant d'insérer `zone`
@@ -330,7 +320,8 @@ TRUNCATE TABLE `zone_has_bosses`;
 -- Vider la table avant d'insérer `zone_has_mode_diffculte`
 --
 
-TRUNCATE TABLE `zone_has_mode_diffculte`;SET FOREIGN_KEY_CHECKS=1;
+TRUNCATE TABLE `zone_has_mode_diffculte`;
+SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

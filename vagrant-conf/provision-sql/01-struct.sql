@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Dim 21 Août 2016 à 15:12
+-- Généré le: Jeu 25 Août 2016 à 00:44
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
 -- Version de PHP: 5.5.9-1ubuntu4.19
 
@@ -266,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
   `nom` varchar(100) NOT NULL,
   `nom_bnet` varchar(100) DEFAULT NULL COMMENT 'nom battle net',
   PRIMARY KEY (`idMode`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
 
 -- --------------------------------------------------------
 
@@ -458,14 +458,21 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(255) DEFAULT NULL,
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
-  `state` smallint(5) unsigned DEFAULT '0',
-  `lastConnection` date NOT NULL,
-  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `keyValidMail` varchar(500) DEFAULT NULL,
+  `state` smallint(5) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+
+--
+-- Déclencheurs `user`
+--
+DROP TRIGGER IF EXISTS `add_role_user`;
+DELIMITER //
+CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
+ FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10)
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -681,8 +688,6 @@ ALTER TABLE `zone_has_bosses`
 ALTER TABLE `zone_has_mode_diffculte`
   ADD CONSTRAINT `fk_mode_difficulte_has_zone_mode_difficulte1` FOREIGN KEY (`idMode`) REFERENCES `mode_difficulte` (`idMode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_mode_difficulte_has_zone_zone1` FOREIGN KEY (`idZone`) REFERENCES `zone` (`idZone`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-
 SET FOREIGN_KEY_CHECKS=1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
