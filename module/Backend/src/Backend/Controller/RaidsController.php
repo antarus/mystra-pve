@@ -426,7 +426,9 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
             $oWriter = new \Zend\Config\Writer\Json();
             $oRaid = $this->saveRaid($aRaid['raiddata']['zones']['zone'], $aPost['idRoster']);
             $aLstPersonnage = $this->savePersonnages($aRaid['raiddata']['members']['member'], $oRaid, $aPost["serveur"], $oData, $oWriter);
-            $this->saveItems($aRaid['raiddata']['items']['item'], $aLstPersonnage, $oRaid, $aPost);
+            if (isset($aRaid['raiddata']['items']['item'])) {
+                $this->saveItems($aRaid['raiddata']['items']['item'], $aLstPersonnage, $oRaid, $aPost);
+            }
         } catch (\Exception $ex) {
             throw new \Exception("Erreur lors de la sauvagarde de l'import", 0, $ex);
         }
