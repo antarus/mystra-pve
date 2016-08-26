@@ -240,7 +240,7 @@ a:focus {
   border-radius: 500px;
 }
 .row {
-  margin-left: -20px;
+  margin-left: 20px;
   *zoom: 1;
 }
 .row:before,
@@ -5469,7 +5469,7 @@ button.close {
 }
 @media (min-width: 768px) and (max-width: 979px) {
   .row {
-    margin-left: -20px;
+    margin-left: 20px;
     *zoom: 1;
   }
   .row:before,
@@ -5809,7 +5809,7 @@ button.close {
 }
 @media (min-width: 1200px) {
   .row {
-    margin-left: -30px;
+    margin-left: 30px;
     *zoom: 1;
   }
   .row:before,

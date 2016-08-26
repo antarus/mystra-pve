@@ -6,7 +6,7 @@ return array(
     'default' => array(
         array(
             'label' => $translator->translate('Accueil'),
-            'route' => 'home',
+            'route' => 'backend-index',
             'action' => 'index',
         ),
         array(
@@ -44,13 +44,48 @@ return array(
                 'route' => 'backend-personnages-list',
                 'action' => 'index',
                 )
-        )),         
+        )),
         array(
-            'label' => $translator->translate('Boss'),
-            'route' => 'backend-bosses-list',
+            'label' => $translator->translate('Raid'),
+            'route' => null,
             'action' => 'index',
-        ),
-        
+            'pages' => array(
+                array(
+                'label' => $translator->translate('Palliers'),
+                'route' => 'backend-pallier-afficher-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Zone'),
+                'route' => 'backend-zone-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Raids'),
+                'route' => 'backend-raids-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Modes de difficulté'),
+                'route' => 'backend-mode_difficulte-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Boss'),
+                'route' => 'backend-bosses-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Items'),
+                'route' => 'backend-items-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Items - personnage -raid - boss'),
+                'route' => 'backend-item-personnage-raid-list',
+                'action' => 'index',
+                )
+        )),
         array(
             'label' => $translator->translate('Evenements'),
             'route' => 'backend-evenements-list',
@@ -62,35 +97,10 @@ return array(
             'action' => 'index',
         ),
         array(
-            'label' => $translator->translate('Items'),
-            'route' => 'backend-items-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Items - personnage -raid - boss'),
-            'route' => 'backend-item-personnage-raid-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Modes de difficulté'),
-            'route' => 'backend-mode_difficulte-list',
-            'action' => 'index',
-        ),
-        array(
             'label' => $translator->translate('Npc'),
             'route' => 'backend-npc-list',
             'action' => 'index',
         ), 
-        array(
-            'label' => $translator->translate('Palliers'),
-            'route' => 'backend-pallier-afficher-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Raids'),
-            'route' => 'backend-raids-list',
-            'action' => 'index',
-        ),
         array(
             'label' => $translator->translate('Roster'),
             'route' => 'backend-roster-list',
@@ -100,11 +110,6 @@ return array(
             'label' => $translator->translate('Utilisateurs'),
             'route' => 'backend-users-list',
             'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Zone'),
-            'route' => 'backend-zone-list',
-            'action' => 'index',
-        )
+        ), 
     )
 );
