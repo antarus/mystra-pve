@@ -12,21 +12,9 @@ class RosterStat extends \Core\Model\AbstractModel {
     public $nom = null;
     public $nbTotalRaid;
     public $nbTotalRaidPallier;
-
-    public function exchangeArray($aData) {
-        $oHydrator = new \Zend\Stdlib\Hydrator\ClassMethods();
-        $oHydrator->hydrate($aData, $this);
-    }
-
-    /**
-     * Returne un array représentant l'objet.
-     *
-     * @return array
-     */
-    public function getArrayCopy() {
-        $hydrator = new \Zend\Stdlib\Hydrator\ClassMethods();
-        return $hydrator->extract($this);
-    }
+    public $nbItem;
+    public $nbItemPallier;
+    public $participation;
 
     function getIdRoster() {
         return $this->idRoster;
@@ -44,6 +32,22 @@ class RosterStat extends \Core\Model\AbstractModel {
         return $this->nom;
     }
 
+    function getNbItem() {
+        return $this->nbItem;
+    }
+
+    function getNbItemPallier() {
+        return $this->nbItemPallier;
+    }
+
+    function setNbItem($nbItem) {
+        $this->nbItem = $nbItem;
+    }
+
+    function setNbItemPallier($nbItemPallier) {
+        $this->nbItemPallier = $nbItemPallier;
+    }
+
     function getNbTotalRaid() {
         return $this->nbTotalRaid;
     }
@@ -58,6 +62,14 @@ class RosterStat extends \Core\Model\AbstractModel {
 
     function setNbTotalRaid($nbTotalRaid) {
         $this->nbTotalRaid = $nbTotalRaid;
+    }
+
+    function getParticipation() {
+        return $this->participation;
+    }
+
+    function setParticipation($participation) {
+        $this->participation = $participation;
     }
 
 }

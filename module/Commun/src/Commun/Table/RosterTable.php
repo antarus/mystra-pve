@@ -250,6 +250,8 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             if (!$oRoster) {
                 throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getNom());
             }
+            $oReturn->setIdRoster($oRoster->getIdRoster());
+            $oReturn->setNom($oRoster->getNom());
             // raid
             // nb total de raid du roster
             $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getIdRoster()));
@@ -258,14 +260,39 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
 
             // nb de raid par joueur total
             $aNbTotalRaidJoueur = $this->getTableRaid()->getNombreRaidPersonnageRoster($oRoster->getIdRoster());
-            // nb de raid par joueur sur les palliers configré
+
+            $aCvtNbTotalRaidJoueur = array();
+
+            foreach ($aNbTotalRaidJoueur as $aValue) {
+                $aCvtNbTotalRaidJoueur[$aValue['idPersonnage']] = $aValue;
+            }
+
+            // nb de raid par joueur sur les palliers configuré
             $aNbTotalRaidJoueurPallier = $this->getTableRaid()->getNombreRaidPersonnageRosterPallier($oRoster->getIdRoster());
+            $aCvtNbTotalRaidJoueurPallier = array();
+
+            foreach ($aNbTotalRaidJoueurPallier as $aValue) {
+                $aCvtNbTotalRaidJoueurPallier[$aValue['idPersonnage']] = $aValue;
+            }
+
+            $PlayerAttende = \Zend\Stdlib\ArrayUtils::merge($aCvtNbTotalRaidJoueur, $aCvtNbTotalRaidJoueurPallier, true);
+            //$PlayerAttende = array_merge($aNbTotalRaidJoueur, $aNbTotalRaidJoueurPallier);
+
+            $aParticipationJoueur = array();
+            foreach ($PlayerAttende as $key => $aStatPlayer) {
+                $iPresGlobal = isset($aStatPlayer['nbRaid']) ? $aStatPlayer['nbRaid'] : 0;
+                $iPresPallier = isset($aStatPlayer['nbRaidPallier']) ? $aStatPlayer['nbRaidPallier'] : 0;
+                $aStatPlayer['presenceGlobal'] = round(100 * $iPresGlobal / $oReturn->getNbTotalRaid(), 2);
+                $aStatPlayer['presencePallier'] = round(100 * $iPresPallier / $oReturn->getNbTotalRaidPallier(), 2);
+                $aParticipationJoueur[] = $aStatPlayer;
+            }
+            $oReturn->setParticipation($aParticipationJoueur);
 
             //loot
             // loot du roster
-            $aNbTotalLootRoster = $this->getTableItemPersonnageRaidTable()->getNbTotalLootRoster($oRoster->getIdRoster(), $iSpe);
+            $oReturn->setNbItem($this->getTableItemPersonnageRaidTable()->getNbTotalLootRoster($oRoster->getIdRoster(), $iSpe));
             // loot du roster limité au pallier
-            $aNbTotalLootRosterPallier = $this->getTableItemPersonnageRaidTable()->getNbTotalLootRoster($oRoster->getIdRoster(), $iSpe);
+            $oReturn->setNbItemPallier($this->getTableItemPersonnageRaidTable()->getNbTotalLootRosterPallier($oRoster->getIdRoster(), $iSpe));
 
 
             return $oReturn;

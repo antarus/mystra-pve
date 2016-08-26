@@ -95,12 +95,12 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
             $oQuery->columns(array(
-                        'total_raid' => new Expression('COUNT(r.idRaid)')
+                        'totalRaid' => new Expression('COUNT(r.idRaid)')
                     ))
                     ->from(array('r' => 'raids'))
                     ->order('idMode')
             ->where->equalTo("idRosterTmp", $iIdRaid);
-            return $this->fetchAllArray($oQuery)[0]['total_raid'];
+            return $this->fetchAllArray($oQuery)[0]['totalRaid'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRaid, $exc);
         }
@@ -115,7 +115,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
             $oQuery->columns(array(
-                        'total_raid' => new Expression('COUNT(r.idRaid)')
+                        'totalRaidPallier' => new Expression('COUNT(r.idRaid)')
                     ))
                     ->from(array('r' => 'raids'))
                     ->order('idMode');
@@ -124,7 +124,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
 //            $predicatePallier->AND->equalTo("idRosterTmp", $iIdRoster);
 
             $oQuery->where->addPredicate($predicatePallier);
-            return $this->fetchAllArray($oQuery)[0]['total_raid'];
+            return $this->fetchAllArray($oQuery)[0]['totalRaidPallier'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
@@ -160,7 +160,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
         try {
             $oQuery = $this->getBaseQueryNbRaid($iIdRoster)->
                     columns(array(
-                'nbRaid' => new Expression('COUNT(rp.idRaid)'),
+                'nbRaidPallier' => new Expression('COUNT(rp.idRaid)'),
                 'idPersonnage'
             ));
             $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);

@@ -139,17 +139,8 @@ class RosterStatResource extends AbstractResourceListener {
             if ($this->cache->hasItem($key) === true) {
                 return $this->cache->getItem($key);
             }
-
-//            $oTabRoster = $this->getTableRoster()->selectBy(
-//                    array("nom" => $sRoster));
-//            if (!$oTabRoster) {
-//                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] n'a pas été trouvé."), $sRoster), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
-//            }
-
-
-
             $oResult = $this->getTableRoster()->getStatRoster($sRoster, $iSpe);
-            //   $this->addItem($key, $oResult);
+            $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);

@@ -412,16 +412,21 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
             $oQuery->columns(array(
-                        'total_item' => new Expression('COUNT(r.idRaid)')
+                        'totalItem' => new Expression('COUNT(ipr.idItem)')
                     ))
                     ->from(array('ipr' => 'item_personnage_raid'))
                     ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+            // spé
+            /* @var $predicateSpe \Zend\Db\Sql\Where() */
+            $predicateSpe = $this->getPredicateSpe($iSpe);
+            // palllier
+            /* @var $predicateGlobal \Zend\Db\Sql\Where() */
+            $predicateGlobal = new \Zend\Db\Sql\Where();
+            $predicateGlobal->equalTo("idRosterTmp", $iIdRoster);
+            $predicateGlobal->addPredicate($predicateSpe, 'AND');
+            $oQuery->where($predicateGlobal);
 
-            $oQuery->where($this->getPredicateSpe($iSpe));
-            $predicateRoster = new \Zend\Db\Sql\Where();
-            $predicateRoster->equalTo("idRosterTmp", $iIdRoster);
-            $oQuery->where($predicateRoster);
-            return $this->fetchAllArray($oQuery);
+            return $this->fetchAllArray($oQuery)[0]['totalItem'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
@@ -436,22 +441,20 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
             $oQuery->columns(array(
-                        'total_item' => new Expression('COUNT(r.idRaid)')
+                        'totalItemPallier' => new Expression('COUNT(ipr.idItem)')
                     ))
                     ->from(array('ipr' => 'item_personnage_raid'))
                     ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER);
             // spé
-            $oQuery->where($this->getPredicateSpe($iSpe));
-
+            /* @var $predicateSpe \Zend\Db\Sql\Where() */
+            $predicateSpe = $this->getPredicateSpe($iSpe);
             // palllier
             /* @var $predicateGlobal \Zend\Db\Sql\Where() */
-            $predicateGlobal = $this->getTablePallier()->getPredicate($sRoster);
-            if (isset($predicatePersonnage)) {
-                $predicateGlobal->addPredicate($predicatePersonnage, 'AND');
-            }
+            $predicateGlobal = $this->getTablePallier()->getPredicate($iIdRoster);
+            $predicateGlobal->addPredicate($predicateSpe, 'AND');
             $oQuery->where($predicateGlobal);
 
-            return $this->fetchAllArray($oQuery);
+            return $this->fetchAllArray($oQuery)[0]['totalItemPallier'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
