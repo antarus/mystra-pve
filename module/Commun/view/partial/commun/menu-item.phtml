@@ -1,3 +1,4 @@
+
 <?php
 $page = $this->page;
 $level = empty($this->level) ? 0 : $this->level;
@@ -10,17 +11,17 @@ foreach ($page->getPages() as $child) {
 }
 if (!$hasChildren):
     ?>
-    <li><a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a></li>
+<li><a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a></li>
     <?php
 else:
     $liClass = ($level > 0) ? 'dropdown-submenu' : 'dropdown';
     ?>
-    <li class="<?= $liClass ?>">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <?= $page->getLabel() ?>
-            <?php if ($level === 0): ?><b class="caret"></b><?php endif ?>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-link"></i>
+            <span><?= $page->getLabel() ?></span>
         </a>
-        <ul class="dropdown-menu">
+        <ul class="treeview-menu">
             <?php
             foreach ($page->getPages() as $child):
                 if (!$this->navigation()->accept($child))
