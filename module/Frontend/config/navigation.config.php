@@ -1,0 +1,13 @@
+<?php
+
+// TODO revoir la traduction
+$translator = new \Zend\I18n\Translator\Translator();
+return array(
+    'default' => array(
+        array(
+            'label' => $translator->translate('Accueil'),
+            'route' => 'home',
+            'action' => 'index',
+        ),
+    )
+);
