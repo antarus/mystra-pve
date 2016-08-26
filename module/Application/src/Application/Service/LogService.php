@@ -184,9 +184,9 @@ class LogService implements ServiceLocatorAwareInterface {
         $sm = $this->getServiceLocator();
         $auth = $sm->get('zfcuser_auth_service');
         return $this->_userName ?
-                $this->userName :
-                $this->userName = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+                $this->_userName :
+                $this->_userName = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . '-' . $auth->getIdentity()->getUsername() : "undefined";
 
         ;
     }
@@ -382,10 +382,29 @@ class LogService implements ServiceLocatorAwareInterface {
      * @param string $msg Le message d'erreur
      */
     private function _logUser($crit, $msg) {
-        $trace = debug_backtrace();
+        if($this->_getUserName())
+        {
+            $this->_getConfigService()['log'][]['writers'][0]['options']['stream'] = 'data/log/'.$this->_getUserName() .'-users.log';
+        }
+        else $this->_getConfigService()['log'][]['writers'][0]['options']['stream'] = 'data/log/users.log';
+        
+        $logger = new \Zend\Log\Logger;
+        $writer = new \Zend\Log\Writer\Stream(array(
+                    'name' => 'stream',
+                    'priority' => 1000,
+                    'options' => array(
+                        'stream' => 'data/log/users.log',),
+                ));
+ 
+        $logger->addWriter($writer);
+            
+        
         $module = explode('\\', $trace[2]['class'])[0];
-        $this->_getUserLogService()->log(
+        $trace = debug_backtrace(); 
+        
+        $logger->log(
                 $crit, '| ' . $module . ' | ' . $this->_getUserName() . ' | ' . $this->_getRemoteAddr() . ' | ' . $msg
+           
         );
     }
 

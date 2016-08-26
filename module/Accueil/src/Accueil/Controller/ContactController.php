@@ -29,11 +29,11 @@ class ContactController extends AbstractActionController
     
     public function indexAction()
     {
-      /*    // Log de l'update
+          // Log de l'update
         $this->_getLogService()->log(LogService::NOTICE, "test de log user", LogService::USER);
         $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::LOGICIEL);
         $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::DEBUG);
-       */ 
+        
         return new ViewModel();
     }
 }
