@@ -17,13 +17,21 @@ class ParseException {
             $oExTmp = $oExTmp->getPrevious();
             switch ($oExTmp) {
                 case $oExTmp instanceof \Commun\Exception\BnetException;
-                    return $oExTmp;
+                    return ParseException::getFirstCauseRtk($oExTmp);
                     break;
                 case $oExTmp instanceof \Commun\Exception\DatabaseException;
-                    return $oExTmp;
+                    return ParseException::getFirstCauseRtk($oExTmp);
                     break;
                 default:
             }
+        }
+        return $oExTmp;
+    }
+
+    private static function getFirstCauseRtk($oException) {
+        $oExTmp = $oException;
+        while (!empty($oExTmp->getPrevious()) && ($oExTmp instanceof \Commun\Exception\BnetException || $oExTmp instanceof \Commun\Exception\DatabaseException)) {
+            $oExTmp = $oExTmp->getPrevious();
         }
         return $oExTmp;
     }

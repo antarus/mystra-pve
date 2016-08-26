@@ -205,8 +205,8 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
                 $aPalliers = $this->getPallierPourIdRoster($mRoster);
             }
             if (!$aPalliers) {
-                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ].", $mRoster));
-                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $$mRoster);
+                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ]."), $mRoster);
+                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $mRoster);
             }
             $predicateGlobal = new \Zend\Db\Sql\Where();
 

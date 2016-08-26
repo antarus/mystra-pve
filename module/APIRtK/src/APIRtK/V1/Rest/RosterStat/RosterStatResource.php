@@ -140,7 +140,7 @@ class RosterStatResource extends AbstractResourceListener {
                 return $this->cache->getItem($key);
             }
             $oResult = $this->getTableRoster()->getStatRoster($sRoster, $iSpe);
-            $this->addItem($key, $oResult);
+            // $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);

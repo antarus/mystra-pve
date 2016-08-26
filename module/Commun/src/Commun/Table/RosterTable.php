@@ -30,7 +30,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
      * @var int
      */
     protected $nomCle = 'idRoster';
-
+    private $_servTranslator;
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
 
@@ -82,6 +82,18 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             $this->_config = $this->_getServiceLocator()->get('Config');
         }
         return $this->_config['conf'];
+    }
+
+    /**
+     * Retourne le service de traduction en mode lazy.
+     *
+     * @return
+     */
+    public function _getServTranslator() {
+        if (!$this->_servTranslator) {
+            $this->_servTranslator = $this->_getServiceLocator()->get('translator');
+        }
+        return $this->_servTranslator;
     }
 
     /**
@@ -248,13 +260,13 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             // retourne le roster
             $oRoster = $this->getRosterParNom($sNom);
             if (!$oRoster) {
-                throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getNom());
+                throw new \Commun\Exception\LogException(sprintf($this->_getServTranslator()->translate("le roster [ %s ] n'existe pas."), $sNom), 500, $this->_getServiceLocator(), null, $sNom);
             }
             $oReturn->setIdRoster($oRoster->getIdRoster());
             $oReturn->setNom($oRoster->getNom());
             // raid
             // nb total de raid du roster
-            $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getIdRoster()));
+            $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getNom()));
             // nb total de raid du roster sur les pallier visible
             $oReturn->setNbTotalRaidPallier($this->getTableRaid()->getNombreRaidRosterPallier($oRoster->getIdRoster()));
 
