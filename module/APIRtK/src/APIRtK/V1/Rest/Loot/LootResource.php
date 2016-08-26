@@ -18,8 +18,6 @@ class LootResource extends AbstractResourceListener {
     /* @var $_tableItemPersonnageRaid \Commun\Table\ItemPersonnageRaidTable */
     private $_tableItemPersonnageRaid;
 
-    /* @var $_tableItems \Commun\Table\ItemsTable */
-    private $_tableItems;
     /* @var $cache StorageInterface    */
     private $cache;
 
@@ -27,17 +25,6 @@ class LootResource extends AbstractResourceListener {
      * Authentification zend.
      */
     private $auth;
-
-    /**
-     * Retourne la table ItemsTable.
-     * @return \Commun\Table\ItemsTable
-     */
-    private function getTableItems() {
-        if (!$this->_tableItems) {
-            $this->_tableItems = $this->_service->get('Commun\Table\ItemsTable');
-        }
-        return $this->_tableItems;
-    }
 
     /**
      * Retourne le service de traduction en mode lazy.

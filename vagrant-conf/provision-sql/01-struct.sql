@@ -405,9 +405,12 @@ DROP TABLE IF EXISTS `roster`;
 CREATE TABLE IF NOT EXISTS `roster` (
   `idRoster` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
+  `key` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`idRoster`),
-  UNIQUE KEY `nom_UNIQUE` (`nom`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  UNIQUE KEY `nom_UNIQUE` (`nom`),
+  UNIQUE KEY `key_UNIQUE` (`key`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 
@@ -459,20 +462,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
+  `lastConnection` date NOT NULL,
+  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `keyValidMail` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
 
---
--- Déclencheurs `user`
---
-DROP TRIGGER IF EXISTS `add_role_user`;
-DELIMITER //
-CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
- FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10)
-//
-DELIMITER ;
 
 -- --------------------------------------------------------
 

@@ -25,6 +25,21 @@ class Roster extends \Core\Model\AbstractModel {
     public $nom = null;
 
     /**
+     * Colonne: key
+     *
+     * @var string
+     */
+    public $key = null;
+
+    function getKey() {
+        return $this->key;
+    }
+
+    function setKey($key) {
+        $this->key = $key;
+    }
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
