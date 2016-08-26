@@ -482,6 +482,11 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
         $oRaid->setDate(date('Y-m-d H:i:s', intval($aRaid['enter'])));
         $oRaid->setIdRosterTmp($idRoster);
         $oRaid->setIdMode($iDifficulte);
+
+        //TODO Anta A revoir
+        $sNom = str_replace('cognefort', 'highmaul', $sNom);
+        $sNom = str_replace('Cognefort', 'highmaul', $sNom);
+        //fin TODO Anta
         $oZone = $this->getTableZone()->selectBy(array('nom' => strtolower($sNom)));
         if (!$oZone) {
             throw new \Exception("Zone inconnue [ " . $sNom . " ]. Veuillez importer la zone ainsi que les boss associée.");
@@ -515,11 +520,12 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                     $sNom = substr($sNom, 0, ($pos));
                 }
                 $sServeurPersonnage = preg_replace('/(\w+)([A-Z])/U', '\\1 \\2', $sServeurPersonnage);
-                $sServeurPersonnage = str_replace('des', ' des', $sServeurPersonnage);
-
+                //    $sServeurPersonnage = str_replace('des', ' des', $sServeurPersonnage);
+                //TODO Anta A revoir
                 $sServeurPersonnage = str_replace('Croisadeécarlate', 'Croisade écarlate', $sServeurPersonnage);
-
-
+                $sServeurPersonnage = str_replace("Pozzodell'Eternità", "Pozzo dell'Eternità", $sServeurPersonnage);
+                $sServeurPersonnage = str_replace("Chantséternels", "Chants éternels", $sServeurPersonnage);
+                //fin TODO Anta
 
                 $aOptPersonnage = array(
                     'nom' => $sNom,
