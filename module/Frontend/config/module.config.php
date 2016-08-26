@@ -14,5 +14,11 @@ return array(
         array(
         ),
     ),
-    'navigation' => require 'navigation.config.php',
+    'service_manager' => array(
+        // navigation
+        'factories' => array(
+            'FrontendNavigation' => 'Commun\Service\FrontendNavigationFactory'
+        ),
+    ),
+    'navigation' => require 'frontend.navigation.config.php',
 );

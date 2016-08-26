@@ -72,8 +72,7 @@ return array(
     'service_manager' => array(
         // navigation
         'factories' => array(
-            'BackendNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory',
-            'FrontendNavigation' => 'Zend\Navigation\Service\DefaultNavigationFactory'
+            'BackendNavigation' => 'Backend\Service\BackendNavigationFactory',
         ),
     ),
     'navigation' => require 'navigation.config.php',

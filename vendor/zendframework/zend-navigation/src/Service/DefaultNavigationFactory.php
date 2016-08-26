@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -12,13 +13,13 @@ namespace Zend\Navigation\Service;
 /**
  * Default navigation factory.
  */
-class DefaultNavigationFactory extends AbstractNavigationFactory
-{
+class DefaultNavigationFactory extends AbstractNavigationFactory {
+
     /**
      * @return string
      */
-    protected function getName()
-    {
-        return 'default';
+    protected function getName() {
+        return 'backend-nav';
     }
+
 }
