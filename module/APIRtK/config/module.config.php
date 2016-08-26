@@ -75,14 +75,8 @@ return array(
             'collection_name' => 'loot',
             'entity_http_methods' => array(
                 0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
             ),
-            'collection_http_methods' => array(
-                0 => 'GET',
-                1 => 'POST',
-            ),
+            'collection_http_methods' => array(),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
@@ -97,14 +91,8 @@ return array(
             'collection_name' => 'roster',
             'entity_http_methods' => array(
                 0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
             ),
-            'collection_http_methods' => array(
-                0 => 'GET',
-                1 => 'POST',
-            ),
+            'collection_http_methods' => array(),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,
@@ -134,8 +122,7 @@ return array(
             'route_identifier_name' => 'nom_personnage',
             'collection_name' => 'loot_roster_personnage',
             'entity_http_methods' => array(
-                0 => 'PATCH',
-                1 => 'GET',
+                0 => 'GET',
             ),
             'collection_http_methods' => array(),
             'collection_query_whitelist' => array(),
@@ -152,14 +139,8 @@ return array(
             'collection_name' => 'roster_stat',
             'entity_http_methods' => array(
                 0 => 'GET',
-                1 => 'PATCH',
-                2 => 'PUT',
-                3 => 'DELETE',
             ),
-            'collection_http_methods' => array(
-                0 => 'GET',
-                1 => 'POST',
-            ),
+            'collection_http_methods' => array(),
             'collection_query_whitelist' => array(),
             'page_size' => 25,
             'page_size_param' => null,

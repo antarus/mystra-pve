@@ -10,6 +10,7 @@ return array(
         'Application',
         'ZF\\Apigility',
         'ZF\\Apigility\\Provider',
+        'ZF\\Apigility\\Documentation',
         'AssetManager',
         'ZF\\ApiProblem',
         'ZF\\MvcAuth',
