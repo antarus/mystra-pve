@@ -527,6 +527,7 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 $sServeurPersonnage = str_replace('Croisadeécarlate', 'Croisade écarlate', $sServeurPersonnage);
                 $sServeurPersonnage = str_replace("Pozzodell'Eternità", "Pozzo dell'Eternità", $sServeurPersonnage);
                 $sServeurPersonnage = str_replace("Chantséternels", "Chants éternels", $sServeurPersonnage);
+                $sServeurPersonnage = str_replace("Conseildes Ombres", "Conseil des Ombres", $sServeurPersonnage);
                 //fin TODO Anta
 
                 $aOptPersonnage = array(
