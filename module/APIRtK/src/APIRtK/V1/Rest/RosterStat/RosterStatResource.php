@@ -32,17 +32,6 @@ class RosterStatResource extends AbstractResourceListener {
     private $auth;
 
     /**
-     * Retourne la table ItemsTable.
-     * @return \Commun\Table\ItemsTable
-     */
-    private function getTableItems() {
-        if (!$this->_tableItems) {
-            $this->_tableItems = $this->_service->get('Commun\Table\ItemsTable');
-        }
-        return $this->_tableItems;
-    }
-
-    /**
      * Retourne le service de traduction en mode lazy.
      *
      * @return
@@ -63,17 +52,6 @@ class RosterStatResource extends AbstractResourceListener {
             $this->_tablePersonnage = $this->_service->get('Commun\Table\PersonnagesTable');
         }
         return $this->_tablePersonnage;
-    }
-
-    /**
-     * Retourne la table ItemPersonnageRaidTable.
-     * @return \Commun\Table\ItemPersonnageRaidTable
-     */
-    private function getTableItemPersonnageRaid() {
-        if (!$this->_tableItemPersonnageRaid) {
-            $this->_tableItemPersonnageRaid = $this->_service->get('Commun\Table\ItemPersonnageRaidTable');
-        }
-        return $this->_tableItemPersonnageRaid;
     }
 
     /**
@@ -140,7 +118,7 @@ class RosterStatResource extends AbstractResourceListener {
                 return $this->cache->getItem($key);
             }
             $oResult = $this->getTableRoster()->getStatRoster($sRoster, $iSpe);
-            // $this->addItem($key, $oResult);
+            $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);

@@ -32,17 +32,6 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
     private $auth;
 
     /**
-     * Retourne la table ItemsTable.
-     * @return \Commun\Table\ItemsTable
-     */
-    private function getTableItems() {
-        if (!$this->_tableItems) {
-            $this->_tableItems = $this->_service->get('Commun\Table\ItemsTable');
-        }
-        return $this->_tableItems;
-    }
-
-    /**
      * Retourne le service de traduction en mode lazy.
      *
      * @return
