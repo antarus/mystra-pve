@@ -26,6 +26,7 @@ return array(
         'Bnet',
         'Core',
         'Backend',
+        'Frontend',
         'Accueil',
         'Commun',
         'APIBlizzard',

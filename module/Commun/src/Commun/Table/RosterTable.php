@@ -314,9 +314,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             // loot du roster limité au pallier
             $oReturn->setNbItemPallier($this->getTableItemPersonnageRaidTable()->getNbTotalLootRosterPallier($oRoster->getIdRoster(), $iSpe));
 
-
             return $oReturn;
-
 
             //calcul des stats
         } catch (\Exception $exc) {
