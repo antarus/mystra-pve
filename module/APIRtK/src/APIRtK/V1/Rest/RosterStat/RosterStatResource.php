@@ -130,40 +130,26 @@ class RosterStatResource extends AbstractResourceListener {
      * @param  mixed $id nom du personnage dont on veut le loot
      * @return ApiProblem|mixed
      */
-    public function fetch($id) {
+    public function fetch($sRoster) {
         try {
             $sRoster = $this->getEvent()->getRouteParam('nom_roster');
-            $bWithId = $this->getEvent()->getQueryParam('withids', 0);
             $iSpe = $this->getEvent()->getQueryParam('spe', -1);
-            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $bWithId, $iSpe));
+            $key = $this->getRequestKey('APIRtK-loot', array($sRoster, $iSpe));
 
             if ($this->cache->hasItem($key) === true) {
                 return $this->cache->getItem($key);
             }
 
-            $oTabPersonnage = $this->getTablePersonnage()->selectBy(
-                    array(
-                        "nom" => $sNom,
-                        "royaume" => $sServer));
-            if (!$oTabPersonnage) {
-                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] sur le serveur [ %s ] n'a pas été trouvé."), $sNom, $sServer), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
-            }
-            $oTabRoster = $this->getTableRoster()->selectBy(
-                    array("nom" => $sRoster));
-            if (!$oTabRoster) {
-                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] n'a pas été trouvé."), $sRoster), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
-            }
+//            $oTabRoster = $this->getTableRoster()->selectBy(
+//                    array("nom" => $sRoster));
+//            if (!$oTabRoster) {
+//                return new LogApiProblem(404, sprintf($this->_getServTranslator()->translate("Le roster [ %s ] n'a pas été trouvé."), $sRoster), $this->_getServTranslator()->translate("Not Found"), $this->_getServTranslator()->translate("Personnage / Serveur inconnu"), array(), $this->_service);
+//            }
 
-            $oResult = new LootRosterPersonnageEntity();
-            $oResult->setId($oTabPersonnage->getIdPersonnage());
-            $oResult->setNom($sNom);
-            $oResult->setServeur($sServer);
 
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sRoster, $sNom, $sServer, $bWithId, $iSpe);
 
-            $oResult->setItems($aItemsPersonnage);
-
-            $this->addItem($key, $oResult);
+            $oResult = $this->getTableRoster()->getStatRoster($sRoster, $iSpe);
+            //   $this->addItem($key, $oResult);
             return $oResult;
         } catch (\Exception $ex) {
             return \Core\Util\ParseException::tranformeExceptionToApiProblem($ex, $this->_service);

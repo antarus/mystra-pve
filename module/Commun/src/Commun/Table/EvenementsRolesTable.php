@@ -6,7 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Raid-TracKer
  */
-class EvenementsRolesTable extends \Core\Table\AbstractTable
+class EvenementsRolesTable extends \Core\Table\AbstractServiceTable
 {
 
     /**

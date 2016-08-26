@@ -110,6 +110,7 @@ return array(
     'Commun\Model\Raids' => __DIR__ . '/src/Commun/Model/Raids.php',
     'Commun\Model\Role' => __DIR__ . '/src/Commun/Model/Role.php',
     'Commun\Model\Roster' => __DIR__ . '/src/Commun/Model/Roster.php',
+    'Commun\Model\RosterStat' => __DIR__ . '/src/Commun/Model/RosterStat.php',
     'Commun\Model\RosterHasPersonnage' => __DIR__ . '/src/Commun/Model/RosterHasPersonnage.php',
     'Commun\Model\Specialisation' => __DIR__ . '/src/Commun/Model/Specialisation.php',
     'Commun\Model\Users' => __DIR__ . '/src/Commun/Model/Users.php',

@@ -137,7 +137,7 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
             $sNom = $this->getEvent()->getRouteParam('nom_personnage');
             $bWithId = $this->getEvent()->getQueryParam('withids', 0);
             $iSpe = $this->getEvent()->getQueryParam('spe', -1);
-            $key = $this->getRequestKey('APIRtK-loot', array($sNom, $sServer, $bWithId, $iSpe));
+            $key = $this->getRequestKey('APIRtK-loot', array($sRoster, $sServer, $sNom, $bWithId, $iSpe));
 
             if ($this->cache->hasItem($key) === true) {
                 return $this->cache->getItem($key);

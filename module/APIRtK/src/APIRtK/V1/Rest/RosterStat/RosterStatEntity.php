@@ -1,6 +1,7 @@
 <?php
+
 namespace APIRtK\V1\Rest\RosterStat;
 
-class RosterStatEntity
-{
+class RosterStatEntity extends \Commun\Model\RosterStat {
+
 }

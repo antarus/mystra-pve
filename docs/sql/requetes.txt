@@ -87,7 +87,7 @@ WHERE
     
 -- nb de raid par joueur total
 SELECT 
-  COUNT(rp.idRaid) AS `nbRaid`,rp.idPersonnage, p.nom
+  COUNT(rp.idRaid) AS `nbRaid`,rp.idPersonnage, p.nom as nom_personnage
 FROM
     raid_personnage rp
         INNER JOIN
@@ -96,19 +96,28 @@ FROM
     personnages p ON p.idPersonnage = rp.idPersonnage
 WHERE
     r.idRosterTmp = 1
-GROUP BY rp.nom;
+GROUP BY p.nom
+ORDER BY p.nom;
+
+
 
 -- nb de raid par joueur sur les palliers configré
 SELECT 
-    COUNT(rp.idRaid) AS `nbRaid`, rp.idPersonnage, p.nom
+    COUNT(rp.idRaid) AS `nbRaid`,
+    rp.idPersonnage,
+    p.nom AS `nom_personnage`,
+    `p`.`royaume` AS `royaume_personnage`
 FROM
     raid_personnage rp
-        INNER JOIN
+         INNER JOIN
     raids r ON r.idRaid = rp.idRaid
-        INNER JOIN
+         INNER JOIN
     personnages p ON p.idPersonnage = rp.idPersonnage
 WHERE
     ((r.idMode = 14 AND r.idZoneTmp = 7545
         AND r.idRosterTmp = 1)
         OR (r.idMode = 15 AND r.idZoneTmp = 6967
-        AND r.idRosterTmp = 1));
+        AND r.idRosterTmp = 1))
+GROUP BY `nom_personnage`
+ORDER BY `nom_personnage` ASC       
+        

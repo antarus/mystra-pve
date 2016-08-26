@@ -51,31 +51,49 @@ class Module {
         return array(
             'factories' => array(
                 'Commun\Table\BossesTable' => function($sm) {
-                    return new \Commun\Table\BossesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\BossesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\BossesHasNpcTable' => function($sm) {
-                    return new \Commun\Table\BossesHasNpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\BossesHasNpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ClassesTable' => function($sm) {
-                    return new \Commun\Table\ClassesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ClassesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\EvenementsTable' => function($sm) {
-                    return new \Commun\Table\EvenementsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\EvenementsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\EvenementsPersonnageTable' => function($sm) {
-                    return new \Commun\Table\EvenementsPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\EvenementsPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\EvenementsRolesTable' => function($sm) {
-                    return new \Commun\Table\EvenementsRolesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\EvenementsRolesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\EvenementsTemplateTable' => function($sm) {
-                    return new \Commun\Table\EvenementsTemplateTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\EvenementsTemplateTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\EvenementsTemplateRolesTable' => function($sm) {
-                    return new \Commun\Table\EvenementsTemplateRolesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\EvenementsTemplateRolesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\FactionTable' => function($sm) {
-                    return new \Commun\Table\FactionTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\FactionTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\GuildesTable' => function($sm) {
                     $oTable = new \Commun\Table\GuildesTable($sm->get("\Zend\Db\Adapter\Adapter"));
@@ -93,10 +111,14 @@ class Module {
                     return $oTable;
                 },
                 'Commun\Table\ModeDifficulteTable' => function($sm) {
-                    return new \Commun\Table\ModeDifficulteTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ModeDifficulteTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\NpcTable' => function($sm) {
-                    return new \Commun\Table\NpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\NpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ItemPersonnageRaidTable' => function($sm) {
                     $oTable = new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
@@ -114,19 +136,29 @@ class Module {
                     return $oTable;
                 },
                 'Commun\Table\PersonnagesHasSpecialisationTable' => function($sm) {
-                    return new \Commun\Table\PersonnagesHasSpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\PersonnagesHasSpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RaceTable' => function($sm) {
-                    return new \Commun\Table\RaceTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RaceTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RaidPersonnageTable' => function($sm) {
-                    return new \Commun\Table\RaidPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RaidPersonnageTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RaidsTable' => function($sm) {
-                    return new \Commun\Table\RaidsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RaidsTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RoleTable' => function($sm) {
-                    return new \Commun\Table\RoleTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\RoleTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\RosterTable' => function($sm) {
                     $oTable = new \Commun\Table\RosterTable($sm->get("\Zend\Db\Adapter\Adapter"));
@@ -139,10 +171,14 @@ class Module {
                     return $oTable;
                 },
                 'Commun\Table\SpecialisationTable' => function($sm) {
-                    return new \Commun\Table\SpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\SpecialisationTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\UsersTable' => function($sm) {
-                    return new \Commun\Table\UsersTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\UsersTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ZoneTable' => function($sm) {
                     $oTable = new \Commun\Table\ZoneTable($sm->get("\Zend\Db\Adapter\Adapter"));
@@ -150,10 +186,14 @@ class Module {
                     return $oTable;
                 },
                 'Commun\Table\ZoneHasBossesTable' => function($sm) {
-                    return new \Commun\Table\ZoneHasBossesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ZoneHasBossesTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
                 'Commun\Table\ZoneHasModeDiffculteTable' => function($sm) {
-                    return new \Commun\Table\ZoneHasModeDiffculteTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable = new \Commun\Table\ZoneHasModeDiffculteTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
                 },
             )
         );

@@ -33,6 +33,11 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
 
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
+
+    /* @var $_tableRaid \Commun\Table\RaidsTable */
+    private $_tableRaid;
+    /* @var $_tableItemPersonnageRaid \Commun\Table\ItemsTable */
+    private $_tableItemPersonnageRaid;
     private $_config;
 
     /**
@@ -44,6 +49,28 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             $this->_tablePersonnage = $this->_getServiceLocator()->get('Commun\Table\PersonnagesTable');
         }
         return $this->_tablePersonnage;
+    }
+
+    /**
+     * Retourne le service table raid.
+     * @return \Commun\Table\RaidsTable
+     */
+    private function getTableRaid() {
+        if (!$this->_tableRaid) {
+            $this->_tableRaid = $this->_getServiceLocator()->get('Commun\Table\RaidsTable');
+        }
+        return $this->_tableRaid;
+    }
+
+    /**
+     * Retourne le service table item-personnage-raid.
+     * @return \Commun\Table\ItemPersonnageRaidTable
+     */
+    private function getTableItemPersonnageRaidTable() {
+        if (!$this->_tableItemPersonnageRaid) {
+            $this->_tableItemPersonnageRaid = $this->_getServiceLocator()->get('Commun\Table\ItemPersonnageRaidTable');
+        }
+        return $this->_tableItemPersonnageRaid;
     }
 
     /**
@@ -92,13 +119,6 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
 
                 //on met a jour
                 try {
-                    // on recherche l'identifiant du roster pour avoir l'ancien nom
-//                      $oTabAncienRoster = $this->selectBy(
-//                        array(
-//                            "idRoster" => $oRoster->getIdRoster()));
-//                    if ($oTabAncienRoster){
-//                    }
-
                     $this->update($oRoster);
                     // on recupere les anciens personnage bank et disenchant
                     $oOldBank = $this->_getTablePersonnage()->selectBy(array('nom' => strtolower($oTabRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["bank"])));
@@ -216,6 +236,71 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
         $aReturn = $this->fetchAllArray($oQuery);
 
         return $aReturn;
+    }
+
+    /**
+     * Retourne les stats du roster.
+     * @param type $sNom
+     */
+    public function getStatRoster($sNom, $iSpe) {
+        try {
+            $oReturn = new \Commun\Model\RosterStat();
+            // retourne le roster
+            $oRoster = $this->getRosterParNom($sNom);
+            if (!$oRoster) {
+                throw new DatabaseException(6000, 4, $this->_getServiceLocator(), $oRoster->getNom());
+            }
+            // raid
+            // nb total de raid du roster
+            $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getIdRoster()));
+            // nb total de raid du roster sur les pallier visible
+            $oReturn->setNbTotalRaidPallier($this->getTableRaid()->getNombreRaidRosterPallier($oRoster->getIdRoster()));
+
+            // nb de raid par joueur total
+            $aNbTotalRaidJoueur = $this->getTableRaid()->getNombreRaidPersonnageRoster($oRoster->getIdRoster());
+            // nb de raid par joueur sur les palliers configré
+            $aNbTotalRaidJoueurPallier = $this->getTableRaid()->getNombreRaidPersonnageRosterPallier($oRoster->getIdRoster());
+
+            //loot
+            // loot du roster
+            $aNbTotalLootRoster = $this->getTableItemPersonnageRaidTable()->getNbTotalLootRoster($oRoster->getIdRoster(), $iSpe);
+            // loot du roster limité au pallier
+            $aNbTotalLootRosterPallier = $this->getTableItemPersonnageRaidTable()->getNbTotalLootRoster($oRoster->getIdRoster(), $iSpe);
+
+
+            return $oReturn;
+
+
+            //calcul des stats
+        } catch (\Exception $exc) {
+            throw new DatabaseException(6000, 6, $this->_getServiceLocator(), array('nom' => $sNom), $exc);
+        }
+    }
+
+    /**
+     * Retourne le roster correspondant au nom.
+     * @param string $sNomRoster
+     * @return array
+     */
+    public function getRosterParNom($sNomRoster) {
+        try {
+            return $this->selectBy(array('nom' => $sNomRoster));
+        } catch (\Exception $exc) {
+            throw new DatabaseException(6000, 4, $this->_getServiceLocator(), array('nom' => $sNomRoster), $exc);
+        }
+    }
+
+    /**
+     * Retourne le roster correspondant a son identifiant.
+     * @param int $iIdRoster
+     * @return array
+     */
+    public function getRosterParId($iIdRoster) {
+        try {
+            return $this->selectBy(array('idRoster' => $iIdRoster));
+        } catch (\Exception $exc) {
+            throw new DatabaseException(6000, 4, $this->_getServiceLocator(), array('id' => $iIdRoster), $exc);
+        }
     }
 
 }

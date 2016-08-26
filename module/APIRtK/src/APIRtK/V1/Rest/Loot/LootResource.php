@@ -142,7 +142,7 @@ class LootResource extends AbstractResourceListener {
             $oResult->setNom($sNom);
             $oResult->setServeur($sServer);
 
-            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootDuRoster($sNom, $sServer, $bWithId, $iSpe);
+            $aItemsPersonnage = $this->getTableItemPersonnageRaid()->getLootPersonnage($sNom, $sServer, $bWithId, $iSpe);
             $oResult->setItems($aItemsPersonnage);
 
             $this->addItem($key, $oResult);

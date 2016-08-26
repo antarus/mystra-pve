@@ -198,15 +198,13 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     }
 
     public function ajouteIds($aItem, $item) {
-        if ($bWithId) {
-            $aItem['ids']['idItem'] = $item['idItem'];
-            $aItem['ids']['idRaid'] = $item['idRaid'];
-            $aItem['ids']['idPersonnage'] = $item['idPersonnage'];
-            $aItem['ids']['idBosses'] = $item['idBosses'];
-            $aItem['ids']['idZone'] = $item['idZone'];
-            $aItem['ids']['idMode'] = $item['idMode'];
-            $aItem['ids']['idRoster'] = $item['idRoster'];
-        }
+        $aItem['ids']['idItem'] = $item['idItem'];
+        $aItem['ids']['idRaid'] = $item['idRaid'];
+        $aItem['ids']['idPersonnage'] = $item['idPersonnage'];
+        $aItem['ids']['idBosses'] = $item['idBosses'];
+        $aItem['ids']['idZone'] = $item['idZone'];
+        $aItem['ids']['idMode'] = $item['idMode'];
+        $aItem['ids']['idRoster'] = $item['idRoster'];
     }
 
     /**
@@ -240,35 +238,11 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     public function getLootStatDuRoster($sRoster, $bWithId = false, $iSpe = -1) {
 
         try {
-            $oQuery = $this->getQueryBaseLootStat($iSpe);
-
-            $aPalliers = $this->getTablePallier()->getPallierPourNomRoster($sRoster);
-            if (!$aPalliers) {
-                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ].", $sRoster));
-                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $sRoster);
-            }
-            $predicateGlobal = new \Zend\Db\Sql\Where();
-
-
-            $predicatePallierGlobal = new \Zend\Db\Sql\Where();
-
-
-            foreach ($aPalliers as $key => $aPallier) {
-
-                $predicatePallier = new \Zend\Db\Sql\Where();
-                $predicatePallier->NEST->equalTo("m.idMode", $aPallier['idModeDifficulte'])->AND->equalTo("z.idZone", $aPallier['idZone'])->AND->equalTo("ro.idRoster", $aPallier['idRoster'])->UNNEST;
-
-                if ($key == 1) {
-                    $predicatePallierGlobal->addPredicate($predicatePallier, 'OR');
-                } else {
-                    $predicatePallierGlobal->addPredicate($predicatePallier);
-                }
-            }
-
-            $predicateGlobal->NEST->addPredicate($predicatePallierGlobal)->UNNEST;
-            if (isset($predicatePersonnage)) {
-                $predicateGlobal->addPredicate($predicatePersonnage, 'AND');
-            }
+            $oQuery = $this->getQueryBaseLootStat();
+            $predicateSpe = $this->getPredicateSpe($iSpe);
+            /* @var $predicateGlobal \Zend\Db\Sql\Where() */
+            $predicateGlobal = $this->getTablePallier()->getPredicate($sRoster);
+            $predicateGlobal->addPredicate($predicateSpe);
             $oQuery->where($predicateGlobal);
 
             //   $this->debug($oQuery);
@@ -287,38 +261,15 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      * @return \Zend\Db\Sql\Sql
      */
     public function getLootDuRoster($sRoster, $sNom, $sRoyaume, $bWithId = false, $iSpe = -1) {
-
         try {
-            $oQuery = $this->getQueryBaseLoot($iSpe);
-
+            $oQuery = $this->getQueryBaseLoot();
+            $predicateSpe = $this->getPredicateSpe($iSpe);
             if (isset($sNom) && isset($sRoyaume)) {
                 $predicatePersonnage = $this->getPredicateAddNomPersonnageEtNomServeur($sNom, $sRoyaume);
             }
-
-            $aPalliers = $this->getTablePallier()->getPallierPourNomRoster($sRoster);
-            if (!$aPalliers) {
-                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ].", $sRoster));
-                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $sRoster);
-            }
-            $predicateGlobal = new \Zend\Db\Sql\Where();
-
-
-            $predicatePallierGlobal = new \Zend\Db\Sql\Where();
-
-
-            foreach ($aPalliers as $key => $aPallier) {
-
-                $predicatePallier = new \Zend\Db\Sql\Where();
-                $predicatePallier->NEST->equalTo("m.idMode", $aPallier['idModeDifficulte'])->AND->equalTo("z.idZone", $aPallier['idZone'])->AND->equalTo("ro.idRoster", $aPallier['idRoster'])->UNNEST;
-
-                if ($key == 1) {
-                    $predicatePallierGlobal->addPredicate($predicatePallier, 'OR');
-                } else {
-                    $predicatePallierGlobal->addPredicate($predicatePallier);
-                }
-            }
-
-            $predicateGlobal->NEST->addPredicate($predicatePallierGlobal)->UNNEST;
+            /* @var $predicateGlobal \Zend\Db\Sql\Where() */
+            $predicateGlobal = $this->getTablePallier()->getPredicate($sRoster);
+            $predicateGlobal->addPredicate($predicateSpe);
             if (isset($predicatePersonnage)) {
                 $predicateGlobal->addPredicate($predicatePersonnage, 'AND');
             }
@@ -340,10 +291,14 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     public function getLootPersonnage($sNom, $sRoyaume, $bWithId = false, $iSpe = -1) {
 
         try {
-            $oQuery = $this->getQueryBaseLoot($iSpe);
+            $oQuery = $this->getQueryBaseLoot();
+            $predicateSpe = $this->getPredicateSpe($iSpe);
+
             $oQuery->limit(20);
             $predicate = $this->getPredicateAddNomPersonnageEtNomServeur($sNom, $sRoyaume);
+            $predicate->addPredicate($predicateSpe);
             $oQuery->where($predicate);
+            //   $this->debug($oQuery);
             return $this->traiterItemsLoot($this->fetchAllArray($oQuery), $bWithId);
         } catch (\Exception $ex) {
             throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($sNom, $sRoyaume), $ex);
@@ -354,7 +309,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      * Fonction commune au loot d'un personnage et un personnage par roster
      * @return \Zend\Db\Sql\Sql
      */
-    function getQueryBaseLoot($iSpe) {
+    function getQueryBaseLoot() {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $oQuery = $sql->select();
@@ -375,34 +330,8 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array('idBosses', "boss" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
-        switch ($iSpe) {
-            //spé 1
-            case 0:
-                $oQuery->where->equalTo("ipr.valeur", 0.00);
-                break;
-            //spé 2
-            case 1:
-                $oQuery->where->equalTo("ipr.valeur", 1.00);
-                break;
-            //spé 3
-            case 2:
-                $oQuery->where->equalTo("ipr.valeur", 2.00);
-                break;
-            //spé 4
-            case 3:
-                $oQuery->where->equalTo("ipr.valeur", 3.00);
-                break;
-            default:
-                break;
-        }
-
 
         $oQuery->order('r.date');
-
-
-        //   $query->order(array('nom'));
-        // $this->debug($oQuery);
-
         return $oQuery;
     }
 
@@ -410,7 +339,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      * Fonction commune pour les stats de loot
      * @return \Zend\Db\Sql\Sql
      */
-    function getQueryBaseLootStat($iSpe) {
+    function getQueryBaseLootStat() {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $oQuery = $sql->select();
@@ -427,26 +356,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array('idBosses', "boss" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
-        switch ($iSpe) {
-            //spé 1
-            case 0:
-                $oQuery->where->equalTo("ipr.valeur", 0.00);
-                break;
-            //spé 2
-            case 1:
-                $oQuery->where->equalTo("ipr.valeur", 1.00);
-                break;
-            //spé 3
-            case 2:
-                $oQuery->where->equalTo("ipr.valeur", 2.00);
-                break;
-            //spé 4
-            case 3:
-                $oQuery->where->equalTo("ipr.valeur", 3.00);
-                break;
-            default:
-                break;
-        }
+
 
         $oQuery->group("ipr.idPersonnage");
         $oQuery->order('r.date');
@@ -461,6 +371,90 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     function getPredicateAddNomPersonnageEtNomServeur($sNom, $sRoyaume) {
         $predicate = new \Zend\Db\Sql\Where();
         return $predicate->NEST->equalTo("p.nom", $sNom)->AND->equalTo("p.royaume", $sRoyaume)->UNNEST;
+    }
+
+    /**
+     * Retourne le predicate correspondant a la spé désiré.
+     * @param type $iSpe
+     */
+    function getPredicateSpe($iSpe = -1) {
+        $predicateSpe = new \Zend\Db\Sql\Where();
+        switch ($iSpe) {
+            //spé 1
+            case 0:
+                $predicateSpe->equalTo("ipr.valeur", 0.00);
+                break;
+            //spé 2
+            case 1:
+                $predicateSpe->equalTo("ipr.valeur", 1.00);
+                break;
+            //spé 3
+            case 2:
+                $predicateSpe->equalTo("ipr.valeur", 2.00);
+                break;
+            //spé 4
+            case 3:
+                $predicateSpe->equalTo("ipr.valeur", 3.00);
+                break;
+            default:
+                $predicateSpe->in("ipr.valeur", array(0.00, 1.00, 2.00, 3.00));
+                break;
+        }
+        return $predicateSpe;
+    }
+
+    /**
+     * Retourne le nombre total de loot du roster.(hors pallier)
+     * @param int $iIdRoster
+     */
+    function getNbTotalLootRoster($iIdRoster, $iSpe) {
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQuery = $sql->select();
+            $oQuery->columns(array(
+                        'total_item' => new Expression('COUNT(r.idRaid)')
+                    ))
+                    ->from(array('ipr' => 'item_personnage_raid'))
+                    ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+
+            $oQuery->where($this->getPredicateSpe($iSpe));
+            $predicateRoster = new \Zend\Db\Sql\Where();
+            $predicateRoster->equalTo("idRosterTmp", $iIdRoster);
+            $oQuery->where($predicateRoster);
+            return $this->fetchAllArray($oQuery);
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
+    }
+
+    /**
+     * Retourne le nombre total de loot du roster.(hors pallier)
+     * @param int $iIdRoster
+     */
+    function getNbTotalLootRosterPallier($iIdRoster, $iSpe) {
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQuery = $sql->select();
+            $oQuery->columns(array(
+                        'total_item' => new Expression('COUNT(r.idRaid)')
+                    ))
+                    ->from(array('ipr' => 'item_personnage_raid'))
+                    ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+            // spé
+            $oQuery->where($this->getPredicateSpe($iSpe));
+
+            // palllier
+            /* @var $predicateGlobal \Zend\Db\Sql\Where() */
+            $predicateGlobal = $this->getTablePallier()->getPredicate($sRoster);
+            if (isset($predicatePersonnage)) {
+                $predicateGlobal->addPredicate($predicatePersonnage, 'AND');
+            }
+            $oQuery->where($predicateGlobal);
+
+            return $this->fetchAllArray($oQuery);
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
     }
 
 }

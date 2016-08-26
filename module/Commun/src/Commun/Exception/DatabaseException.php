@@ -99,7 +99,7 @@ class DatabaseException extends \Commun\Exception\LogException {
         10001 => "Erreur lors la mise à jour du pallier.",
         10002 => "Erreur lors la création du pallier. ",
         10003 => "Erreur lors de la suppression du pallier. ",
-        10004 => "Erreur lors du listing du pallier.]",
+        10004 => "Erreur lors du listing du pallier.",
         10006 => "Erreur lors de la recherche du pallier.",
         10007 => "Vous avez atteinte le nombre maximal de pallier pouvant être créer.",
     );

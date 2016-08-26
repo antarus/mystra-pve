@@ -50,7 +50,7 @@ return array(
             'api-rt-k.rest.roster-stat' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/roster-stat/:nom_roster',
+                    'route' => '/api/roster-stat/:nom_roster',
                     'defaults' => array(
                         'controller' => 'APIRtK\\V1\\Rest\\RosterStat\\Controller',
                     ),

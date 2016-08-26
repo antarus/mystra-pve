@@ -6,7 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Raid-TracKer
  */
-class ZoneHasBossesTable extends \Core\Table\AbstractTable
+class ZoneHasBossesTable extends \Core\Table\AbstractServiceTable
 {
 
     /**

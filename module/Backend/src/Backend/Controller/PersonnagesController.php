@@ -247,7 +247,6 @@ class PersonnagesController extends \Zend\Mvc\Controller\AbstractActionControlle
             $aPost = $oRequest->getPost();
             $this->getTablePersonnage()->beginTransaction();
             try {
-//
                 $aPersoBnet = $this->getTablePersonnage()->importPersonnage($aPost);
                 $oPersonnage = \Core\Util\ParserWow::extraitPersonnageDepuisBnet($aPersoBnet);
                 $this->getTablePersonnage()->saveOrUpdatePersonnage($oPersonnage);

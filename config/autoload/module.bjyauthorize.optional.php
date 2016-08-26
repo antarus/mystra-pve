@@ -262,6 +262,7 @@ return array(
                 array('route' => 'api-rt-k.rest.roster', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'api-rt-k.rest.loot-roster', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'api-rt-k.rest.loot-roster-personnage', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'api-rt-k.rest.roster-stat', 'roles' => array('guest', 'user', 'admin')),
                 //Users Module
                 array('route' => 'register-ajax', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'zfcuser', 'roles' => array('user', 'guest', 'admin')),

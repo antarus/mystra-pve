@@ -6,7 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Raid-TracKer
  */
-class ModeDifficulteTable extends \Core\Table\AbstractTable {
+class ModeDifficulteTable extends \Core\Table\AbstractServiceTable {
 
     /**
      * Nom de la  table.

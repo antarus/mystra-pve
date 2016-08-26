@@ -6,7 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Raid-TracKer
  */
-class UsersTable extends \Core\Table\AbstractTable
+class UsersTable extends \Core\Table\AbstractServiceTable
 {
 
     /**

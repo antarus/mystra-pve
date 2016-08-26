@@ -6,7 +6,7 @@ namespace Commun\Table;
  * @author Antarus
  * @project Raid-TracKer
  */
-class ZoneHasModeDiffculteTable extends \Core\Table\AbstractTable
+class ZoneHasModeDiffculteTable extends \Core\Table\AbstractServiceTable
 {
 
     /**

@@ -182,12 +182,55 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
         try {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
-            $oQuery->from(array('pallierAfficher'))
+            $oQuery->from(array('pa' => 'pallierAfficher'))
                     ->order('idModeDifficulte')
             ->where->equalTo("idRoster", $iIdRoster);
             return $this->fetchAllArray($oQuery);
         } catch (\Exception $exc) {
             throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
+    }
+
+    /**
+     * Retourne le predicate pour la gestiond es palliers
+     * @param mixed $mRoster id ou nom du pallier
+     * @return \Zend\Db\Sql\Where
+     * @throws \Commun\Exception\LogException
+     */
+    public function getPredicate($mRoster) {
+        try {
+            if (is_string($mRoster)) {
+                $aPalliers = $this->getPallierPourNomRoster($mRoster);
+            } else {
+                $aPalliers = $this->getPallierPourIdRoster($mRoster);
+            }
+            if (!$aPalliers) {
+                $msg = sprintf($this->_getServTranslator()->translate("Aucun palier définit pour le roster [ %s ].", $mRoster));
+                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $$mRoster);
+            }
+            $predicateGlobal = new \Zend\Db\Sql\Where();
+
+
+            $predicatePallierGlobal = new \Zend\Db\Sql\Where();
+
+
+            foreach ($aPalliers as $key => $aPallier) {
+
+                $predicatePallier = new \Zend\Db\Sql\Where();
+                $predicatePallier->NEST->equalTo("r.idMode", $aPallier['idModeDifficulte'])->AND->equalTo("r.idZoneTmp", $aPallier['idZone'])->AND->equalTo("r.idRosterTmp", $aPallier['idRoster'])->UNNEST;
+
+                if ($key == 1) {
+                    $predicatePallierGlobal->addPredicate($predicatePallier, 'OR');
+                } else {
+                    $predicatePallierGlobal->addPredicate($predicatePallier);
+                }
+            }
+
+            $predicateGlobal->NEST->addPredicate($predicatePallierGlobal)->UNNEST;
+
+            return $predicatePallierGlobal;
+        } catch (\Exception $exc) {
+            throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $mRoster, $exc);
         }
     }
 
