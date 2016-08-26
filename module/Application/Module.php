@@ -40,7 +40,24 @@ class Module {
             'invokables' => array(
                 'ModuleManagerService' => 'Application\Service\ModuleManagerService',
                 'LogService' => 'Application\Service\LogService',
-            )
+            ),
+            'factories' => array(
+                'Zend\Log' => function($sm){
+                    $auth = $sm->get('zfcuser_auth_service');
+                    
+                    $logger = new \Zend\Log\Logger;
+                    if($auth->hasIdentity())
+                    {
+                        $sName = $auth->getIdentity()->getId() . '-' . $auth->getIdentity()->getUsername();
+                        $writer = new \Zend\Log\Writer\Stream('./data/log/'.$sName.'-users.log');
+                    }
+                    else $writer = new \Zend\Log\Writer\Stream('./data/log/users.log');
+
+                    $logger->addWriter($writer);  
+
+                    return $logger;
+                },
+            ),
         );
     }
 

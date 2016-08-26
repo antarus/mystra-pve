@@ -255,6 +255,7 @@ return array(
                 array('route' => 'zf-apigility/api/content-negotiation', 'roles' => array('admin')),
                 array('route' => 'zf-apigility/api/package', 'roles' => array('admin')),
                 array('route' => 'zf-apigility/api/authentication-type', 'roles' => array('admin')),
+                array('route' => 'zf-apigility/documentation', 'roles' => array('admin')),
                 // fin core apigility
                 //api rtk / blizzar
                 array('route' => 'api-blizzard.rest.character', 'roles' => array('guest', 'user', 'admin')),

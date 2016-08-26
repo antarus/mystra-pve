@@ -138,7 +138,6 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
             return $this->redirect()->toRoute('backend-roster-list');
         }
 
-
         $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
         $oFiltre = new \Commun\Filter\RosterFilter();
         $oEntite->setInputFilter($oFiltre->getInputFilter());
@@ -177,37 +176,6 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
             'form' => $oForm,
             "roster" => $aOptRoster));
         return $oViewModel;
-//        $id = (int) $this->params()->fromRoute('id', 0);
-//        try {
-//            $oEntite = $this->getTable()->findRow($id);
-//            if (!$oEntite) {
-//                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Identifiant de roster inconnu."), 'error');
-//                return $this->redirect()->toRoute('backend-roster-list');
-//            }
-//        } catch (\Exception $ex) {
-//            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Une erreur est survenue lors de la récupération de la roster."), 'error');
-//            return $this->redirect()->toRoute('backend-roster-list');
-//        }
-//        $oForm = new \Commun\Form\RosterForm(); //new \Commun\Form\RosterForm($this->getServiceLocator());
-//        $oFiltre = new \Commun\Filter\RosterFilter();
-//        $oEntite->setInputFilter($oFiltre->getInputFilter());
-//        $oForm->bind($oEntite);
-//
-//        $oRequest = $this->getRequest();
-//        if ($oRequest->isPost()) {
-//            $oForm->setInputFilter($oFiltre->getInputFilter());
-//            $oForm->setData($oRequest->getPost());
-//
-//            if ($oForm->isValid()) {
-//                $this->getTable()->update($oEntite);
-//                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La roster a été modifié avec succès."), 'success');
-//                return $this->redirect()->toRoute('backend-roster-list');
-//            }
-//        }
-//        // Pour optimiser le rendu
-//        $oViewModel = new ViewModel();
-//        $oViewModel->setTemplate('backend/roster/update');
-//        return $oViewModel->setVariables(array('id' => $id, 'form' => $oForm));
     }
 
     /**

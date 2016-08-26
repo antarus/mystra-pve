@@ -89,7 +89,7 @@ class LogService implements ServiceLocatorAwareInterface {
      * Le nom donné au logger Utilisateur
      * @var string Le nom donné au logger Logiciel
      */
-    private $_logUserName = '\Log-user';
+    private $_logUserName = 'Zend\Log';
 
     /**
      * Le nom donné au logger Utilisateur
@@ -147,6 +147,7 @@ class LogService implements ServiceLocatorAwareInterface {
      * @return service Service de log utilisateur
      */
     private function _getUserLogService() {
+        
         return $this->_userLogService ?
                 $this->_userLogService :
                 $this->_userLogService = $this->getServiceLocator()->get($this->_logUserName);
@@ -184,9 +185,9 @@ class LogService implements ServiceLocatorAwareInterface {
         $sm = $this->getServiceLocator();
         $auth = $sm->get('zfcuser_auth_service');
         return $this->_userName ?
-                $this->userName :
-                $this->userName = ($auth->hasIdentity()) ?
-                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+                $this->_userName :
+                $this->_userName = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . '-' . $auth->getIdentity()->getUsername() : "undefined";
 
         ;
     }
@@ -382,10 +383,13 @@ class LogService implements ServiceLocatorAwareInterface {
      * @param string $msg Le message d'erreur
      */
     private function _logUser($crit, $msg) {
-        $trace = debug_backtrace();
+
+        $trace = debug_backtrace(); 
         $module = explode('\\', $trace[2]['class'])[0];
+        
         $this->_getUserLogService()->log(
                 $crit, '| ' . $module . ' | ' . $this->_getUserName() . ' | ' . $this->_getRemoteAddr() . ' | ' . $msg
+           
         );
     }
 
