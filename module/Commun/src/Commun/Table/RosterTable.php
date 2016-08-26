@@ -172,6 +172,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $oRosterBank->setIdClasses(1);
                     $oRosterBank->setIdRace(1);
                     $oRosterBank->setIdFaction(1);
+                    $oRosterBank->setNiveau(0);
                     $oRosterBank->setRoyaume("bank");
                     $oRosterDisenchant = new \Commun\Model\Personnages();
                     $oRosterDisenchant->setNom($oRoster->getNom() . $this->_getConfig()["roster"]["suffixe"]["disenchant"]);
@@ -180,6 +181,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                     $oRosterDisenchant->setIdClasses(1);
                     $oRosterDisenchant->setIdRace(1);
                     $oRosterDisenchant->setIdFaction(1);
+                    $oRosterDisenchant->setNiveau(0);
                     $oRosterDisenchant->setRoyaume("disenchant");
                     // on sauvegarde en base
                     $this->_getTablePersonnage()->saveOrUpdatePersonnage($oRosterBank);
