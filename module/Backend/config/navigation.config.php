@@ -3,7 +3,7 @@
 // TODO revoir la traduction
 $translator = new \Zend\I18n\Translator\Translator();
 return array(
-    'default' => array(
+    'backend-nav' => array(
         array(
             'label' => $translator->translate('Accueil'),
             'route' => 'backend-index',

@@ -24,8 +24,8 @@
 <!--               Sidebar Menu             -->
                     <ul class="sidebar-menu">
                     <?=
-                        $this->navigation('DefaultNavigation')->menu()
-                        ->setPartial(array('layout/backend/navbar.phtml', 'default'))
+                        $this->navigation('BackendNavigation')->menu()
+                        ->setPartial(array('layout/backend/navbar.phtml', 'backend-nav'))
                     ?>
                     </ul>
                 </section>
