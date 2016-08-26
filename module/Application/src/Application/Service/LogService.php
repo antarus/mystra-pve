@@ -89,7 +89,7 @@ class LogService implements ServiceLocatorAwareInterface {
      * Le nom donné au logger Utilisateur
      * @var string Le nom donné au logger Logiciel
      */
-    private $_logUserName = '\Log-user';
+    private $_logUserName = 'Zend\Log';
 
     /**
      * Le nom donné au logger Utilisateur
@@ -147,6 +147,7 @@ class LogService implements ServiceLocatorAwareInterface {
      * @return service Service de log utilisateur
      */
     private function _getUserLogService() {
+        
         return $this->_userLogService ?
                 $this->_userLogService :
                 $this->_userLogService = $this->getServiceLocator()->get($this->_logUserName);
@@ -382,27 +383,11 @@ class LogService implements ServiceLocatorAwareInterface {
      * @param string $msg Le message d'erreur
      */
     private function _logUser($crit, $msg) {
-        if($this->_getUserName())
-        {
-            $this->_getConfigService()['log'][]['writers'][0]['options']['stream'] = 'data/log/'.$this->_getUserName() .'-users.log';
-        }
-        else $this->_getConfigService()['log'][]['writers'][0]['options']['stream'] = 'data/log/users.log';
-        
-        $logger = new \Zend\Log\Logger;
-        $writer = new \Zend\Log\Writer\Stream(array(
-                    'name' => 'stream',
-                    'priority' => 1000,
-                    'options' => array(
-                        'stream' => 'data/log/users.log',),
-                ));
- 
-        $logger->addWriter($writer);
-            
-        
-        $module = explode('\\', $trace[2]['class'])[0];
+
         $trace = debug_backtrace(); 
+        $module = explode('\\', $trace[2]['class'])[0];
         
-        $logger->log(
+        $this->_getUserLogService()->log(
                 $crit, '| ' . $module . ' | ' . $this->_getUserName() . ' | ' . $this->_getRemoteAddr() . ' | ' . $msg
            
         );
