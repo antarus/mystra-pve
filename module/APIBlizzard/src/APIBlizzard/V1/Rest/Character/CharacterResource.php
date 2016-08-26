@@ -69,7 +69,7 @@ class CharacterResource extends AbstractResourceListener {
      * @param type $data
      */
     protected function addItem($key, $data) {
-        $this->auth = $this->service->get('zfcuser_auth_service');
+        $this->auth = $this->_service->get('zfcuser_auth_service');
         $tag = ($this->auth->hasIdentity()) ?
                 $this->auth->getIdentity()->getId() . ':' . $this->auth->getIdentity()->getUsername() : "undefined";
         $this->cache->addItem($key, $data);
