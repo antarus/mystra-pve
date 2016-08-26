@@ -104,7 +104,7 @@ class Messages extends ZendFlash {
 
         $markup = sprintf('<div class = "%s">
         <button type = "button" class = "close" data-dismiss = "alert" aria-hidden = "true">x</button>', implode(' ', $classes));
-        $markup .= sprintf('<h4><i class = "icon fa-%s"></i>Alert!</h4>', implode(' ', $aClasseIcon));
+        $markup .= sprintf('<h4><i class = "icon fa fa-%s"></i>Alert!</h4>', implode(' ', $aClasseIcon));
 
         foreach ($messagesToPrint as $msg) {
             $markup .= '<p>' . $msg . '</p>';
