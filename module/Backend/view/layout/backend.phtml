@@ -31,16 +31,24 @@
                 </section>
            </aside>
 <!--             Main content               -->
-            <div class="content-wrapper">
-                <div id="msg">
-                    <?= $this->render('layout/app/messages') ?>
-                </div>
+            <div class="content-wrapper" style="min-height: 810px;">
+                <section class="content-header">
+                   
+                </section>
+                <section class="content">
+                    <div id="msg">
+                        <?= $this->render('layout/app/messages') ?>
+                    </div>
+                
                   <?php echo $this->content ?>
+                </section>
             </div>
             <footer class="main-footer">
+                <div class="pull-right hidden-xs">
+                    RaidTracker
+                </div>
                 <p><strong>&copy; 2016 - <?php echo date('Y') ?> by Antarus & Capi </strong><?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
-        
         </div>
     </body>
 </html>

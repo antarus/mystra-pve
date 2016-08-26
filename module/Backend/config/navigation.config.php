@@ -10,23 +10,50 @@ return array(
             'action' => 'index',
         ),
         array(
+            'label' => $translator->translate('Personnage'),
+            'route' => null,
+            'action' => 'index',
+            'pages' => array(
+                array(
+                'label' => $translator->translate('Factions'),
+                'route' => 'backend-faction-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Races'),
+                'route' => 'backend-race-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Classes'),
+                'route' => 'backend-classes-list',
+                'action' => 'index', 
+                ),
+                array(
+                'label' => $translator->translate('Roles'),
+                'route' => 'backend-role-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Spécialisations'),
+                'route' => 'backend-specialisation-list',
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Personnages'),
+                'route' => 'backend-personnages-list',
+                'action' => 'index',
+                )
+        )),         
+        array(
             'label' => $translator->translate('Boss'),
             'route' => 'backend-bosses-list',
             'action' => 'index',
         ),
-        array(
-            'label' => $translator->translate('Classes'),
-            'route' => 'backend-classes-list',
-            'action' => 'index',
-        ),
+        
         array(
             'label' => $translator->translate('Evenements'),
             'route' => 'backend-evenements-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Faction'),
-            'route' => 'backend-faction-list',
             'action' => 'index',
         ),
         array(
@@ -45,7 +72,7 @@ return array(
             'action' => 'index',
         ),
         array(
-            'label' => $translator->translate('Mode de difficulté'),
+            'label' => $translator->translate('Modes de difficulté'),
             'route' => 'backend-mode_difficulte-list',
             'action' => 'index',
         ),
@@ -53,19 +80,10 @@ return array(
             'label' => $translator->translate('Npc'),
             'route' => 'backend-npc-list',
             'action' => 'index',
-        ), array(
-            'label' => $translator->translate('Pallier'),
+        ), 
+        array(
+            'label' => $translator->translate('Palliers'),
             'route' => 'backend-pallier-afficher-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Personnages'),
-            'route' => 'backend-personnages-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Race'),
-            'route' => 'backend-race-list',
             'action' => 'index',
         ),
         array(
@@ -74,18 +92,8 @@ return array(
             'action' => 'index',
         ),
         array(
-            'label' => $translator->translate('Role'),
-            'route' => 'backend-role-list',
-            'action' => 'index',
-        ),
-        array(
             'label' => $translator->translate('Roster'),
             'route' => 'backend-roster-list',
-            'action' => 'index',
-        ),
-        array(
-            'label' => $translator->translate('Spécialisation'),
-            'route' => 'backend-specialisation-list',
             'action' => 'index',
         ),
         array(
@@ -99,6 +107,4 @@ return array(
             'action' => 'index',
         )
     )
-        
-    
 );
