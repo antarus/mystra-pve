@@ -1,42 +1,5 @@
 <?php
 return array(
-    'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
-        'description' => 'retourne la liste des loot du roster
-
-/api/loot-roster-personnage/mystra/garona/antaruss?withids=1&spe=-1
-
-withids : ajoute différent Id a la réponse
-
-spe=-1 toute spé confondu
-spe=0 spé principal
-spe=1 spé secondaire',
-        'entity' => array(
-            'GET' => array(
-                'response' => '{
-  "nom": "trìs",
-  "items": [
-    {
-      "nom": "xu\'tenash, glaive of ruin",
-      "lien": "http://www.wowhead.com/?item=124378&bonus=1801:1472:529:",
-      "date": "2016-07-30 19:55:35",
-      "roster": "mystra",
-      "zone": "hellfire citadel",
-      "boss": "mannoroth",
-      "nom_personnage": "trìs",
-      "royaume_personnage": "garona",
-      "spe": "principal"
-    }
-  ],
-  "id": 66,
-  "_links": {
-    "self": {
-      "href": "http://localhost:48081/api/loot-roster-personnage/mystra/garona/66"
-    }
-  }
-}',
-            ),
-        ),
-    ),
     'APIRtK\\V1\\Rest\\LootRoster\\Controller' => array(
         'description' => 'retourne la liste des loot du roster
 
@@ -250,6 +213,43 @@ spe=1 spé secondaire',
   "_links": {
     "self": {
       "href": "http://localhost:48081/api/roster-stat/mystra"
+    }
+  }
+}',
+            ),
+        ),
+    ),
+    'APIRtK\\V1\\Rest\\LootRosterPersonnage\\Controller' => array(
+        'description' => 'retourne la liste des loot d\'un personnage du roster
+
+/api/loot-roster-personnage/mystra/garona/antaruss?withids=1&spe=-1
+
+withids : ajoute différent Id a la réponse
+
+spe=-1 toute spé confondu
+spe=0 spé principal
+spe=1 spé secondaire',
+        'entity' => array(
+            'GET' => array(
+                'response' => '{
+  "nom": "trìs",
+  "items": [
+    {
+      "nom": "xu\'tenash, glaive of ruin",
+      "lien": "http://www.wowhead.com/?item=124378&bonus=1801:1472:529:",
+      "date": "2016-07-30 19:55:35",
+      "roster": "mystra",
+      "zone": "hellfire citadel",
+      "boss": "mannoroth",
+      "nom_personnage": "trìs",
+      "royaume_personnage": "garona",
+      "spe": "principal"
+    }
+  ],
+  "id": 66,
+  "_links": {
+    "self": {
+      "href": "http://localhost:48081/api/loot-roster-personnage/mystra/garona/66"
     }
   }
 }',
