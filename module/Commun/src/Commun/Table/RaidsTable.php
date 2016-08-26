@@ -145,7 +145,8 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $where = new \Zend\Db\Sql\Where();
             $where->equalTo("idRosterTmp", $iIdRoster);
             $oQuery->where($where);
-            //   $this->debug($oQuery);
+
+            // $this->debug($oQuery);
             return $this->fetchAllArray($oQuery);
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
@@ -186,7 +187,10 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $oQuery = $sql->select();
             $oQuery->from(array('rp' => 'raid_personnage'))
                     ->join(array('r' => 'raids'), 'r.idRaid=rp.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
-                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
+                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+
+
             return $oQuery;
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);

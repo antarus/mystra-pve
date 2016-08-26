@@ -239,6 +239,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
 
         try {
             $oQuery = $this->getQueryBaseLootStat();
+            $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
             $predicateSpe = $this->getPredicateSpe($iSpe);
             /* @var $predicateGlobal \Zend\Db\Sql\Where() */
             $predicateGlobal = $this->getTablePallier()->getPredicate($sRoster);
@@ -263,6 +264,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     public function getLootDuRoster($sRoster, $sNom, $sRoyaume, $bWithId = false, $iSpe = -1) {
         try {
             $oQuery = $this->getQueryBaseLoot();
+            $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
             $predicateSpe = $this->getPredicateSpe($iSpe);
             if (isset($sNom) && isset($sRoyaume)) {
                 $predicatePersonnage = $this->getPredicateAddNomPersonnageEtNomServeur($sNom, $sRoyaume);
