@@ -100,14 +100,14 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
      */
     public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
-
             $aOptionBnet[] = 'items';
             $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
             $personnageBnet->on($aPost['serveur']);
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
             if (!$aPersoBnet) {
-                throw new BnetException(299, $this->_getServiceLocator(), $aPost);
+                $msg = sprintf($this->_getServTranslator()->translate("Le personnage [ %s ] n'a pas été trouvé sur le serveur [ %s ]."), $aPost['nom'], $aPost['serveur']);
+                throw new \Commun\Exception\LogException($msg, 499, $this->_getServiceLocator(), null, $aPost);
             }
             return $aPersoBnet;
         } catch (\Exception $ex) {
@@ -127,7 +127,6 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
             $oPersonnage->setRoyaume(strtolower($oPersonnage->getRoyaume()));
             //recherche si le personnage existe
             try {
-
                 $oTabPersonnage = $this->selectBy(
                         array(
                             "idPersonnage" => $oPersonnage->getIdPersonnage()));
