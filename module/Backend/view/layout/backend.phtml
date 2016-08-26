@@ -2,27 +2,45 @@
 <html lang="fr">
     <head>
         <?= $this->render('layout/backend/head') ?>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
     </head>
-    <body>
+    <body class="hold-transition skin-blue fixed sidebar-mini">
         <div id="loading">
             <div class="center">
                 <div class="circle"></div>
                 <div class="circle1"></div>
             </div>
         </div>
-        <?= $this->render('layout/backend/header') ?>
-        <div class="container">
-            <?= $this->render('layout/backend/breadcrumbs') ?>
-            <div id="msg">
-                <?= $this->render('layout/app/messages') ?>
+        <div class="wrapper">
+            <header class="main-header">
+                <?php echo $this->render('layout/backend/header') ?>            
+            </header>
+            
+            <aside class="main-sidebar">
+<!--             sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+<!--               Sidebar Menu             -->
+                    <ul class="sidebar-menu">
+                    <?=
+                        $this->navigation('DefaultNavigation')->menu()
+                        ->setPartial(array('layout/backend/navbar.phtml', 'default'))
+                    ?>
+                    </ul>
+                </section>
+           </aside>
+<!--             Main content               -->
+            <div class="content-wrapper">
+                <div id="msg">
+                    <?= $this->render('layout/app/messages') ?>
+                </div>
+                  <?php echo $this->content ?>
             </div>
-            <?= $this->content ?>
-            <hr>
-            <footer>
-                <p>&copy; 2016 - <?php echo date('Y') ?> by Antarus & Capi <?php echo $this->translate('All rights reserved.') ?></p>
+            <footer class="main-footer">
+                <p><strong>&copy; 2016 - <?php echo date('Y') ?> by Antarus & Capi </strong><?php echo $this->translate('All rights reserved.') ?></p>
             </footer>
+        
         </div>
-
-        <?= $this->plugin('InlineScript'); ?>
     </body>
 </html>
