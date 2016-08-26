@@ -162,6 +162,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             // si n'existe pas on insert
             if (!$oTabRoster) {
                 try {
+                    $oRoster->setKey($this->getRosterKey($oRoster->getNom()));
                     $this->insert($oRoster);
                     $oRoster->setIdRoster($this->lastInsertValue);
                     // on cree les deux personnage lié au roster
@@ -189,8 +190,12 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
                 } catch (\Exception $exc) {
                     $aError = array();
                     $aError[] = $oRoster->getArrayCopy();
-                    $aError[] = $oRosterBank->getArrayCopy();
-                    $aError[] = $oRosterDisenchant->getArrayCopy();
+                    if (isset($oRosterBank)) {
+                        $aError[] = $oRosterBank->getArrayCopy();
+                    }
+                    if (isset($oRosterDisenchant)) {
+                        $aError[] = $oRosterDisenchant->getArrayCopy();
+                    }
                     throw new DatabaseException(6000, 2, $this->_getServiceLocator(), $aError, $exc);
                 }
             }
@@ -346,6 +351,21 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $exc) {
             throw new DatabaseException(6000, 4, $this->_getServiceLocator(), array('id' => $iIdRoster), $exc);
         }
+    }
+
+    /**
+     * Retourne la clé du roster
+     * @param string $nom nom du roster
+     * @param array $options
+     *
+     * @return string
+     */
+    protected function getRosterKey($nom) {
+        $auth = $this->_getServiceLocator()->get('zfcuser_auth_service');
+        $options[] = ($auth->hasIdentity()) ?
+                $auth->getIdentity()->getId() . ':' . $auth->getIdentity()->getUsername() : "undefined";
+        $options[] = time();
+        return hash_hmac('md5', $nom, serialize($options));
     }
 
 }
