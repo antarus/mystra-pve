@@ -2,9 +2,6 @@
 
 namespace Frontend\Controller;
 
-use Zend\View\Model\ViewModel;
-use Zend\View\Model\JsonModel;
-use \Commun\Exception\DatabaseException;
 use Application\Service\LogService;
 
 /**
