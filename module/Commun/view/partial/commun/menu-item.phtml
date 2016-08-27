@@ -18,14 +18,29 @@ if (!$hasChildren):
         case "Accueil":
             $icone = "home";
             break;
+        case "Zone":
+            $icone = "map-o";
+            break;
+        case "Npc":
+            $icone = "optin-monster";
+            break;
+        case "Personnages":
+            $icone = "child";
+            break;
+        case "Guildes":
+            $icone = "users";
+            break;
         case "Utilisateurs":
-            $icone = "group";
+            $icone = "user";
             break;
         case "Evenements":
             $icone = "calendar";
             break;
+        case "Roster":
+            $icone = "eye";
+            break;
         default:
-            $icone = "anchor";
+            $icone = "circle-thin";
             break;
     }
     // generate markup
