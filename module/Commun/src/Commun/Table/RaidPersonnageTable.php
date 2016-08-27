@@ -82,7 +82,6 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('personnage_nom' => 'nom', 'personnage_royaume' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('c' => 'classes'), 'c.idClasses=p.idClasses', array('classe_nom' => 'nom', 'classe_couleur' => 'couleur',), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('rac' => 'race'), 'rac.idRace=p.idRace', array('race_nom' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER);
-
         $where = new \Zend\Db\Sql\Where();
         $where->equalTo("rp.idRaid", $iIdRaid);
         $oQuery->where($where);
@@ -99,10 +98,11 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         foreach ($aMembreRosterTmp as $aValue) {
             $aMembreRoster[$aValue['idPersonnage']] = $aValue;
         }
-
-        $aParticipantRoster = array_intersect_key($aAllParticpant, $aMembreRoster);
-        foreach ($aParticipantRoster as $key => $value) {
-            $aAllParticpant[$key]['roster'] = 1;
+        if (isset($aMembreRoster)) {
+            $aParticipantRoster = array_intersect_key($aAllParticpant, $aMembreRoster);
+            foreach ($aParticipantRoster as $key => $value) {
+                $aAllParticpant[$key]['roster'] = 1;
+            }
         }
         return $aAllParticpant;
     }

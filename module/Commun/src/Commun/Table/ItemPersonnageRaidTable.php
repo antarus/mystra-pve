@@ -116,15 +116,17 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      * @param string $sNomBoss
      * @param string $sBonus
      * @param string $sNote
+     * @param date $dDateLoot date du loot
      * @return  \Core\Model\RaidPersonnage
      */
-    public function saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote) {
+    public function saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote, $dDateLoot) {
         try {
             $oItemPersonnageRaid = new \Commun\Model\ItemPersonnageRaid();
             $oItemPersonnageRaid->setIdItem($oItems->getIdItem());
             $oItemPersonnageRaid->setIdRaid($oRaids->getIdRaid());
             $oItemPersonnageRaid->setIdPersonnage($oPersonnage->getIdPersonnage());
             $oItemPersonnageRaid->setBonus($sBonus);
+            $oItemPersonnageRaid->setDate($dDateLoot);
 
             $oBoss = $this->_getTableBoss()->selectBy(array('nom' => strtolower($sNomBoss)));
             if (!$oBoss) {
@@ -137,7 +139,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $this->insert($oItemPersonnageRaid);
             return $oItemPersonnageRaid;
         } catch (\Exception $ex) {
-            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote, $dDateLoot), $ex);
         }
     }
 
@@ -323,7 +325,8 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                     'idBosses',
                     'bonus',
                     'valeur',
-                    'note'
+                    'note',
+                    'item_date' => 'date'
                 ))
                 ->from(array('ipr' => 'item_personnage_raid'))
                 ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array('date'), \Zend\Db\Sql\Select::JOIN_INNER)
@@ -469,11 +472,36 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      */
     public function getLootRaid($iIdRaid) {
         $oQuery = $this->getQueryBaseLoot();
+        $oQuery->order('item_date');
         //   $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
         $predicate = new \Zend\Db\Sql\Where();
         $predicate->equalTo("r.idRaid", $iIdRaid);
         $oQuery->where($predicate);
-        return $this->fetchAllArray($oQuery);
+        $aLoots = $this->fetchAllArray($oQuery);
+        foreach ($aLoots as $key => $loot) {
+            switch ($loot['valeur']) {
+                //spé
+                case 0:
+                    $aLoots[$key]['spe'] = 'spé 1';
+                    break;
+                //spé
+                case 1:
+                    $aLoots[$key]['spe'] = 'spé 2';
+                    break;
+                //spé
+                case 2:
+                    $aLoots[$key]['spe'] = 'spé 3';
+                    break;
+                //spé
+                case 3:
+                    $aLoots[$key]['spe'] = 'spé 4';
+                    break;
+                default;
+                    $aLoots[$key]['spe'] = 'spé 1';
+                    break;
+            }
+        }
+        return $aLoots;
     }
 
 }
