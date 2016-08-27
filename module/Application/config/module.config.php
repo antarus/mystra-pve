@@ -37,6 +37,7 @@ return array(
         'not_found_template' => 'error/404',
         'exception_template' => 'error/index',
         'template_map' => array(
+            'application/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
             'layout/ajax' => __DIR__ . '/../view/layout/ajax.phtml',
             'application/index/index' => __DIR__ . '/../view/application/index/index.phtml',

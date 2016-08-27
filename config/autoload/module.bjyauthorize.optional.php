@@ -267,12 +267,14 @@ return array(
                 //Users Module
                 array('route' => 'register-ajax', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'zfcuser', 'roles' => array('user', 'guest', 'admin')),
-                array('route' => 'zfcuser/logout', 'roles' => array('guest','user', 'admin')),
+                array('route' => 'zfcuser/logout', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'zfcuser/login', 'roles' => array('guest')),
                 array('route' => 'zfcuser/register', 'roles' => array('guest')),
                 array('route' => 'register-sendmailconfirm', 'roles' => array('guest')),
                 array('route' => 'register-sendmail', 'roles' => array('guest')),
                 array('route' => 'validate-mail', 'roles' => array('guest')),
+                // frontend
+                array('route' => 'front-raid-list', 'roles' => array('guest', 'user', 'admin')),
             ),
         ),
         // strategy service name for the strategy listener to be used when permission-related errors are detected

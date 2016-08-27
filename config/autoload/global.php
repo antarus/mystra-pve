@@ -1,4 +1,5 @@
 <?php
+
 return array(
     'caches' => array(
         'CacheBnet' => array(
@@ -27,6 +28,20 @@ return array(
                 'cache_dir' => __DIR__ . '/../../data/cache/api',
                 'ttl' => 720,
                 'namespace' => 'api-cache'
+            )
+        ),
+        'CacheRtk' => array(
+            'adapter' => array(
+                'name' => 'filesystem',
+            ),
+            'plugins' => array(
+                'exception_handler' => array('throw_exceptions' => false),
+                'serializer'
+            ),
+            'options' => array(
+                'cache_dir' => __DIR__ . '/../../data/cache/rtk',
+                'ttl' => 720,
+                'namespace' => 'rtk-cache'
             )
         )
     ),

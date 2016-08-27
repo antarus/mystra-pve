@@ -144,7 +144,8 @@ class RosterController extends \Zend\Mvc\Controller\AbstractActionController {
         $oForm->bind($oEntite);
         $aOptRoster = array(
             'nom' => $oEntite->getNom(),
-            'roles' => $this->getTableRole()->fetchAll()->toArray()
+            'roles' => $this->getTableRole()->fetchAll()->toArray(),
+            'key' => $oEntite->getKey()
         );
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {

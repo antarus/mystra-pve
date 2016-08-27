@@ -73,6 +73,7 @@ class RegisterController extends AbstractActionController {
         else
         {
             $user = $this->getTableUsers()->getByKey($key);
+            
             if(!$user)
             {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Votre url de validation est incorrect."), 'error');
@@ -128,13 +129,13 @@ class RegisterController extends AbstractActionController {
         $oMail->setEncoding('UTF-8');
         $oMail->setFrom('contact@raid-tracker.com');
         $oMail->addTo($sMail);
-        $oMail->addCc('capi@raid-tracker.com');
+       // $oMail->addCc('contact@raid-tracker.com');
         $oMail->setSubject($this->_getServTranslator()->translate('Confirmation de votre inscription à RTK'));
 
         $oSmtpOptions = new \Zend\Mail\Transport\SmtpOptions();  
         $oSmtpOptions->setHost('auth.smtp.1and1.fr')
                     ->setConnectionClass('login')
-                    ->setName('local.raid-tracker.com') //s19436168.domainepardefaut.fr
+                    ->setName('s19436168.domainepardefaut.fr')
                     ->setConnectionConfig(array(
                         'username' => 'contact@raid-tracker.com',
                         'password' => 'crocodile83',
@@ -200,22 +201,23 @@ class RegisterController extends AbstractActionController {
     private function _validUser($sMail)
     {
         $user = $this->getTableUsers()->getUserInfosByMail($sMail);
-
+        var_dump($user);
+        
         if(!$user)
         {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Adresse email inconnue."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Email inconnue en base $sMail", LogService::USER);
             return false;
         }
-        elseif($user->state === 1)
+        elseif($user->state == 1)
         {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte déjà actif."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Compte déjà actif:  $sMail", LogService::USER);        
             return false; 
         }
-        elseif($user->state === 2)
+        elseif($user->state == 2)
         {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte desactiver; contacter un administrateur pour plus d'infos."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte desactiver, contacter un administrateur pour plus d'infos."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Compte desactiver:  $sMail", LogService::USER);
             return false;          
         }
