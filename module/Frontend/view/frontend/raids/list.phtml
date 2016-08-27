@@ -11,7 +11,7 @@
             <?php foreach ($raids as $aRaid) { ?>
                 <tr>
                     <td><?php echo $this->escapeHtml($aRaid['idRaid']); ?></td>
-                    <td><?php echo $this->escapeHtml($aRaid['note']); ?></td>
+                    <td>     <a href="<?php echo $this->url('front-raid-detail', array('key' => $roster["key"], 'idRaid' => $aRaid['idRaid'])); ?>"><?php echo $this->escapeHtml($aRaid['note']); ?></a></td>
                     <td><?php echo $this->escapeHtml($aRaid['date']); ?></td>
                 </tr>
             <?php } ?>
