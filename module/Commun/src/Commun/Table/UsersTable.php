@@ -2,18 +2,16 @@
 
 namespace Commun\Table;
 
-
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use \Commun\Exception\DatabaseException;
+
 /**
  * @author Antarus
  * @project Raid-TracKer
  */
-class UsersTable extends \Core\Table\AbstractServiceTable
-{
+class UsersTable extends \Core\Table\AbstractServiceTable {
 
-    
     /**
      * Nom de la  table.
      *
@@ -35,15 +33,13 @@ class UsersTable extends \Core\Table\AbstractServiceTable
      */
     protected $nomCle = 'id';
 
-    
-    public function getUserInfosByMail($sMail)
-    {
+    public function getUserInfosByMail($sMail) {
         try {
             $row = $this->selectBy(array("email" =>$sMail ));
         } catch (Exception $e) {
-            throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $sMail, $e);   
+            throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $sMail, $e);
         }
-        return (!$row) ? false: $row;
+        return (!$row) ? false : $row;
     }
     
     public function getByKey($key)

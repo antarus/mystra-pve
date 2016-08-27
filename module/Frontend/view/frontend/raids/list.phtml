@@ -1,3 +1,23 @@
-page raids protegé par une clé
+
+<div id="tableRaid">
+    <table class="table table-striped">
+        <thead>    <tr>
+                <th>Name</th>
+                <th>Username</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($aRaids as $aRaid) { ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($aRaid['id']) . ' ' . $this->escapeHtml($user->lastName); ?></td>
+                    <td><?php echo $this->escapeHtml($aRaid['nom']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <div class="paging">
+        <?php echo $paging; ?>
+    </div>
+</div>
 
 

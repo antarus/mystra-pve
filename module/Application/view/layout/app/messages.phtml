@@ -13,7 +13,6 @@ FlashMessenger::NAMESPACE_ERROR,
 as $sNamespace):
     $messenger->setNamespace($sNamespace);
     $aMessages = $messenger->getCurrentMessages();
-    //$aMessages = array_merge($messenger->getCurrentMessages(), $messenger->getMessages());
     $messenger->clearCurrentMessages();
     $aClasseCommune = array('alert alert-dismissible');
 
