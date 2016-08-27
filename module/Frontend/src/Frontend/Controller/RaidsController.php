@@ -68,23 +68,11 @@ class RaidsController extends FrontController {
         if (!$oRoster) {
             return $this->redirect()->toRoute('home');
         }
-        $oTable = new \Commun\Grid\RaidsGrid($this->getServiceLocator(), $this->getPluginManager());
+        $oTable = new \Frontend\Grid\RaidsGrid($this->getServiceLocator(), $this->getPluginManager(), $oRoster->getKey());
         $oTable->setAdapter($this->getAdapter())
                 ->setSource($this->getTableRaid()->getBaseQueryFrontend($oRoster->getIdRoster()))
                 ->setParamAdapter($this->getRequest()->getPost());
         return $this->htmlResponse($oTable->render());
-//                $page = $this->params()->fromRoute('page', 1);
-//        $oRoster = $this->valideKey();
-//        if (!$oRoster) {
-//            return $this->redirect()->toRoute('home');
-//        }
-//        $aRaid = $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()))->toArray();
-//        // Pour optimiser le rendu
-//        $oViewModel = new ViewModel();
-//        $oViewModel->setTemplate('frontend/raids/list');
-//        $oViewModel->setVariable('key', $oRoster->getKey());
-//        $oViewModel->setVariable('raids', $aRaid);
-//        return $oViewModel;
     }
 
     /**
@@ -102,8 +90,24 @@ class RaidsController extends FrontController {
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/detail');
         $oViewModel->setVariable('key', $oRoster->getKey());
-        $oViewModel->setVariable('raids', $aRaid);
         return $oViewModel;
+    }
+
+    /**
+     * Retourne l'a liste des personnage ayant particpé a un raid.
+     *
+     * @return le template de la page detail.
+     */
+    public function ajaxDetailAction() {
+        $oRoster = $this->valideKey();
+        if (!$oRoster) {
+            return $this->redirect()->toRoute('home');
+        }
+        $oTable = new \Frontend\Grid\RaidsGrid($this->getServiceLocator(), $this->getPluginManager(), $oRoster->getKey());
+        $oTable->setAdapter($this->getAdapter())
+                ->setSource($this->getTableRaid()->getBaseQueryFrontend($oRoster->getIdRoster()))
+                ->setParamAdapter($this->getRequest()->getPost());
+        return $this->htmlResponse($oTable->render());
     }
 
 }
