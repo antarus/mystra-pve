@@ -13,7 +13,8 @@ use Application\Service\LogService;
  */
 class RaidsController extends FrontController {
 
-    private $_tableRaid = null;
+    private $_tableRaid;
+    private $_tableRaidPersonnage;
 
     /**
      * Returne une instance de la table Raid en lazy.
@@ -28,23 +29,62 @@ class RaidsController extends FrontController {
     }
 
     /**
+     * Returne une instance de la table Raid en lazy.
+     *
+     * @return \Commun\Table\RaidPersonnageTable
+     */
+    public function getTableRaidPersonnage() {
+        if (!$this->_tableRaidPersonnage) {
+            $this->_tableRaidPersonnage = $this->getServiceLocator()->get('\Commun\Table\RaidPersonnageTable');
+        }
+        return $this->_tableRaidPersonnage;
+    }
+
+    /**
      * Retourne l'ecran de liste.
+     * Affiche uniquement la page. Les données sont chargées via ajax plus tard.
      *
      * @return le template de la page liste.
      */
     public function listAction() {
-        $page = $this->params()->fromRoute('page', 1);
         $oRoster = $this->valideKey();
         if (!$oRoster) {
             return $this->redirect()->toRoute('home');
         }
-        $aRaid = $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()))->toArray();
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/list');
         $oViewModel->setVariable('key', $oRoster->getKey());
-        $oViewModel->setVariable('raids', $aRaid);
         return $oViewModel;
+    }
+
+    /**
+     * Action pour le listing via AJAX.
+     *
+     * @return reponse au format Ztable
+     */
+    public function ajaxListAction() {
+        $oRoster = $this->valideKey();
+        if (!$oRoster) {
+            return $this->redirect()->toRoute('home');
+        }
+        $oTable = new \Commun\Grid\RaidsGrid($this->getServiceLocator(), $this->getPluginManager());
+        $oTable->setAdapter($this->getAdapter())
+                ->setSource($this->getTableRaid()->getBaseQueryFrontend($oRoster->getIdRoster()))
+                ->setParamAdapter($this->getRequest()->getPost());
+        return $this->htmlResponse($oTable->render());
+//                $page = $this->params()->fromRoute('page', 1);
+//        $oRoster = $this->valideKey();
+//        if (!$oRoster) {
+//            return $this->redirect()->toRoute('home');
+//        }
+//        $aRaid = $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()))->toArray();
+//        // Pour optimiser le rendu
+//        $oViewModel = new ViewModel();
+//        $oViewModel->setTemplate('frontend/raids/list');
+//        $oViewModel->setVariable('key', $oRoster->getKey());
+//        $oViewModel->setVariable('raids', $aRaid);
+//        return $oViewModel;
     }
 
     /**

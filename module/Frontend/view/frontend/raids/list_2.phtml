@@ -1,0 +1,25 @@
+
+<div id="tableRaid">
+    <table class="table table-striped">
+        <thead>    <tr>
+                <th>Id</th>
+                <th>nom</th>
+                <th>date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($raids as $aRaid) { ?>
+                <tr>
+                    <td><?php echo $this->escapeHtml($aRaid['idRaid']); ?></td>
+                    <td>     <a href="<?php echo $this->url('front-raid-detail', array('key' => $key, 'idRaid' => $aRaid['idRaid'])); ?>"><?php echo $this->escapeHtml($aRaid['note']); ?></a></td>
+                    <td><?php echo $this->escapeHtml($aRaid['date']); ?></td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
+    <div class="paging">
+
+    </div>
+</div>
+
+

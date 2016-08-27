@@ -103,4 +103,25 @@ class FrontController extends \Zend\Mvc\Controller\AbstractActionController {
         return hash_hmac('md5', $url, serialize($options));
     }
 
+    /**
+     * Retourne l'adapter associé a ce modèle.
+     *
+     * @return \Zend\Db\Adapter\Adapter
+     */
+    public function getAdapter() {
+        return $this->getServiceLocator()->get('\Zend\Db\Adapter\Adapter');
+    }
+
+    /**
+     * Retourne une response en tant que html.
+     *
+     * @return page html
+     */
+    public function htmlResponse($html) {
+        $response = $this->getResponse()
+                ->setStatusCode(200)
+                ->setContent($html);
+        return $response;
+    }
+
 }

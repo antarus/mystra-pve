@@ -27,7 +27,7 @@ echo $this->headScript()
         ->appendFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
         ->appendFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
 //        ->appendFile($this->basePath('js/jquery.dataTables.min.js'))
-//        ->appendFile($this->basePath('js/zf-table.js'))
+        ->appendFile($this->basePath('js/zf-table.js'))
 //        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
 ;
 ?>
