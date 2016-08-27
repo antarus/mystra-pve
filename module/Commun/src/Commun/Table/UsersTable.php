@@ -24,7 +24,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
      *
      * @var \Commun\Model\Users
      */
-    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\Users';
+    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\User';
 
     /**
      * Clé primaire de la table.
@@ -35,54 +35,47 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
 
     public function getUserInfosByMail($sMail) {
         try {
-            $row = $this->selectBy(array("email" =>$sMail ));
+            $row = $this->select(array("email" => $sMail));
         } catch (Exception $e) {
             throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $sMail, $e);
         }
         return (!$row) ? false : $row;
     }
-    
-    public function getByKey($key)
-    {
-        try {
-            $row = $this->selectBy(array("keyValidMail" =>$key ));
-        } catch (Exception $e) {
-            throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $key, $e);   
-        }
-        return (!$row) ? false: $row;
-    }
-    
-    public function addKeyValidMail($sMail,$key)
-    {
-         try{
-            $this->update(array('keyValidMail'=>$key), array('email' => $sMail));
-            return true;
-        }
-        catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), array('mail'=>$sMail,'key'=>$key), $e);
-        }
-    }
-    
-    public function validateUser($sMail)
-    {
-        try{
-            $this->update(array('keyValidMail'=>null,"state"=>1), array('email' => $sMail));
-            return true;
-        }
-        catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), $sMail, $e);
-        }
-    }
-    
-    public function updateLastConnection($id)
-    {
-        try{
-            $this->update(array('lastConnection'=>new Expression('Now()')), array('id' => $id));
-            return true;
-        }
-        catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), $id, $e);
-        }
-    }
-}
 
+    public function getByKey($key) {
+        try {
+            $row = $this->select(array("keyValidMail" => $key));
+        } catch (Exception $e) {
+            throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $key, $e);
+        }
+        return (!$row) ? false : $row;
+    }
+
+    public function addKeyValidMail($sMail, $key) {
+        try {
+            $this->update(array('keyValidMail' => $key), array('email' => $sMail));
+            return true;
+        } catch (\Exception $e) {
+            throw new DatabaseException(11000, 1, $this->_getServiceLocator(), array('mail' => $sMail, 'key' => $key), $e);
+        }
+    }
+
+    public function validateUser($sMail) {
+        try {
+            $this->update(array('keyValidMail' => null, "state" => 1), array('email' => $sMail));
+            return true;
+        } catch (\Exception $e) {
+            throw new DatabaseException(11000, 1, $this->_getServiceLocator(), $sMail, $e);
+        }
+    }
+
+    public function updateLastConnection($id) {
+        try {
+            $this->update(array('lastConnection' => new Expression('Now()')), array('id' => $id));
+            return true;
+        } catch (\Exception $e) {
+            throw new DatabaseException(11000, 1, null, null, null, $this->_getServiceLocator(), $id, $e);
+        }
+    }
+
+}

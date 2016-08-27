@@ -73,7 +73,6 @@ class RegisterController extends AbstractActionController {
         else
         {
             $user = $this->getTableUsers()->getByKey($key);
-            
             if(!$user)
             {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Votre url de validation est incorrect."), 'error');

@@ -41,7 +41,7 @@ class EvenementsGrid extends \ZfTable\AbstractTable {
     );
     protected $headers = array(
         'idEvenements' => array(
-            'title' => 'IdEvent',
+            'title' => 'IdEvenements',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -56,17 +56,17 @@ class EvenementsGrid extends \ZfTable\AbstractTable {
             'filters' => 'text',
         ),
         'dateHeureDebutInvitation' => array(
-            'title' => 'DebutInv',
+            'title' => 'DateHeureDebutInvitation',
             'width' => '100',
             'filters' => 'text',
         ),
         'dateHeureDebutEvenement' => array(
-            'title' => 'DebutEvent',
+            'title' => 'DateHeureDebutEvenement',
             'width' => '100',
             'filters' => 'text',
         ),
         'dateHeureFinInscription' => array(
-            'title' => 'FinInsc',
+            'title' => 'DateHeureFinInscription',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -111,7 +111,7 @@ class EvenementsGrid extends \ZfTable\AbstractTable {
             'filters' => 'text',
         ),
         'idEvenements_template' => array(
-            'title' => 'IdEventTemplate',
+            'title' => 'IdEvenements template',
             'width' => '100',
             'filters' => 'text',
         ),
