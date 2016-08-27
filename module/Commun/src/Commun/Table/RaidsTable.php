@@ -197,4 +197,21 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
         }
     }
 
+    /**
+     * Retourne le select query deja configuré par l'adapter et le nom de la table pour le frontend
+     *
+     * @return Zend\Db\Sql\Select
+     */
+    public function getBaseQueryFrontend($iIdRoster) {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $query = $sql->select();
+        $query->from($this->table)->columns(array(
+            '*'
+        ));
+        $where = new \Zend\Db\Sql\Where();
+        $where->equalTo("idRosterTmp", $iIdRoster);
+        $query->where($where);
+        return $query;
+    }
+
 }

@@ -19,6 +19,23 @@ return array(
                     ),
                 ),
             ),
+            'front-raid-ajax-list' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/frontend/roster/:key/raid/ajaxlist/',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Frontend\Controller\Raids',
+                        'action' => 'ajaxList',
+                    ),
+                ),
+            ),
             'front-raid-detail' => array(
                 'type' => 'Segment',
                 'options' => array(
