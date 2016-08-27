@@ -18,11 +18,7 @@ class RosterStatResource extends AbstractResourceListener {
     /* @var $_tablePersonnage \Commun\Table\PersonnagesTable */
     private $_tablePersonnage;
 
-    /* @var $_tableItemPersonnageRaid \Commun\Table\ItemPersonnageRaidTable */
-    private $_tableItemPersonnageRaid;
 
-    /* @var $_tableItems \Commun\Table\ItemsTable */
-    private $_tableItems;
     /* @var $cache StorageInterface    */
     private $cache;
 

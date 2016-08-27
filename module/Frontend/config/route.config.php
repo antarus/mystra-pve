@@ -52,24 +52,6 @@ return array(
                     ),
                 ),
             ),
-            'front-raid-liste-perso-ajax-list' =>
-            array(
-                'type' => 'segment',
-                'options' =>
-                array(
-                    'route' => '/frontend/roster/:key/raid/detail/:idRaid/personnage/ajaxlist/',
-                    'constraints' =>
-                    array(
-                        'key' => '[a-zA-Z0-9_-]+',
-                        'idRaid' => '[0-9]*',
-                    ),
-                    'defaults' =>
-                    array(
-                        'controller' => 'Frontend\Controller\Raids',
-                        'action' => 'ajaxList',
-                    ),
-                ),
-            ),
         ),
     )
 );

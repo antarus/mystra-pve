@@ -322,14 +322,15 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                     'idPersonnage',
                     'idBosses',
                     'bonus',
-                    'valeur'
+                    'valeur',
+                    'note'
                 ))
                 ->from(array('ipr' => 'item_personnage_raid'))
                 ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array('date'), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone', "zone" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode', "mode" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster', "roster" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom", "idBnet"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array('idBosses', "boss" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
 
@@ -460,6 +461,19 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
+    }
+
+    /**
+     * Retourne les loots du raid.
+     * @param type $iIdRaid
+     */
+    public function getLootRaid($iIdRaid) {
+        $oQuery = $this->getQueryBaseLoot();
+        //   $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+        $predicate = new \Zend\Db\Sql\Where();
+        $predicate->equalTo("r.idRaid", $iIdRaid);
+        $oQuery->where($predicate);
+        return $this->fetchAllArray($oQuery);
     }
 
 }

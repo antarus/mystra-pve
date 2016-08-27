@@ -70,4 +70,41 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         }
     }
 
+    /**
+     * Retourne les particpants d'un raid.
+     * @param type $iIdRaid
+     */
+    function getParticipantRaid($iIdRaid) {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQuery = $sql->select();
+        $oQuery->from(array('rp' => 'raid_personnage'))
+                ->join(array('r' => 'raids'), 'r.idRaid=rp.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('personnage_nom' => 'nom', 'personnage_royaume' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('c' => 'classes'), 'c.idClasses=p.idClasses', array('classe_nom' => 'nom', 'classe_couleur' => 'couleur',), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('rac' => 'race'), 'rac.idRace=p.idRace', array('race_nom' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER);
+
+        $where = new \Zend\Db\Sql\Where();
+        $where->equalTo("rp.idRaid", $iIdRaid);
+        $oQuery->where($where);
+        $oQuery->order('p.nom');
+
+        $aAllParticpantTmp = $this->fetchAllArray($oQuery);
+        foreach ($aAllParticpantTmp as $aValue) {
+            $aValue['roster'] = 0;
+            $aAllParticpant[$aValue['idPersonnage']] = $aValue;
+        }
+        $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+
+        $aMembreRosterTmp = $this->fetchAllArray($oQuery);
+        foreach ($aMembreRosterTmp as $aValue) {
+            $aMembreRoster[$aValue['idPersonnage']] = $aValue;
+        }
+
+        $aParticipantRoster = array_intersect_key($aAllParticpant, $aMembreRoster);
+        foreach ($aParticipantRoster as $key => $value) {
+            $aAllParticpant[$key]['roster'] = 1;
+        }
+        return $aAllParticpant;
+    }
+
 }

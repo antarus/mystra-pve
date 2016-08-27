@@ -214,4 +214,12 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
         return $query;
     }
 
+    public function getRaid($iIdRaid) {
+        try {
+            return $this->select(array('idRaid' => $iIdRaid))->toArray()[0];
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRaid, $exc);
+        }
+    }
+
 }
