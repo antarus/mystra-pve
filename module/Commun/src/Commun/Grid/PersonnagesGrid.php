@@ -41,18 +41,18 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
     );
     protected $headers = array(
         'idPersonnage' => array(
-            'title' => 'IdPersonnage',
-            'width' => '50',
+            'title' => 'Id',
+            'width' => '100',
             'filters' => 'text',
         ),
         'nom' => array(
             'title' => 'Nom',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'ilvl' => array(
             'title' => 'ilvl',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'niveau' => array(
@@ -62,42 +62,44 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ),
         'genre' => array(
             'title' => 'Genre',
-            'width' => '20',
+            'width' => '100',
             'filters' => 'text',
         ),
         'miniature' => array(
             'title' => 'miniature',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'royaume' => array(
             'title' => 'Royaume',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'faction' => array(
             'title' => 'Faction',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'classe' => array(
+            'title' => 'Classe',
+            'width' => '100',
             'title' => 'classe',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'race' => array(
             'title' => 'Race',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'guilde' => array(
             'title' => 'Guilde',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'isTech' => array(
             'title' => 'isTech',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
 //        'idUsers' => array(

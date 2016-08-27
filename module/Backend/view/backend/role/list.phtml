@@ -1,8 +1,8 @@
 <a href="<?php echo $this->url('backend-role-create'); ?>" class="btn btn-success"><?php echo $this->translate("Créer") ?></a>
 
-<div id="tableContainer">
+<div id="tableContainer-role">
 </div>
 
 <script>
-    $("#tableContainer").zfTable('<?php echo $this->url('backend-role-ajaxList'); ?>');
+    $("#tableContainer-role").zfTable('<?php echo $this->url('backend-role-ajaxList'); ?>');
 </script>

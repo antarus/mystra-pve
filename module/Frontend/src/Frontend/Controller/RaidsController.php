@@ -13,33 +13,9 @@ use Application\Service\LogService;
  * @author Antarus
  * @project Raid-TracKer
  */
-class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
+class RaidsController extends FrontController {
 
-    private $_servTranslator = null;
     private $_tableRaid = null;
-    private $_logService;
-
-    /**
-     * Lazy getter pour le service de logs
-     * @return \Application\Service\LogService
-     */
-    protected function _getLogService() {
-        return $this->_logService ?
-                $this->_logService :
-                $this->_logService = $this->getServiceLocator()->get('LogService');
-    }
-
-    /**
-     * Retourne le service de traduction en mode lazy.
-     *
-     * @return
-     */
-    public function _getServTranslator() {
-        if (!$this->_servTranslator) {
-            $this->_servTranslator = $this->getServiceLocator()->get('translator');
-        }
-        return $this->_servTranslator;
-    }
 
     /**
      * Returne une instance de la table Raid en lazy.
@@ -60,9 +36,24 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
      * @return le template de la page liste.
      */
     public function listAction() {
+        $page = $this->params()->fromRoute('page', 1);
+        $oRoster = $this->valideKey();
+        if (!$oRoster) {
+            return $this->redirect()->toRoute('home');
+        }
+        $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()));
+
+# move to service
+//        $limit = 10;
+//        $offset = ($page == 0) ? 0 : ($page - 1) * $limit;
+//        $em = $this->getServiceLocator()->get('Doctrine\ORM\EntityManager');
+//        $pagedUsers = $em->getRepository('Application\Entity\User')->getPagedUsers($offset, $limit);
+        # end move to service
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/list');
+//        $oViewModel->setVariable('pagedUsers', $pagedUsers);
+//        $oViewModel->setVariable('page', $page);
         return $oViewModel;
     }
 
