@@ -14,6 +14,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 //        ->appendStylesheet($this->basePath('css/bootstrap-theme.min.css'))
         ->appendStylesheet($this->basePath('css/zf-table/zf-table.css'))
         ->appendStylesheet($this->basePath('css/styles.css'))
+        ->appendStylesheet($this->basePath('plugin/fancybox/source/jquery.fancybox.css?v=2.1.5'))
 ?>
 
 <!-- Scripts -->
@@ -28,6 +29,7 @@ echo $this->headScript()
         ->appendFile($this->basePath('js/html5shiv.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
 //        ->appendFile($this->basePath('js/jquery.dataTables.min.js'))
         ->appendFile($this->basePath('js/zf-table.js'))
+        ->appendFile($this->basePath('plugin/fancybox/source/jquery.fancybox.pack.js?v=2.1.5'))
 //        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
 ;
 ?>
