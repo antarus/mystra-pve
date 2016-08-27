@@ -10,9 +10,28 @@ foreach ($page->getPages() as $child) {
     }
 }
 if (!$hasChildren):
-    ?>
-<li><a href="<?= $page->getHref() ?>"><?= $page->getLabel() ?></a></li>
+    
+?>
+<!--<li><a href="<?= $page->getHref() ?>"><i class="<?php echo "fa fa-%s" ?>"></i> <span><?= $page->getLabel() ?></span></a></li>-->
     <?php
+    
+    switch ($page->getLabel()){
+        case "Utilisateurs":
+            $icone = "group";
+            break;
+        case "Evenements":
+            $icone = "calendar";
+            break;
+        default:
+            $icone = "anchor";
+            break;
+    }
+    // generate markup
+    $markup = sprintf('<li><a href="%s">',$page->getHref());
+    $markup .= sprintf('<i class="fa fa-%s"></i> <span>',$icone);
+    $markup .= $page->getLabel();
+    $markup .= '</span></a></li>';
+    echo $markup;
 else:
     $liClass = ($level > 0) ? 'dropdown-submenu' : 'dropdown';
     ?>
