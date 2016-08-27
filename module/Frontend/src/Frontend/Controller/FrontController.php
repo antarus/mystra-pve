@@ -91,7 +91,7 @@ class FrontController extends \Zend\Mvc\Controller\AbstractActionController {
             // Ajoute au cache
             $aRoster = $oRoster->getArrayCopy();
             $this->_getCacheService()->addItem($cacheKey, $aRoster);
-            return $aRoster;
+            return $oRoster;
         }
     }
 
