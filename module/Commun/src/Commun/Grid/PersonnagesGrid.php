@@ -41,7 +41,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
     );
     protected $headers = array(
         'idPersonnage' => array(
-            'title' => 'IdPersonnage',
+            'title' => 'Id',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -77,11 +77,11 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ),
         'faction' => array(
             'title' => 'Faction',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'classe' => array(
-            'title' => 'classe',
+            'title' => 'Classe',
             'width' => '100',
             'filters' => 'text',
         ),

@@ -42,7 +42,7 @@ class RaceGrid extends \ZfTable\AbstractTable {
     protected $headers = array(
         'idRace' => array(
             'title' => 'IdRace',
-            'width' => '100',
+            'width' => 'auto',
             'filters' => 'text',
         ),
         'nom' => array(
