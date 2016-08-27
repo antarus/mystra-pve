@@ -42,17 +42,17 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
     protected $headers = array(
         'idPersonnage' => array(
             'title' => 'IdPersonnage',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'nom' => array(
             'title' => 'Nom',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'ilvl' => array(
             'title' => 'ilvl',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'niveau' => array(
@@ -62,47 +62,47 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ),
         'genre' => array(
             'title' => 'Genre',
-            'width' => '100',
+            'width' => '20',
             'filters' => 'text',
         ),
         'miniature' => array(
             'title' => 'miniature',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'royaume' => array(
             'title' => 'Royaume',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'faction' => array(
             'title' => 'Faction',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'classe' => array(
             'title' => 'classe',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'race' => array(
             'title' => 'Race',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'guilde' => array(
             'title' => 'Guilde',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
         'isTech' => array(
             'title' => 'isTech',
-            'width' => '100',
+            'width' => '50',
             'filters' => 'text',
         ),
 //        'idUsers' => array(
 //            'title' => 'IdUsers',
-//            'width' => '100',
+//            'width' => '50',
 //            'filters' => 'text',
 //        ),
         'edit' => array(
@@ -163,7 +163,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ));
         $this->getHeader("miniature")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return "<center><img src='http://render-api-eu.worldofwarcraft.com/static-render/eu/{$record["miniature"]}' /></center>";
+                return "<center><img src='http://render-api-eu.worldofwarcraft.com/static-render/eu/{$record["miniature"]}' height='32' width='32' /></center>";
             }
         ));
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
@@ -177,8 +177,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                         return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-personnages-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
                     }
                         ));
-                    
-                        
                     }
 
                     /**

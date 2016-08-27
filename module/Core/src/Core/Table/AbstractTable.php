@@ -407,10 +407,6 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
 
         $set = $mObject->getArrayCopy();
 
-//        if (isset($set[$this->nomCle])) {
-//            unset($set[$this->nomCle]);
-//        }
-
         $res = parent::insert($set);
 
         if (method_exists($mObject, $postInsertMethodName)) {
@@ -462,12 +458,8 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
         $where = ($where) ? $where : array(
             $this->nomCle => $id
         );
-//        try {
         $res = parent::update($set, $where);
-//        } catch (\Exception $e) {
-//            \Zend\Debug\Debug::dump($e->__toString());
-//            exit;
-//        }
+
         if (method_exists($mObject, $postUpdateMethodName)) {
             $mObject->$postUpdateMethodName($this->getEventManager());
         }
