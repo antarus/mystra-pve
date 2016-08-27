@@ -26,7 +26,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
      *
      * @var \Commun\Model\Users
      */
-    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\User';
+    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\Users';
 
     /**
      * Clé primaire de la table.
@@ -39,7 +39,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
     public function getUserInfosByMail($sMail)
     {
         try {
-            $row = $this->select(array("email" =>$sMail ));
+            $row = $this->selectBy(array("email" =>$sMail ));
         } catch (Exception $e) {
             throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $sMail, $e);   
         }
@@ -49,7 +49,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
     public function getByKey($key)
     {
         try {
-            $row = $this->select(array("keyValidMail" =>$key ));
+            $row = $this->selectBy(array("keyValidMail" =>$key ));
         } catch (Exception $e) {
             throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $key, $e);   
         }
@@ -85,7 +85,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
             return true;
         }
         catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,null, null, null,$this->_getServiceLocator(), $id, $e);
+            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), $id, $e);
         }
     }
 }
