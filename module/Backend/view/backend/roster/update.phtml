@@ -8,11 +8,13 @@
             <div class="controls">
                 <input id="nomRoster" type='text' name="nom" required="true" value="<?php echo $roster['nom']; ?>"/>
             </div>
-
+            <div class="controls">
+                <label class="control-label"><?php echo $this->translate("Clé") ?> : </label> <?php echo $roster['key']; ?>
+            </div>
             <h3><?php echo $this->translate("Liste des joueurs") ?></h3>
 
             <a id="addPersonnage" href="<?php echo $this->url('backend-roster-has-personnage-add', array('id' => $this->id)) ?>">
-                <?php echo $this->translate("Ajouter un joueur au roster") ?></a> | 
+                <?php echo $this->translate("Ajouter un joueur au roster") ?></a> |
             <a id="majPersonnage" href="#">
                 <?php echo $this->translate("Met a jour les personnages du roster (ilvl)") ?></a>
             <?php foreach ($roster['roles'] as $role) { ?>
