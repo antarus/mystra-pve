@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 
 USE `raid_tracker`;
 
-DROP TRIGGER `add_role_user`;
+DROP TRIGGER IF EXISTS  `add_role_user`;
 
 CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
  FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10);

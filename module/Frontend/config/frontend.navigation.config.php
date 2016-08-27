@@ -9,5 +9,10 @@ return array(
             'route' => 'home',
             'action' => 'index',
         ),
+        array(
+            'label' => $translator->translate('Raid'),
+            'route' => 'raid-list',
+            'action' => 'index',
+        ),
     )
 );
