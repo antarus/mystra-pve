@@ -200,7 +200,7 @@ class RegisterController extends AbstractActionController {
     private function _validUser($sMail)
     {
         $user = $this->getTableUsers()->getUserInfosByMail($sMail);
-
+        var_dump($user);
         
         if(!$user)
         {
