@@ -1,0 +1,11 @@
+<h1>
+<?php echo $this->translate("Confirmation de votre inscription"); ?>
+</h1>
+<p>
+<?php echo $this->translate("Afin de valider votre inscription, vous devez cliquer sur le lien de confirmation qui vous a été envoyé par email lors de votre inscription.
+Si vous ne retrouvez pas cet email et après avoir vérifié qu'il ne se trouve pas dans votre dosser 'Courrier indésirable' ou 'spam' (ou équivalent) entrez votre adresse email dans le formulaire ci-dessous.") ?>
+</p>
+<form action='<?php echo $this->url('register-sendmail')?>' method='post'>
+    <input type='text' name='mail' value='<?php echo $this->mail; ?>' placeholder="Ex: supercapi@megaboss.fr" />
+    <input type='submit' value='renvoyer' />
+</form>

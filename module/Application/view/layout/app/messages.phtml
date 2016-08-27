@@ -1,5 +1,4 @@
 <?php
-
 use Zend\Mvc\Controller\Plugin\FlashMessenger;
 
 $messenger = $this->flashmessenger(); //->getPluginFlashMessenger();
@@ -31,6 +30,7 @@ as $sNamespace):
         default:
             break;
     }
+    
     echo $messenger->renderAllMessages($sNamespace, $aMessages, $aClasseCommune, true);
 endforeach
 ?>
