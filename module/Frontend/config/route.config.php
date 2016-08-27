@@ -22,7 +22,7 @@ return array(
             'front-raid-detail' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/frontend/roster/:key/raid/detail/:id_raid/',
+                    'route' => '/frontend/roster/:key/raid/detail/:idRaid/',
                     'constraints' => array(
                         'page' => '[0-9]*',
                         'key' => '[a-zA-Z][a-zA-Z0-9_-]+',

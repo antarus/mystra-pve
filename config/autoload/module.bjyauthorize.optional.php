@@ -275,6 +275,7 @@ return array(
                 array('route' => 'validate-mail', 'roles' => array('guest')),
                 // frontend
                 array('route' => 'front-raid-list', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'front-raid-detail', 'roles' => array('guest', 'user', 'admin')),
             ),
         ),
         // strategy service name for the strategy listener to be used when permission-related errors are detected

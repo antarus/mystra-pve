@@ -42,6 +42,7 @@ class RaidsController extends FrontController {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/list');
+        $oViewModel->setVariable('key', $oRoster->getKey());
         $oViewModel->setVariable('raids', $aRaid);
         return $oViewModel;
     }
@@ -59,7 +60,8 @@ class RaidsController extends FrontController {
         $aRaid = $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()))->toArray();
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('frontend/raids/list');
+        $oViewModel->setTemplate('frontend/raids/detail');
+        $oViewModel->setVariable('key', $oRoster->getKey());
         $oViewModel->setVariable('raids', $aRaid);
         return $oViewModel;
     }
