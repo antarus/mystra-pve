@@ -77,11 +77,13 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ),
         'faction' => array(
             'title' => 'Faction',
-            'width' => '50',
+            'width' => '100',
             'filters' => 'text',
         ),
         'classe' => array(
             'title' => 'Classe',
+            'width' => '100',
+            'title' => 'classe',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -102,7 +104,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ),
 //        'idUsers' => array(
 //            'title' => 'IdUsers',
-//            'width' => '100',
+//            'width' => '50',
 //            'filters' => 'text',
 //        ),
         'edit' => array(
@@ -163,7 +165,7 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
         ));
         $this->getHeader("miniature")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return "<center><img src='http://render-api-eu.worldofwarcraft.com/static-render/eu/{$record["miniature"]}' /></center>";
+                return "<center><img src='http://render-api-eu.worldofwarcraft.com/static-render/eu/{$record["miniature"]}' height='32' width='32' /></center>";
             }
         ));
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
@@ -177,8 +179,6 @@ class PersonnagesGrid extends \ZfTable\AbstractTable {
                         return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-personnages-delete', array('id' => $record["idPersonnage"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idPersonnage"]);
                     }
                         ));
-                    
-                        
                     }
 
                     /**

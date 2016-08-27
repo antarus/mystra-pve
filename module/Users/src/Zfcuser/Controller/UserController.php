@@ -198,7 +198,13 @@ class UserController extends AbstractActionController
         }
 
         $auth = $this->zfcUserAuthentication()->getAuthService()->authenticate($adapter);
-
+        
+        // ths
+        if($auth->getCode() == -4)
+        {
+            return $this->redirect()->toRoute('register-sendmailconfirm');
+        }
+                
         if (!$auth->isValid()) {
             $this->flashMessenger()->setNamespace($this->loginNamespace)->addMessage($this->failedLoginMessage);
             $adapter->resetAdapters();
@@ -318,8 +324,9 @@ class UserController extends AbstractActionController
             $request->setPost(new Parameters($post));
             return $this->forward()->dispatch(static::CONTROLLER_NAME, array('action' => 'authenticate'));
         }
-
         // TODO: Add the redirect parameter here...
-        return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect='. rawurlencode($redirect) : ''));
+        // ths 
+        return $this->redirect()->toRoute('register-sendmail',array('mail'=> base64_encode($post['email'])));
+       // return $this->redirect()->toUrl($this->url()->fromRoute(static::ROUTE_LOGIN) . ($redirect ? '?redirect='. rawurlencode($redirect) : ''));
     }
 }

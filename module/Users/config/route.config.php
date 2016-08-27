@@ -21,7 +21,45 @@ return array(
                         ),
                     ),
                 ),
-            
+            'register-sendmailconfirm' =>
+                array(
+                    'type' => 'segment',
+                    'options' =>
+                    array(
+                        'route' => '/register/confirm-mail/[:mail]',
+                        'defaults' =>
+                        array(
+                            'controller' => 'Users\Controller\Register',
+                            'action' => 'sendconfirmmail',
+                        ),
+                    ),
+                ),
+            'register-sendmail' =>
+                array(
+                    'type' => 'segment',
+                    'options' =>
+                    array(
+                        'route' => '/register/send-mail/[:mail]',
+                        'defaults' =>
+                        array(
+                            'controller' => 'Users\Controller\Register',
+                            'action' => 'sendregistermail',
+                        ),
+                    ),
+                ),
+            'validate-mail' =>
+                array(
+                    'type' => 'segment',
+                    'options' =>
+                    array(
+                        'route' => '/register/validate-mail/[:key]',
+                        'defaults' =>
+                        array(
+                            'controller' => 'Users\Controller\Register',
+                            'action' => 'validatemail',
+                        ),
+                    ),
+                ),
         ),
     ),
 );

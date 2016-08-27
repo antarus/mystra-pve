@@ -49,9 +49,9 @@ class Module {
                     if($auth->hasIdentity())
                     {
                         $sName = $auth->getIdentity()->getId() . '-' . $auth->getIdentity()->getUsername();
-                        $writer = new \Zend\Log\Writer\Stream('./data/log/'.$sName.'-users.log');
+                        $writer = new \Zend\Log\Writer\Stream('./data/log/users/'.$sName.'-users.log');
                     }
-                    else $writer = new \Zend\Log\Writer\Stream('./data/log/users.log');
+                    else $writer = new \Zend\Log\Writer\Stream('./data/log/users/users.log');
 
                     $logger->addWriter($writer);  
 

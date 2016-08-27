@@ -15,7 +15,8 @@ class DatabaseException extends \Commun\Exception\LogException {
         7000 => "zone",
         8000 => "item/raid/personnage/boss",
         9000 => "boss",
-        10000 => "pallier"
+        10000 => "pallier",
+        11000 => "user"
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -102,6 +103,9 @@ class DatabaseException extends \Commun\Exception\LogException {
         10004 => "Erreur lors du listing du pallier.",
         10006 => "Erreur lors de la recherche du pallier.",
         10007 => "Vous avez atteinte le nombre maximal de pallier pouvant être créer.",
+        // usager
+        11006 => "Usager inconnue.",
+        11001 => "Erreur lors de la mise à jour de l'usager.",
     );
 
 }

@@ -16,56 +16,63 @@ class Users extends \Core\Model\AbstractModel
      *
      * @var int
      */
-    public $idUsers = null;
+    public $id = null;
+    
+    /**
+     * Colonne: idUsers
+     *
+     * @var int
+     */
+    public $username = null;
 
     /**
      * Colonne: login
      *
      * @var string
      */
-    public $login = null;
+    public $email = null;
 
     /**
      * Colonne: pwd
      *
      * @var string
      */
-    public $pwd = null;
+    public $display_name = null;
 
     /**
      * Colonne: pseudo
      *
      * @var string
      */
-    public $pseudo = null;
+    public $password = null;
 
     /**
      * Colonne: email
      *
      * @var string
      */
-    public $email = null;
+    public $state = null;
 
     /**
      * Colonne: avatar
      *
      * @var string
      */
-    public $avatar = null;
+    public $lastConnection = null;
 
     /**
      * Colonne: admin
      *
      * @var int
      */
-    public $admin = null;
+    public $lastUpdate = null;
 
     /**
      * Colonne: forgetPass
      *
      * @var string
      */
-    public $forgetPass = null;
+    public $keyValidMail = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -134,7 +141,7 @@ class Users extends \Core\Model\AbstractModel
      */
     public function getIdUsers()
     {
-        return intval($this->idUsers);
+        return intval($this->id);
     }
 
     /**
@@ -144,7 +151,7 @@ class Users extends \Core\Model\AbstractModel
      */
     public function setIdUsers($value)
     {
-        $this->idUsers = $value;
+        $this->id = $value;
     }
 
     /**
@@ -152,9 +159,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getLogin()
+    public function getUsername()
     {
-        return strval($this->login);
+        return strval($this->username);
     }
 
     /**
@@ -162,9 +169,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setLogin($value)
+    public function setUsername($value)
     {
-        $this->login = $value;
+        $this->username = $value;
     }
 
     /**
@@ -172,9 +179,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getPwd()
+    public function getPassword()
     {
-        return strval($this->pwd);
+        return strval($this->password);
     }
 
     /**
@@ -182,9 +189,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setPwd($value)
+    public function setPassword($value)
     {
-        $this->pwd = $value;
+        $this->password = $value;
     }
 
     /**
@@ -192,9 +199,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getPseudo()
+    public function getDisplayName()
     {
-        return strval($this->pseudo);
+        return strval($this->display_name);
     }
 
     /**
@@ -202,9 +209,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setPseudo($value)
+    public function setDisplayName($value)
     {
-        $this->pseudo = $value;
+        $this->display_name = $value;
     }
 
     /**
@@ -232,9 +239,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getAvatar()
+    public function getstate()
     {
-        return strval($this->avatar);
+        return strval($this->state);
     }
 
     /**
@@ -242,9 +249,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setAvatar($value)
+    public function setstate($value)
     {
-        $this->avatar = $value;
+        $this->state = $value;
     }
 
     /**
@@ -252,9 +259,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getAdmin()
+    public function getlastConnection()
     {
-        return intval($this->admin);
+        return intval($this->lastConnection);
     }
 
     /**
@@ -262,9 +269,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setAdmin($value)
+    public function setlastConnection($value)
     {
-        $this->admin = $value;
+        $this->lastConnection = $value;
     }
 
     /**
@@ -272,9 +279,9 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getForgetPass()
+    public function getLastUpdate()
     {
-        return strval($this->forgetPass);
+        return strval($this->lastUpdate);
     }
 
     /**
@@ -282,9 +289,29 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setForgetPass($value)
+    public function setLastUpdate($value)
     {
-        $this->forgetPass = $value;
+        $this->lastUpdate = $value;
+    }
+    
+     /**
+     * Retourne la valeur forgetPass.
+     *
+     * @return string
+     */
+    public function getKeyValidMail()
+    {
+        return strval($this->keyValidMail);
+    }
+
+    /**
+     * Définit la valeur pour forgetPass
+     *
+     * @param string
+     */
+    public function setKeyValidMail($value)
+    {
+        $this->keyValidMail = $value;
     }
 
 

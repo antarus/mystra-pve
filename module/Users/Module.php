@@ -17,7 +17,7 @@ use Application\Service\LogService;
 
 class Module {
 
-    
+    private $_userTable;
     /**
      * Méthode standard de bootstrap
      *
@@ -32,6 +32,8 @@ class Module {
         
         $this->app = $e->getApplication();
         $this->_logService = $this->app->getServiceManager()->get('LogService');
+        $this->_userTable = $this->app->getServiceManager()->get('Commun\Table\UsersTable');
+        
         $this->_modifyRegisterForm($e);
         $this->_afterRegister($e);
         $this->_afterLogin($e);
@@ -78,6 +80,8 @@ class Module {
             $this->_logService->log(LogService::NOTICE, 
                                     "Connexion de l'utilisateur: {$userId}",
                                     LogService::USER);
+            
+            $this->_userTable->updateLastConnection($userId);
         });
     }
 
