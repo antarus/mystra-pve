@@ -24,7 +24,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
      *
      * @var \Commun\Model\Users
      */
-    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\User';
+    protected $arrayObjectPrototypeClass = '\\Commun\\Model\\Users';
 
     /**
      * Clé primaire de la table.
