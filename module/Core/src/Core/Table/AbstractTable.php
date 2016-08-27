@@ -432,8 +432,8 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
         if (is_array($mObject)) {
             if (isset($mObject[$this->nomCle])) {
                 $id = $mObject[$this->nomCle];
+                unset($mObject[$this->nomCle]);
             }
-            unset($mObject[$this->nomCle]);
             $where = ($where) ? $where : array(
                 $this->nomCle => $id
             );
