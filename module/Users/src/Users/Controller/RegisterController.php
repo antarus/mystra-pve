@@ -128,7 +128,7 @@ class RegisterController extends AbstractActionController {
         $oMail->setEncoding('UTF-8');
         $oMail->setFrom('contact@raid-tracker.com');
         $oMail->addTo($sMail);
-        $oMail->addCc('contact@raid-tracker.com');
+       // $oMail->addCc('contact@raid-tracker.com');
         $oMail->setSubject($this->_getServTranslator()->translate('Confirmation de votre inscription à RTK'));
 
         $oSmtpOptions = new \Zend\Mail\Transport\SmtpOptions();  
@@ -201,21 +201,22 @@ class RegisterController extends AbstractActionController {
     {
         $user = $this->getTableUsers()->getUserInfosByMail($sMail);
 
+        
         if(!$user)
         {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Adresse email inconnue."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Email inconnue en base $sMail", LogService::USER);
             return false;
         }
-        elseif($user->state === 1)
+        elseif($user->state == 1)
         {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte déjà actif."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Compte déjà actif:  $sMail", LogService::USER);        
             return false; 
         }
-        elseif($user->state === 2)
+        elseif($user->state == 2)
         {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte desactiver; contacter un administrateur pour plus d'infos."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Compte desactiver, contacter un administrateur pour plus d'infos."), 'error');
             $this->_getLogService()->log(LogService::ERR, "Compte desactiver:  $sMail", LogService::USER);
             return false;          
         }

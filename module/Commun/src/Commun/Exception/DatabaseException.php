@@ -40,7 +40,7 @@ class DatabaseException extends \Commun\Exception\LogException {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-
+        
         if ($this->_getTranslator() != null) {
             $msg = $this->_getTranslator()->translate($msg);
         }

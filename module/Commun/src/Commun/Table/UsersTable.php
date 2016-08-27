@@ -5,6 +5,7 @@ namespace Commun\Table;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
+use \Commun\Exception\DatabaseException;
 /**
  * @author Antarus
  * @project Raid-TracKer
@@ -46,7 +47,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
         try {
             $rowset = $this->tableGateway->select(array("email" =>$sMail ));
         } catch (Exception $e) {
-            throw new DatabaseException(11000, 6,null, null, null, $sMail());   
+            throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $sMail, $e);   
         }
         $row = $rowset->current();
         return (!$row) ? false: $row;
@@ -57,7 +58,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
         try {
             $rowset = $this->tableGateway->select(array("keyValidMail" =>$key ));
         } catch (Exception $e) {
-            throw new DatabaseException(11000, 6,null, null, null, $sMail());   
+            throw new DatabaseException(11000, 6,$this->_getServiceLocator(), $key, $e);   
         }
         $row = $rowset->current();
         return (!$row) ? false: $row;
@@ -70,7 +71,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
             return true;
         }
         catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,null, null, null, $sMail());
+            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), array('mail'=>$sMail,'key'=>$key), $e);
         }
     }
     
@@ -81,7 +82,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
             return true;
         }
         catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,null, null, null, $sMail());
+            throw new DatabaseException(11000, 1,$this->_getServiceLocator(), $sMail, $e);
         }
     }
     
@@ -92,7 +93,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable
             return true;
         }
         catch (\Exception $e) {
-            throw new DatabaseException(11000, 1,null, null, null, $sMail());
+            throw new DatabaseException(11000, 1,null, null, null,$this->_getServiceLocator(), $id, $e);
         }
     }
 }
