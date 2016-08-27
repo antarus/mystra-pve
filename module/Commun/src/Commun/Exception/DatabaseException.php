@@ -29,6 +29,14 @@ class DatabaseException extends \Commun\Exception\LogException {
         7 => 'limite',
     ];
 
+    /**
+     *
+     * @param type $code
+     * @param type $erreurType
+     * @param type $oService
+     * @param type $aParam
+     * @param \Exception $previous
+     */
     public function __construct($code = 5000, $erreurType = 0, $oService = null, $aParam = array(), \Exception $previous = null) {
         $this->setService($oService);
 

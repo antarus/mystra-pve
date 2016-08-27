@@ -79,8 +79,7 @@ class Messages extends ZendFlash {
         $messagesToPrint = [];
         $translator = $this->getTranslator();
         $translatorTextDomain = $this->getTranslatorTextDomain();
-        array_walk_recursive(
-                $messages, function ($item) use (& $messagesToPrint, $escapeHtml, $autoEscape, $translator, $translatorTextDomain) {
+        array_walk_recursive($messages, function ($item) use (& $messagesToPrint, $escapeHtml, $autoEscape, $translator, $translatorTextDomain) {
             if ($translator !== null) {
                 $item = $translator->translate(
                         $item, $translatorTextDomain
