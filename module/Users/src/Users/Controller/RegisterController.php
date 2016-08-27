@@ -128,13 +128,13 @@ class RegisterController extends AbstractActionController {
         $oMail->setEncoding('UTF-8');
         $oMail->setFrom('contact@raid-tracker.com');
         $oMail->addTo($sMail);
-        $oMail->addCc('capi@raid-tracker.com');
+        $oMail->addCc('contact@raid-tracker.com');
         $oMail->setSubject($this->_getServTranslator()->translate('Confirmation de votre inscription à RTK'));
 
         $oSmtpOptions = new \Zend\Mail\Transport\SmtpOptions();  
         $oSmtpOptions->setHost('auth.smtp.1and1.fr')
                     ->setConnectionClass('login')
-                    ->setName('local.raid-tracker.com') //s19436168.domainepardefaut.fr
+                    ->setName('s19436168.domainepardefaut.fr')
                     ->setConnectionConfig(array(
                         'username' => 'contact@raid-tracker.com',
                         'password' => 'crocodile83',
