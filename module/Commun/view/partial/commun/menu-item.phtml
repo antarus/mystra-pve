@@ -18,14 +18,8 @@ if (!$hasChildren):
         case "Accueil":
             $icone = "home";
             break;
-        case "Zone":
-            $icone = "map-o";
-            break;
         case "Npc":
             $icone = "optin-monster";
-            break;
-        case "Personnages":
-            $icone = "child";
             break;
         case "Guildes":
             $icone = "users";
@@ -51,12 +45,25 @@ if (!$hasChildren):
     echo $markup;
 else:
     $liClass = ($level > 0) ? 'dropdown-submenu' : 'dropdown';
+    switch ($page->getLabel()){
+        case "Personnage":
+            $icone = "child";
+            break;
+        case "Raid":
+            $icone = "map-o";
+            break;
+        default:
+            $icone = "circle-thin";
+            break;
+    }
+    // generate markup
+    $markup = sprintf('<a href="#"><i class="fa fa-%s"></i> <span>',$icone);
+
+    $markup .= $page->getLabel();
+    $markup .= '</span></a>';
     ?>
     <li class="treeview">
-        <a href="#">
-            <i class="fa fa-link"></i>
-            <span><?= $page->getLabel() ?></span>
-        </a>
+        <?php echo $markup ?>
         <ul class="treeview-menu">
             <?php
             foreach ($page->getPages() as $child):
