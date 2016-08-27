@@ -139,7 +139,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $this->insert($oItemPersonnageRaid);
             return $oItemPersonnageRaid;
         } catch (\Exception $ex) {
-            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote, $dDateLoot), $ex);
         }
     }
 
