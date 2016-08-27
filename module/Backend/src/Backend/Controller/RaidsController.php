@@ -586,12 +586,17 @@ class RaidsController extends \Zend\Mvc\Controller\AbstractActionController {
                 if (isset($aItem['note'])) {
                     $sNote = $aItem['note'];
                 }
+                $dDateLoot = time();
+                if (isset($aItem['time'])) {
+                    $dDateLoot = date('Y-m-d H:i:s', intval($aItem['time']));
+                }
+
 
                 if (!isset($oPersonnage)) {
                     throw new \Exception('Erreur inconnue. le personnage n\'a pas ete trouvé dans la liste');
                 } else {
                     $this->getTableItemPersonnageRaid()->removeAllItemForRaidAndPersonnage($oPersonnage, $oRaid);
-                    $this->getTableItemPersonnageRaid()->saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaid, $oItem, $aItem['boss'], $aInfoItem[1], $sNote);
+                    $this->getTableItemPersonnageRaid()->saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaid, $oItem, $aItem['boss'], $aInfoItem[1], $sNote, $dDateLoot);
                 }
             }
         } catch (\Exception $ex) {

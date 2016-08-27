@@ -247,12 +247,14 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   `bonus` varchar(150) DEFAULT NULL,
   `idBosses` int(11) DEFAULT NULL,
   `note` varchar(255) DEFAULT NULL,
+  `date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`idItemRaidPersonnage`),
   KEY `fk_item_personnage_raid_raids1_idx` (`idRaid`),
   KEY `fk_item_personnage_raid_items1_idx` (`idItem`),
   KEY `fk_item_personnage_raid_personnages1_idx` (`idPersonnage`),
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 
 -- --------------------------------------------------------
 

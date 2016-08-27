@@ -30,8 +30,8 @@
     <h2><?php echo $this->translate("Liste des loots") ?> :</h2>
 
     <?php foreach ($loots as $loot) { ?>
-        <?php echo '<a href="' . $loot['wowHead'] . '">' . $loot['item'] ?></a> |
-    <!-- end for each -->
-<?php } ?>
+        <p><label ><?php echo $loot['nom_personnage'] ?></label> : <?php echo '<a href="' . $loot['wowHead'] . '">' . $loot['item'] ?></a> (<?php echo $loot['spe'] ?>) - <?php echo $loot['item_date'] ?></p>
+        <!-- end for each -->
+    <?php } ?>
 </div>
 

@@ -75,6 +75,13 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel {
     public $note = null;
 
     /**
+     * Colonne: date
+     *
+     * @var date
+     */
+    public $date = null;
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
@@ -276,6 +283,24 @@ class ItemPersonnageRaid extends \Core\Model\AbstractModel {
      */
     function setNote($note) {
         $this->note = $note;
+    }
+
+    /**
+     * Retourne la valeur date.
+     *
+     * @return string
+     */
+    function getDate() {
+        return $this->date;
+    }
+
+    /**
+     * Définit la valeur pour date
+     *
+     * @param string
+     */
+    function setDate($date) {
+        $this->date = $date;
     }
 
 }
