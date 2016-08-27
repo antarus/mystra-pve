@@ -10,7 +10,7 @@ return array(
                     'route' => '/frontend/roster/:key/raid/list/',
                     'constraints' => array(
                         'page' => '[0-9]*',
-                        'key' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'key' => '[a-zA-Z0-9_-]+',
                     ),
                     'defaults' =>
                     array(
@@ -27,7 +27,7 @@ return array(
                     'route' => '/frontend/roster/:key/raid/ajaxlist/',
                     'constraints' =>
                     array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'action' => '[a-zA-Z0-9_-]+',
                     ),
                     'defaults' =>
                     array(
@@ -42,7 +42,7 @@ return array(
                     'route' => '/frontend/roster/:key/raid/detail/:idRaid/',
                     'constraints' => array(
                         'page' => '[0-9]*',
-                        'key' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'key' => '[a-zA-Z0-9_-]+',
                         'idRaid' => '[0-9]*',
                     ),
                     'defaults' =>
