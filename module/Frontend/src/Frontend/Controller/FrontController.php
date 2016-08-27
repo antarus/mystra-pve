@@ -86,11 +86,12 @@ class FrontController extends \Zend\Mvc\Controller\AbstractActionController {
             $this->_getLogService()->log(LogService::ERR, $msg, LogService::USER, $this->getRequest()->getPost());
             $this->flashMessenger()->addMessage($msg, 'error');
             $this->getResponse()->setStatusCode(500);
-            return;
+            return null;
         } else {
             // Ajoute au cache
             $aRoster = $oRoster->getArrayCopy();
-            return $this->_getCacheService()->addItem($cacheKey, $aRoster);
+            $this->_getCacheService()->addItem($cacheKey, $aRoster);
+            return $aRoster;
         }
     }
 

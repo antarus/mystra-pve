@@ -39,7 +39,7 @@ class RaidsController extends FrontController {
         $page = $this->params()->fromRoute('page', 1);
         $oRoster = $this->valideKey();
         if (!$oRoster) {
-            return null;
+            return $this->redirect()->toRoute('home');
         }
         $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()));
 
