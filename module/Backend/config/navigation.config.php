@@ -81,7 +81,7 @@ return array(
                 'action' => 'index',
                 ),
                 array(
-                'label' => $translator->translate('Items - personnage -raid - boss'),
+                'label' => $translator->translate('Items - pers - raid - boss'),
                 'route' => 'backend-item-personnage-raid-list',
                 'action' => 'index',
                 )
