@@ -462,9 +462,10 @@ CREATE TABLE IF NOT EXISTS `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
-  `lastConnection` date NOT NULL,
+  `lastConnection` DATETIME NOT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `keyValidMail` varchar(500) DEFAULT NULL,
+  `forgetpass` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
