@@ -41,7 +41,7 @@ class RaidsController extends FrontController {
         if (!$oRoster) {
             return $this->redirect()->toRoute('home');
         }
-        $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()));
+        $aRaid = $this->getTableRaid()->select(array('idRosterTmp' => $oRoster->getIdRoster()));
 
 # move to service
 //        $limit = 10;
@@ -52,6 +52,7 @@ class RaidsController extends FrontController {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/list');
+        $oViewModel->setVariable('raids', $aRaid);
 //        $oViewModel->setVariable('pagedUsers', $pagedUsers);
 //        $oViewModel->setVariable('page', $page);
         return $oViewModel;

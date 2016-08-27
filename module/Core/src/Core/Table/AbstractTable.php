@@ -430,7 +430,9 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
             throw new \Exception(sprintf('%s attend que l\'objet fournit est une clé de définit', __METHOD__));
         }
         if (is_array($mObject)) {
-            $id = $mObject[$this->nomCle];
+            if (isset($mObject[$this->nomCle])) {
+                $id = $mObject[$this->nomCle];
+            }
             unset($mObject[$this->nomCle]);
             $where = ($where) ? $where : array(
                 $this->nomCle => $id
