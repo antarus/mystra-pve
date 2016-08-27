@@ -20,7 +20,4 @@ return array(
             ),
         ),
     ),
-    'battlenet' => array(
-        'apikey' => '5nssdkuvwub25ydqzhwwznvzh8hh2ag9'
-    ),
 );

@@ -14,10 +14,6 @@ return array(
             'FrontendNavigation' => 'Commun\Service\FrontendNavigationFactory'
         ),
     ),
-    'view_helpers' => array(
-        'invokables' => array(
-            'PaginationHelper' => 'Frontend\View\Helper\PaginationHelper')
-    ),
     'navigation' => require 'frontend.navigation.config.php',
     'view_manager' => array(
         'template_path_stack' => array(

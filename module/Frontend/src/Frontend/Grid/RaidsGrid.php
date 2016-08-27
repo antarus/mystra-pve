@@ -31,8 +31,8 @@ class RaidsGrid extends \ZfTable\AbstractTable {
      * @var \Zend\I18n\Translator\Translator
      */
     private $_servTranslator = null;
+    private $_key;
     protected $config = array(
-        'name' => 'List',
         'showPagination' => true,
         'showQuickSearch' => false,
         'showItemPerPage' => true,
@@ -40,43 +40,13 @@ class RaidsGrid extends \ZfTable\AbstractTable {
         'showColumnFilters' => true,
     );
     protected $headers = array(
-        'idRaid' => array(
-            'title' => 'IdRaid',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idEvenements' => array(
-            'title' => 'IdEvenements',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idRosterTmp' => array(
-            'title' => 'IdRoster',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idZoneTmp' => array(
-            'title' => 'IdZone',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'idMode' => array(
-            'title' => 'IdMode',
-            'width' => '100',
-            'filters' => 'text',
-        ),
         'date' => array(
             'title' => 'Date',
             'width' => '100',
             'filters' => 'text',
         ),
         'note' => array(
-            'title' => 'Note',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'valeur' => array(
-            'title' => 'Valeur',
+            'title' => 'Nom',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -90,14 +60,6 @@ class RaidsGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'edit' => array(
-            'title' => 'Modifier',
-            'width' => '100',
-        ),
-        'delete' => array(
-            'title' => 'Supprimer',
-            'width' => '100',
-        ),
     );
 
     /**
@@ -106,9 +68,10 @@ class RaidsGrid extends \ZfTable\AbstractTable {
      * @param ServiceLocatorInterface
      * @param PluginManager
      */
-    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager) {
+    public function __construct(ServiceLocatorInterface $oServiceLocator, PluginManager $oPluginManager, $key = '') {
         $this->_serviceLocator = $oServiceLocator;
         $this->_pluginManager = $oPluginManager;
+        $this->_key = $key;
     }
 
     /**
@@ -135,59 +98,45 @@ class RaidsGrid extends \ZfTable\AbstractTable {
         return $this->_servTranslator;
     }
 
+    function get_key() {
+        return $this->_key;
+    }
+
     public function init() {
-        $this->getHeader("edit")->getCell()->addDecorator("callable", array(
+        $this->getHeader("note")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-raids-update', array('id' => $record["idRaid"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idRaid"]);
+                //<a href=" $this->url('front-raid-detail', array('key' => $key, 'idRaid' => $aRaid['idRaid']));"><?php $this->escapeHtml($aRaid['note']); </a>
+                return "<a class=\"\" href=\"" . $this->url()->fromRoute('front-raid-detail', array('key' => $this->get_key(), 'idRaid' => $record['idRaid'])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $record['note'] . "</a>";
             }
                 ));
+            }
 
-                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-                    "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-raids-delete', array('id' => $record["idRaid"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idRaid"]);
-                    }
-                        ));
-                    }
+            /**
+             *
+             * @param \Zend\Db\Sql\Select $query
+             */
+            protected function initFilters($query) {
 
-                    /**
-                     *
-                     * @param \Zend\Db\Sql\Select $query
-                     */
-                    protected function initFilters($query) {
-                        $value = $this->getParamAdapter()->getValueOfFilter('idRaid');
-                        if ($value != null) {
-                            $query->where("idRaid like '%" . $value . "%' ");
-                        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('idEvenements');
-                        if ($value != null) {
-                            $query->where("idEvenements = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('date');
-                        if ($value != null) {
-                            $query->where("date like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('note');
-                        if ($value != null) {
-                            $query->where("note like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('valeur');
-                        if ($value != null) {
-                            $query->where("valeur = '" . $value . "' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('ajoutePar');
-                        if ($value != null) {
-                            $query->where("ajoutePar like '%" . $value . "%' ");
-                        }
-
-                        $value = $this->getParamAdapter()->getValueOfFilter('majPar');
-                        if ($value != null) {
-                            $query->where("majPar like '%" . $value . "%' ");
-                        }
-                    }
-
+                $value = $this->getParamAdapter()->getValueOfFilter('date');
+                if ($value != null) {
+                    $query->where("date like '%" . $value . "%' ");
                 }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('note');
+                if ($value != null) {
+                    $query->where("note like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('ajoutePar');
+                if ($value != null) {
+                    $query->where("ajoutePar like '%" . $value . "%' ");
+                }
+
+                $value = $this->getParamAdapter()->getValueOfFilter('majPar');
+                if ($value != null) {
+                    $query->where("majPar like '%" . $value . "%' ");
+                }
+            }
+
+        }

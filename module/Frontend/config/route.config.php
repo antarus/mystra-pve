@@ -9,7 +9,6 @@ return array(
                 'options' => array(
                     'route' => '/frontend/roster/:key/raid/list/',
                     'constraints' => array(
-                        'page' => '[0-9]*',
                         'key' => '[a-zA-Z0-9_-]+',
                     ),
                     'defaults' =>
@@ -27,7 +26,8 @@ return array(
                     'route' => '/frontend/roster/:key/raid/ajaxlist/',
                     'constraints' =>
                     array(
-                        'action' => '[a-zA-Z0-9_-]+',
+                        'key' => '[a-zA-Z0-9_-]+',
+                        'idRaid' => '[0-9]*',
                     ),
                     'defaults' =>
                     array(
@@ -49,6 +49,24 @@ return array(
                     array(
                         'controller' => 'Frontend\Controller\Raids',
                         'action' => 'detail',
+                    ),
+                ),
+            ),
+            'front-raid-liste-perso-ajax-list' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/frontend/roster/:key/raid/detail/:idRaid/personnage/ajaxlist/',
+                    'constraints' =>
+                    array(
+                        'key' => '[a-zA-Z0-9_-]+',
+                        'idRaid' => '[0-9]*',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Frontend\Controller\Raids',
+                        'action' => 'ajaxList',
                     ),
                 ),
             ),
