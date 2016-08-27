@@ -11,6 +11,7 @@ return array(
     'controllers' => array(
         'invokables' => array(
             'Users\Controller\Register' => 'Users\Controller\RegisterController',
+            'Users\Controller\Forgetpass' => 'Users\Controller\ForgetpassController',
         ),
     ),
     'view_manager' => array(

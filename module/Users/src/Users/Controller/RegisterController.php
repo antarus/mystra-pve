@@ -17,7 +17,17 @@ class RegisterController extends AbstractActionController {
     private $_servTranslator;
     private $_logService;
     private $_tableUser;
+    private $_config;
     
+    private function _getServConfig() {
+       if (!$this->_config) {
+           $this->_config = $this->getServiceLocator()->get('config'); 
+       }
+       return $this->_config;
+
+
+       }
+        
     /**
      * Returne une instance de la table en lazy.
      *
@@ -111,6 +121,7 @@ class RegisterController extends AbstractActionController {
         
         $key = $this->_generateKeyValidMail($sMail);
 
+        $oViewModel = new ViewModel(array('key'=>$key,'urlProject' => $this->_getServConfig()['urlProjet']));
         $oViewModel = new ViewModel(array('key'=>$key));
         $oViewModel->setTemplate('users/register/mail_register');
         $oViewModel->setTerminal(true);
@@ -132,13 +143,13 @@ class RegisterController extends AbstractActionController {
         $oMail->setSubject($this->_getServTranslator()->translate('Confirmation de votre inscription à RTK'));
 
         $oSmtpOptions = new \Zend\Mail\Transport\SmtpOptions();  
-        $oSmtpOptions->setHost('auth.smtp.1and1.fr')
+        $oSmtpOptions->setHost($this->_getServConfig()['mail']['auth'])
                     ->setConnectionClass('login')
-                    ->setName('s19436168.domainepardefaut.fr')
+                    ->setName($this->_getServConfig()['mail']['namelocal'])
                     ->setConnectionConfig(array(
-                        'username' => 'contact@raid-tracker.com',
-                        'password' => 'crocodile83',
-                        'ssl' => 'tls',
+                        'username' => $this->_getServConfig()['mail']['username'],
+                        'password' => $this->_getServConfig()['mail']['password'],
+                        'ssl' => $this->_getServConfig()['mail']['ssl'],
                     ));
 
         $oSend = new \Zend\Mail\Transport\Smtp($oSmtpOptions);
@@ -200,7 +211,6 @@ class RegisterController extends AbstractActionController {
     private function _validUser($sMail)
     {
         $user = $this->getTableUsers()->getUserInfosByMail($sMail);
-        var_dump($user);
         
         if(!$user)
         {

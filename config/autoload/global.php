@@ -54,17 +54,6 @@ return array(
             'Zend\Cache\Service\StorageCacheAbstractServiceFactory'
         ),
     ),
-    'db' => array(
-        'driver' => 'pdo',
-        'dsn' => 'mysql:dbname=raid_tracker;host=localhost',
-        'database' => 'raid_tracker',
-        'username' => 'raid_tracker',
-        'password' => 'R@id-Tr@ck3r!321',
-        'hostname' => 'localhost',
-        'driver_options' => array(
-            1002 => 'SET NAMES \'UTF8\'',
-        ),
-    ),
     //Auth
     'zf-mvc-auth' => array(
         'authentication' => array(

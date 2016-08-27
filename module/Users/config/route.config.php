@@ -60,6 +60,24 @@ return array(
                         ),
                     ),
                 ),
+            'forgetpass' =>
+                array(
+                    'type' => 'segment',
+                    'options' =>
+                    array(
+                        'route' => '/users/forgetpass/[:action][/:key]',
+                        'constraints' =>
+                        array(
+                            'action' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                            'key' => '[a-zA-Z0-9_-]+',
+                        ),
+                        'defaults' =>
+                        array(
+                            'controller' => 'Users\Controller\Forgetpass',
+                            'action' => 'index',
+                        ),
+                    ),
+                ),
         ),
     ),
 );

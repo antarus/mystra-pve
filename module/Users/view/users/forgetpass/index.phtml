@@ -1,0 +1,24 @@
+<?php
+$settings = array(
+                    'img_size'    => 100,
+                    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
+                    'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
+                    'secure'      => null,
+                    );
+
+
+$recaptcha = new ZendService\ReCaptcha\ReCaptcha($this->publicKey,$this->privateKey, null, array('lang'=>'fr'));
+
+?>
+
+<h1><?php echo $this->translate("Vous avez oublié votre mot de passe"); ?></h1>
+
+<p><?php echo $this->translate("Entrez votre adresse email, nous allons vous aider à le réinitialiser."); ?></p>
+
+<form action='<?php echo $this->url('forgetpass',array('action'=>'sendforgetpassmail'))?>' method='post'>
+    <input type='text' name='mail' value='<?php echo $this->mail; ?>' placeholder="Ex: monemail@gmail.com" />
+    
+    <?php echo $recaptcha->getHTML();?>
+    
+    <input type='submit' value='Demande de récupération' />
+</form>

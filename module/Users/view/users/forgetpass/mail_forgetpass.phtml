@@ -1,0 +1,12 @@
+<b><?php echo $this->translate('Bonjour,');?></b>
+<?php echo $this->translate(' 
+Pour modifier votre mot de passe, veuillez cliquer sur le lien ci dessous
+ou copier/coller dans votre navigateur internet.');?>
+ 
+<a href="http://<?php echo $this->urlProject; ?><?php echo $this->url('forgetpass',array('action'=>'refactorpassword','key'=> $this->key)); ?>">
+    http://<?php echo $this->urlProject; ?><?php echo $this->url('forgetpass',array('action'=>'refactorpassword','key'=> $this->key)); ?>
+</a>
+ 
+<img src="http://<?php echo $this->urlProject; ?>/img/Logotype-2.png" />
+---------------
+<?php echo $this->translate('Ceci est un mail automatique, Merci de ne pas y répondre');?>.

@@ -35,7 +35,7 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
 
     public function getUserInfosByMail($sMail) {
         try {
-            $row = $this->select(array("email" => $sMail));
+            $row = $this->selectby(array("email" => $sMail));
         } catch (Exception $e) {
             throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $sMail, $e);
         }
@@ -44,7 +44,16 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
 
     public function getByKey($key) {
         try {
-            $row = $this->select(array("keyValidMail" => $key));
+            $row = $this->selectby(array("keyValidMail" => $key));
+        } catch (Exception $e) {
+            throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $key, $e);
+        }
+        return (!$row) ? false : $row;
+    }
+    
+    public function getByforgetpassKey($key) {
+        try {
+            $row = $this->selectby(array("forgetpass" => $key));
         } catch (Exception $e) {
             throw new DatabaseException(11000, 6, $this->_getServiceLocator(), $key, $e);
         }
@@ -57,6 +66,15 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
             return true;
         } catch (\Exception $e) {
             throw new DatabaseException(11000, 1, $this->_getServiceLocator(), array('mail' => $sMail, 'key' => $key), $e);
+        }
+    }
+    
+    public function addForgetpass($sMail, $key) {
+        try {
+            $this->update(array('forgetpass' => $key), array('email' => $sMail));
+            return true;
+        } catch (\Exception $e) {
+            throw new DatabaseException(11000, 1, $this->_getServiceLocator(), array('mail' => $sMail, 'forgetpass' => $key), $e);
         }
     }
 
@@ -72,6 +90,16 @@ class UsersTable extends \Core\Table\AbstractServiceTable {
     public function updateLastConnection($id) {
         try {
             $this->update(array('lastConnection' => new Expression('Now()')), array('id' => $id));
+            return true;
+        } catch (\Exception $e) {
+            throw new DatabaseException(11000, 1, null, null, null, $this->_getServiceLocator(), $id, $e);
+        }
+    }
+    
+    public function updatepwd($hash,$sMail)
+    {
+        try {
+            $this->update(array('password' => $hash, 'forgetpass'=>''), array('email' => $sMail));
             return true;
         } catch (\Exception $e) {
             throw new DatabaseException(11000, 1, null, null, null, $this->_getServiceLocator(), $id, $e);

@@ -6,4 +6,5 @@ return array(
     'ZfcUser\Controller\UserController'=>__DIR__ . '/src/Zfcuser/Controller/UserController.php',
     
     'Users\Controller\RegisterController' => __DIR__ . '/src/Users/Controller/RegisterController.php',
+    'Users\Controller\ForgetpassController' => __DIR__ . '/src/Users/Controller/ForgetpassController.php',
 );

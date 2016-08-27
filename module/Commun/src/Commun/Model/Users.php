@@ -73,6 +73,13 @@ class Users extends \Core\Model\AbstractModel
      * @var string
      */
     public $keyValidMail = null;
+    
+    /**
+     * Colonne: forgetPass
+     *
+     * @var string
+     */
+    public $forgetpass = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -313,7 +320,26 @@ class Users extends \Core\Model\AbstractModel
     {
         $this->keyValidMail = $value;
     }
+    
+     /**
+     * Retourne la valeur forgetPass.
+     *
+     * @return string
+     */
+    public function getKeyForgetpass()
+    {
+        return strval($this->forgetpass);
+    }
 
+    /**
+     * Définit la valeur pour forgetPass
+     *
+     * @param string
+     */
+    public function setForgetpass($value)
+    {
+        $this->forgetpass = $value;
+    }
 
 }
 
