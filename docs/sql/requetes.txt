@@ -179,3 +179,23 @@ WHERE
     group by ipr.idRaid
 
         
+-- presence d'un joueur sur les raid (but graphique  requete a fignoler)
+SELECT 
+   -- COUNT(rp.idRaid) AS `nbRaid`,
+   r.idRaid,
+    rp.idPersonnage,
+    -- p.nom AS `nom_personnage`,
+   -- `p`.`royaume` AS `royaume_personnage`,
+    r.date
+FROM   
+raids r 
+       left
+   JOIN 
+    raid_personnage rp
+    ON r.idRaid = rp.idRaid and rp.idPersonnage=19 or rp.idPersonnage is null
+ 
+   --      INNER JOIN
+   -- personnages p ON p.idPersonnage = rp.idPersonnage
+
+-- GROUP BY `nom_personnage`
+-- ORDER BY `nom_personnage` ASC   
