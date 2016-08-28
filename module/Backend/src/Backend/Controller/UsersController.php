@@ -138,7 +138,13 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
         $oRequest = $this->getRequest();
         if ($oRequest->isPost()) {
             $oForm->setInputFilter($oFiltre->getInputFilter());
-            $oForm->setData($oRequest->getPost());
+            
+            $aPost = $oRequest->getPost();
+            $bcrypt = new Bcrypt();
+            $bcrypt->setCost(14); 
+            $aPost['password'] = $bcrypt->create($aPost['password']);            
+            
+            $oForm->setData($aPost);
         
             if ($oForm->isValid()) {
                 $this->getTable()->update($oEntite);
