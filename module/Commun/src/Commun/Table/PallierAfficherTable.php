@@ -192,6 +192,31 @@ class PallierAfficherTable extends \Core\Table\AbstractServiceTable {
     }
 
     /**
+     * Retourne les palliers renseigné pour le roster ayant l'identififant passé en paramètre.
+     * @param int $iIdRoster
+     * @return array
+     */
+    public function getPallierFrontend($iIdRoster) {
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQuery = $sql->select();
+            $oQuery->from(array('pa' => 'pallierAfficher'))
+                    ->join(array('z' => 'zone'), 'z.idZone=pa.idZone', array('idZone', 'zone' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('m' => 'mode_difficulte'), 'm.idMode=pa.idModeDifficulte', array('idMode', 'mode' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->order('idModeDifficulte')
+            ->where->equalTo('idRoster', $iIdRoster);
+            $aTabPallier = $this->fetchAllArray($oQuery);
+            $aReturn = array();
+            foreach ($aTabPallier as $aPallier) {
+                $aReturn[] = $aPallier['zone'] . ' - ' . $aPallier['mode'];
+            }
+            return $aReturn;
+        } catch (\Exception $exc) {
+            throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
+    }
+
+    /**
      * Retourne le predicate pour la gestiond es palliers
      * @param mixed $mRoster id ou nom du pallier
      * @return \Zend\Db\Sql\Where

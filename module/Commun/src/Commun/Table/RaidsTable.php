@@ -100,6 +100,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
                     ->from(array('r' => 'raids'))
                     ->order('idMode')
             ->where->equalTo("idRosterTmp", $iIdRaid);
+            // $this->debug($oQuery);
             return $this->fetchAllArray($oQuery)[0]['totalRaid'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRaid, $exc);
