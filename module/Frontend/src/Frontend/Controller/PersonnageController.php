@@ -48,7 +48,7 @@ class PersonnageController extends FrontController {
             // TODO Anta
             // loot dans le raid
             // nombre de raid effectué dans ce raid
-            // nombre des loots de la soiré
+            // nombre des loots de la soirée
             // liste des loots de la soirée
             // nombre de boss tué
             // TODO Anta fin

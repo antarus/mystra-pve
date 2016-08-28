@@ -52,6 +52,8 @@ class RosterController extends FrontController {
             // nombre de boss tués
             // nombre des loots
             // liste des loots
+            // Nombre d'objet dez
+            // Nombre d'objet mis en banque
             // presence moyenne
             // presence moyenne X dernier raid
             // TODO Anta fin

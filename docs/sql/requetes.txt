@@ -119,5 +119,63 @@ WHERE
         OR (r.idMode = 15 AND r.idZoneTmp = 6967
         AND r.idRosterTmp = 1))
 GROUP BY `nom_personnage`
-ORDER BY `nom_personnage` ASC       
+ORDER BY `nom_personnage` ASC      
+
+
+--- total boss tué pour un roster
+select SUM(boss_tue_par_raid) as total_boss_tue 
+from(
+SELECT 
+ count(distinct(ipr.idBosses)) as boss_tue_par_raid,
+  ipr.  idRaid
+ FROM
+    `item_personnage_raid` AS `ipr`
+        INNER JOIN
+    `raids` AS `r` ON `r`.`idRaid` = `ipr`.`idRaid`
+
+WHERE
+    `r`.`idRosterTmp` = 1
+    group by ipr.idRaid
+    ) as total 
+
+-- total boss tué dans un raid
+SELECT 
+ count(distinct(ipr.idBosses)) as boss_tue_par_raid,
+  ipr.  idRaid 
+FROM
+    `item_personnage_raid` AS `ipr`
+        INNER JOIN
+    `raids` AS `r` ON `r`.`idRaid` = `ipr`.`idRaid`
+
+WHERE
+    `ipr`.idRaid = 2
+    group by ipr.idRaid
+  
+-- nombre de loot d'un personnage dans un roster
+
+select count(*) from item_personnage_raid AS ipr
+  INNER JOIN
+    `raids` AS `r` ON `r`.`idRaid` = `ipr`.`idRaid`
+
+where  `ipr`.idPersonnage = 62 and `r`.`idRosterTmp` = 1;
+  
+   
+-- nombre total de loot d'un personnage
+select count(*) from item_personnage_raid AS ipr
+where  `ipr`.idPersonnage = 62;   
+   
+    
+-- nombre de loot d'un personnage par raid
+sELECT 
+ count(distinct(ipr.idBosses)) as loot_dans_raid,
+  ipr.  idRaid
+FROM
+    `item_personnage_raid` AS `ipr`
+        INNER JOIN
+    `raids` AS `r` ON `r`.`idRaid` = `ipr`.`idRaid`
+
+WHERE
+    `ipr`.idPersonnage = 62
+    group by ipr.idRaid
+
         
