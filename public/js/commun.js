@@ -1,5 +1,4 @@
 
-
 function page404() {
 
     window.addEventListener('resize', resizeCanvas, false);

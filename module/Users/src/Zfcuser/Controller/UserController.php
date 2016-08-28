@@ -276,8 +276,9 @@ class UserController extends AbstractActionController
 
        // THS surcouche recaptcha
         
-        $recaptcha = new \ZendService\ReCaptcha\ReCaptcha('6LcEWCgTAAAAAKKdtWHg5y5Q8A4_umUP0WK_JY-I',
-                                                 '6LcEWCgTAAAAAFUOb_kRkfLiQ2aZaxjgTKCDI74v');
+         $recaptcha = new \ZendService\ReCaptcha\ReCaptcha( $this->getServiceLocator()->get('config')['google']['publicKey'],
+                                                            $this->getServiceLocator()->get('config')['google']['privateKey']);
+        
         
         if(empty($prg['g-recaptcha-response']))
         {

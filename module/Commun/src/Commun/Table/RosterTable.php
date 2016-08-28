@@ -261,7 +261,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
      * Retourne les stats du roster.
      * @param type $sNom
      */
-    public function getStatRoster($sNom, $iSpe) {
+    public function getStatRoster($sNom, $iSpe = -1) {
         try {
             $oReturn = new \Commun\Model\RosterStat();
             // retourne le roster
@@ -273,7 +273,7 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             $oReturn->setNom($oRoster->getNom());
             // raid
             // nb total de raid du roster
-            $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getNom()));
+            $oReturn->setNbTotalRaid($this->getTableRaid()->getNombreRaidRoster($oRoster->getIdRoster()));
             // nb total de raid du roster sur les pallier visible
             $oReturn->setNbTotalRaidPallier($this->getTableRaid()->getNombreRaidRosterPallier($oRoster->getIdRoster()));
 

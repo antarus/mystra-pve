@@ -116,15 +116,17 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
      * @param string $sNomBoss
      * @param string $sBonus
      * @param string $sNote
+     * @param date $dDateLoot date du loot
      * @return  \Core\Model\RaidPersonnage
      */
-    public function saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote) {
+    public function saveOrUpdateItemPersonnageRaid($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote, $dDateLoot) {
         try {
             $oItemPersonnageRaid = new \Commun\Model\ItemPersonnageRaid();
             $oItemPersonnageRaid->setIdItem($oItems->getIdItem());
             $oItemPersonnageRaid->setIdRaid($oRaids->getIdRaid());
             $oItemPersonnageRaid->setIdPersonnage($oPersonnage->getIdPersonnage());
             $oItemPersonnageRaid->setBonus($sBonus);
+            $oItemPersonnageRaid->setDate($dDateLoot);
 
             $oBoss = $this->_getTableBoss()->selectBy(array('nom' => strtolower($sNomBoss)));
             if (!$oBoss) {
@@ -137,7 +139,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             $this->insert($oItemPersonnageRaid);
             return $oItemPersonnageRaid;
         } catch (\Exception $ex) {
-            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($iIdRoster, $sNom, $sRoyaume), $ex);
+            throw new DatabaseException(8000, 2, $this->_getServiceLocator(), array($oPersonnage, $oRaids, $oItems, $sNomBoss, $sBonus, $sNote, $dDateLoot), $ex);
         }
     }
 
@@ -322,14 +324,16 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                     'idPersonnage',
                     'idBosses',
                     'bonus',
-                    'valeur'
+                    'valeur',
+                    'note',
+                    'item_date' => 'date'
                 ))
                 ->from(array('ipr' => 'item_personnage_raid'))
                 ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array('date'), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array('idZone', "zone" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array('idMode', "mode" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array('idRoster', "roster" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array('idItem', "item" => "nom", "idBnet"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array('idBosses', "boss" => "nom"), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
 
@@ -460,6 +464,44 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
+    }
+
+    /**
+     * Retourne les loots du raid.
+     * @param type $iIdRaid
+     */
+    public function getLootRaid($iIdRaid) {
+        $oQuery = $this->getQueryBaseLoot();
+        $oQuery->order('item_date');
+        //   $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+        $predicate = new \Zend\Db\Sql\Where();
+        $predicate->equalTo("r.idRaid", $iIdRaid);
+        $oQuery->where($predicate);
+        $aLoots = $this->fetchAllArray($oQuery);
+        foreach ($aLoots as $key => $loot) {
+            switch ($loot['valeur']) {
+                //spé
+                case 0:
+                    $aLoots[$key]['spe'] = 'spé 1';
+                    break;
+                //spé
+                case 1:
+                    $aLoots[$key]['spe'] = 'spé 2';
+                    break;
+                //spé
+                case 2:
+                    $aLoots[$key]['spe'] = 'spé 3';
+                    break;
+                //spé
+                case 3:
+                    $aLoots[$key]['spe'] = 'spé 4';
+                    break;
+                default;
+                    $aLoots[$key]['spe'] = 'spé 1';
+                    break;
+            }
+        }
+        return $aLoots;
     }
 
 }

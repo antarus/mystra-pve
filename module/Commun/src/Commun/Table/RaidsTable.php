@@ -100,6 +100,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
                     ->from(array('r' => 'raids'))
                     ->order('idMode')
             ->where->equalTo("idRosterTmp", $iIdRaid);
+            // $this->debug($oQuery);
             return $this->fetchAllArray($oQuery)[0]['totalRaid'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRaid, $exc);
@@ -194,6 +195,31 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             return $oQuery;
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
+    }
+
+    /**
+     * Retourne le select query deja configuré par l'adapter et le nom de la table pour le frontend
+     *
+     * @return Zend\Db\Sql\Select
+     */
+    public function getBaseQueryFrontend($iIdRoster) {
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $query = $sql->select();
+        $query->from($this->table)->columns(array(
+            '*'
+        ));
+        $where = new \Zend\Db\Sql\Where();
+        $where->equalTo("idRosterTmp", $iIdRoster);
+        $query->where($where);
+        return $query;
+    }
+
+    public function getRaid($iIdRaid) {
+        try {
+            return $this->select(array('idRaid' => $iIdRaid))->toArray()[0];
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRaid, $exc);
         }
     }
 

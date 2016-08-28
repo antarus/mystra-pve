@@ -273,9 +273,12 @@ return array(
                 array('route' => 'register-sendmailconfirm', 'roles' => array('guest')),
                 array('route' => 'register-sendmail', 'roles' => array('guest')),
                 array('route' => 'validate-mail', 'roles' => array('guest')),
+                array('route' => 'forgetpass', 'roles' => array('guest')),
                 // frontend
                 array('route' => 'front-raid-list', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'front-raid-detail', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'front-raid-ajax-list', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'front-roster-stat', 'roles' => array('guest', 'user', 'admin')),
             ),
         ),
         // strategy service name for the strategy listener to be used when permission-related errors are detected

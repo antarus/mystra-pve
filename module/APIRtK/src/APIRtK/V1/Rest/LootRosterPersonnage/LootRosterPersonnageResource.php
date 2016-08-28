@@ -21,8 +21,7 @@ class LootRosterPersonnageResource extends AbstractResourceListener {
     /* @var $_tableItemPersonnageRaid \Commun\Table\ItemPersonnageRaidTable */
     private $_tableItemPersonnageRaid;
 
-    /* @var $_tableItems \Commun\Table\ItemsTable */
-    private $_tableItems;
+
     /* @var $cache StorageInterface    */
     private $cache;
 

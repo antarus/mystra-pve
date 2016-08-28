@@ -6,6 +6,7 @@ return array(
         'invokables' =>
         array(
             'Frontend\Controller\Raids' => 'Frontend\Controller\RaidsController',
+            'Frontend\Controller\Roster' => 'Frontend\Controller\RosterController',
         ),
     ),
     'service_manager' => array(
@@ -13,10 +14,6 @@ return array(
         'factories' => array(
             'FrontendNavigation' => 'Commun\Service\FrontendNavigationFactory'
         ),
-    ),
-    'view_helpers' => array(
-        'invokables' => array(
-            'PaginationHelper' => 'Frontend\View\Helper\PaginationHelper')
     ),
     'navigation' => require 'frontend.navigation.config.php',
     'view_manager' => array(

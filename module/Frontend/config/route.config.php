@@ -9,13 +9,30 @@ return array(
                 'options' => array(
                     'route' => '/frontend/roster/:key/raid/list/',
                     'constraints' => array(
-                        'page' => '[0-9]*',
-                        'key' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'key' => '[a-zA-Z0-9_-]+',
                     ),
                     'defaults' =>
                     array(
                         'controller' => 'Frontend\Controller\Raids',
                         'action' => 'list',
+                    ),
+                ),
+            ),
+            'front-raid-ajax-list' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/frontend/roster/:key/raid/ajaxlist/',
+                    'constraints' =>
+                    array(
+                        'key' => '[a-zA-Z0-9_-]+',
+                        'idRaid' => '[0-9]*',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Frontend\Controller\Raids',
+                        'action' => 'ajaxList',
                     ),
                 ),
             ),
@@ -25,13 +42,28 @@ return array(
                     'route' => '/frontend/roster/:key/raid/detail/:idRaid/',
                     'constraints' => array(
                         'page' => '[0-9]*',
-                        'key' => '[a-zA-Z][a-zA-Z0-9_-]+',
+                        'key' => '[a-zA-Z0-9_-]+',
                         'idRaid' => '[0-9]*',
                     ),
                     'defaults' =>
                     array(
                         'controller' => 'Frontend\Controller\Raids',
                         'action' => 'detail',
+                    ),
+                ),
+            ),
+            'front-roster-stat' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/frontend/roster/:key/stat/',
+                    'constraints' => array(
+                        'page' => '[0-9]*',
+                        'key' => '[a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Frontend\Controller\Roster',
+                        'action' => 'stats',
                     ),
                 ),
             ),
