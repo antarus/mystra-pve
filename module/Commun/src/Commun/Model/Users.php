@@ -8,8 +8,7 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Users extends \Core\Model\AbstractModel
-{
+class Users extends \Core\Model\AbstractModel {
 
     /**
      * Colonne: idUsers
@@ -17,7 +16,7 @@ class Users extends \Core\Model\AbstractModel
      * @var int
      */
     public $id = null;
-    
+
     /**
      * Colonne: idUsers
      *
@@ -37,7 +36,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @var string
      */
-    public $display_name = null;
+    public $displayName = null;
 
     /**
      * Colonne: pseudo
@@ -73,7 +72,7 @@ class Users extends \Core\Model\AbstractModel
      * @var string
      */
     public $keyValidMail = null;
-    
+
     /**
      * Colonne: forgetPass
      *
@@ -82,13 +81,26 @@ class Users extends \Core\Model\AbstractModel
     public $forgetpass = null;
 
     /**
+     * Returne un array représentant l'objet.
+     *
+     * @return array
+     */
+    public function getArrayCopy() {
+        $hydrator = new \Core\Hydrator\ClassMethodsPublic(FALSE);
+        $aReturn = $hydrator->extract($this);
+        $aReturn['display_name'] = $aReturn['displayName'];
+        unset($aReturn['displayName']);
+        return $aReturn;
+    }
+
+    /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
      * pre insertion.
      *
      * @param EventManagerInterface
      */
-    public function preInsert(EventManagerInterface $oEventManager)
-    {
+    public function preInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -97,8 +109,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postInsert(EventManagerInterface $oEventManager)
-    {
+    public function postInsert(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -107,8 +119,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preUpdate(EventManagerInterface $oEventManager)
-    {
+    public function preUpdate(EventManagerInterface $oEventManager) {
+        $this->setLastUpdate(date('Y-m-d H:i:s', intval(time())));
     }
 
     /**
@@ -117,8 +129,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postUpdate(EventManagerInterface $oEventManager)
-    {
+    public function postUpdate(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -127,8 +139,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function preDelete(EventManagerInterface $oEventManager)
-    {
+    public function preDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -137,8 +149,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param EventManagerInterface
      */
-    public function postDelete(EventManagerInterface $oEventManager)
-    {
+    public function postDelete(EventManagerInterface $oEventManager) {
+
     }
 
     /**
@@ -146,8 +158,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getIdUsers()
-    {
+    public function getId() {
         return intval($this->id);
     }
 
@@ -156,8 +167,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setIdUsers($value)
-    {
+    public function setId($value) {
         $this->id = $value;
     }
 
@@ -166,8 +176,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getUsername()
-    {
+    public function getUsername() {
         return strval($this->username);
     }
 
@@ -176,8 +185,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setUsername($value)
-    {
+    public function setUsername($value) {
         $this->username = $value;
     }
 
@@ -186,8 +194,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getPassword()
-    {
+    public function getPassword() {
         return strval($this->password);
     }
 
@@ -196,8 +203,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setPassword($value)
-    {
+    public function setPassword($value) {
         $this->password = $value;
     }
 
@@ -206,8 +212,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getDisplay_name()
-    {
+    public function getDisplayName() {
         return strval($this->display_name);
     }
 
@@ -216,8 +221,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setDisplay_name($value)
-    {
+    public function setDisplayName($value) {
         $this->display_name = $value;
     }
 
@@ -226,8 +230,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getEmail()
-    {
+    public function getEmail() {
         return strval($this->email);
     }
 
@@ -236,8 +239,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setEmail($value)
-    {
+    public function setEmail($value) {
         $this->email = $value;
     }
 
@@ -246,8 +248,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getstate()
-    {
+    public function getstate() {
         return strval($this->state);
     }
 
@@ -256,8 +257,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setstate($value)
-    {
+    public function setstate($value) {
         $this->state = $value;
     }
 
@@ -266,8 +266,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return int
      */
-    public function getlastConnection()
-    {
+    public function getlastConnection() {
         return intval($this->lastConnection);
     }
 
@@ -276,8 +275,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param int
      */
-    public function setlastConnection($value)
-    {
+    public function setlastConnection($value) {
         $this->lastConnection = $value;
     }
 
@@ -286,8 +284,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getLastUpdate()
-    {
+    public function getLastUpdate() {
         return strval($this->lastUpdate);
     }
 
@@ -296,18 +293,16 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setLastUpdate($value)
-    {
+    public function setLastUpdate($value) {
         $this->lastUpdate = $value;
     }
-    
-     /**
+
+    /**
      * Retourne la valeur forgetPass.
      *
      * @return string
      */
-    public function getKeyValidMail()
-    {
+    public function getKeyValidMail() {
         return strval($this->keyValidMail);
     }
 
@@ -316,18 +311,16 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setKeyValidMail($value)
-    {
+    public function setKeyValidMail($value) {
         $this->keyValidMail = $value;
     }
-    
-     /**
+
+    /**
      * Retourne la valeur forgetPass.
      *
      * @return string
      */
-    public function getForgetpass()
-    {
+    public function getForgetpass() {
         return strval($this->forgetpass);
     }
 
@@ -336,10 +329,8 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setForgetpass($value)
-    {
+    public function setForgetpass($value) {
         $this->forgetpass = $value;
     }
 
 }
-
