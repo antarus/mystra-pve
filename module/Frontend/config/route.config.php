@@ -52,6 +52,21 @@ return array(
                     ),
                 ),
             ),
+            'front-roster-stat' => array(
+                'type' => 'Segment',
+                'options' => array(
+                    'route' => '/frontend/roster/:key/stat/',
+                    'constraints' => array(
+                        'page' => '[0-9]*',
+                        'key' => '[a-zA-Z0-9_-]+',
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Frontend\Controller\Roster',
+                        'action' => 'stats',
+                    ),
+                ),
+            ),
         ),
     )
 );

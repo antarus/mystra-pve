@@ -6,6 +6,7 @@ return array(
         'invokables' =>
         array(
             'Frontend\Controller\Raids' => 'Frontend\Controller\RaidsController',
+            'Frontend\Controller\Roster' => 'Frontend\Controller\RosterController',
         ),
     ),
     'service_manager' => array(
