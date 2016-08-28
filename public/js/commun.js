@@ -1,6 +1,3 @@
-$(document).ready(function() {
-    $("#buttonLoginLayoutFront").fancybox();
-});
 
 function page404() {
 

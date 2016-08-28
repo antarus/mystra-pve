@@ -15,36 +15,36 @@ class UsersForm extends \Core\Form\AbstractForm
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-           'name' => 'idUsers',
+           'name' => 'id',
            'attributes' => array(
                'type'  => 'hidden',
            ),
         ));
 
         $this->add(array(
-            'name' => 'login',
+            'name' => 'username',
             'attributes' => array(
                 'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Login',
+                'label' => 'Username',
             ),
         ));
 
         $this->add(array(
-            'name' => 'pwd',
+            'name' => 'password',
             'attributes' => array(
-                'type'  => 'text',
+                'type'  => 'password',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Pwd',
+                'label' => 'Password',
             ),
         ));
 
         $this->add(array(
-            'name' => 'pseudo',
+            'name' => 'display_name',
             'attributes' => array(
                 'type'  => 'text',
                 'class' => 'form-control'
@@ -66,38 +66,20 @@ class UsersForm extends \Core\Form\AbstractForm
         ));
 
         $this->add(array(
-            'name' => 'avatar',
+            'name' => 'state',
+            'type'  => 'Zend\Form\Element\Select',
             'attributes' => array(
-                'type'  => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
-                'label' => 'Avatar',
+                'label' => 'Status',
+                'value_options'=> array(
+                    '0' => 'Innactif',
+                    '1' => 'Actif',
+                    '2' => 'Banni'
+                )
             ),
         ));
-
-        $this->add(array(
-            'name' => 'admin',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'Admin',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'forgetPass',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'ForgetPass',
-            ),
-        ));
-
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(

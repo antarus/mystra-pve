@@ -40,22 +40,17 @@ class UsersGrid extends \ZfTable\AbstractTable {
         'showColumnFilters' => true,
     );
     protected $headers = array(
-        'idUsers' => array(
-            'title' => 'IdUsers',
+        'id' => array(
+            'title' => 'Id',
             'width' => '100',
             'filters' => 'text',
         ),
-        'login' => array(
-            'title' => 'Login',
+        'username' => array(
+            'title' => 'username',
             'width' => '100',
             'filters' => 'text',
         ),
-        'pwd' => array(
-            'title' => 'Pwd',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'pseudo' => array(
+        'display_name' => array(
             'title' => 'Pseudo',
             'width' => '100',
             'filters' => 'text',
@@ -65,18 +60,18 @@ class UsersGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'avatar' => array(
-            'title' => 'Avatar',
+        'state' => array(
+            'title' => 'Statuts',
             'width' => '100',
             'filters' => 'text',
         ),
-        'admin' => array(
-            'title' => 'Admin',
+        'lastConnection' => array(
+            'title' => 'Last connection',
             'width' => '100',
             'filters' => 'text',
         ),
-        'forgetPass' => array(
-            'title' => 'ForgetPass',
+        'lastUpdate' => array(
+            'title' => 'Last Update',
             'width' => '100',
             'filters' => 'text',
         ),
@@ -126,63 +121,82 @@ class UsersGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
+        
+        $this->getHeader("lastConnection")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                $date = new \DateTime($record['lastConnection']);
+                return $date->format('d-m-Y H:i:s');
+            }
+        ));
+        
+        $this->getHeader("lastUpdate")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                $date = new \DateTime($record['lastUpdate']);
+                return $date->format('d-m-Y H:i:s');
+            }
+        ));       
+        
         $this->getHeader("edit")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                return sprintf("<a class=\"btn btn-info\" href=\"" . $this->url()->fromRoute('backend-users-update', array('id' => $record["idUsers"])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $this->_getServTranslator()->translate("Modifier") . "</a>", $record["idUsers"]);
+                return '<a class="btn btn-info" href="' . 
+                        $this->url()->fromRoute('backend-users-update', array('id' => $record["id"])) . 
+                        '"><span class="glyphicon glyphicon-pencil "></span>&nbsp;'
+                        . $this->_getServTranslator()->translate("Modifier") . '</a>';
             }
-                ));
+        ));
 
-                $this->getHeader("delete")->getCell()->addDecorator("callable", array(
-                    "callable" => function($context, $record) {
-                        return sprintf("<a class=\"btn btn-danger\" href=\"" . $this->url()->fromRoute('backend-users-delete', array('id' => $record["idUsers"])) . "\" onclick=\"if (confirm('" . $this->_getServTranslator()->translate("Etes vous sur?") . "')) {document.location = this.href;} return false;\"><span class=\"glyphicon glyphicon-trash \"></span>&nbsp;" . $this->_getServTranslator()->translate("Supprimer") . "</a>", $record["idUsers"]);
-                    }
-                        ));
-                    }
+        $this->getHeader("delete")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                return '<a class="btn btn-danger" href="' . 
+                       $this->url()->fromRoute('backend-users-delete', array('id' => $record["id"])) . 
+                       '" onclick="if (confirm("'. $this->_getServTranslator()->translate("Etes vous sur?") . '")) {document.location = this.href;} return false;">
+                         <span class="glyphicon glyphicon-trash "></span>&nbsp;' . $this->_getServTranslator()->translate("Supprimer") .
+                        "</a>";
+            }
+        ));
+    }
 
-                    /**
-                     *
-                     * @param \Zend\Db\Sql\Select $query
-                     */
-                    protected function initFilters($query) {
-                        $value = $this->getParamAdapter()->getValueOfFilter('idUsers');
-                        if ($value != null) {
-                            $query->where("idUsers = '" . $value . "' ");
-                        }
+    /**
+     *
+     * @param \Zend\Db\Sql\Select $query
+     */
+    protected function initFilters($query) {
+       
+        $value = $this->getParamAdapter()->getValueOfFilter('id');
+        if ($value != null) {
+            $query->where("id = '$value'");
+        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('login');
-                        if ($value != null) {
-                            $query->where("login like '%" . $value . "%' ");
-                        }
+        $value = $this->getParamAdapter()->getValueOfFilter('username');
+        if ($value != null) {
+            $query->where("username like '%" . $value . "%' ");
+        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('pwd');
-                        if ($value != null) {
-                            $query->where("pwd like '%" . $value . "%' ");
-                        }
+        $value = $this->getParamAdapter()->getValueOfFilter('display_name');
+        if ($value != null) {
+            $query->where("display_name like '%" . $value . "%' ");
+        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('pseudo');
-                        if ($value != null) {
-                            $query->where("pseudo like '%" . $value . "%' ");
-                        }
+        $value = $this->getParamAdapter()->getValueOfFilter('lastConnection');
+        if ($value != null) {
+            $query->where("lastConnection like '%" . $value . "%' ");
+        }
+        
+        $value = $this->getParamAdapter()->getValueOfFilter('lastUpdate');
+        if ($value != null) {
+            $query->where("lastUpdate like '%" . $value . "%' ");
+        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('email');
-                        if ($value != null) {
-                            $query->where("email like '%" . $value . "%' ");
-                        }
+        $value = $this->getParamAdapter()->getValueOfFilter('email');
+        if ($value != null) {
+            $query->where("email like '%" . $value . "%' ");
+        }
+        $value = $this->getParamAdapter()->getValueOfFilter('state');
+        if ($value != null) {
+            $query->where("state =$value");
+        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('avatar');
-                        if ($value != null) {
-                            $query->where("avatar like '%" . $value . "%' ");
-                        }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('admin');
-                        if ($value != null) {
-                            $query->where("admin = '" . $value . "' ");
-                        }
+    }
 
-                        $value = $this->getParamAdapter()->getValueOfFilter('forgetPass');
-                        if ($value != null) {
-                            $query->where("forgetPass like '%" . $value . "%' ");
-                        }
-                    }
-
-                }
+}

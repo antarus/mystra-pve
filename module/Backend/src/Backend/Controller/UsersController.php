@@ -3,6 +3,7 @@
 namespace Backend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\Crypt\Password\Bcrypt;
 
 /**
  * Controller pour la vue.
@@ -86,14 +87,23 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
         
         if ($oRequest->isPost()) {
             $oEntite = new \Commun\Model\Users();
-        
-            $oForm->setData($oRequest->getPost());
-        
+            
+            $aPost = $oRequest->getPost();
+            $bcrypt = new Bcrypt();
+            $bcrypt->setCost(14); 
+            $aPost['password'] = $bcrypt->create($aPost['password']);
+            
+            $oForm->setData($aPost);
+            
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
                 $this->getTable()->insert($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La users a été créé avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-users-list');
+            }
+            else {
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Formulaire non valid."), 'error');
+                return $this->redirect()->toRoute('backend-users-create');
             }
         }
         // Pour optimiser le rendu
