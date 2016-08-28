@@ -279,6 +279,8 @@ return array(
                 array('route' => 'front-raid-detail', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'front-raid-ajax-list', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'front-roster-stat', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'front-personnage-stat', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'front-personnage-detail', 'roles' => array('guest', 'user', 'admin')),
             ),
         ),
         // strategy service name for the strategy listener to be used when permission-related errors are detected

@@ -11,7 +11,7 @@
     <h3><?php echo $this->translate("Roster") ?></h3>
     <?php foreach ($participants as $participant) { ?>
         <?php if ($participant['roster']) { ?>
-            <a href="#" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
+            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
             <!-- end if roster -->
         <?php } ?>
         <!-- end for each -->
@@ -20,7 +20,7 @@
     <?php foreach ($participants as $participant) { ?>
 
         <?php if ($participant['roster'] == 0) { ?>
-            <a href="" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
+            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
             <!-- end if roster -->
         <?php } ?>
         <!-- end for each -->

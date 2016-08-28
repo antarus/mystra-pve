@@ -7,6 +7,7 @@ return array(
         array(
             'Frontend\Controller\Raids' => 'Frontend\Controller\RaidsController',
             'Frontend\Controller\Roster' => 'Frontend\Controller\RosterController',
+            'Frontend\Controller\Personnage' => 'Frontend\Controller\PersonnageController',
         ),
     ),
     'service_manager' => array(
