@@ -15,7 +15,7 @@ class UsersFilter extends \Core\Filter\AbstractFilter
         $factory = $this->getInputFactory();
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'idUsers',
+               'name' => 'id',
                'required' => true,
                'filters' => array(
                    array('name'=>'Int')
@@ -28,7 +28,7 @@ class UsersFilter extends \Core\Filter\AbstractFilter
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'login',
+               'name' => 'username',
                'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
@@ -40,14 +40,14 @@ class UsersFilter extends \Core\Filter\AbstractFilter
                        'options' => array(
                            'encoding' => 'UTF-8',
                            'min' => '1',
-                           'max' => '15'
+                           'max' => '25'
                        )
                    ),
                )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'pwd',
+               'name' => 'password',
                'required' => true,
                'filters' => array(
                    array('name' => 'StripTags'),
@@ -58,103 +58,13 @@ class UsersFilter extends \Core\Filter\AbstractFilter
                        'name' => 'StringLength',
                        'options' => array(
                            'encoding' => 'UTF-8',
-                           'min' => '1',
+                           'min' => '6',
                            'max' => '150'
                        )
                    ),
                )
         )));
 
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'pseudo',
-               'required' => false,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '0',
-                           'max' => '150'
-                       )
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'email',
-               'required' => false,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '0',
-                           'max' => '250'
-                       )
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'avatar',
-               'required' => false,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '0',
-                           'max' => '150'
-                       )
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'admin',
-               'required' => false,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'forgetPass',
-               'required' => false,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '0',
-                           'max' => '500'
-                       )
-                   ),
-               )
-        )));
     }
-
-
 }
 

@@ -94,9 +94,9 @@ class UsersController extends \Zend\Mvc\Controller\AbstractActionController
             $aPost['password'] = $bcrypt->create($aPost['password']);
             
             $oForm->setData($aPost);
-            
             if ($oForm->isValid()) {
                 $oEntite->exchangeArray($oForm->getData());
+
                 $this->getTable()->insert($oEntite);
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("La users a été créé avec succès."), 'success');
                 return $this->redirect()->toRoute('backend-users-list');

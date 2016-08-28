@@ -31,6 +31,17 @@ class UsersForm extends \Core\Form\AbstractForm
                 'label' => 'Username',
             ),
         ));
+        
+        $this->add(array(
+            'name' => 'display_name',
+            'attributes' => array(
+                'type'  => 'text',
+                'class' => 'form-control'
+            ),
+            'options' => array(
+                'label' => 'Display_name',
+            ),
+        ));
 
         $this->add(array(
             'name' => 'password',
@@ -40,17 +51,6 @@ class UsersForm extends \Core\Form\AbstractForm
             ),
             'options' => array(
                 'label' => 'Password',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'display_name',
-            'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'Pseudo',
             ),
         ));
 

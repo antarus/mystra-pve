@@ -124,15 +124,23 @@ class UsersGrid extends \ZfTable\AbstractTable {
         
         $this->getHeader("lastConnection")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                $date = new \DateTime($record['lastConnection']);
-                return $date->format('d-m-Y H:i:s');
+                if($record['lastConnection'] != '0000-00-00 00:00:00')
+                {
+                    $date = new \DateTime($record['lastConnection']);
+                    return $date->format('d-m-Y H:i:s');
+                }
+                else return '-';
             }
         ));
         
         $this->getHeader("lastUpdate")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
-                $date = new \DateTime($record['lastUpdate']);
-                return $date->format('d-m-Y H:i:s');
+                if($record['lastUpdate'] != '0000-00-00 00:00:00')
+                {
+                    $date = new \DateTime($record['lastUpdate']);
+                    return $date->format('d-m-Y H:i:s');
+                }
+                else return '-';
             }
         ));       
         

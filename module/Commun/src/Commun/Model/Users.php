@@ -206,7 +206,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getDisplayName()
+    public function getDisplay_name()
     {
         return strval($this->display_name);
     }
@@ -216,7 +216,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @param string
      */
-    public function setDisplayName($value)
+    public function setDisplay_name($value)
     {
         $this->display_name = $value;
     }
@@ -326,7 +326,7 @@ class Users extends \Core\Model\AbstractModel
      *
      * @return string
      */
-    public function getKeyForgetpass()
+    public function getForgetpass()
     {
         return strval($this->forgetpass);
     }
