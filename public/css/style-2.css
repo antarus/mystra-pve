@@ -38,7 +38,10 @@ div
 {
 	display: block;
 }
-
+h1 , h2 , h3 , h4 , h5 , h6
+{
+    line-height: 1.1;
+}
 #green-light
 {
 	background-image: url('../img/background4.jpg');
@@ -218,21 +221,28 @@ thead
 /*!
  * FORM
  */
-
+.form-title
+{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    margin: 0;
+}
 .form-create-account , .form-login
 {
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    padding: 7px;
-    width: 318px; 
+    padding: 20px;
+    width: 345px; 
     border: 1px solid rgba(255,255,255,0.15);
     background: rgba(0,0,0,0.35);
     text-shadow: 0 0 3px rgba(255,255,255,0.4);
     
 }
+
 .form-login
 {
-    width: 214px;
+    width: 244px;
 }
+
 .form-create-account dt , .form-login dt
 {
     padding-top: 5px;
