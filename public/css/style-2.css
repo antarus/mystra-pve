@@ -55,8 +55,7 @@ div
 	display: block;
         width: 100%;
         height: 100%;
-	margin-left: 50px;
-	margin-right: 50px;
+	margin-left: 2%;
         margin-bottom: 50px;
 
 }
@@ -219,7 +218,7 @@ thead
  * FORM
  */
 
-.form-create-account
+.form-create-account , .form-login
 {
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     display: block;
@@ -231,26 +230,30 @@ thead
     text-shadow: 0 0 3px rgba(255,255,255,0.4);
     
 }
-.form-create-account dt
+.form-login
+{
+    width: 200px;
+}
+.form-create-account dt , .form-login dt
 {
     padding-top: 5px;
 }
-.form-create-account dd
+.form-create-account dd , .form-login dt
 {
     padding-bottom: 5px;
 }
-.form-create-account input
+.form-create-account input , .form-login input
 {
-    border:none !important;
+    border: 1px solid rgba(255,255,255,0.05);
     width: 200px;
     background:rgba(0,0,0,0.15);
 }
-.form-create-account input:focus
+.form-create-account input:focus , .form-login input:focus
 {
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account button
+.form-create-account button , .form-login button
 {
     text-transform: uppercase;
     border:none;
@@ -260,7 +263,8 @@ thead
     background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d000000', endColorstr='#000000',GradientType=0 );
 }
-.form-create-account button:hover
+
+.form-create-account button:hover , .form-login button:hover
 {
     text-shadow: 0 0 3px rgba(255,255,255,1);
     background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
@@ -268,12 +272,12 @@ thead
     background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#4d000000',GradientType=0 );
 }
-.form-create-account button:focus
+.form-create-account button:focus , .form-login button:focus
 {
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account ul, .form-create-account li
+.form-create-account ul , .form-create-account li , .form-login ul , .form-login li
 {
     list-style: none;
     color: red;
