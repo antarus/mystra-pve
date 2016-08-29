@@ -56,6 +56,7 @@ div
         width: 100%;
         height: 100%;
 	margin-left: 2%;
+        margin-right: 2%;
         margin-bottom: 50px;
 
 }
@@ -221,10 +222,8 @@ thead
 .form-create-account , .form-login
 {
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    display: block;
-    width: 340px;
-    min-width: 340px;
-    padding: 15px;
+    padding: 7px;
+    width: 318px; 
     border: 1px solid rgba(255,255,255,0.15);
     background: rgba(0,0,0,0.35);
     text-shadow: 0 0 3px rgba(255,255,255,0.4);
@@ -232,7 +231,7 @@ thead
 }
 .form-login
 {
-    width: 200px;
+    width: 214px;
 }
 .form-create-account dt , .form-login dt
 {
