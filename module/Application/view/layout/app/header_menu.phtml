@@ -49,19 +49,7 @@
                         <a href="<?php echo $this->url('forgetpass'); ?>" style='color: black;'><?php echo $this->translate('Mot de passe perdu? cliquez ici') ?></a>
                         </div>                
                         <?php else: ?>
-                        <?php $settings = array(
-                            'img_size'    => 40,
-                            'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
-                            'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
-                            'secure'      => null,
-                            );
-                            $email = $this->zfcUserIdentity()->getEmail();
-                        ?>
-                        <li>
-                            <a class="gravatar"href='https://fr.gravatar.com/' target='_blank'>
-                            <?php echo $this->gravatar($email, $settings); ?>
-                           </a>
-                       </li>
+                      
                        <li>
                            <p style='font-weight: bold;'><?php echo $this->translate('Bonjour ') ?><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></p>
                        </li>
