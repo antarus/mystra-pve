@@ -120,11 +120,16 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
                     ))
                     ->from(array('r' => 'raids'))
                     ->order('idMode');
+            try {
 
-            $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
+                $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
 //            $predicatePallier->AND->equalTo("idRosterTmp", $iIdRoster);
 
-            $oQuery->where->addPredicate($predicatePallier);
+                $oQuery->where->addPredicate($predicatePallier);
+            } catch (\Commun\Exception\LogException $exc) {
+                return null;
+            }
+
             return $this->fetchAllArray($oQuery)[0]['totalRaidPallier'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
@@ -165,8 +170,15 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
                 'nbRaidPallier' => new Expression('COUNT(rp.idRaid)'),
                 'idPersonnage'
             ));
-            $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
-            $oQuery->where->addPredicate($predicatePallier);
+            try {
+
+                $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
+                $oQuery->where->addPredicate($predicatePallier);
+            } catch (\Commun\Exception\LogException $exc) {
+                return array();
+            }
+
+
             $oQuery->group("nom_personnage")
                     ->order('nom_personnage');
             // $this->debug($oQuery);
