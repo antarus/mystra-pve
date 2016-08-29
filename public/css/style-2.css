@@ -1,0 +1,196 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+
+*
+{
+	border-radius: 0 !important;
+
+}
+html
+{
+	overflow-x: hidden; 
+}
+html,
+body {
+  min-height: 100%;
+}
+body
+{
+	font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  	font-weight: normal;
+	font-size: 12px;
+}
+body ,a 
+{
+	color: #FFF;
+	text-shadow: rgba(255,255,255,0.4);
+}
+a , a:hover, a:visited
+{
+	text-decoration: none;
+	color: #FFF;
+}
+a:hover
+{
+	color: #FFD800;
+}
+div
+{
+	display: block;
+}
+
+#green-light
+{
+	background-image: url('../img/background4.jpg');
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
+.block-area
+{
+	width: 100%;
+	float: left;
+}
+.content-wrapper
+{
+	display: block;
+	margin-left: 50px;
+	margin-right: 50px;
+
+}
+
+.breadcrumb
+{
+	background: none;
+	float: right;
+	margin: 0;
+	padding: 8px 15px;
+	font-size: 11px;
+}
+
+.breadcrumb > li .active
+{
+	color: #FFD800;
+}
+.page-title
+{
+	text-transform: uppercase;
+	padding: 8px 15px 9px;
+	font-size: 15px;
+	border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+
+
+/*!
+ * 	NAVBAR
+ */
+#main-header , .navbar-header, .navbar-brand
+{
+	display: block;
+	background:rgba(0,0,0,0.35);
+	
+}
+#main-header .navbar-brand
+{
+	position: absolute;
+	top: -15px;
+	padding-bottom: 15px;
+}
+#main-header .navbar
+{
+ 	background: rgba(0,0,0,0.35);
+}
+
+
+#main-header .navbar-custom-menu a
+{
+	font-size: 15px;
+	text-transform: uppercase;
+}
+
+#main-header .nav > li > a:hover, .nav > li > a, .nav > li > a:focus
+{
+	background:rgba(0,0,0,0.35);
+}
+
+
+.navbar-toggle {
+	font-size: 35px;
+	position: relative;
+	float: right;
+	padding: 0px;
+	margin-top: 0px;
+	margin-right: 15px;
+	margin-bottom: 0px;
+ }
+ .navbar-left
+{
+	margin-left: 75px;
+}
+.navbar-right
+{
+	margin-right: 15px;
+}
+.navbar-right p
+{
+    background:rgba(0,0,0,0.35);
+    font-size: 15px;
+}
+@media (max-width: 768px) {
+	.navbar-left
+	{
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	.navbar-right
+	{
+		margin-left: 15px;
+		margin-right: 15px;
+
+	}
+}
+
+
+/*!
+ *	TABLE
+ */
+.block-title
+{
+	background:rgba(0,0,0,0.35);
+	font-size: 12px;
+	text-transform: uppercase;
+	padding: 5px 10px 5px;
+	display: inline-block;
+	letter-spacing: 0.5px;
+}
+table
+{
+	max-width: 100%;
+}
+.tile
+{
+	background: rgba(0,0,0,0.35);
+	box-shadow: rgba(0,0,0,0.15);
+	margin-bottom: 15px;
+}
+thead
+{
+	text-transform: uppercase;
+	text-shadow: rgba(255,255,255,0.4);
+}
+.table th
+{
+	background: rgba(0,0,0,0.35);
+	border-color: rgba(255,255,255,0.05) !important;
+	text-shadow: rgba(255,255,255,0.4);
+}
+.table td
+{
+	border-color: rgba(255,255,255,0.05) !important;
+	text-shadow: rgba(255,255,255,0.4);
+
+}
+.table-bordered
+{
+	border: 0;
+}
+

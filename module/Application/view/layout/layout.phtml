@@ -3,44 +3,19 @@
     <head>
         <?php echo $this->render('layout/app/head') ?>
     </head>
-    <body>
-        <div id='login'>
-            <?php if(!$this->zfcUserIdentity()): ?>
-           <a href='#loadFormLogin' id='buttonLoginLayoutFront'>Se connecter</a> | <a href="<?php echo $this->url('zfcuser/register'); ?>"><?php echo $this->translate('Créez un compte') ?></a>
-           <div id='loadFormLogin' style="display:none">
-               <?php echo $this->zfcUserLoginWidget(array('redirect'=>'home')); ?>
-                <a href="<?php echo $this->url('forgetpass'); ?>" style='color: black;'><?php echo $this->translate('Mot de passe perdu? cliquez ici') ?></a>
-           </div>                
-            <?php else: ?>
-                <?php $settings = array(
-                    'img_size'    => 40,
-                    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
-                    'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
-                    'secure'      => null,
-                    );
-                    $email = $this->zfcUserIdentity()->getEmail();
-                ?>
-               <div id='avatar'>
-                   <a href='https://fr.gravatar.com/' target='_blank'>
-                    <?php echo $this->gravatar($email, $settings); ?>
-                   </a>
-               </div>
-               <div id='infos-user'>
-                   <p style='font-weight: bold;'><?php echo $this->translate('Bonjour ') ?><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></p>
-                   <a href="<?php echo $this->url('zfcuser/logout'); ?>"><?php echo $this->translate('Se déconnecter ') ?></a>
-               </div>
-            <?php endif?>
-       </div>
-       <!--                Header                   -->
-       <?php echo $this->render('layout/app/header_menu') ?>       
+    <body id="green-light">           
        <!--                Container                -->
-        <div id="container">
+       <div class="wrapper">
+            <header id="main-header">
+                <!--                Header                   -->
+                <?php echo $this->render('layout/app/header_menu') ?>  
+            </header>
             <?php echo $this->render('layout/app/messages') ?>   
             <?php echo $this->content; ?> 
         </div> 
         
         <!--               Footer                   -->
-        <footer>
+        <footer class="main-footer">
             <div class="container">
                 <p>&copy; 2016 - <?php echo date('Y') ?> by Antarus - Capi  - Kadyll <?php echo $this->translate('All rights reserved.') ?></p>
             </div> 

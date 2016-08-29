@@ -10,11 +10,12 @@ echo $this->headMeta()
 <!-- Le styles -->
 <?php
 echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.png'))
-//        ->appendStylesheet($this->basePath('css/bootstrap.min.css'))
-//        ->appendStylesheet($this->basePath('css/bootstrap-theme.min.css'))
-        ->appendStylesheet($this->basePath('css/zf-table/zf-table.css'))
-        ->appendStylesheet($this->basePath('css/styles.css'))
+        ->appendStylesheet($this->basePath('css/bootstrap.css'))
+        ->appendStylesheet($this->basePath('css/style-2.css'))
         ->appendStylesheet($this->basePath('plugin/fancybox/source/jquery.fancybox.css?v=2.1.5'))
+        ->appendStylesheet("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css")
+        ->appendStylesheet("https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css");
+
 ?>
 
 <!-- Scripts -->
@@ -23,7 +24,7 @@ echo $this->headScript()
         ->appendFile($this->basePath('js/jquery.min.js'))
         ->appendFile($this->basePath('js/commun.js'))
         ->appendFile($this->basePath('js/frontend.js'))
-//        ->appendFile($this->basePath('js/bootstrap.min.js'))
+        ->appendFile($this->basePath('js/bootstrap.min.js'))
 //        ->appendFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
 //        ->appendFile($this->basePath('js/jquery/validate/jquery.validate.min.js'))
         ->appendFile($this->basePath('js/respond.min.js'), 'text/javascript', array('conditional' => 'lt IE 9',))
