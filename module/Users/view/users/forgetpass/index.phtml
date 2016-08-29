@@ -11,14 +11,16 @@ $recaptcha = new ZendService\ReCaptcha\ReCaptcha($this->publicKey,$this->private
 
 ?>
 
-<h1><?php echo $this->translate("Vous avez oublié votre mot de passe"); ?></h1>
 
-<p><?php echo $this->translate("Entrez votre adresse email, nous allons vous aider à le réinitialiser."); ?></p>
 
-<form action='<?php echo $this->url('forgetpass',array('action'=>'sendforgetpassmail'))?>' method='post'>
+
+
+<form action='<?php echo $this->url('forgetpass',array('action'=>'sendforgetpassmail'))?>' method='post' class="form-forget">
+    <h3 class="form-title"><?php echo $this->translate("Mot de passe oublié"); ?></h3>
+    <i><?php echo $this->translate("Entrez votre email, nous allons vous aider à le réinitialiser."); ?></i>
     <input type='text' name='mail' value='<?php echo $this->mail; ?>' placeholder="Ex: monemail@gmail.com" />
     
     <?php echo $recaptcha->getHTML();?>
     
-    <input type='submit' value='Demande de récupération' />
+    <button type='submit'><?php echo $this->translate('Récupérer') ?></button>
 </form>

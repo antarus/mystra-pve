@@ -227,7 +227,7 @@ thead
     font-size: 30px;
     margin: 0;
 }
-.form-create-account , .form-login
+.form-create-account , .form-login , .form-forget
 {
     font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     padding: 20px;
@@ -243,26 +243,31 @@ thead
     width: 244px;
 }
 
-.form-create-account dt , .form-login dt
+.form-create-account dt , .form-login dt , .form-forget dt
 {
     padding-top: 5px;
 }
-.form-create-account dd , .form-login dt
+.form-create-account dd , .form-login dt , .form-forget dd
 {
     padding-bottom: 5px;
 }
-.form-create-account input , .form-login input
+.form-create-account input , .form-login input , .form-forget input
 {
     border: 1px solid rgba(255,255,255,0.05);
     width: 200px;
     background:rgba(0,0,0,0.15);
 }
-.form-create-account input:focus , .form-login input:focus
+.form-forget input
+{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.form-create-account input:focus , .form-login input:focus , .form-forget input:focus
 {
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account button , .form-login button
+.form-create-account button , .form-login button , .form-forget button
 {
     text-transform: uppercase;
     border:none;
@@ -273,7 +278,12 @@ thead
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d000000', endColorstr='#000000',GradientType=0 );
 }
 
-.form-create-account button:hover , .form-login button:hover
+.form-forget button
+{
+    margin-top: 7px;
+}
+
+.form-create-account button:hover , .form-login button:hover , .form-forget button:hover
 {
     text-shadow: 0 0 3px rgba(255,255,255,1);
     background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
@@ -281,12 +291,12 @@ thead
     background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#4d000000',GradientType=0 );
 }
-.form-create-account button:focus , .form-login button:focus
+.form-create-account button:focus , .form-login button:focus , .form-forget button:focus
 {
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account ul , .form-create-account li , .form-login ul , .form-login li
+.form-create-account ul , .form-create-account li , .form-login ul , .form-login li , .form-forget ul , .form-forget li
 {
     list-style: none;
     color: red;
