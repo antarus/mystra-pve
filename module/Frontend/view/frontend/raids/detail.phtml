@@ -14,17 +14,17 @@
         <?php foreach ($participants as $participant) { ?>
             <?php if ($participant['roster']) { 
              if ($participant['apply'] == 1) { ?>
-            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a>*  <span class="glyphicon glyphicon-minus"></span>
+            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?>*</a>  |
                 <!-- end if roster -->
             <?php } else { ?>
-                <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> <span class="glyphicon glyphicon-minus"></span>
+                <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
             <!-- end for each -->
         <?php }}} ?>
         <h4><?php echo $this->translate("Hors Roster") ?></h4>
         <?php foreach ($participants as $participant) { ?>
 
             <?php if ($participant['roster'] == 0) { ?>
-        <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a>  <span class="glyphicon glyphicon-minus"></span>
+        <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
                 <!-- end if roster -->
             <?php } ?>
             <!-- end for each -->
@@ -42,5 +42,6 @@
             <!-- end for each -->
         <?php } ?>
     </div>
+    <i><?php echo $this->translate("* : est en apply") ?></i>
 </div>
 
