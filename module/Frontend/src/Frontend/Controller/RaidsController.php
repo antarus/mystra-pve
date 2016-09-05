@@ -118,8 +118,15 @@ class RaidsController extends FrontController {
              return  $aParticipants['classe_couleur'];
             },$aParticipants);
             
-            // tri par boss
-            foreach($aLootNotri as $l)$aLoots[$l['boss']][] = $l;
+            // tri par boss et reformat bank / disenchant
+            foreach($aLootNotri as $l)
+            {
+                if($l['royaume_personnage'] === 'bank')
+                    $l['nom_personnage'] = $this->_getServTranslator()->translate('Mis en Banque de guilde');
+                if($l['royaume_personnage'] === 'disenchant')
+                    $l['nom_personnage'] = $this->_getServTranslator()->translate('Envoyé pour désenchantement');
+                $aLoots[$l['boss']][] = $l;
+            }
         } catch (\Exception $exc) {
             $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());

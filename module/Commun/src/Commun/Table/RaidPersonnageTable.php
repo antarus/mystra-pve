@@ -79,7 +79,7 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         $oQuery = $sql->select();
         $oQuery->from(array('rp' => 'raid_personnage'))
                 ->join(array('r' => 'raids'), 'r.idRaid=rp.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
-                ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('personnage_nom' => 'nom', 'personnage_royaume' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('personnage_nom' => 'nom', 'personnage_royaume' => 'royaume','ilvl'), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('c' => 'classes'), 'c.idClasses=p.idClasses', array('classe_nom' => 'nom', 'classe_couleur' => 'couleur',), \Zend\Db\Sql\Select::JOIN_INNER)
                 ->join(array('rac' => 'race'), 'rac.idRace=p.idRace', array('race_nom' => 'nom'), \Zend\Db\Sql\Select::JOIN_INNER);
         $where = new \Zend\Db\Sql\Where();
