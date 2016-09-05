@@ -10,6 +10,37 @@ return array(
             'action' => 'index',
         ),
         array(
+            'label' => $translator->translate('Pages'),
+            'route' => null,
+            'action' => 'index',
+            'pages' => array(
+                array(
+                'label' => $translator->translate('Home page'),
+                'route' => null,
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('A propos'),
+                'route' => null,
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Discord Bot'),
+                'route' => null,
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate('Contact'),
+                'route' => null,
+                'action' => 'index',
+                ),
+                array(
+                'label' => $translator->translate("l'équipe"),
+                'route' => null,
+                'action' => 'index',
+                )
+        )),
+        array(
             'label' => $translator->translate('Personnage'),
             'route' => null,
             'action' => 'index',
