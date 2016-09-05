@@ -90,8 +90,8 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         $aAllParticpantTmp = $this->fetchAllArray($oQuery);
         foreach ($aAllParticpantTmp as $aValue) {
             $aValue['roster'] = 0;
+            $aValue['apply'] = null;
             $aAllParticpant[$aValue['idPersonnage']] = $aValue;
-            $aAllParticpant[$aValue['idPersonnage']]['apply'] = null;
             
         }
         
@@ -106,9 +106,9 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         }
         if (isset($aMembreRoster)) {
             $aParticipantRoster = array_intersect_key($aAllParticpant, $aMembreRoster);
-            
             foreach ($aParticipantRoster as $key => $value) {
                 $aAllParticpant[$key]['roster'] = 1;
+                $aAllParticpant[$key]['apply'] = $aMembreRoster[$key]['apply'];
             }
         }
         return $aAllParticpant;
