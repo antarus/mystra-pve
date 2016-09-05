@@ -91,15 +91,22 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         foreach ($aAllParticpantTmp as $aValue) {
             $aValue['roster'] = 0;
             $aAllParticpant[$aValue['idPersonnage']] = $aValue;
+            $aAllParticpant[$aValue['idPersonnage']]['apply'] = null;
+            
         }
-        $oQuery->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+        
+        $oQuery->join(array('rhp' => 'roster_has_personnage'),
+                            'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', 
+                            array('apply'=>'isApply'), \Zend\Db\Sql\Select::JOIN_INNER);
 
         $aMembreRosterTmp = $this->fetchAllArray($oQuery);
+
         foreach ($aMembreRosterTmp as $aValue) {
             $aMembreRoster[$aValue['idPersonnage']] = $aValue;
         }
         if (isset($aMembreRoster)) {
             $aParticipantRoster = array_intersect_key($aAllParticpant, $aMembreRoster);
+            
             foreach ($aParticipantRoster as $key => $value) {
                 $aAllParticpant[$key]['roster'] = 1;
             }
