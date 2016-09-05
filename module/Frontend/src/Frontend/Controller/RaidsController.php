@@ -107,8 +107,17 @@ class RaidsController extends FrontController {
             $aRoster = $oRoster->getArrayCopy();
 
             $aRaid = $this->getTableRaid()->getRaid($iIdRaid);
+            $dformated = new \DateTime($aRaid['date']);
+            $aRaid['date'] = $dformated->format('d/m/Y à H:i:s');
+            
             $aParticipants = $this->getTableRaidPersonnage()->getParticipantRaid($aRaid['idRaid']);
-            $aLoots = $this->addLienWowHeadItem($this->getTableItemPersonnageRaid()->getLootRaid($aRaid['idRaid']));
+            $aLootNotri = $this->addLienWowHeadItem($this->getTableItemPersonnageRaid()->getLootRaid($aRaid['idRaid']));
+            
+            $aCouleur = array_map(function($aParticipants){
+             return  $aParticipants['classe_couleur'];
+            },$aParticipants);
+            
+            foreach($aLootNotri as $l) $aLoots[$l['boss']][] = $l;
         } catch (\Exception $exc) {
             $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
@@ -122,6 +131,7 @@ class RaidsController extends FrontController {
         $oViewModel->setVariable('raid', $aRaid);
         $oViewModel->setVariable('participants', $aParticipants);
         $oViewModel->setVariable('loots', $aLoots);
+        $oViewModel->setVariable('couleur', $aCouleur);
         return $oViewModel;
     }
 
