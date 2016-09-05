@@ -2,7 +2,7 @@
     <h4><?php echo $this->translate("Détail du raid") ?></h4>
 </div>
 <div class="wrapper-bg">
-    <a  class='btn btn-success' style='float:right;' href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>">
+    <a  class='btn btn-success pull-right' href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>">
         <?php echo $this->translate("Retour à la liste des raids") ?>
     </a>
     <div>
@@ -19,7 +19,7 @@
                 <?php if( $bStart == true): $bStart = false; else:?>
                  | 
                 <?php endif;?>
-            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
+            <a class="char-name" href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
                                                                             'idRaid' => $raid['idRaid'],
                                                                             'idPers' => $participant['idPersonnage'])); ?>"
                style="color:<?php echo $participant['classe_couleur']; ?>" >
@@ -37,7 +37,7 @@
                 <?php if( $bStart == true): $bStart = false; else:?>
                  | 
                 <?php endif;?>
-                <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
+                 <a class="char-name" href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
                                                 'idRaid' => $raid['idRaid'],
                                                 'idPers' => $participant['idPersonnage'])); ?>" 
                     style="color:<?php echo $participant['classe_couleur']; ?>" >
@@ -52,7 +52,7 @@
         <h4><?php echo $this->translate("Liste des loots") ?> </h4>
         <?php $i = 1;
         foreach ($this->loots as $boss => $listLoot) : ?>
-        <div class='col-md-4'>
+        <div class="loot col-md-4">
             <div class='box'>
                 <h5><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?> :</h5>
                 <?php foreach($listLoot as $loot):?>
@@ -60,7 +60,7 @@
                     <a href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
                         <img src='http://wow.zamimg.com/images/wow/icons/large/<?php echo $loot['icon']; ?>.jpg' height='25'/>
                     </a>
-                    <label style="color:<?php if(isset($this->couleur[$loot['idPersonnage']]))echo $this->couleur[$loot['idPersonnage']]; ?>" >
+                    <label class="char-name" style="color:<?php if(isset($this->couleur[$loot['idPersonnage']])) echo $this->couleur[$loot['idPersonnage']]; ?>;" >
                         <?php echo ucfirst($loot['nom_personnage']) ?>
                     </label> : <?php echo $loot['spe'] ?>
                 </p>

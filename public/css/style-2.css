@@ -97,10 +97,14 @@ h1 , h2 , h3 , h4 , h5 , h6
 {
     border: 1px solid rgba(255,255,255,0.05);
     padding: 7px;
-    text-shadow: none;
+/*    text-shadow : 0 0 3px rgba(0,0,0,1);*/
     background: rgba(0,0,0,0.5);
 }
 
+.char-name
+{
+    text-shadow : 0 0 3px rgba(0,0,0,1);
+}
 
 /*!
  * 	NAVBAR
@@ -192,6 +196,14 @@ h1 , h2 , h3 , h4 , h5 , h6
     margin-top: 15px;
     border-top: 1px solid rgba(255,255,255,0.15);
     z-index: 2000;
+}
+
+/*!
+ * CONTAINER
+ */
+.loot 
+{
+    
 }
 
 /*!
@@ -448,3 +460,4 @@ table > thead > tr:first-child
     border: 1px solid rgba(0,0,0,0.05);
     background: rgba(68,157,68,1);
 }
+
