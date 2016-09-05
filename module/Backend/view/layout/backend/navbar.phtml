@@ -6,6 +6,6 @@
  * @license   http://opensource.org/licenses/LGPL-3.0 LGPL 3.0
  */?>
 <?php foreach ($this->container as $page): ?>
-    <?= $this->partial('partial/commun/menu-item', array('page' => $page)) ?>
+    <?php echo $this->partial('partial/commun/menu-item', array('page' => $page)) ?>
 <?php endforeach; ?>
 
