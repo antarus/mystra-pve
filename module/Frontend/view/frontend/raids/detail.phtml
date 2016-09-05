@@ -1,6 +1,10 @@
-<a href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>"><?php echo $this->translate("retour raid TODO use Nav") ?></a>
-<div class="page-title"><h4><?php echo $this->translate("Détail du raid") ?> </h4></div>
+<div class="page-title">
+    <h4><?php echo $this->translate("Détail du raid") ?></h4>
+</div>
 <div class="wrapper-bg">
+    <a  class='btn btn-success' style='float:right;' href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>">
+        <?php echo $this->translate("Retour à la liste des raids") ?>
+    </a>
     <div>
         <h2> <?php echo $this->raid['note']; ?></h2>
         <i><?php echo sprintf($this->translate("En date du %s"), $raid['date']); ?>  </i>
@@ -33,19 +37,31 @@
     </div>
     <div>
         <h4><?php echo $this->translate("Liste des loots") ?> </h4>
-        <?php foreach ($this->loots as $boss => $listLoot) : ?>
-            <h5><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?> :</h5>
-            <?php foreach($listLoot as $loot):?>
-            <p>
-                <a href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
-                    <img src='http://wow.zamimg.com/images/wow/icons/large/<?php echo $loot['icon']; ?>.jpg' height='25'/>
-                </a>
-                <label style="color:<?php echo $this->couleur[$loot['idPersonnage']] ?>" >
-                    <?php echo ucfirst($loot['nom_personnage']) ?>
-                </label> : <?php echo $loot['spe'] ?>
-            </p>
+        <?php $i = 1;
+        foreach ($this->loots as $boss => $listLoot) : ?>
+        <div class='col-md-4'>
+            <div class='box'>
+                <h5><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?> :</h5>
+                <?php foreach($listLoot as $loot):?>
+                <p>
+                    <a href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
+                        <img src='http://wow.zamimg.com/images/wow/icons/large/<?php echo $loot['icon']; ?>.jpg' height='25'/>
+                    </a>
+                    <label style="color:<?php if(isset($this->couleur[$loot['idPersonnage']]))echo $this->couleur[$loot['idPersonnage']]; ?>" >
+                        <?php echo ucfirst($loot['nom_personnage']) ?>
+                    </label> : <?php echo $loot['spe'] ?>
+                </p>
             <?php endforeach; ?>
+            </div>
+        </div>
+        <?php if( $i === 3): $i = 1;?>
+        <div class='clearfix'></div>
+        <?php else: $i++; 
+              endif;
+        ?>
         <?php endforeach; ?>
+        
+        <div class='clearfix'></div>
     </div>
 </div>
 
