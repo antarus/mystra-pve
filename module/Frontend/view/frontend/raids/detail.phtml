@@ -1,36 +1,36 @@
 <a href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>"><?php echo $this->translate("retour raid TODO use Nav") ?></a>
+<div class="page-title"><h4><?php echo $this->translate("Détail du raid") ?> </h4></div>
 
-<h1><?php echo $this->translate("Détail du raid") ?> </h1>
 
 <div>
     <h2> <?php echo $raid['note'] ?></h2>
-    <p><?php echo $this->translate("En date du ") . $raid['date'] ?>  </p>
+    <i style="color : rgb(100,100,100);"><?php echo $this->translate("En date du ") . $raid['date'] ?>  </i>
 </div>
 <div>
-    <h2><?php echo $this->translate("Liste des participants") ?> :</h2>
-    <h3><?php echo $this->translate("Roster") ?></h3>
+    <h3><?php echo $this->translate("Liste des participants") ?> :</h3>
+    <h4><?php echo $this->translate("Roster") ?></h4>
     <?php foreach ($participants as $participant) { ?>
         <?php if ($participant['roster']) { ?>
-            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
+    <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
             <!-- end if roster -->
         <?php } ?>
         <!-- end for each -->
     <?php } ?>
-    <h3><?php echo $this->translate("Hors Roster") ?></h3>
+    <h4><?php echo $this->translate("Hors Roster") ?></h4>
     <?php foreach ($participants as $participant) { ?>
 
         <?php if ($participant['roster'] == 0) { ?>
-            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo $participant['personnage_nom'] ?></a> |
+            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
             <!-- end if roster -->
         <?php } ?>
         <!-- end for each -->
     <?php } ?>
 </div>
 <div>
-    <h2><?php echo $this->translate("Liste des loots") ?> :</h2>
+    <h4><?php echo $this->translate("Liste des loots") ?> :</h4>
 
     <?php foreach ($loots as $loot) { ?>
-        <p><label ><?php echo $loot['nom_personnage'] ?></label> : <?php echo '<a href="' . $loot['wowHead'] . '">' . $loot['item'] ?></a> (<?php echo $loot['spe'] ?>) [<?php echo $loot['boss'] ?>] - <?php echo $loot['item_date'] ?></p>
+        <p><label style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($loot['nom_personnage']) ?></label> : <?php echo '<a href="' . $loot['wowHead'] . '">' . $loot['item'] ?></a> (<?php echo $loot['spe'] ?>) [<?php echo ucwords($loot['boss']) ?>] - <?php echo $loot['item_date'] ?></p>
         <!-- end for each -->
     <?php } ?>
 </div>
