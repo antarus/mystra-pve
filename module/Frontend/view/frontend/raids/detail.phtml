@@ -4,43 +4,49 @@
 
 <div class="wrapper-bg">
     <div>
-        <h2> <?php echo $raid['note'] ?></h2>
-        <i><?php echo $this->translate("En date du ") . $raid['date'] ?>  </i>
+        <h2> <?php echo $this->raid['note']; ?></h2>
+        <i><?php echo sprintf($this->translate("En date du %s"), $raid['date']); ?>  </i>
     </div>
     <div>
         <h3><?php echo $this->translate("Liste des participants") ?> :</h3>
         <h4><?php echo $this->translate("Roster") ?></h4>
         
-        <?php foreach ($participants as $participant) { ?>
-            <?php if ($participant['roster']) { 
-             if ($participant['apply'] == 1) { ?>
-            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?>*</a>  |
-                <!-- end if roster -->
-            <?php } else { ?>
-                <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
-            <!-- end for each -->
-        <?php }}} ?>
+        <?php foreach ($this->participants as $participant) : ?>
+            <?php if ($participant['roster']) : ?>
+            <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
+                                                                            'idRaid' => $raid['idRaid'],
+                                                                            'idPers' => $participant['idPersonnage'])); ?>"
+               style="color:<?php echo $participant['classe_couleur']; ?>" >
+                   <?php echo ucfirst($participant['personnage_nom']); ?> <?php if($participant['apply']):?>*<?php endif; ?>
+            </a>  |
+            <?php endif;?>
+        <?php endforeach; ?>
         <h4><?php echo $this->translate("Hors Roster") ?></h4>
-        <?php foreach ($participants as $participant) { ?>
-
-            <?php if ($participant['roster'] == 0) { ?>
-        <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key, 'idRaid' => $raid['idRaid'], 'idPers' => $participant['idPersonnage'])); ?>" style="color:<?php echo $participant['classe_couleur'] ?>" ><?php echo ucfirst($participant['personnage_nom']) ?></a> |
-                <!-- end if roster -->
-            <?php } ?>
-            <!-- end for each -->
-        <?php } ?>
+        <?php foreach ($this->participants as $participant) : ?>
+            <?php if ($participant['roster'] == 0): ?>
+                <a href="<?php echo $this->url('front-personnage-detail', array('key' => $key,
+                                                'idRaid' => $raid['idRaid'],
+                                                'idPers' => $participant['idPersonnage'])); ?>" 
+                    style="color:<?php echo $participant['classe_couleur']; ?>" >
+                        <?php echo ucfirst($participant['personnage_nom']); ?></a> |
+            <?php endif; ?>
+        <?php endforeach; ?>
     </div>
     <div>
         <h4><?php echo $this->translate("Liste des loots") ?> </h4>
-        <?php 
-            $couleur = array_map(function($participants){
-             return  $participants['classe_couleur'];
-            },$participants);
-        ?>
-        <?php foreach ($loots as $loot) { ?>
-            <p><label style="color:<?php echo $couleur[$loot['idPersonnage']] ?>" ><?php echo ucfirst($loot['nom_personnage']) ?></label> : <?php echo '<a href="' . $loot['wowHead'] . '">' . ucwords($loot['item']) ?></a> (<?php echo $loot['spe'] ?>) [ <span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($loot['boss']) ?> ] - <?php echo $loot['item_date'] ?></p>
-            <!-- end for each -->
-        <?php } ?>
+        <?php foreach ($this->loots as $boss => $listLoot) : ?>
+            <h5>..::<?php echo $boss;?> :</h5>
+            <?php foreach($listLoot as $loot):?>
+            <p>
+                <label style="color:<?php echo $this->couleur[$loot['idPersonnage']] ?>" >
+                    <?php echo ucfirst($loot['nom_personnage']) ?>
+                </label> : 
+                <a href='<?php echo $loot['wowHead']; ?>'>
+                    <?php echo ucwords($loot['item']); ?>
+                </a> (<?php echo $loot['spe'] ?>) [ <span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($loot['boss']) ?> ] - <?php echo $loot['item_date'] ?>
+            </p>
+            <?php endforeach; ?>
+        <?php endforeach; ?>
     </div>
     <i><?php echo $this->translate("* : est en apply") ?></i>
 </div>
