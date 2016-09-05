@@ -2,12 +2,12 @@
 
 *
 {
-	border-radius: 0 !important;
+    border-radius: 0 !important;
 
 }
 html
 {
-	overflow-x: hidden; 
+    overflow-x: hidden; 
 }
 html,
 body {
@@ -17,31 +17,31 @@ body {
 }
 body
 {
-	font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  	font-weight: normal;
-	font-size: 12px;
-        text-shadow: 0 0 3px rgba(255,255,255,0.4);
-        position: relative;
-        overflow-x: hidden; 
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+    position: relative;
+    overflow-x: hidden; 
 
 }
 body ,a 
 {
-	color: #FFF;
-	text-shadow: rgba(255,255,255,0.4);
+    color: #FFF;
+    text-shadow: rgba(255,255,255,0.4);
 }
 a , a:hover, a:visited
 {
-	text-decoration: none;
-	color: #FFF;
+    text-decoration: none;
+    color: #FFF;
 }
 a:hover
 {
-	color: #FFD800;
+    color: #FFD800;
 }
 div
 {
-	display: block;
+    display: block;
 }
 h1 , h2 , h3 , h4 , h5 , h6
 {
@@ -49,14 +49,14 @@ h1 , h2 , h3 , h4 , h5 , h6
 }
 #green-light
 {
-	background-image: url('../img/background.jpg');
-	background-size: 100% 100%;
-	background-attachment: fixed;
+    background-image: url('../img/background.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
 }
 .block-area
 {
-	width: 100%;
-	float: left;
+    width: 100%;
+    float: left;
 }
 #wrapper
 {
@@ -66,32 +66,32 @@ h1 , h2 , h3 , h4 , h5 , h6
 }
 .content-wrapper
 {
-	display: block;
-        width: 75%;
-        height: 100%;
-	margin: 0 auto;
+    display: block;
+    width: 75%;
+    height: 100%;
+    margin: 0 auto;
 }
 
 .breadcrumb
 {
-	background: none;
-	float: right;
-	margin: 0;
-	padding: 8px 15px;
-	font-size: 11px;
+    background: none;
+    float: right;
+    margin: 0;
+    padding: 8px 15px;
+    font-size: 11px;
 }
 
 .breadcrumb > li .active
 {
-	color: #FFD800;
+    color: #FFD800;
 }
 .page-title
 {
-	text-transform: uppercase;
-	padding: 8px 15px 9px;
-	font-size: 15px;
-	border-bottom: 1px solid rgba(255,255,255,0.15);
-        margin-bottom: 15px;
+    text-transform: uppercase;
+    padding: 8px 15px 9px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    margin-bottom: 15px;
 }
 .wrapper-bg
 {
@@ -107,8 +107,8 @@ h1 , h2 , h3 , h4 , h5 , h6
  */
 #main-header , .navbar-header, .navbar-brand
 {
-	display: block;
-	background:rgba(0,0,0,0.35);	
+    display: block;
+    background:rgba(0,0,0,0.35);	
 }
 .navbar
 {
@@ -116,45 +116,45 @@ h1 , h2 , h3 , h4 , h5 , h6
 }
 #main-header .navbar-brand
 {
-	position: absolute;
-	top: -15px;
-	padding-bottom: 15px;
+    position: absolute;
+    top: -15px;
+    padding-bottom: 15px;
 }
 #main-header .navbar
 {
- 	background: rgba(0,0,0,1);
+    background: rgba(0,0,0,1);
 }
 
 
 #main-header .navbar-custom-menu a
 {
-	font-size: 15px;
-	text-transform: uppercase;
+    font-size: 15px;
+    text-transform: uppercase;
 }
 
 #main-header .nav > li > a:hover, .nav > li > a, .nav > li > a:focus
 {
-	background:rgba(0,0,0,0.35);
+    background:rgba(0,0,0,0.35);
 }
 
 
 .navbar-toggle {
-	font-size: 35px;
-	position: relative;
-	float: right;
-	padding: 0px;
-	margin-top: 0px;
-	margin-right: 15px;
-	margin-bottom: 0px;
+    font-size: 35px;
+    position: relative;
+    float: right;
+    padding: 0px;
+    margin-top: 0px;
+    margin-right: 15px;
+    margin-bottom: 0px;
  }
  .navbar-left
 {
-	margin-left: 75px;
+    margin-left: 75px;
 }
 
 .navbar-right
 {
-	margin-right: 15px;
+    margin-right: 15px;
 }
 .navbar-right p
 {
@@ -163,17 +163,17 @@ h1 , h2 , h3 , h4 , h5 , h6
     padding-top:15px;
 }
 @media (max-width: 768px) {
-	.navbar-left
-	{
-		margin-left: 15px;
-		margin-right: 15px;
-	}
-	.navbar-right
-	{
-		margin-left: 15px;
-		margin-right: 15px;
+    .navbar-left
+    {
+            margin-left: 15px;
+            margin-right: 15px;
+    }
+    .navbar-right
+    {
+            margin-left: 15px;
+            margin-right: 15px;
 
-	}
+    }
 }
 
 /*!
@@ -189,6 +189,7 @@ h1 , h2 , h3 , h4 , h5 , h6
     width: 100%;
     padding: 15px;
     background:rgba(0,0,0,1);
+    margin-top: 15px;
     border-top: 1px solid rgba(255,255,255,0.15);
     z-index: 2000;
 }
