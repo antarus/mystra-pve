@@ -455,6 +455,13 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
             /* @var $predicateSpe \Zend\Db\Sql\Where() */
             $predicateSpe = $this->getPredicateSpe($iSpe);
             // palllier
+            try {
+                $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
+                $oQuery->where->addPredicate($predicatePallier);
+            } catch (\Commun\Exception\LogException $exc) {
+                return null;
+            }
+
             /* @var $predicateGlobal \Zend\Db\Sql\Where() */
             $predicateGlobal = $this->getTablePallier()->getPredicate($iIdRoster);
             $predicateGlobal->addPredicate($predicateSpe, 'AND');

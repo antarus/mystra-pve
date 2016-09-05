@@ -4,13 +4,14 @@
 
 <div>
     <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
+        <?php echo isset($stats['$palliers']) ? '' : $this->translate("Pallier non configuré") ?>
         <?php foreach ($palliers as $pallier) { ?>
             <?php echo $pallier ?> |
             <!-- end for each -->
         <?php } ?>
     </p>
-    <p> <label ><?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : </label> <?php echo $stats['nbTotalRaidPallier'] ?></p>
-    <p> <label ><?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : </label> <?php echo $stats['nbItemPallier'] ?></p>
+    <p> <label ><?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : </label> <?php echo isset($stats['nbTotalRaidPallier']) ? $stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?></p>
+    <p> <label ><?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : </label> <?php echo $stats['nbItemPallier'] ? $stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?></p>
 </div>
 
 <p> <label ><?php echo $this->translate("Nombre de raid") ?> : </label> <?php echo $stats['nbTotalRaid'] ?></p>
@@ -18,6 +19,8 @@
 
 
 <h2><?php echo $this->translate("Participation") ?> </h2>
+
+<?php echo isset($stats['participation']) ? '' : $this->translate("Aucun participant") ?>
 <?php foreach ($stats['participation'] as $participant) { ?>
     <h4> <?php echo $participant['nom_personnage'] ?></h4>
 

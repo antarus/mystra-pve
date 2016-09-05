@@ -11,13 +11,19 @@ html
 }
 html,
 body {
-  min-height: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    min-height: 100%;
 }
 body
 {
 	font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   	font-weight: normal;
 	font-size: 12px;
+        text-shadow: 0 0 3px rgba(255,255,255,0.4);
+        position: relative;
+        overflow-x: hidden; 
+
 }
 body ,a 
 {
@@ -37,10 +43,13 @@ div
 {
 	display: block;
 }
-
+h1 , h2 , h3 , h4 , h5 , h6
+{
+    line-height: 1.1;
+}
 #green-light
 {
-	background-image: url('../img/background4.jpg');
+	background-image: url('../img/background.jpg');
 	background-size: 100% 100%;
 	background-attachment: fixed;
 }
@@ -49,12 +58,18 @@ div
 	width: 100%;
 	float: left;
 }
+#wrapper
+{
+    height: 100%;
+    margin: 0 auto;
+    overflow-y: scroll;
+}
 .content-wrapper
 {
 	display: block;
-	margin-left: 50px;
-	margin-right: 50px;
-
+        width: 75%;
+        height: 100%;
+	margin: 0 auto;
 }
 
 .breadcrumb
@@ -76,8 +91,15 @@ div
 	padding: 8px 15px 9px;
 	font-size: 15px;
 	border-bottom: 1px solid rgba(255,255,255,0.15);
+        margin-bottom: 15px;
 }
-
+.wrapper-bg
+{
+    border: 1px solid rgba(255,255,255,0.05);
+    padding: 7px;
+    text-shadow: none;
+    background: rgba(0,0,0,0.5);
+}
 
 
 /*!
@@ -86,8 +108,11 @@ div
 #main-header , .navbar-header, .navbar-brand
 {
 	display: block;
-	background:rgba(0,0,0,0.35);
-	
+	background:rgba(0,0,0,0.35);	
+}
+.navbar
+{
+    border-bottom: 1px solid rgba(255,255,255,0.15);
 }
 #main-header .navbar-brand
 {
@@ -97,7 +122,7 @@ div
 }
 #main-header .navbar
 {
- 	background: rgba(0,0,0,0.35);
+ 	background: rgba(0,0,0,1);
 }
 
 
@@ -126,14 +151,16 @@ div
 {
 	margin-left: 75px;
 }
+
 .navbar-right
 {
 	margin-right: 15px;
 }
 .navbar-right p
 {
-    background:rgba(0,0,0,0.35);
+
     font-size: 15px;
+    padding-top:15px;
 }
 @media (max-width: 768px) {
 	.navbar-left
@@ -149,48 +176,274 @@ div
 	}
 }
 
+/*!
+ * FOOTER
+ */
+
+.main-footer
+{
+    position: fixed;
+    bottom: 0px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px;
+    background:rgba(0,0,0,1);
+    border-top: 1px solid rgba(255,255,255,0.15);
+    z-index: 2000;
+}
 
 /*!
  *	TABLE
  */
 .block-title
 {
-	background:rgba(0,0,0,0.35);
-	font-size: 12px;
-	text-transform: uppercase;
-	padding: 5px 10px 5px;
-	display: inline-block;
-	letter-spacing: 0.5px;
+    background:rgba(0,0,0,0.35);
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 5px 10px 5px;
+    display: inline-block;
+    letter-spacing: 0.5px;
 }
 table
 {
-	max-width: 100%;
+    max-width: 100%;
 }
 .tile
 {
-	background: rgba(0,0,0,0.35);
-	box-shadow: rgba(0,0,0,0.15);
-	margin-bottom: 15px;
+    background: rgba(0,0,0,0.35);
+    box-shadow: rgba(0,0,0,0.15);
+    margin-bottom: 15px;
 }
 thead
 {
-	text-transform: uppercase;
-	text-shadow: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    text-shadow: rgba(255,255,255,0.4);
 }
 .table th
 {
-	background: rgba(0,0,0,0.35);
-	border-color: rgba(255,255,255,0.05) !important;
-	text-shadow: rgba(255,255,255,0.4);
+    background: rgba(0,0,0,0.35);
+    border-color: rgba(255,255,255,0.05) !important;
+    text-shadow: rgba(255,255,255,0.4);
 }
 .table td
 {
-	border-color: rgba(255,255,255,0.05) !important;
-	text-shadow: rgba(255,255,255,0.4);
+    border-color: rgba(255,255,255,0.05) !important;
+    text-shadow: rgba(255,255,255,0.4);
 
 }
 .table-bordered
 {
-	border: 0;
+    border: 0;
+}
+.table-bordered > thead > tr > th
+{
+    border: 1px solid rgba(255,255,255,0.05);
+}
+table .zf-title
+{
+    border: none;
+    background: rgba(0,0,0,0.7);
+}
+table > thead > tr:first-child
+{
+    display: none;
 }
 
+.table-striped > tbody > tr:nth-of-type(odd)
+{
+    background: rgba(0,0,0,0.3);
+}
+.table-striped > tbody > tr:nth-of-type(odd):hover
+{
+    background: rgba(0,0,0,0.7);
+}
+.table-striped > tbody > tr:nth-of-type(even)
+{
+    background: rgba(0,0,0,0.15);
+}
+.table-striped > tbody > tr:nth-of-type(even):hover
+{
+    background: rgba(0,0,0,0.7);
+}
+
+.pagination > .active > a
+{
+    background: rgba(0,0,0,0.7);
+    border : 1px solid rgba(255,255,255,0.05);
+    color : #FFD800;
+}
+.pagination > .active > a:hover , .pagination > .active > a:focus
+{
+    background: rgba(0,0,0,0.7);
+    color : #FFD800;
+    border : 1px solid rgba(255,255,255,0.05);
+}
+.pagination > .disabled > a , .pagination > .disabled > a:hover , .pagination > .disabled > a:focus , .pagination > li > a , .pagination > li > a:hover , .pagination > li > a:focus
+{
+    background: rgba(0,0,0,0.5);
+    border: none;
+    border : 1px solid rgba(255,255,255,0.05);
+}
+.pagination > li > a  
+{
+    color : #FFF;
+}
+.pagination > li > a:hover , .pagination > li > a:focus
+{
+    color : #FFD800;
+}
+.form-control
+{
+    background : rgba(0,0,0,0.5);
+    color : #FFF;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+/*!
+ * FORM
+ */
+.form-title
+{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    margin: 0;
+}
+.form-create-account , .form-login , .form-forget
+{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    padding: 20px;
+    width: 345px; 
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(0,0,0,0.35);
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+    
+}
+
+.form-login
+{
+    width: 244px;
+}
+
+.form-create-account dt , .form-login dt , .form-forget dt
+{
+    padding-top: 5px;
+}
+.form-create-account dd , .form-login dt , .form-forget dd
+{
+    padding-bottom: 5px;
+}
+.form-create-account input , .form-login input , .form-forget input
+{
+    border: 1px solid rgba(255,255,255,0.05);
+    width: 200px;
+    background:rgba(0,0,0,0.15);
+}
+.form-forget input
+{
+    margin-top: 7px;
+    margin-bottom: 7px;
+}
+.form-create-account input:focus , .form-login input:focus , .form-forget input:focus
+{
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
+}
+.form-create-account button , .form-login button , .form-forget button
+{
+    text-transform: uppercase;
+    border:none;
+    padding:10px;
+    background: -moz-linear-gradient(top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,1) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,0.3) 0%,rgba(0,0,0,1) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%,rgba(0,0,0,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4d000000', endColorstr='#000000',GradientType=0 );
+    
+}
+
+.form-forget button
+{
+    margin-top: 7px;
+}
+
+.form-create-account button:hover , .form-login button:hover , .form-forget button:hover
+{
+    text-shadow: 0 0 3px rgba(255,255,255,1);
+    background: -moz-linear-gradient(top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 100%);
+    background: -webkit-linear-gradient(top, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%,rgba(0,0,0,0.3) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#4d000000',GradientType=0 );
+}
+.form-create-account button:focus , .form-login button:focus , .form-forget button:focus
+{
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
+}
+.form-create-account ul , .form-create-account li , .form-login ul , .form-login li , .form-forget ul , .form-forget li
+{
+    list-style: none;
+    color: red;
+    text-shadow: none;
+}
+
+/*!
+ * ALERT
+ */
+.alert-dismissible
+{
+    background: rgba(255,255,255,0.7);
+    border:none;
+    margin-right: 100px;
+}
+.alert-danger
+{
+    background: rgba(255,255,255,0.7);
+    border-left: 5px solid rgb(255,73,73);
+    color: rgb(219,0,32);
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+}
+.alert-success
+{
+    background: rgba(255,255,255,0.7);
+    border-left: 5px solid rgb(0,117,5);
+    color: rgb(0,117,5);
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+}
+.alert-info
+{
+    background: rgba(255,255,255,0.7);
+    border-left: 5px solid rgb(0,160,219);
+    color: rgb(0,160,219);
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+}
+.alert-warning
+{
+    background: rgba(255,255,255,0.7);
+    border-left: 5px solid rgb(0,193,193);
+    color: rgb(0,193,193);
+    text-shadow: 0 0 3px rgba(255,255,255,0.4);
+}
+.alert-danger h4, alert-success h4, .alert-info h4, .alert-warning h4
+{
+    display: none;
+}
+.alert-danger p, alert-success p, .alert-info p, .alert-warning p
+{
+    font-size:15px;
+}
+
+
+/*!
+ * Button
+ */
+.btn-success
+{
+    border: 1px solid rgba(0,0,0,0.05);
+    background: rgba(68,157,68,1);
+    margin: 7px 0 7px;
+}
+.btn-success:hover , .btn-success:focus
+{
+    text-shadow: 0 0 3px rgba(255,255,255,1);
+    border: 1px solid rgba(0,0,0,0.05);
+    background: rgba(68,157,68,1);
+}

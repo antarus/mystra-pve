@@ -10,15 +10,18 @@
                 <!--                Header                   -->
                 <?php echo $this->render('layout/app/header_menu') ?>  
             </header>
-            <?php echo $this->render('layout/app/messages') ?>   
-            <?php echo $this->content; ?> 
-        </div> 
-        
+            
+         
+            <div class="content-wrapper">
+                <section class="main-content">
+                    <?php echo $this->render('layout/app/messages') ?>   
+                    <?php echo $this->content; ?> 
+                </section>
+            </div>
+        </div>
         <!--               Footer                   -->
         <footer class="main-footer">
-            <div class="container">
-                <p>&copy; 2016 - <?php echo date('Y') ?> by Antarus - Capi  - Kadyll <?php echo $this->translate('All rights reserved.') ?></p>
-            </div> 
+                <strong>&copy; 2016 - <?php echo date('Y') ?> by Antarus - Capi  - Kadyll</strong><i> - <?php echo $this->translate('All rights reserved.') ?></i>
         </footer>
         <!-- /container -->
         <?php echo $this->inlineScript() ?>

@@ -41,7 +41,7 @@ class RosterController extends FrontController {
         $iIdRaid = $this->params()->fromRoute('idRaid');
         try {
             $aStat = array();
-
+            $aPallier = array();
             $aRoster = $oRoster->getArrayCopy();
 
 
@@ -58,9 +58,11 @@ class RosterController extends FrontController {
             // presence moyenne X dernier raid
             // TODO Anta fin
         } catch (\Exception $exc) {
-            $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
+            $ex = \Core\Util\ParseException::getCause($exc);
+
+            //   $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
-            $this->flashMessenger()->addMessage($msg, 'error');
+            $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
         }
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
