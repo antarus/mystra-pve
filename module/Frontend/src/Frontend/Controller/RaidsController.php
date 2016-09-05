@@ -113,11 +113,13 @@ class RaidsController extends FrontController {
             $aParticipants = $this->getTableRaidPersonnage()->getParticipantRaid($aRaid['idRaid']);
             $aLootNotri = $this->addLienWowHeadItem($this->getTableItemPersonnageRaid()->getLootRaid($aRaid['idRaid']));
             
+            // formatage d'un tableau de couleur par participants.
             $aCouleur = array_map(function($aParticipants){
              return  $aParticipants['classe_couleur'];
             },$aParticipants);
             
-            foreach($aLootNotri as $l) $aLoots[$l['boss']][] = $l;
+            // tri par boss
+            foreach($aLootNotri as $l)$aLoots[$l['boss']][] = $l;
         } catch (\Exception $exc) {
             $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
