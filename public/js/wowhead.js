@@ -1,1 +1,1 @@
-var wowhead_tooltips = { "colorlinks" : true, "iconizelinks" :true, "renamelinks":true}
+var wowhead_tooltips = { "colorlinks" : true, "iconizelinks" :true, "renamelinks":true};
