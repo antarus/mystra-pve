@@ -468,12 +468,19 @@ table > thead > tr:first-child
 .loot 
 {
     padding: 0;
-    margin: 1px;
+    margin-bottom: 1px;
     background: rgba(0,0,0,0.40);
     width: 100%;
-    min-width: 160px;
+    
 }
-
+.list-loot
+{
+    padding-right: 0px;
+}
+.panel-collapse
+{
+    padding: 5px;
+}
 .panel-head
 {
     padding: 5px;
