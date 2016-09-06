@@ -10,10 +10,12 @@
     <div class="col-md-6">
     <h4><?php echo $this->translate('Statistique Général'); ?></h4>
     <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
-        <?php echo isset($stats['$palliers']) ? '' : $this->translate("Pallier non configuré") ?>
-        <?php foreach ($palliers as $pallier) : ?>
-            <?php echo $pallier ?> |
+        <?php echo isset($this->stats['palliers']) ? '' : $this->translate("Pallier non configuré") ?>
+        <ul>
+        <?php foreach ($this->palliers as $pallier) : ?>
+            <li><?php echo $pallier ?> </li>
         <?php endforeach; ?>
+        </ul>
     </p>
     <p> 
         <label>
