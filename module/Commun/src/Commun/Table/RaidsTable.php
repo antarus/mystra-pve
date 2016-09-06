@@ -216,15 +216,20 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
      * @return Zend\Db\Sql\Select
      */
     public function getBaseQueryFrontend($iIdRoster) {
-        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-        $query = $sql->select();
-        $query->from($this->table)->columns(array(
-            '*'
-        ));
-        $where = new \Zend\Db\Sql\Where();
-        $where->equalTo("idRosterTmp", $iIdRoster);
-        $query->where($where);
-        return $query;
+        try {
+            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $query = $sql->select();
+            $query->from($this->table)->columns(array(
+                '*'
+            ));
+            $where = new \Zend\Db\Sql\Where();
+            $where->equalTo("idRosterTmp", $iIdRoster);
+            $query->where($where);
+            $query->order('date DESC');
+            return $query;
+        } catch (\Exception $exc) {
+            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
+        }
     }
 
     public function getRaid($iIdRaid) {

@@ -50,16 +50,6 @@ class RaidsGrid extends \ZfTable\AbstractTable {
             'width' => '100',
             'filters' => 'text',
         ),
-        'ajoutePar' => array(
-            'title' => 'AjoutePar',
-            'width' => '100',
-            'filters' => 'text',
-        ),
-        'majPar' => array(
-            'title' => 'MajPar',
-            'width' => '100',
-            'filters' => 'text',
-        ),
     );
 
     /**
@@ -103,40 +93,48 @@ class RaidsGrid extends \ZfTable\AbstractTable {
     }
 
     public function init() {
+        
+        $this->getHeader("date")->getCell()->addDecorator("callable", array(
+            "callable" => function($context, $record) {
+                $date = new \dateTime($record['date']);
+                return "<a class='' href='".$this->url()->fromRoute('front-raid-detail', array('key' => $this->get_key(), 
+                                                                                               'idRaid' => $record['idRaid'])) 
+                        . "'><div style='height:100%;width:100%'> "
+                        . "{$date->format(' d/m/Y à h:i:s')}"
+                        . "</div></a>";
+            }
+         ));
+        
         $this->getHeader("note")->getCell()->addDecorator("callable", array(
             "callable" => function($context, $record) {
                 //<a href=" $this->url('front-raid-detail', array('key' => $key, 'idRaid' => $aRaid['idRaid']));"><?php $this->escapeHtml($aRaid['note']); </a>
-                return "<a class=\"\" href=\"" . $this->url()->fromRoute('front-raid-detail', array('key' => $this->get_key(), 'idRaid' => $record['idRaid'])) . "\"><span class=\"glyphicon glyphicon-pencil \"></span>&nbsp;" . $record['note'] . "</a>";
+                return "<a class='' href='".$this->url()->fromRoute('front-raid-detail', array('key' => $this->get_key(), 
+                                                                                               'idRaid' => $record['idRaid'])) 
+                        . "'><div style='height:100%;width:100%'> "
+                        . "{$record['note']}"
+                        . "</div></a>";
             }
-                ));
-            }
+         ));
+            
+                
+    }
 
-            /**
-             *
-             * @param \Zend\Db\Sql\Select $query
-             */
-            protected function initFilters($query) {
+    /**
+     *
+     * @param \Zend\Db\Sql\Select $query
+     */
+    protected function initFilters($query) {
 
 
-                $value = $this->getParamAdapter()->getValueOfFilter('date');
-                if ($value != null) {
-                    $query->where("date like '%" . $value . "%' ");
-                }
-
-                $value = $this->getParamAdapter()->getValueOfFilter('note');
-                if ($value != null) {
-                    $query->where("note like '%" . $value . "%' ");
-                }
-
-                $value = $this->getParamAdapter()->getValueOfFilter('ajoutePar');
-                if ($value != null) {
-                    $query->where("ajoutePar like '%" . $value . "%' ");
-                }
-
-                $value = $this->getParamAdapter()->getValueOfFilter('majPar');
-                if ($value != null) {
-                    $query->where("majPar like '%" . $value . "%' ");
-                }
-            }
-
+        $value = $this->getParamAdapter()->getValueOfFilter('date');
+        if ($value != null) {
+            $query->where("date like '%" . $value . "%' ");
         }
+
+        $value = $this->getParamAdapter()->getValueOfFilter('note');
+        if ($value != null) {
+            $query->where("note like '%" . $value . "%' ");
+        }
+    }
+
+}

@@ -1,11 +1,16 @@
 
 <div class="page-title">
-    <h4>Liste des raids du roster</h4>
+    <h4> <?php echo $this->translate("Liste des raids du roster") ?></h4>
 </div>
-<a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success"><?php echo $this->translate("Statistiques Roster") ?></a>
-<div id="tableRaid">
+<a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success">
+    <?php echo $this->translate("Statistiques Précise Roster") ?>
+</a>
+<div class="col-md-6">
+    <div id="tableRaid">
+    </div>
 </div>
-
+<div class="col-md-6">
+</div>
 <script>
     $("#tableRaid").zfTable('<?php echo $this->url('front-raid-ajax-list', array('key' => $key)); ?>');
 </script>
