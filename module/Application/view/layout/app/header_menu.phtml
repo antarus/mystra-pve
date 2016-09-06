@@ -38,24 +38,30 @@
             <ul class="nav navbar-nav navbar-right">
                 
                     <?php if(!$this->zfcUserIdentity()): ?>
-                    <li>
-                        <a href='#loadFormLogin' id='buttonLoginLayoutFront'><span class="glyphicon glyphicon-log-in"></span>  <?php echo $this->translate('Se connecter')?></a> 
+                    <li class="dropdown user user-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-log-in"></span> <?php echo $this->translate("Se connecter"); ?>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="user-body">
+                                <?php echo $this->zfcUserLoginWidget(array('redirect'=>'home')); ?>
+                            </li>
+                            <li class="user-footer ">
+                                <a href="<?php echo $this->url('forgetpass');?>"><?php echo $this->translate("Mot de passe perdu?") ; ?></a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="<?php echo $this->url('zfcuser/register'); ?>"><span class="glyphicon glyphicon-user"></span><?php echo $this->translate('Créer un compte') ?></a>
-                    </li>
-                        <div id='loadFormLogin' style="display:none">
-                       <?php echo $this->zfcUserLoginWidget(array('redirect'=>'home')); ?>
-                        <a href="<?php echo $this->url('forgetpass'); ?>" style='color: black;'><?php echo $this->translate('Mot de passe perdu? cliquez ici') ?></a>
-                        </div>                
-                        <?php else: ?>
-                      
-                       <li>
-                           <p style='font-weight: bold;'><?php echo $this->translate('Bonjour ') ?><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></p>
-                       </li>
-                       <li>
-                           <a href="<?php echo $this->url('zfcuser/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->translate('Se déconnecter ') ?></a>
-                       </li>
+                    </li>           
+                    <?php else: ?>
+
+                   <li>
+                       <p style='font-weight: bold;'><?php echo $this->translate('Bonjour ') ?><?php echo $this->zfcUserIdentity()->getDisplayname(); ?></p>
+                   </li>
+                   <li>
+                       <a href="<?php echo $this->url('zfcuser/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->translate('Se déconnecter ') ?></a>
+                   </li>
                     <?php endif?>
                  
             </ul>
