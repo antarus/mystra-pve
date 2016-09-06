@@ -21,25 +21,26 @@
         <label>
             <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : 
         </label> 
-        <?php echo isset($stats['nbTotalRaidPallier']) ? $stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
+        <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
     </p>
     <p>
         <label>
             <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : 
         </label> 
-        <?php echo $stats['nbItemPallier'] ? $stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
+        <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
     </p>
     <p>
         <label>
             <?php echo $this->translate("Nombre de raid") ?> : 
         </label>
-        <?php echo $stats['nbTotalRaid'] ?>
+        
+        <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
     </p>
     <p>
         <label>
             <?php echo $this->translate("Nombre d'item") ?> : 
         </label>
-            <?php echo $stats['nbItem'] ?>
+            <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
     </p>
     </div>
     
