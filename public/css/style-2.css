@@ -402,7 +402,6 @@ table > thead > tr:first-child
 {
     background: rgba(255,255,255,0.7);
     border:none;
-    margin-right: 100px;
 }
 .alert-danger
 {
@@ -471,14 +470,19 @@ table > thead > tr:first-child
     padding: 0;
     margin: 1px;
     background: rgba(0,0,0,0.40);
-    width: 33.1%;
+    width: 100%;
+    min-width: 160px;
 }
-.panel-group
-{
 
-}
 .panel-head
 {
     padding: 5px;
     background: rgba(0,0,0,0.5);
+}
+@media (max-width: 768px) {
+    .loot
+    {
+       width:100%; 
+    }
+    
 }
