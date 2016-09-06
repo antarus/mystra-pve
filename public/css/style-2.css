@@ -30,7 +30,7 @@ body ,a
     color: #FFF;
     text-shadow: rgba(255,255,255,0.4);
 }
-a , a:hover, a:visited
+a , a:hover, a:visited , a:focus
 {
     text-decoration: none;
     color: #FFF;
@@ -201,10 +201,7 @@ h1 , h2 , h3 , h4 , h5 , h6
 /*!
  * CONTAINER
  */
-.loot 
-{
-    
-}
+
 
 /*!
  *	TABLE
@@ -446,7 +443,7 @@ table > thead > tr:first-child
 
 
 /*!
- * Button
+ * BUTTON
  */
 .btn-success
 {
@@ -461,3 +458,27 @@ table > thead > tr:first-child
     background: rgba(68,157,68,1);
 }
 
+.note
+{
+    font-size: 10px;
+}
+/*!
+ * PANEL 
+ */
+
+.loot 
+{
+    padding: 0;
+    margin: 1px;
+    background: rgba(0,0,0,0.40);
+    width: 33.1%;
+}
+.panel-group
+{
+
+}
+.panel-head
+{
+    padding: 5px;
+    background: rgba(0,0,0,0.5);
+}

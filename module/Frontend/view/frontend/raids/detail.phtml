@@ -7,14 +7,13 @@
     </a>
     <div>
         <h2> <?php echo $this->raid['note']; ?></h2>
-        <i><?php echo sprintf($this->translate("En date du %s"), $raid['date']); ?>  </i>
+        <i class="note"><?php echo sprintf($this->translate("En date du %s"), $raid['date']); ?>  </i>
     </div>
     <div>
         <h3><?php echo $this->translate("Liste des participants") ?> :</h3>
         <h4><?php echo $this->translate("Roster") ?></h4>
         <?php $bStart = true;?>
         <?php foreach ($this->participants as $participant) : ?>
-        <?php //var_dump($participant);?>
             <?php if ($participant['roster']) : ?>
                 <?php if( $bStart == true): $bStart = false; else:?>
                  | 
@@ -29,7 +28,7 @@
             </a>
             <?php endif;?>
         <?php endforeach; ?>
-        <p><i><?php echo $this->translate("* : est en apply") ?></i></p>
+        <p><i class="note"><?php echo $this->translate("* : est en apply") ?></i></p>
         <h4><?php echo $this->translate("Hors Roster") ?></h4>
         <?php $bStart = true;?>
         <?php foreach ($this->participants as $participant) : ?>
@@ -48,33 +47,62 @@
             <?php endif; ?>
         <?php endforeach; ?>
     </div>
-    <div>
-        <h4><?php echo $this->translate("Liste des loots") ?> </h4>
-        <?php $i = 1;
+</div>
+<section class="list-loot">
+    
+    <h4><?php echo $this->translate("Liste des loots") ?> </h4>
+    
+        <?php 
+        $i = 1;
+        $box = 1;
         foreach ($this->loots as $boss => $listLoot) : ?>
-        <div class="loot col-md-4">
-            <div class='box'>
-                <h5><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?> :</h5>
-                <?php foreach($listLoot as $loot):?>
-                <p>
-                    <a href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
-                        <img src='http://wow.zamimg.com/images/wow/icons/large/<?php echo $loot['icon']; ?>.jpg' height='25'/>
-                    </a>
-                    <label class="char-name" style="color:<?php if(isset($this->couleur[$loot['idPersonnage']])) echo $this->couleur[$loot['idPersonnage']]; ?>;" >
-                        <?php echo ucfirst($loot['nom_personnage']) ?>
-                    </label> : <?php echo $loot['spe'] ?>
-                </p>
-            <?php endforeach; ?>
+            <div class="loot col-md-4">
+                <div class="panel-group">
+
+                    <div class="panel-head">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="<?php echo "#collapse".$box ;?>"><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?><span class="glyphicon glyphicon-collapse-down pull-right"</a>
+                    </h4>
+                    </div>
+                    <div id="<?php echo "collapse".$box ;?>" class="panel-collapse collapse"
+                         <ul class="list-group">
+                            <?php foreach($listLoot as $loot):?>
+                                <p>
+                                    <a class="char-name" href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
+                                        <img src='http://wow.zamimg.com/images/wow/icons/large/<?php echo $loot['icon']; ?>.jpg' height='25'/>
+                                    </a>
+                                    <label class="char-name" style="color:<?php if(isset($this->couleur[$loot['idPersonnage']])) echo $this->couleur[$loot['idPersonnage']]; ?>;" >
+                                        <?php echo ucfirst($loot['nom_personnage']) ?>
+                                    </label> : <?php echo $loot['spe'] ?>
+                                </p>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
+    
         <?php if( $i === 3): $i = 1;?>
         <div class='clearfix'></div>
         <?php else: $i++; 
               endif;
         ?>
-        <?php endforeach; ?>
+        
+        <?php 
+            $box++;
+            endforeach; 
+        ?>
         
         <div class='clearfix'></div>
-    </div>
+        
+</section>
+
+
+<div class="panel-groupe">
+    
 </div>
+
+
+
+
+
 
