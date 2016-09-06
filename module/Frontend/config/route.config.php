@@ -7,7 +7,7 @@ return array(
             'front-raid-list' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/frontend/roster/:key/raid/list/',
+                    'route' => '/frontend/roster/:key/raid/list/[:action]',
                     'constraints' => array(
                         'key' => '[a-zA-Z0-9_-]+',
                     ),

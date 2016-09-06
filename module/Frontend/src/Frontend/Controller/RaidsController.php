@@ -3,6 +3,7 @@
 namespace Frontend\Controller;
 
 use Zend\View\Model\ViewModel;
+use Zend\View\Model\JsonModel;
 use Application\Service\LogService;
 
 /**
@@ -101,6 +102,11 @@ class RaidsController extends FrontController {
         $oViewModel->setVariable('palliers', $aPallier);
         return $oViewModel;
     }
+    
+    public function  ajaxPresenceAction()
+    {
+        return new JsonModel(array('Dez'=> 22,'Bank'=>3,'spe1'=>60,'spe2'=>45,'spe3'=> 5,'spe4'=>0));
+    }
 
     /**
      * Action pour le listing via AJAX.
@@ -153,9 +159,15 @@ class RaidsController extends FrontController {
             foreach($aLootNotri as $l)
             {
                 if($l['royaume_personnage'] === 'bank')
+                {
                     $l['nom_personnage'] = $this->_getServTranslator()->translate('Mis en Banque de guilde');
+                    $l['spe'] ='';
+                }
                 if($l['royaume_personnage'] === 'disenchant')
+                {
                     $l['nom_personnage'] = $this->_getServTranslator()->translate('Envoyé pour désenchantement');
+                    $l['spe'] ='';
+                }
                 $aLoots[$l['boss']][] = $l;
             }
         } catch (\Exception $exc) {

@@ -10,12 +10,13 @@
     <div class="col-md-6">
     <h4><?php echo $this->translate('Statistique Général'); ?></h4>
     <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
-        <?php echo isset($this->stats['palliers']) ? '' : $this->translate("Pallier non configuré") ?>
+        <?php if(!empty($this->palliers)): ?> 
         <ul>
         <?php foreach ($this->palliers as $pallier) : ?>
             <li><?php echo $pallier ?> </li>
         <?php endforeach; ?>
         </ul>
+        <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
     </p>
     <p> 
         <label>
@@ -45,11 +46,14 @@
     </div>
     
     <div class="col-md-6" >
-        <h4><?php echo $this->translate('Présence du roster en raid:'); ?></h4>
-        <div id="donutpresencechart" style='width:100%; height:100%'>            
-        </div>
+        <h4><?php echo $this->translate('Utilisation des loots pour le(s) pallier(s) configuré(s):'); ?></h4>
+        <?php if(!empty($this->palliers)): ?>
+            <div id="donutpresencechart" style='width:100%; height:100%'>            
+            </div>
+        <?php else: ?>
+            <?php echo $this->translate("Veuillez configurer un pallier de raid par défaults :)") ?>
+        <?php endif; ?>
     </div>
-    <div class='clearfix'></div>
     <div class='clearfix'></div>
 </div>
 <a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success pull-right">
@@ -58,3 +62,4 @@
 <script>
     $("#tableRaid").zfTable('<?php echo $this->url('front-raid-ajax-list', array('key' => $key)); ?>');
 </script>
+<input type='hidden' id='ajaxUrl' value='<?php echo $this->url('front-raid-list', array('key' => $key)); ?>'/>
