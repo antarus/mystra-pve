@@ -301,14 +301,16 @@ class RosterTable extends \Core\Table\AbstractServiceTable {
             foreach ($PlayerAttende as $key => $aStatPlayer) {
                 $iPresGlobal = isset($aStatPlayer['nbRaid']) ? $aStatPlayer['nbRaid'] : 0;
                 $iPresPallier = (isset($aStatPlayer['nbRaidPallier']) && $aNbTotalRaidJoueurPallier !== 'pallier non défini') ? $aStatPlayer['nbRaidPallier'] : 0;
-
-                if ($oReturn->getNbTotalRaid() != 0) {
-                    $aStatPlayer['presenceGlobal'] = round(100 * $iPresGlobal / $oReturn->getNbTotalRaid(), 2);
-                    $aStatPlayer['presencePallier'] = round(100 * $iPresPallier / $oReturn->getNbTotalRaidPallier(), 2);
-                } else {
+                
+                
+                ($oReturn->getNbTotalRaid() != 0)?
+                    $aStatPlayer['presenceGlobal'] = round(100 * $iPresGlobal / $oReturn->getNbTotalRaid(), 2):
                     $aStatPlayer['presenceGlobal'] = 0;
+                
+                ($oReturn->getNbTotalRaidPallier() != 0)?   
+                    $aStatPlayer['presencePallier'] = round(100 * $iPresPallier / $oReturn->getNbTotalRaidPallier(), 2):
                     $aStatPlayer['presencePallier'] = 0;
-                }
+                
                 $aParticipationJoueur[] = $aStatPlayer;
             }
             $oReturn->setParticipation($aParticipationJoueur);
