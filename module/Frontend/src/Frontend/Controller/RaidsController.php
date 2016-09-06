@@ -16,7 +16,20 @@ class RaidsController extends FrontController {
     private $_tableRaid;
     private $_tableRaidPersonnage;
     private $_tableItemPersonnageRaid;
+    private $_tablePallier;
 
+    /**
+     * Returne une instance de la table PallierAfficher en lazy.
+     *
+     * @return \Commun\Table\PallierAfficherTable
+     */
+    public function getTablePallier() {
+        if (!$this->_tablePallier) {
+            $this->_tablePallier = $this->getServiceLocator()->get('\Commun\Table\PallierAfficherTable');
+        }
+        return $this->_tablePallier;
+    }
+    
     /**
      * Returne une instance de la table Raid en lazy.
      *
@@ -63,11 +76,29 @@ class RaidsController extends FrontController {
         $oRoster = $this->valideKey();
         if (!$oRoster) {
             return $this->redirect()->toRoute('home');
+        }        
+        $key = $oRoster->getKey();
+        try {
+            $aStat = array();
+            $aPallier = array();
+            $aRoster = $oRoster->getArrayCopy();
+
+            $aStat = $this->getTableRoster()->getStatRoster($oRoster->getNom())->getArrayCopy();
+            $aPallier = $this->getTablePallier()->getPallierFrontend($oRoster->getIdRoster());
+
+        } catch (\Exception $exc) {
+            $ex = \Core\Util\ParseException::getCause($exc);
+            $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
+            $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
         }
+        
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/list');
         $oViewModel->setVariable('key', $oRoster->getKey());
+        $oViewModel->setVariable('roster', $aRoster);
+        $oViewModel->setVariable('stats', $aStat);
+        $oViewModel->setVariable('palliers', $aPallier);
         return $oViewModel;
     }
 

@@ -2,15 +2,56 @@
 <div class="page-title">
     <h4> <?php echo $this->translate("Liste des raids du roster") ?></h4>
 </div>
-<a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success">
-    <?php echo $this->translate("Statistiques Précise Roster") ?>
-</a>
 <div class="col-md-6">
     <div id="tableRaid">
     </div>
 </div>
 <div class="col-md-6">
+    <div class="col-md-6">
+    <h4><?php echo $this->translate('Statistique Général'); ?></h4>
+    <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
+        <?php echo isset($stats['$palliers']) ? '' : $this->translate("Pallier non configuré") ?>
+        <?php foreach ($palliers as $pallier) : ?>
+            <?php echo $pallier ?> |
+        <?php endforeach; ?>
+    </p>
+    <p> 
+        <label>
+            <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : 
+        </label> 
+        <?php echo isset($stats['nbTotalRaidPallier']) ? $stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
+    </p>
+    <p>
+        <label>
+            <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : 
+        </label> 
+        <?php echo $stats['nbItemPallier'] ? $stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
+    </p>
+    <p>
+        <label>
+            <?php echo $this->translate("Nombre de raid") ?> : 
+        </label>
+        <?php echo $stats['nbTotalRaid'] ?>
+    </p>
+    <p>
+        <label>
+            <?php echo $this->translate("Nombre d'item") ?> : 
+        </label>
+            <?php echo $stats['nbItem'] ?>
+    </p>
+    </div>
+    
+    <div class="col-md-6" >
+        <h4><?php echo $this->translate('Présence du roster en raid:'); ?></h4>
+        <div id="donutpresencechart" style='width:100%; height:100%'>            
+        </div>
+    </div>
+    <div class='clearfix'></div>
+    <div class='clearfix'></div>
 </div>
+<a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success pull-right">
+    <?php echo $this->translate("Voir + de Stats") ?>
+</a>
 <script>
     $("#tableRaid").zfTable('<?php echo $this->url('front-raid-ajax-list', array('key' => $key)); ?>');
 </script>
