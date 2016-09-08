@@ -41,12 +41,14 @@ $(document).ready(function() {
 
         var options = {
           backgroundColor: { fill:'transparent' },
-          chartArea:{left:2,top:2,width:'100%',height:'100%'},
+          chartArea:{left:4,top:4,width:'100%',height:'100%'},
           pieHole: 0.4,
         };
-
-        var chart = new google.visualization.PieChart(document.getElementById('donutpresencechart'));
-        chart.draw(data, options);
+        if($('#lootDonationTiers'))
+        {
+            var chart = new google.visualization.PieChart(document.getElementById('lootDonationTiers'));
+            chart.draw(data, options);
+        }
         
       }
     }
