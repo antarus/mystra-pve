@@ -16,6 +16,7 @@ class FrontController extends \Zend\Mvc\Controller\AbstractActionController {
     private $_logService;
     private $_cache;
     private $_tableRoster;
+    private $_tableRosterHasPersonnage;
 
     /**
      * Returne une instance de la table Roster en lazy.
@@ -28,7 +29,19 @@ class FrontController extends \Zend\Mvc\Controller\AbstractActionController {
         }
         return $this->_tableRoster;
     }
-
+    
+/**
+     * Returne une instance de la table Roster en lazy.
+     *
+     * @return \Commun\Table\RosterTable
+     */
+    public function getTableRosterHasPersonnage() {
+        if (!$this->_tableRosterHasPersonnage) {
+            $this->_tableRosterHasPersonnage = $this->getServiceLocator()->get('\Commun\Table\RosterHasPersonnageTable');
+        }
+        return $this->_tableRosterHasPersonnage;
+    }
+    
     /**
      * Lazy getter pour le service de logs
      * @return \Application\Service\LogService
