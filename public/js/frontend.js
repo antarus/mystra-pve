@@ -75,19 +75,16 @@ $(document).ready(function() {
         
         if($('#lootDonationTiers').length)
         {
-            console.log(1);
             var chart = new google.visualization.PieChart(document.getElementById('lootDonationTiers'));
             chart.draw(dataLootDonation, options);
         }
         if($('#lootDonationRaid').length)
         { 
-            console.log($('#lootDonationRaid'));
             var chart = new google.visualization.ColumnChart(document.getElementById('lootDonationRaid'));
             chart.draw(dataDonationRaid, optionsDonationRaid);
         }
         if($('#lootRosterNoRoster').length)
         { 
-            console.log(3);
             var chart = new google.visualization.PieChart(document.getElementById('lootRosterNoRoster'));
             chart.draw(dataLootRosterNoRoster, options);
         }
