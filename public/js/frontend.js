@@ -22,7 +22,7 @@ $(document).ready(function() {
                 $.chartsVar.spe3 = 0;
                 $.chartsVar.spe4 = 0;
         });
-    }
+
         
     
     // charts
@@ -49,6 +49,7 @@ $(document).ready(function() {
         chart.draw(data, options);
         
       }
+    }
 });
 
 // gestion du loading ajax global
