@@ -566,3 +566,34 @@ table > thead > tr:first-child
         padding-top: 1px;
     }
 }
+
+
+/*!
+ * BOX
+ */
+.box
+{
+    padding-right: 7px;
+    padding-left: 7px;
+    background : rgba(0,0,0,0.30);
+    text-align: justify;
+}
+
+
+/*!
+ * CHARTS
+ */
+.columnchart text
+{
+    color: #000;
+    fill : #FFF;
+}
+.columnchart rect
+{
+    fill: rgba(255,255,255,0.70);
+    stroke: rgba(255,255,255,0.70);
+}
+.doughnutchart text
+{
+    fill : #FFF;
+}

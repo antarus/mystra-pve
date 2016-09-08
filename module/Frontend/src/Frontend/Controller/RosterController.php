@@ -34,20 +34,24 @@ class RosterController extends FrontController {
      */
     public function statsAction() {
         $oRoster = $this->valideKey();
+        
         if (!$oRoster) {
             return $this->redirect()->toRoute('home');
         }
+        
         $key = $oRoster->getKey();
         $iIdRaid = $this->params()->fromRoute('idRaid');
+        
         try {
             $aStat = array();
             $aPallier = array();
+            
             $aRoster = $oRoster->getArrayCopy();
 
 
             $aStat = $this->getTableRoster()->getStatRoster($oRoster->getNom())->getArrayCopy();
             $aPallier = $this->getTablePallier()->getPallierFrontend($oRoster->getIdRoster());
-
+            
             // TODO Anta
             // nombre de boss tués
             // nombre des loots
@@ -64,6 +68,7 @@ class RosterController extends FrontController {
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
             $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
         }
+        
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/roster/stats');
@@ -72,6 +77,7 @@ class RosterController extends FrontController {
         $oViewModel->setVariable('stats', $aStat);
         $oViewModel->setVariable('palliers', $aPallier);
         return $oViewModel;
+        
     }
 
 }
