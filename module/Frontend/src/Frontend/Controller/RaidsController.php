@@ -149,6 +149,32 @@ class RaidsController extends FrontController {
             
             $aParticipants = $this->getTableRaidPersonnage()->getParticipantRaid($aRaid['idRaid']);
             $aLootNotri = $this->addLienWowHeadItem($this->getTableItemPersonnageRaid()->getLootRaid($aRaid['idRaid']));
+
+            $aRosterList = $this->getTableRosterHasPersonnage()->getListePersonnage(null,$aRoster['idRoster']);
+
+            $nbrRoster = array_count_values(array_map(function($aParticipants){
+                      return $aParticipants['roster'];
+                   },$aParticipants));
+                      
+            foreach ($aRosterList as $r)
+            {
+                $abs = true;
+                foreach ( $aParticipants as $p)
+                    if($r['idPersonnage'] == $p['idPersonnage']) $abs = false;
+                
+                if($abs)
+                    $aParticipants[] = array(
+                        'idRaid' => $aRoster['idRoster'],
+                        'idPersonnage' => $r['idPersonnage'],
+                        'personnage_nom' =>$r['nom'],
+                        'personnage_royaume' =>$r['royaume'],
+                        'ilvl' => $r['ilvl'],
+                        'classe_couleur' => '#eee',
+                        'roster' => 1,
+                        'apply' => $r['isApply'],
+                        'abs' => true,
+                    );
+            }
             
             // formatage d'un tableau de couleur par participants.
             $aCouleur = array_map(function($aParticipants){
@@ -175,12 +201,16 @@ class RaidsController extends FrontController {
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
             $this->flashMessenger()->addMessage($msg, 'error');
         }
+        
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/raids/detail');
         $oViewModel->setVariable('key', $key);
         $oViewModel->setVariable('roster', $aRoster);
         $oViewModel->setVariable('raid', $aRaid);
+        $oViewModel->setVariable('nbrRosterPresent', $nbrRoster[1]);
+        $oViewModel->setVariable('nbrNonRoster', $nbrRoster[0]);
+        $oViewModel->setVariable('nbrRoster', count($aRosterList));
         $oViewModel->setVariable('participants', $aParticipants);
         $oViewModel->setVariable('loots', $aLoots);
         $oViewModel->setVariable('couleur', $aCouleur);

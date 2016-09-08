@@ -37,8 +37,7 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
      * @param type $idRoster
      * @return type
      */
-    function getListePersonnage($idRole, $idRoster) {
-
+    function getListePersonnage($idRole = null, $idRoster) {
 
         $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
         $oQuery = $sql->select();
@@ -47,7 +46,7 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
                 ->from(array('rhp' => 'roster_has_personnage'));
 
         $oQuery->join(array('p' => 'personnages'), 'rhp.idPersonnage = p.idPersonnage', array('nom',
-            'idPersonnage', 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER);
+            'idPersonnage', 'royaume', 'ilvl'), \Zend\Db\Sql\Select::JOIN_INNER);
 
         $oQuery->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('classe' => 'nom',
             'idClasses', 'couleur'), \Zend\Db\Sql\Select::JOIN_INNER);
@@ -60,8 +59,8 @@ class RosterHasPersonnageTable extends \Core\Table\AbstractServiceTable {
             'idGuildes'), \Zend\Db\Sql\Select::JOIN_LEFT);
 
 
-
-        $oQuery->where("rhp.idRole= '" . $idRole . "' and rhp.idRoster = '" . $idRoster . "'");
+        if($idRole) $oQuery->where("rhp.idRole= '$idRole '");
+        $oQuery->where("rhp.idRoster = '$idRoster '");
         $oQuery->order('nom');
         // $this->debug($oQuery);
         $aReturn = $this->fetchAllArray($oQuery);

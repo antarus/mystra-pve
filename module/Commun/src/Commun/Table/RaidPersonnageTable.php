@@ -91,6 +91,7 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
         foreach ($aAllParticpantTmp as $aValue) {
             $aValue['roster'] = 0;
             $aValue['apply'] = null;
+            $aValue['abs'] = false;
             $aAllParticpant[$aValue['idPersonnage']] = $aValue;
             
         }
@@ -109,6 +110,7 @@ class RaidPersonnageTable extends \Core\Table\AbstractServiceTable {
             foreach ($aParticipantRoster as $key => $value) {
                 $aAllParticpant[$key]['roster'] = 1;
                 $aAllParticpant[$key]['apply'] = $aMembreRoster[$key]['apply'];
+                $aAllParticpant[$key]['abs'] = false;
             }
         }
         return $aAllParticpant;
