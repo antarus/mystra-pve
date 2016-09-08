@@ -29,7 +29,7 @@ $(document).ready(function() {
     google.charts.load("current", {packages:["corechart"]});
     google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
-        var data = google.visualization.arrayToDataTable([
+        var dataLootDonation = google.visualization.arrayToDataTable([
           ['loot', '%'],
           ['Dez',     $.chartsVar.Dez],
           ['Bank',    $.chartsVar.Bank],
@@ -39,16 +39,59 @@ $(document).ready(function() {
           ['Spe 4',   $.chartsVar.spe4],
         ]);
 
+        var dataDonationRaid = google.visualization.arrayToDataTable([
+            ['loot', 'Nombre de loot',{ role: 'style' }],
+            ['Dez', $.chartsVar.Dez, 'color: gray'],
+            ['Bank', $.chartsVar.Bank, 'color: #76A7FA'],
+            ['Spe 1', $.chartsVar.spe1, 'color: #black'],
+            ['Spe 2', $.chartsVar.spe2, 'color: #703593'],
+            ['Spe 3', $.chartsVar.spe3, 'color:  #871B47'],
+            ['Spe 4', $.chartsVar.spe4, 'color:  #235B47']
+          ]);
+
+        var dataLootRosterNoRoster = google.visualization.arrayToDataTable([
+          ['Type', '%'],
+          ['Roster',     120],
+          ['NoRoster',    20],
+        ]);
+
         var options = {
           backgroundColor: { fill:'transparent' },
           chartArea:{left:4,top:4,width:'100%',height:'100%'},
           pieHole: 0.4,
         };
-        if($('#lootDonationTiers'))
+        
+        var optionsDonationRaid = {
+            backgroundColor: { fill:'transparent' },
+            chartArea:{left:4,top:4,width:'100%',height:'80%'},
+            isStacked: true,
+            hAxis: {
+              title: 'Nbr de loots',
+            },
+            vAxis: {
+              title: "Type d'attribution"
+            }
+        };
+        
+        if($('#lootDonationTiers').length)
         {
+            console.log(1);
             var chart = new google.visualization.PieChart(document.getElementById('lootDonationTiers'));
-            chart.draw(data, options);
+            chart.draw(dataLootDonation, options);
         }
+        if($('#lootDonationRaid').length)
+        { 
+            console.log($('#lootDonationRaid'));
+            var chart = new google.visualization.ColumnChart(document.getElementById('lootDonationRaid'));
+            chart.draw(dataDonationRaid, optionsDonationRaid);
+        }
+        if($('#lootRosterNoRoster').length)
+        { 
+            console.log(3);
+            var chart = new google.visualization.PieChart(document.getElementById('lootRosterNoRoster'));
+            chart.draw(dataLootRosterNoRoster, options);
+        }
+        
         
       }
     }

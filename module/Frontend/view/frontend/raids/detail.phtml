@@ -10,9 +10,9 @@
             <h2> <?php echo $this->raid['note']; ?></h2>
             <i class="note"><?php echo sprintf($this->translate("En date du %s"), $raid['date']); ?>  </i>
         </div>
-        <div>
+        <div style='padding-bottom: 15px;'>
             <h3><?php echo $this->translate("Liste des participants") ?> :</h3>
-            <h4><?php echo $this->translate("Roster") ?></h4>
+            <h4><?php echo $this->translate("Roster") ?> (3/10)</h4>
             <?php $bStart = true;?>
             <?php foreach ($this->participants as $participant) : ?>
                 <?php if ($participant['roster']) : ?>
@@ -48,6 +48,16 @@
                 <?php endif; ?>
             <?php endforeach; ?>
         </div>
+        <div class='col-md-8' >
+            <h4><?php echo $this->translate("Utilisation des loots :");?></h4>
+            <div id="lootDonationRaid" style='width:100%; height:100%'>            
+            </div>
+        </div>
+        <div class='col-md-4'>
+            <h4><?php echo $this->translate("Repartition des loots :");?></h4>
+            <div id="lootRosterNoRoster" style='width:100%; height:100%'>            
+            </div>
+        </div>
     </section>
 <aside class="list-loot col-md-4">
     <?php 
@@ -70,7 +80,6 @@
                                 <a class="char-name" href='<?php echo str_replace('www','fr',$loot['wowHead']); ?>'>
                                     item
                                 </a>
-
                                 <label class="char-name" style="color:<?php if(isset($this->couleur[$loot['idPersonnage']])) echo $this->couleur[$loot['idPersonnage']]; ?>;" >
                                     <?php echo ucfirst($loot['nom_personnage']) ?>
                                 </label> : <?php echo $loot['spe'] ?>
@@ -95,6 +104,7 @@
     <div class='clearfix'></div>
 
 </aside>
+<input type='hidden' id='ajaxUrl' value='<?php echo $this->url('front-raid-list', array('key' => $key)); ?>'/>
 
 
 
