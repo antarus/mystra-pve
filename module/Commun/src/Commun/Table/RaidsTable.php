@@ -146,8 +146,8 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
                         'nbRaid' => new Expression('COUNT(rp.idRaid)'),
                         'idPersonnage'
                     ))
-                    ->group("nom_personnage")
-                    ->order('nom_personnage');
+                    ->group("idPersonnage")
+                    ->order('idPersonnage');
             $where = new \Zend\Db\Sql\Where();
             $where->equalTo("idRosterTmp", $iIdRoster);
             $oQuery->where($where);
@@ -179,8 +179,8 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             }
 
 
-            $oQuery->group("nom_personnage")
-                    ->order('nom_personnage');
+            $oQuery->group("idPersonnage")
+                    ->order('idPersonnage');
             // $this->debug($oQuery);
             return $this->fetchAllArray($oQuery);
         } catch (\Exception $exc) {
