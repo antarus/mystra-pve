@@ -566,3 +566,13 @@ table > thead > tr:first-child
         padding-top: 1px;
     }
 }
+
+
+/*!
+ * BOX
+ */
+.box
+{
+    padding: 7px;
+    background : rgba(0,0,0,0.35);
+}
