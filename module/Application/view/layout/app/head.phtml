@@ -24,7 +24,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 echo $this->headScript()
         ->appendFile($this->basePath('js/jquery.min.js'))
         ->appendFile($this->basePath('js/commun.js'))
-        ->appendFile($this->basePath('js/frontend.js'))
+        ->appendFile($this->basePath('js/frontend.js?v='.time()))
         ->appendFile($this->basePath('js/bootstrap.min.js'))
         ->appendFile($this->basePath('js/user/user.js'))
 //        ->appendFile($this->basePath('js/jquery/validate/messages_fr.min.js'))
@@ -36,7 +36,8 @@ echo $this->headScript()
         ->appendFile($this->basePath('plugin/fancybox/source/jquery.fancybox.pack.js?v=2.1.5'))
         ->appendFile("//wow.zamimg.com/widgets/power.js")
         ->appendFile($this->basePath('js/wowhead.js'))
-        ->appendFile('https://www.gstatic.com/charts/loader.js');
+        ->appendFile('https://www.gstatic.com/charts/loader.js')
+        ->appendFile('http://www.google.com/jsapi');
 //        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
 ;
 ?>
