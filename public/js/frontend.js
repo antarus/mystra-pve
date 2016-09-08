@@ -41,14 +41,14 @@ $(document).ready(function() {
 
         var dataDonationRaid = google.visualization.arrayToDataTable([
             ['loot', 'Nombre de loot',{ role: 'style' }],
-            ['Dez', $.chartsVar.Dez, 'color: gray'],
-            ['Bank', $.chartsVar.Bank, 'color: #76A7FA'],
-            ['Spe 1', $.chartsVar.spe1, 'color: #black'],
-            ['Spe 2', $.chartsVar.spe2, 'color: #703593'],
-            ['Spe 3', $.chartsVar.spe3, 'color:  #871B47'],
-            ['Spe 4', $.chartsVar.spe4, 'color:  #235B47']
+            ['Dez', $.chartsVar.Dez, 'color: #FFF; opacity: 0.70'],
+            ['Bank', $.chartsVar.Bank, 'color: #FFF; opacity: 0.70'],
+            ['Spe 1', $.chartsVar.spe1, 'color: #FFF; opacity: 0.70'],
+            ['Spe 2', $.chartsVar.spe2, 'color: #FFF; opacity: 0.70'],
+            ['Spe 3', $.chartsVar.spe3, 'color:  #FFF; opacity: 0.70'],
+            ['Spe 4', $.chartsVar.spe4, 'color:  #FFF; opacity: 0.70']
           ]);
-
+         
         var dataLootRosterNoRoster = google.visualization.arrayToDataTable([
           ['Type', '%'],
           ['Roster',     120],

@@ -585,15 +585,14 @@ table > thead > tr:first-child
  */
 .columnchart text
 {
-    color: #000;
     fill : #FFF;
 }
 .columnchart rect
 {
-    fill: rgba(255,255,255,0.70);
-    stroke: rgba(255,255,255,0.70);
+/*    fill: rgba(255,255,255,0.70);
+    stroke: rgba(255,255,255,0.70);*/
 }
-.doughnutchart text
+.donutchart text
 {
     fill : #FFF;
 }
