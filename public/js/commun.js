@@ -1,6 +1,4 @@
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(drawChart);
-  
+ 
 function page404() {
 
     window.addEventListener('resize', resizeCanvas, false);
