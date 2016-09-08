@@ -208,8 +208,8 @@ class RaidsController extends FrontController {
         $oViewModel->setVariable('key', $key);
         $oViewModel->setVariable('roster', $aRoster);
         $oViewModel->setVariable('raid', $aRaid);
-        $oViewModel->setVariable('nbrRosterPresent', $nbrRoster[1]);
-        $oViewModel->setVariable('nbrNonRoster', $nbrRoster[0]);
+        $oViewModel->setVariable('nbrRosterPresent', (isset($nbrRoster[1]))?$nbrRoster[1]:0);
+        $oViewModel->setVariable('nbrNonRoster', (isset($nbrRoster[0]))?$nbrRoster[0]:0);
         $oViewModel->setVariable('nbrRoster', count($aRosterList));
         $oViewModel->setVariable('participants', $aParticipants);
         $oViewModel->setVariable('loots', $aLoots);
