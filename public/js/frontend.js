@@ -22,61 +22,37 @@ $(document).ready(function() {
                 $.chartsVar.spe3 = 0;
                 $.chartsVar.spe4 = 0;
         });
-
         
-    
-    // charts
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var dataLootDonation = google.visualization.arrayToDataTable([
-          ['loot', '%'],
-          ['Dez',     $.chartsVar.Dez],
-          ['Bank',    $.chartsVar.Bank],
-          ['Spe 1',   $.chartsVar.spe1],
-          ['Spe 2',   $.chartsVar.spe2],
-          ['Spe 3',   $.chartsVar.spe3],
-          ['Spe 4',   $.chartsVar.spe4],
-        ]);
-
-        var dataDonationRaid = google.visualization.arrayToDataTable([
-            ['loot', 'Nombre de loot',{ role: 'style' }],
-            ['Dez', $.chartsVar.Dez, 'color: #FFF; opacity: 0.70'],
-            ['Bank', $.chartsVar.Bank, 'color: #FFF; opacity: 0.70'],
-            ['Spe 1', $.chartsVar.spe1, 'color: #FFF; opacity: 0.70'],
-            ['Spe 2', $.chartsVar.spe2, 'color: #FFF; opacity: 0.70'],
-            ['Spe 3', $.chartsVar.spe3, 'color:  #FFF; opacity: 0.70'],
-            ['Spe 4', $.chartsVar.spe4, 'color:  #FFF; opacity: 0.70']
-          ]);
-         
-        var dataLootRosterNoRoster = google.visualization.arrayToDataTable([
-          ['Type', '%'],
-          ['Roster',     120],
-          ['NoRoster',    20],
-        ]);
-
-        var options = {
-          backgroundColor: { fill:'transparent' },
-          chartArea:{left:4,top:4,width:'100%',height:'100%'},
-          pieHole: 0.4,
-        };
-        
-        var optionsDonationRaid = {
-            backgroundColor: { fill:'transparent' },
-            chartArea:{left:4,top:4,width:'100%',height:'80%'},
-            isStacked: true,
-            hAxis: {
-              title: 'Nbr de loots',
-            },
-            vAxis: {
-              title: "Type d'attribution"
-            }
+        var data = {
+            labels: [
+                "Red",
+                "Blue",
+                "Yellow"
+            ],
+            datasets: [
+                {
+                    data: [300, 50, 100],
+                    backgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ],
+                    hoverBackgroundColor: [
+                        "#FF6384",
+                        "#36A2EB",
+                        "#FFCE56"
+                    ]
+                }]
         };
         
         if($('#lootDonationTiers').length)
         {
-            var chart = new google.visualization.PieChart(document.getElementById('lootDonationTiers'));
-            chart.draw(dataLootDonation, options);
+            var ctx = document.getElementById("lootDonationTiers");
+            var myDoughnutChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data,
+                options: {},
+            });
         }
         if($('#lootDonationRaid').length)
         { 
@@ -91,7 +67,6 @@ $(document).ready(function() {
         
         
       }
-    }
 });
 
 // gestion du loading ajax global
