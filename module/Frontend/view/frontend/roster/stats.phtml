@@ -1,33 +1,58 @@
 <a href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>"><?php echo $this->translate("retour raid TODO use Nav") ?></a>
-
-<h1><?php echo $this->translate("Stat du roster") . ' ' . $stats['nom'] ?> </h1>
-
-<div>
-    <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
-        <?php echo isset($stats['$palliers']) ? '' : $this->translate("Pallier non configuré") ?>
-        <?php foreach ($palliers as $pallier) { ?>
-            <?php echo $pallier ?> |
-            <!-- end for each -->
-        <?php } ?>
-    </p>
-    <p> <label ><?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : </label> <?php echo isset($stats['nbTotalRaidPallier']) ? $stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?></p>
-    <p> <label ><?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : </label> <?php echo $stats['nbItemPallier'] ? $stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?></p>
+<div class="page-title">
+    <h4><?php echo $this->translate("Stats du roster") . ' ' . ucfirst($stats['nom']) ?> </h4>
 </div>
+<section class="content">
+    <section class="wrapper-bg col-md-8">
+        <h2><?php echo $this->translate("Participation") ?> </h2>
+        
+            <?php echo isset($stats['participation']) ? '' : $this->translate("Aucun participant") ?>
+            <?php foreach ($stats['participation'] as $participant) { ?>
+                <section class="col-md-4">
+                    <h4> <?php echo ucfirst($participant['nom_personnage']) ?></h4>
 
-<p> <label ><?php echo $this->translate("Nombre de raid") ?> : </label> <?php echo $stats['nbTotalRaid'] ?></p>
-<p> <label ><?php echo $this->translate("Nombre d'item") ?> : </label> <?php echo $stats['nbItem'] ?></p>
+                    <p><?php echo $this->translate("Nombre de raid") ?> :  <?php echo $participant['nbRaid'] ?></p>
+                    <p><?php echo $this->translate("Présence dans le pallier") ?> :  <?php echo $participant['presencePallier'] ?></p>
+                    <p><?php echo $this->translate("Présence global") ?> :  <?php echo $participant['presenceGlobal'] ?></p>
+                    <p><a href="<?php echo $this->url('front-personnage-stat', array('key' => $key, 'idPers' => $participant['idPersonnage'])); ?>"><?php echo $this->translate("- voir stats global de se personnage -") ?></a></p>
+                <!-- end for each -->
+                </section>
+            <?php } ?>
+        </section>
+    <aside class="col-md-4">
+        <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
+            <?php if(!empty($this->palliers)): ?> 
+            <ul>
+            <?php foreach ($this->palliers as $pallier) : ?>
+                <li><?php echo ucwords($pallier) ?> </li>
+            <?php endforeach; ?>
+            </ul>
+            <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
+        </p>
+        <p> 
+            <label>
+                <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : 
+            </label> 
+            <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
+        </p>
+        <p>
+            <label>
+                <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : 
+            </label> 
+            <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
+        </p>
+        <p>
+            <label>
+                <?php echo $this->translate("Nombre de raid") ?> : 
+            </label>
 
-
-<h2><?php echo $this->translate("Participation") ?> </h2>
-
-<?php echo isset($stats['participation']) ? '' : $this->translate("Aucun participant") ?>
-<?php foreach ($stats['participation'] as $participant) { ?>
-    <h4> <?php echo $participant['nom_personnage'] ?></h4>
-
-    <p><?php echo $this->translate("Nombre de raid") ?> :  <?php echo $participant['nbRaid'] ?></p>
-    <p><?php echo $this->translate("Présence dans le pallier") ?> :  <?php echo $participant['presencePallier'] ?></p>
-    <p><?php echo $this->translate("Présence global") ?> :  <?php echo $participant['presenceGlobal'] ?></p>
-    <p><a href="<?php echo $this->url('front-personnage-stat', array('key' => $key, 'idPers' => $participant['idPersonnage'])); ?>"><?php echo $this->translate("voir stats global de se personnage") ?></a></p>
-    <!-- end for each -->
-<?php } ?>
-
+            <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
+        </p>
+        <p>
+            <label>
+                <?php echo $this->translate("Nombre d'item") ?> : 
+            </label>
+                <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
+        </p>
+    </aside>
+</section>

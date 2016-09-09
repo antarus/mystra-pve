@@ -13,7 +13,7 @@
         <?php if(!empty($this->palliers)): ?> 
         <ul>
         <?php foreach ($this->palliers as $pallier) : ?>
-            <li><?php echo $pallier ?> </li>
+            <li><?php echo ucwords($pallier) ?> </li>
         <?php endforeach; ?>
         </ul>
         <?php else: echo $this->translate("Pallier non configuré"); endif; ?>

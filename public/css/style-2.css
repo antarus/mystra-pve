@@ -172,11 +172,7 @@ h1 , h2 , h3 , h4 , h5 , h6
     padding: 7px;
     background: rgba(0,0,0,0.40);
 }
-.navbar-right .dropdown-menu
-{
-    padding: 7px;
-    background: rgba(0,0,0,0.40);
-}
+
 .navbar-right input , .navbar-right input:hover , .navbar-right input:focus , .navbar-right input:visited
 {
     border: 1px solid rgba(255,255,255,0.05);
@@ -187,7 +183,10 @@ h1 , h2 , h3 , h4 , h5 , h6
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-
+.nav .open > a , .nav .open > a:focus , .nav .open > a:hover , .nav .open > a:visited
+{
+    background:rgba(0,0,0,0.35);
+}
 .dropdown-menu > li  button
 {
     text-align: center;
@@ -587,11 +586,7 @@ table > thead > tr:first-child
 {
     fill : #FFF;
 }
-.columnchart rect
-{
-/*    fill: rgba(255,255,255,0.70);
-    stroke: rgba(255,255,255,0.70);*/
-}
+
 .donutchart text
 {
     fill : #FFF;
