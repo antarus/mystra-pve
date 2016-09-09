@@ -8,6 +8,7 @@
         
             <?php echo isset($stats['participation']) ? '' : $this->translate("Aucun participant") ?>
             <?php foreach ($stats['participation'] as $participant) { ?>
+            
                 <section class="box stats col-md-4">
                     <label> <?php echo ucfirst($participant['nom_personnage']) ?></label>
 
@@ -17,42 +18,47 @@
                     <p><a href="<?php echo $this->url('front-personnage-stat', array('key' => $key, 'idPers' => $participant['idPersonnage'])); ?>"><?php echo $this->translate("- voir stats globales de se personnage -") ?></a></p>
                 <!-- end for each -->
                 </section>
+            
             <?php } ?>
         </section>
-    <aside class="box col-md-4">
-        <p> <label><?php echo $this->translate("Pallier configuré") ?>  </label>
-            <?php if(!empty($this->palliers)): ?> 
-            <ul>
-            <?php foreach ($this->palliers as $pallier) : ?>
-                <li><?php echo ucwords($pallier) ?> </li>
-            <?php endforeach; ?>
-            </ul>
-            <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
-        </p>
-        <p> 
-            <label>
-                <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?>  
-            </label> 
-            <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
-        </p>
-        <p>
-            <label>
-                <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?>  
-            </label> 
-            <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
-        </p>
-        <p>
-            <label>
-                <?php echo $this->translate("Nombre de raid") ?>  
-            </label>
+    
+        <aside class="col-md-4">
+            <div class="box">
+                <p> <label><?php echo $this->translate("Pallier configuré") ?>  </label>
+                    <?php if(!empty($this->palliers)): ?> 
+                    <ul>
+                    <?php foreach ($this->palliers as $pallier) : ?>
+                        <li><?php echo ucwords($pallier) ?> </li>
+                    <?php endforeach; ?>
+                    </ul>
+                    <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
+                </p>
+                <p> 
+                    <label>
+                        <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?>  
+                    </label> 
+                    <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
+                </p>
+                <p>
+                    <label>
+                        <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?>  
+                    </label> 
+                    <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
+                </p>
+                <p>
+                    <label>
+                        <?php echo $this->translate("Nombre de raid") ?>  
+                    </label>
 
-            <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
-        </p>
-        <p>
-            <label>
-                <?php echo $this->translate("Nombre d'item") ?>  
-            </label>
-                <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
-        </p>
-    </aside>
+                    <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
+                </p>
+                <p>
+                    <label>
+                        <?php echo $this->translate("Nombre d'item") ?>  
+                    </label>
+                        <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
+                </p>
+            </div>
+        </aside>
+    
 </section>
