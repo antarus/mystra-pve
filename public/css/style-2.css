@@ -46,8 +46,12 @@ div
 h1 , h2 , h3 , h4 , h5 , h6
 {
     line-height: 1.1;
+    text-transform: uppercase;
 }
-
+li
+{
+    list-style-type: none;
+}
 #green-light
 {
     background-image: url('../img/background.jpg');
@@ -99,7 +103,7 @@ h1 , h2 , h3 , h4 , h5 , h6
     border: 1px solid rgba(255,255,255,0.05);
     padding: 7px;
 /*    text-shadow : 0 0 3px rgba(0,0,0,1);*/
-    background: rgba(0,0,0,0.5);
+    background: rgba(0,0,0,0.40);
 }
 
 .char-name
@@ -572,10 +576,20 @@ table > thead > tr:first-child
  */
 .box
 {
-    padding-right: 7px;
-    padding-left: 7px;
-    background : rgba(0,0,0,0.30);
-    text-align: justify;
+    padding: 0;
+    background : rgba(0,0,0,0.40);
+    text-align: center;  
+}
+.box ul
+{
+    padding-left: 0px;
+}
+.box label
+{
+    text-transform: uppercase;
+    width: 100%;
+    background:rgba(0,0,0,0.70);
+    padding: 2px;
 }
 
 

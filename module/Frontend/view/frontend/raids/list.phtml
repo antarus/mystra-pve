@@ -7,42 +7,44 @@
     </div>
 </div>
 <div class="col-md-6">
-    <div class="box col-md-4">
-    <h4><?php echo $this->translate('Statistiques Générales'); ?></h4>
-    <p> <label ><?php echo $this->translate("Pallier configuré") ?> : </label>
-        <?php if(!empty($this->palliers)): ?> 
-        <ul>
-        <?php foreach ($this->palliers as $pallier) : ?>
-            <li><?php echo ucwords($pallier) ?> </li>
-        <?php endforeach; ?>
-        </ul>
-        <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
-    </p>
-    <p> 
-        <label>
-            <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?> : 
-        </label> 
-        <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
-    </p>
-    <p>
-        <label>
-            <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?> : 
-        </label> 
-        <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
-    </p>
-    <p>
-        <label>
-            <?php echo $this->translate("Nombre de raid") ?> : 
-        </label>
-        
-        <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
-    </p>
-    <p>
-        <label>
-            <?php echo $this->translate("Nombre d'item") ?> : 
-        </label>
-            <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
-    </p>
+    <div class="col-md-4">
+        <h4><?php echo $this->translate('Statistiques Générales'); ?></h4>
+        <div class="box">
+            <p> <label ><?php echo $this->translate("Pallier configuré") ?>  </label>
+                <?php if(!empty($this->palliers)): ?> 
+                <ul>
+                <?php foreach ($this->palliers as $pallier) : ?>
+                    <li><?php echo ucwords($pallier) ?> </li>
+                <?php endforeach; ?>
+                </ul>
+                <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
+            </p>
+            <p> 
+                <label>
+                    <?php echo $this->translate("Nombre de raid dans les pallier configuré") ?>  
+                </label> 
+                <?php echo isset($this->stats['nbTotalRaidPallier']) ? $this->stats['nbTotalRaidPallier'] : $this->translate("Pallier non configuré") ?>
+            </p>
+            <p>
+                <label>
+                    <?php echo $this->translate("Nombre d'item dans les pallier configuré") ?>  
+                </label> 
+                <?php echo isset($this->stats['nbItemPallier']) ? $this->stats['nbItemPallier'] : $this->translate("Pallier non configuré") ?>
+            </p>
+            <p>
+                <label>
+                    <?php echo $this->translate("Nombre de raid") ?>  
+                </label>
+
+                <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
+            </p>
+            <p>
+                <label>
+                    <?php echo $this->translate("Nombre d'item") ?>  
+                </label>
+                    <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
+            </p>
+        </div>
     </div>
     
     <div class="col-md-8" >
