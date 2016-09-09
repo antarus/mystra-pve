@@ -579,6 +579,11 @@ table > thead > tr:first-child
     padding: 0;
     background : rgba(0,0,0,0.40);
     text-align: center;  
+    
+}
+.stats
+{
+    border-right: 1px solid transparent;
 }
 .box ul
 {
@@ -589,7 +594,7 @@ table > thead > tr:first-child
     text-transform: uppercase;
     width: 100%;
     background:rgba(0,0,0,0.70);
-    padding: 2px;
+    padding: 6px;
 }
 
 

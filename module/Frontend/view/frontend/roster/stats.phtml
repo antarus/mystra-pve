@@ -4,12 +4,12 @@
 </div>
 <section class="content">
     <section class="wrapper-bg col-md-8">
-        <h2><?php echo $this->translate("Participation") ?> </h2>
+        <h4><?php echo $this->translate("Participation") ?> </h4>
         
             <?php echo isset($stats['participation']) ? '' : $this->translate("Aucun participant") ?>
             <?php foreach ($stats['participation'] as $participant) { ?>
-                <section class="col-md-4">
-                    <h4> <?php echo ucfirst($participant['nom_personnage']) ?></h4>
+                <section class="box stats col-md-4">
+                    <label> <?php echo ucfirst($participant['nom_personnage']) ?></label>
 
                     <p><?php echo $this->translate("Nombre de raid") ?> :  <?php echo $participant['nbRaid'] ?></p>
                     <p><?php echo $this->translate("Présence dans le pallier") ?> :  <?php echo $participant['presencePallier'] ?></p>
