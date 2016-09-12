@@ -22,11 +22,24 @@ $(document).ready(function () {
         }
         if($('#lootDonationRaid').length)
         { 
-            
+            data = {
+                Dez: 12,
+                Spe1: 45,
+                Spe2:24
+            };
+            backgroundColor = ['black', 'green', 'pink'];
+            hoverBackgroundColor = ['blue', 'pink', 'green'];
+            generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor, hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
         { 
-            
+            data = {
+                Roster: 12,
+                NonRoster: 45
+            };
+            backgroundColor = ['black', 'green'];
+            hoverBackgroundColor = ['blue', 'pink'];
+            generateCharts(data, 'lootRosterNoRoster', 'doughnut', options, backgroundColor, hoverBackgroundColor);
         }
     }
 });
@@ -58,7 +71,7 @@ function generateCharts(data, divId, type, options, backgroundColor, hoverBackgr
                 hoverBackgroundColor: hoverBackgroundColor
             }]
     };
-
+    console.log(chartsData);
     var ctx = document.getElementById(divId);
     new Chart(ctx, {
         type: type,
