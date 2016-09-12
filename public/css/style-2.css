@@ -652,3 +652,13 @@ table > thead > tr:first-child
 {
     fill : #FFF;
 }
+
+
+/*
+ *! WIDGET
+ */
+#twitter-widget-0
+{
+    background: #292F33;
+}
+
