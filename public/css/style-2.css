@@ -275,6 +275,48 @@ li
  * CONTAINER
  */
 
+.jumbotron
+{
+    background: rgba(0,0,0,0.40);
+    padding: 7px;
+}
+.btn-primary, .btn-primary:visited , .btn-primary:focus 
+{
+    background: none;
+    border: 1px solid rgba(255,255,255,0.31);
+}
+.btn-primary:hover , .btn-primary:active 
+{
+    background: rgba(255,255,255,0.70) !important;
+    color: #000;
+    border: 1px solid rgba(255,255,255,0.31) !important;
+}
+.panel-default
+{
+    margin-top: 10px;
+    background: rgba(0,0,0,0.40);
+    border : none;
+}
+.panel-default > .panel-heading
+{
+    color: #FFF;
+    border: none;
+    background : rgba(0,0,0,0.40);
+}
+.panel-default > .panel-body
+{
+    text-align: justify;
+}
+.panel-default > .panel-footer
+{
+    border: none;
+    background : none;
+}
+.comment
+{
+    background : rgba(0,0,0,0.30);
+}
+
 
 /*!
  *	TABLE
