@@ -1,72 +1,47 @@
-$(document).ready(function() {
+$(document).ready(function () {
     $("#buttonLoginLayoutFront").fancybox();
-    
-    $.chartsVar = new Object();
-    
-    if($('#ajaxUrl').val())
+
+    data = {};
+    options = {};
+    backgroundColor = [];
+    hoverBackgroundColor = [];
+
+    if ($('#ajaxUrl').val())
     {
-        $.post($('#ajaxUrl').val() + 'ajaxPresence')
-            .done(function( data ) {
-                $.chartsVar.Dez  = data.Dez;
-                $.chartsVar.Bank = data.Bank;
-                $.chartsVar.spe1 = data.spe1;
-                $.chartsVar.spe2 = data.spe2;
-                $.chartsVar.spe3 = data.spe3;
-                $.chartsVar.spe4 = data.spe4;
-            })
-            .fail(function() {
-                $.chartsVar.Dez  = 0;
-                $.chartsVar.Bank = 0;
-                $.chartsVar.spe1 = 0;
-                $.chartsVar.spe2 = 0;
-                $.chartsVar.spe3 = 0;
-                $.chartsVar.spe4 = 0;
-        });
-        
-        var data = {
-            labels: [
-                "Red",
-                "Blue",
-                "Yellow"
-            ],
-            datasets: [
-                {
-                    data: [300, 50, 100],
-                    backgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ],
-                    hoverBackgroundColor: [
-                        "#FF6384",
-                        "#36A2EB",
-                        "#FFCE56"
-                    ]
-                }]
-        };
-        
         if($('#lootDonationTiers').length)
-        {
-            var ctx = document.getElementById("lootDonationTiers");
-            var myDoughnutChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: data,
-                options: {},
-            });
+        { 
+            $.post($('#ajaxUrl').val() + 'ajaxPresence')
+                .done(function (data) {
+                    backgroundColor = ['black', 'green', 'pink', 'blue', 'white', 'purple'];
+                    hoverBackgroundColor = ['blue', 'pink', 'green', 'black', 'purple', 'white'];
+                    generateCharts(data, 'lootDonationTiers', 'doughnut', options, backgroundColor, hoverBackgroundColor);
+                })
+                .fail(function () {
+                    generateCharts('');
+                });
         }
         if($('#lootDonationRaid').length)
         { 
-            var chart = new google.visualization.ColumnChart(document.getElementById('lootDonationRaid'));
-            chart.draw(dataDonationRaid, optionsDonationRaid);
+            data = {
+                Dez: 12,
+                Spe1: 45,
+                Spe2:24
+            };
+            backgroundColor = ['black', 'green', 'pink'];
+            hoverBackgroundColor = ['blue', 'pink', 'green'];
+            generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor, hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
         { 
-            var chart = new google.visualization.PieChart(document.getElementById('lootRosterNoRoster'));
-            chart.draw(dataLootRosterNoRoster, options);
+            data = {
+                Roster: 12,
+                NonRoster: 45
+            };
+            backgroundColor = ['black', 'green'];
+            hoverBackgroundColor = ['blue', 'pink'];
+            generateCharts(data, 'lootRosterNoRoster', 'doughnut', options, backgroundColor, hoverBackgroundColor);
         }
-        
-        
-      }
+    }
 });
 
 // gestion du loading ajax global
@@ -77,3 +52,30 @@ $(document).ajaxStop(function () {
     $("container").removeClass("loading");
 });
 
+function generateCharts(data, divId, type, options, backgroundColor, hoverBackgroundColor)
+{
+    var labs = [];
+    var datareceived = [];
+
+    $.each(data, function (key, value) {
+        labs.push(key);
+        datareceived.push(value);
+    });
+
+    chartsData = {
+        labels: labs,
+        datasets: [
+            {
+                data: datareceived,
+                backgroundColor: backgroundColor,
+                hoverBackgroundColor: hoverBackgroundColor
+            }]
+    };
+    console.log(chartsData);
+    var ctx = document.getElementById(divId);
+    new Chart(ctx, {
+        type: type,
+        data: chartsData,
+        options: options
+    });
+}
