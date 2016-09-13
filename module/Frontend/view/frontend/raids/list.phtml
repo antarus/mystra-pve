@@ -7,7 +7,7 @@
     </div>
 </div>
 <div class="col-md-6">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="box">
             <p> <label ><?php echo $this->translate("Pallier configuré") ?>  </label>
                 <?php if (!empty($this->palliers)): ?> 
@@ -49,7 +49,7 @@
         </div>
     </div>
 
-    <div class="col-md-8" >
+    <div class="col-md-6" >
         <h4><?php echo $this->translate('Utilisation des loots pour le(s) pallier(s) configuré(s):'); ?></h4>
         <?php if (!empty($this->palliers)): ?>
             <canvas class="donutchart"  id="lootDonationTiers" width="100%" height="100%"></canvas>
