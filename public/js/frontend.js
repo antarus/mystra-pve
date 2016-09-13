@@ -22,7 +22,7 @@ $(document).ready(function () {
                         }
                     };
                     backgroundColor = ['rgba(209,219,189,1)', 'rgba(255,255,245,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)', 'rgba(145,170,157,1)', 'rgba(209,219,189,1)'];
-                    hoverBackgroundColor = ['rgba(209,219,189,0.6)', 'rgba(255,255,245,0.6)', 'rgba(25,52,65,0.6)', 'rgba(62,96,111,0.6)', 'rgba(145,170,157,0.6)', 'rgba(209,219,189,0.6)'];
+                    hoverBackgroundColor = ['rgba(209,219,189,0.8)', 'rgba(255,255,245,0.8)', 'rgba(25,52,65,0.8)', 'rgba(62,96,111,0.8)', 'rgba(145,170,157,0.8)', 'rgba(209,219,189,0.8)'];
                     generateCharts(data, 'lootDonationTiers', 'pie', options, backgroundColor, hoverBackgroundColor);
                 })
                 .fail(function () {
@@ -36,8 +36,17 @@ $(document).ready(function () {
                 Spe1: 45,
                 Spe2:24
             };
+            options = {
+                        legend: {
+                            labels: {
+                                fontColor: '#FFF',
+                                boxWidth: 20
+                            },
+                            position : 'right'
+                        }
+                    };
             backgroundColor = ['rgba(209,219,189,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)'];
-            hoverBackgroundColor = ['rgba(209,219,189,0.6)', 'rgba(25,52,65,0.6)', 'rgba(62,96,111,0.6)'];
+            hoverBackgroundColor = ['rgba(209,219,189,0.8)', 'rgba(25,52,65,0.8)', 'rgba(62,96,111,0.8)'];
             generateCharts(data, 'lootDonationRaid', 'pie', options, backgroundColor,hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
@@ -46,8 +55,17 @@ $(document).ready(function () {
                 Roster: 12,
                 NonRoster: 45
             };
+            options = {
+                        legend: {
+                            labels: {
+                                fontColor: '#FFF',
+                                boxWidth: 20
+                            },
+                            position : 'right'
+                        }
+                    };
             backgroundColor = ['rgba(25,52,65,1)', 'rgba(209,219,189,1)'];
-            hoverBackgroundColor = ['rgba(25,52,65,0.6)', 'rgba(209,219,189,0.6)'];
+            hoverBackgroundColor = ['rgba(25,52,65,0.8)', 'rgba(209,219,189,0.8)'];
             generateCharts(data, 'lootRosterNoRoster', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
     }
