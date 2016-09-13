@@ -29,7 +29,7 @@ $(document).ready(function () {
             };
             backgroundColor = ['black', 'green', 'pink'];
             hoverBackgroundColor = ['blue', 'pink', 'green'];
-            generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor, hoverBackgroundColor);
+            generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor,hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
         { 
