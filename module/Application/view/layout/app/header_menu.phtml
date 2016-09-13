@@ -3,7 +3,7 @@
         <a href="<?php echo $this->url('home')?>" class="navbar-brand"><img src="<?php echo $this->basePath("img/Logo_Raid_TracKer.png")?>" alt="LTK Logotype" height="45" /></a>
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
                 <i class="fa fa-bars"></i>
-        </button>	
+        </button>
     </div>
     <div class="collapse navbar-collapse navbar-custom-menu" id="navbar-collapse">
             <ul class="nav navbar-nav navbar-left">
@@ -35,6 +35,11 @@
                     <?php endif;?>
                     </li>
             </ul>
+            <ul class="nav navbar-nav">
+                <button class="btn btn-nav pull-right" data-toggle="control-sidebar">
+                    <span class="glyphicon glyphicon-th-large"></span>
+                </button>
+            </ul>
             <ul class="nav navbar-nav navbar-right">
                 
                     <?php if(!$this->zfcUserIdentity()): ?>
@@ -63,10 +68,9 @@
                        <a href="<?php echo $this->url('zfcuser/logout'); ?>"><span class="glyphicon glyphicon-log-out"></span> <?php echo $this->translate('Se déconnecter ') ?></a>
                    </li>
                     <?php endif?>
-                 
             </ul>
+        
     </div>
 </nav>
-<div id="border-bg"></div>
 
 

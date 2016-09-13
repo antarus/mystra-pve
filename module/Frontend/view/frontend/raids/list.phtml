@@ -8,15 +8,18 @@
 </div>
 <div class="col-md-6">
     <div class="col-md-4">
-                <div class="box">
+        <div class="box">
             <p> <label ><?php echo $this->translate("Pallier configuré") ?>  </label>
-                <?php if(!empty($this->palliers)): ?> 
+                <?php if (!empty($this->palliers)): ?> 
                 <ul>
-                <?php foreach ($this->palliers as $pallier) : ?>
-                    <li><?php echo ucwords($pallier) ?> </li>
-                <?php endforeach; ?>
+                    <?php foreach ($this->palliers as $pallier) : ?>
+                        <li><?php echo ucwords($pallier) ?> </li>
+                    <?php endforeach; ?>
                 </ul>
-                <?php else: echo $this->translate("Pallier non configuré"); endif; ?>
+                <?php
+            else: echo $this->translate("Pallier non configuré");
+            endif;
+            ?>
             </p>
             <p> 
                 <label>
@@ -35,31 +38,32 @@
                     <?php echo $this->translate("Nombre de raid") ?>  
                 </label>
 
-                <?php echo isset($this->stats['nbTotalRaid'])? $this->stats['nbTotalRaid']:'0';?>
+                <?php echo isset($this->stats['nbTotalRaid']) ? $this->stats['nbTotalRaid'] : '0'; ?>
             </p>
             <p>
                 <label>
                     <?php echo $this->translate("Nombre d'item") ?>  
                 </label>
-                    <?php echo isset($this->stats['nbItem'])? $this->stats['nbItem']:'0'; ?>
+                <?php echo isset($this->stats['nbItem']) ? $this->stats['nbItem'] : '0'; ?>
             </p>
         </div>
     </div>
-    
+
     <div class="col-md-8" >
         <h4><?php echo $this->translate('Utilisation des loots pour le(s) pallier(s) configuré(s):'); ?></h4>
-        <?php if(!empty($this->palliers)): ?>
+        <?php if (!empty($this->palliers)): ?>
             <canvas class="donutchart"  id="lootDonationTiers" width="100%" height="100%"></canvas>
-            </div>
-        <?php else: ?>
-            <?php echo $this->translate("Veuillez configurer un pallier de raid par défaults :)") ?>
-        <?php endif; ?>
+            <a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success">
+                <?php echo $this->translate("Voir + de Stats") ?>
+            </a>
     </div>
-    <div class='clearfix'></div>
+    <?php else: ?>
+        <?php echo $this->translate("Veuillez configurer un pallier de raid par défaults :)") ?>
+    <?php endif; ?>
 </div>
-<a href="<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>" class="btn btn-success pull-right">
-    <?php echo $this->translate("Voir + de Stats") ?>
-</a>
+<div class='clearfix'></div>
+</div>
+
 <script>
     $("#tableRaid").zfTable('<?php echo $this->url('front-raid-ajax-list', array('key' => $key)); ?>');
 </script>
