@@ -12,8 +12,8 @@ $(document).ready(function () {
         { 
             $.post($('#ajaxUrl').val() + 'ajaxPresence')
                 .done(function (data) {
-                    backgroundColor = ['black', 'green', 'pink', 'blue', 'white', 'purple'];
-                    hoverBackgroundColor = ['blue', 'pink', 'green', 'black', 'purple', 'white'];
+                    backgroundColor = ['rgba(252,255,245,0.60)', 'rgba(255,255,255,0.60)', 'rgba(25,52,65,0.60)', 'rgba(62,96,111,0.60)', 'rgba(145,170,157,0.60)', 'rgba(209,219,189,0.60)'];
+                    hoverBackgroundColor = ['rgba(252,255,245,1)', 'rgba(255,255,255,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)', 'rgba(145,170,157,1)', 'rgba(209,219,189,1)'];
                     generateCharts(data, 'lootDonationTiers', 'doughnut', options, backgroundColor, hoverBackgroundColor);
                 })
                 .fail(function () {
@@ -27,8 +27,8 @@ $(document).ready(function () {
                 Spe1: 45,
                 Spe2:24
             };
-            backgroundColor = ['black', 'green', 'pink'];
-            hoverBackgroundColor = ['blue', 'pink', 'green'];
+            backgroundColor = ['rgba(252,255,245,0.60)', 'rgba(25,52,65,0.60)', 'rgba(62,96,111,0.60)'];
+            hoverBackgroundColor = ['rgba(252,255,245,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)'];
             generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor,hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
@@ -37,8 +37,8 @@ $(document).ready(function () {
                 Roster: 12,
                 NonRoster: 45
             };
-            backgroundColor = ['black', 'green'];
-            hoverBackgroundColor = ['blue', 'pink'];
+            backgroundColor = ['rgba(25,52,65,0.60)', 'rgba(252,255,245,0.60)'];
+            hoverBackgroundColor = ['rgba(25,52,65,1)', 'rgba(252,255,245,1)'];
             generateCharts(data, 'lootRosterNoRoster', 'doughnut', options, backgroundColor, hoverBackgroundColor);
         }
     }

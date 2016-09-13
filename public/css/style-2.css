@@ -707,3 +707,7 @@ table > thead > tr:first-child
     right: -250px;
     z-index: 2;
 }
+.tab-content div
+{
+    padding-bottom: 15px;
+}
