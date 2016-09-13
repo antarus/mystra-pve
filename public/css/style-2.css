@@ -34,12 +34,17 @@ button
 {
     outline: none;
 }
-a , a:hover, a:visited , a:focus
+a , a:hover, a:visited 
 {
     text-decoration: none;
+    color: #FFF ;
+}
+
+a:focus
+{
     color: #FFF !important;
 }
-a:hover
+a:hover 
 {
     color: #FFD800 !important;
 }
