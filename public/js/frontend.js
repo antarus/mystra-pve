@@ -15,7 +15,8 @@ $(document).ready(function () {
                     options = {
                         legend: {
                             labels: {
-                                fontColor: '#FFF'
+                                fontColor: '#FFF',
+                                boxWidth: 20
                             },
                             position : 'right'
                         }
