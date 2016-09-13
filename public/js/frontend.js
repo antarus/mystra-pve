@@ -22,7 +22,7 @@ $(document).ready(function () {
                     };
                     backgroundColor = ['rgba(209,219,189,1)', 'rgba(255,255,245,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)', 'rgba(145,170,157,1)', 'rgba(209,219,189,1)'];
                     hoverBackgroundColor = ['rgba(209,219,189,0.6)', 'rgba(255,255,245,0.6)', 'rgba(25,52,65,0.6)', 'rgba(62,96,111,0.6)', 'rgba(145,170,157,0.6)', 'rgba(209,219,189,0.6)'];
-                    generateCharts(data, 'lootDonationTiers', 'doughnut', options, backgroundColor, hoverBackgroundColor);
+                    generateCharts(data, 'lootDonationTiers', 'pie', options, backgroundColor, hoverBackgroundColor);
                 })
                 .fail(function () {
                     generateCharts('');
@@ -37,7 +37,7 @@ $(document).ready(function () {
             };
             backgroundColor = ['rgba(209,219,189,1)', 'rgba(25,52,65,1)', 'rgba(62,96,111,1)'];
             hoverBackgroundColor = ['rgba(209,219,189,0.6)', 'rgba(25,52,65,0.6)', 'rgba(62,96,111,0.6)'];
-            generateCharts(data, 'lootDonationRaid', 'doughnut', options, backgroundColor,hoverBackgroundColor);
+            generateCharts(data, 'lootDonationRaid', 'pie', options, backgroundColor,hoverBackgroundColor);
         }
         if($('#lootRosterNoRoster').length)
         { 
@@ -47,7 +47,7 @@ $(document).ready(function () {
             };
             backgroundColor = ['rgba(25,52,65,1)', 'rgba(209,219,189,1)'];
             hoverBackgroundColor = ['rgba(25,52,65,0.6)', 'rgba(209,219,189,0.6)'];
-            generateCharts(data, 'lootRosterNoRoster', 'doughnut', options, backgroundColor, hoverBackgroundColor);
+            generateCharts(data, 'lootRosterNoRoster', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
     }
 });
