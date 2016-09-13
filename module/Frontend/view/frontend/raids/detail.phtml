@@ -2,7 +2,7 @@
     <h4><?php echo $this->translate("Détail du raid") ?></h4>
 </div>
 
-<div class="wrapper-bg col-md-8">
+<section class="wrapper-bg col-md-8">
     <a  class='btn btn-success pull-right' href="<?php echo $this->url('front-raid-list', array('key' => $key)); ?>">
         <?php echo $this->translate("Retour à la liste des raids") ?>
     </a>
@@ -62,7 +62,8 @@
             <canvas id="lootRosterNoRoster" >            
             </canvas>
         </div>
-    </section>
+    </div>
+</section>
 <aside class="list-loot col-md-4">
     <?php 
     $i = 1;
@@ -107,7 +108,7 @@
 
     <div class='clearfix'></div>
 
-</div>
+</aside>
 
 <input type='hidden' id='ajaxUrl' value='<?php echo $this->url('front-raid-list', array('key' => $key)); ?>'/>
 
