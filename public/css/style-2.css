@@ -146,7 +146,7 @@ li
 }
 
 
-#main-header .navbar-custom-menu  a
+#main-header .navbar-collapse  a
 {
     font-size: 15px;
     text-transform: uppercase;
@@ -198,11 +198,20 @@ li
 }
 @media (max-width:991px)
 {
-    .navbar-custom-menu > .navbar-nav > li > .dropdown-menu
+    .navbar-collapse > .navbar-nav > li > .dropdown-menu
     {
         background: rgba(34,45,50,1);
         border: none;
     }
+    .navbar-right
+    {
+        margin:auto;
+    }
+    .navbar-left
+    {
+        margin:auto;
+    }
+    
 }
 .navbar-right input , .navbar-right input:hover , .navbar-right input:focus , .navbar-right input:visited
 {
