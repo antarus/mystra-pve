@@ -16,7 +16,7 @@ use Application\Service\LogService;
 class ContactController extends AbstractActionController
 {
     private $_logService;
-    
+    private $_config;
     /**
      * Lazy getter pour le service de logs
      * @return service Le service de logs
@@ -26,7 +26,14 @@ class ContactController extends AbstractActionController
                 $this->_logService :
                 $this->_logService = $this->getServiceLocator()->get('LogService');
     }
-    
+    private function _getServConfig()
+    {
+        if(!$this->_config)
+        {
+            $this->_config = $this->getServiceLocator()->get('config');
+        }
+        return $this->_config;
+    }
     public function indexAction()
     {
           // Log de l'update
@@ -35,6 +42,10 @@ class ContactController extends AbstractActionController
 //        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::DEBUG);
         
         $oViewModel = new ViewModel();
+        $publicKey = $this->_getServConfig()['google']['publicKey'];
+        $privateKey = $this->_getServConfig()['google']['privateKey'];
+        $oViewModel->setVariable('publicKey', $publicKey);
+        $oViewModel->setVariable('privateKey', $privateKey);
         $oViewModel->setTemplate('accueil/contact/index');
         return $oViewModel;
     }
