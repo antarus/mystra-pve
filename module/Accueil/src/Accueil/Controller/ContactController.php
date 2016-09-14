@@ -23,17 +23,19 @@ class ContactController extends AbstractActionController
      */
     private function _getLogService() {
         return  $this->_logService ?
-                    $this->_logService :
-                    $this->_logService = $this->getServiceLocator()->get('LogService');
+                $this->_logService :
+                $this->_logService = $this->getServiceLocator()->get('LogService');
     }
     
     public function indexAction()
     {
           // Log de l'update
-        $this->_getLogService()->log(LogService::NOTICE, "test de log user", LogService::USER);
-        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::LOGICIEL);
-        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::DEBUG);
+//        $this->_getLogService()->log(LogService::NOTICE, "test de log user", LogService::USER);
+//        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::LOGICIEL);
+//        $this->_getLogService()->log(LogService::NOTICE, "test de log RTK", LogService::DEBUG);
         
-        return new ViewModel();
+        $oViewModel = new ViewModel();
+        $oViewModel->setTemplate('accueil/contact/index');
+        return $oViewModel;
     }
 }

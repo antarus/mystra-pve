@@ -142,6 +142,7 @@ class RaidsController extends FrontController {
             $aParticipants = array();
             $aLoots = array();
             $aRoster = $oRoster->getArrayCopy();
+            $nbrRosterABS = 0;
 
             $aRaid = $this->getTableRaid()->getRaid($iIdRaid);
             $dformated = new \DateTime($aRaid['date']);
@@ -163,17 +164,20 @@ class RaidsController extends FrontController {
                     if($r['idPersonnage'] == $p['idPersonnage']) $abs = false;
                 
                 if($abs)
+                {
+                    $nbrRosterABS ++;
                     $aParticipants[] = array(
                         'idRaid' => $aRoster['idRoster'],
                         'idPersonnage' => $r['idPersonnage'],
                         'personnage_nom' =>$r['nom'],
                         'personnage_royaume' =>$r['royaume'],
                         'ilvl' => $r['ilvl'],
-                        'classe_couleur' => '#eee',
+                        'classe_couleur' => $r['couleur'],
                         'roster' => 1,
                         'apply' => $r['isApply'],
                         'abs' => true,
                     );
+                }
             }
             
             // formatage d'un tableau de couleur par participants.
@@ -214,6 +218,7 @@ class RaidsController extends FrontController {
         $oViewModel->setVariable('participants', $aParticipants);
         $oViewModel->setVariable('loots', $aLoots);
         $oViewModel->setVariable('couleur', $aCouleur);
+        $oViewModel->setVariable('nbrRosterABS', $nbrRosterABS);
         return $oViewModel;
     }
 
