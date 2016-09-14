@@ -24,9 +24,9 @@ return array(
                 ),
             ),
             'contact' => array(
-                'type' => 'Literal',
+                'type' => 'Segment',
                 'options' => array(
-                    'route' => '/contact',
+                    'route' => '/contact[/:action]',
                     'defaults' => array(
                         'controller' => 'Accueil\Controller\Contact',
                         'action' => 'index',

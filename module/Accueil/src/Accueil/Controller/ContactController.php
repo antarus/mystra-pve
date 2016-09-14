@@ -49,4 +49,11 @@ class ContactController extends AbstractActionController
         $oViewModel->setTemplate('accueil/contact/index');
         return $oViewModel;
     }
+    
+    public function getFormAction()
+    {
+        var_dump($_POST);
+        $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Votre message a été envoyé."),'success');
+        return $this->redirect()->toRoute('contact');
+    }
 }

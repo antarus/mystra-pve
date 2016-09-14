@@ -2,7 +2,7 @@
     $recaptcha = new ZendService\ReCaptcha\ReCaptcha($this->publicKey,$this->privateKey, null, array('lang'=>'fr'));
 ?>
 <h4 class="page-title"><?php echo $this->translate('Nous contacter'); ?></h4>
-<form class="form-contact col-md-6">
+<form class="form-contact col-md-6" method="post" action="<?php echo $this->url('contact',array('action'=>'getForm')); ?>">
     <h4 class="form-title"><?php echo $this->translate('Laissez-nous un message'); ?></h4>
     <label>
         <?php echo $this->translate('Nom') ; ?>
@@ -23,5 +23,5 @@
         
     </textarea>
     <?php echo $recaptcha->getHTML();?>
-    <input type="button" value="Go google">
+    <input type="submit" value="Go google">
 </form> 
