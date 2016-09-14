@@ -23,9 +23,11 @@
                                                                             'idRaid' => $raid['idRaid'],
                                                                             'idPers' => $participant['idPersonnage'])); ?>"
                style="color:<?php echo $participant['classe_couleur']; ?>" >
+                    <?php if( $participant['classe_couleur'] == '#eee') echo "<s>"; ?>
                     <?php echo ucfirst($participant['personnage_nom']); ?> 
                     <?php if($participant['ilvl']!== '0')echo "({$participant['ilvl']} ilvl) "; ?>
                     <?php if($participant['apply']):?>*<?php endif; ?>
+                    <?php if($participant['classe_couleur'] == '#eee') echo "</s>"; ?>
             </a>
             <?php endif;?>
         <?php endforeach; ?>
@@ -71,7 +73,11 @@
 
                 <div class="panel-head">
                 <h4 class="panel-title">
-                    <a data-toggle="collapse" href="<?php echo "#collapse".$box ;?>"><span class="glyphicon glyphicon-fire"></span> <?php echo ucwords($boss);?><span class="glyphicon glyphicon-collapse-down pull-right"</a>
+                    <a data-toggle="collapse" href="<?php echo "#collapse".$box ;?>">
+                        <span class="glyphicon glyphicon-fire"></span> 
+                            <?php $nbrItems = count($listLoot); echo ucwords($boss)." ( $nbrItems )";?>
+                        <span class="glyphicon glyphicon-collapse-down pull-right"></span>
+                    </a>
                 </h4>
                 </div>
                 <div id="<?php echo "collapse".$box ;?>" class="panel-collapse collapse">
