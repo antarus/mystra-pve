@@ -1,265 +1,141 @@
-
 <style>
-
-    /**
-  ** mis ici car sur certaines erreur le css n'est aps chargé.
-  */
-    body{
-        margin : 0;
-        padidng:0;
-        color :#0F0;
-        /*color :#B5E61D;*/
-        background-color: #000;
+    .error-container
+    {
+        background: rgba(34,45,54,0.40);
     }
-    * {
-        color: #C6CAC0;
-        font-family: courier new;
-        margin: 0px;
-        padding: 0px;
-        text-decoration: none;
+    .error-desc
+    {
+        margin-top: 15px;
+        background: rgba(34,45,54,0.40);
+        
     }
-
-    .errorPage .center {
-        position:fixed;
-        top: 150px;
-        display:block;
-        width:100%
-
+    .error-img
+    {
+        padding:15px;
     }
-    /* Error Message Blinking Effect */
-    @keyframes blink {
-        0% { color: #00CC33; }
-        50% { color: #0F0; text-shadow: 0px 0px 3px #3E9133, 0px 0px 5px #3E9133, 0px 0px 3px #3E9133, 0px 0px 10px #3E9133, 0px 0px 15px #3E9133; }
-    }
-    @-webkit-keyframes blink {
-        0% { color: #00CC33; }
-        50% { color: #0F0; text-shadow: 0px 0px 3px #3E9133, 0px 0px 5px #3E9133, 0px 0px 3px #3E9133, 0px 0px 10px #3E9133, 0px 0px 15px #3E9133; }
-    }
-    @font-face {
-        font-family: 'Londrina Sketch';
-        font-style: normal;
-        font-weight: 400;
-        src: local('Londrina Sketch'), local('LondrinaSketch-Regular'), url(http://fonts.gstatic.com/s/londrinasketch/v4/p7Ai06aT1Ycp_D2fyE3z6y5aYq5uGjl-6DG0JxtWio4.woff2) format('woff2'), url(http://fonts.gstatic.com/s/londrinasketch/v4/p7Ai06aT1Ycp_D2fyE3z672lvfcOKwm3BZAZrcvcPTU.woff) format('woff');
-    }
-    /* Navigation Menu Hover Effect */
-    @keyframes link {
-        5% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        10% { text-shadow: 0px 0px 9px #3AA32E; }
-        15% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        20% { text-shadow: none; }
-        35% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        45% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 9px #3AA32E; }
-        100% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-    }
-    @-webkit-keyframes link {
-        5% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        10% { text-shadow: 0px 0px 9px #3AA32E; }
-        15% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        20% { text-shadow: none; }
-        35% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-        45% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 9px #3AA32E; }
-        100% { text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E; }
-    }
-    .center{
-        position:fixed;
-        top: 150px;
-        display:block;
-        width:100%
-
-
-    }
-
-    .center h1{
-        margin-left: 50px;
-        margin-top: 200px;
-        animation: 3s step-end 0s normal none infinite blink;
-        color: #DBFBD6;
-        cursor: default;
-        font-family: 'Londrina Sketch',times new roman;
-        font-size: 78px;
-        text-shadow: 0 2px 2px #000000;
-        transform: rotate(-4deg);
-
-    }
-    .navigation {
-        padding: 0 0 0 19px;
-        position: fixed;
-        bottom:  30px;
-        right: 20px;
-        -webkit-transform: rotate(3deg);
-        -moz-transform: rotate(3deg);
-        -ms-transform: rotate(3deg);
-        -o-transform: rotate(3deg);
-        transform: rotate(3deg);
-    }
-    .navigation a {
-        font-size: 25px;
-        padding: 8px 0;
-        text-shadow: 0 -1px #333333;
-        text-transform: uppercase;
-        -webkit-transition: color 1s ease 0s, text-shadow 1s ease 0s;
-        -moz-transition: color 1s ease 0s, text-shadow 1s ease 0s;
-        -ms-transition: color 1s ease 0s, text-shadow 1s ease 0s;
-        -o-transition: color 1s ease 0s, text-shadow 1s ease 0s;
-        transition: color 1s ease 0s, text-shadow 1s ease 0s;
-    }
-    .navigation a:hover {
-        animation: 1s ease 0s normal none 1 link;
-        -webkit-animation: 1s ease 0s normal none 1 link;
-        color: #9CE577;
-        font-weight: bold;
-        text-shadow: 0px 0px 9px #3AA32E, 0px 0px 8px #3AA32E, 0px 0px 10px #3AA32E;
-        -webkit-transition: none 0s ease 0s;
-        -moz-transition: none 0s ease 0s;
-        -ms-transition: none 0s ease 0s;
-        -o-transition: none 0s ease 0s;
-        transition: none 0s ease 0s;
-    }
-    .navigation a:hover:before {
-        text-shadow: none;
-        color: #C6CAC0;
-        font-weight: normal;
-    }
-    .navigation a:before {
-        content: "| ";
-    }
-    .navigation a:first-of-type:before {
-        display: none;
-    }
-
 </style>
 
-
-<canvas id="canvas" ></canvas>
-<div class="center"><h1>La page demandée a dû être perdue dans la matrice...</h1>
-</div>
-
-<div class="navigation">
-    <a href="#" >Retourner à l'accueil</a>
-</div>
 <script>
     jQuery(document).ready(function () {
         page404();
     })
 </script>
-<h1><?php echo $this->translate('A 404 error occurred') ?></h1>
-<h2><?php echo $this->message ?></h2>
-<?php if (isset($this->reason) && $this->reason): ?>
+<div class="error-container error-desc col-md-12">
+    <div class="error-desc col-md-8">
+        <h1 class="page-title" style="font-size:25px;"><?php echo $this->translate('A 404 error occurred') ?></h1>
+        <h4><?php echo $this->message ?></h4>
+        <?php if (isset($this->reason) && $this->reason): ?>
 
-    <?php
-    $reasonMessage = '';
-    switch ($this->reason) {
-        case 'error-controller-cannot-dispatch':
-            $reasonMessage = $this->translate('The requested controller was unable to dispatch the request.');
-            break;
-        case 'error-controller-not-found':
-            $reasonMessage = $this->translate('The requested controller could not be mapped to an existing controller class.');
-            break;
-        case 'error-controller-invalid':
-            $reasonMessage = $this->translate('The requested controller was not dispatchable.');
-            break;
-        case 'error-router-no-match':
-            $reasonMessage = $this->translate('The requested URL could not be matched by routing.');
-            break;
-        default:
-            $reasonMessage = $this->translate('We cannot determine at this time why a 404 was generated.');
-            break;
-    }
-    ?>
-
-    <p><?php echo $reasonMessage ?></p>
-
-<?php endif ?>
-
-<?php if (isset($this->controller) && $this->controller): ?>
-
-    <dl>
-        <dt><?php echo $this->translate('Controller') ?>:</dt>
-        <dd><?php echo $this->escapeHtml($this->controller) ?>
             <?php
-            if (isset($this->controller_class) && $this->controller_class && $this->controller_class != $this->controller
-            ) {
-                echo '(' . sprintf($this->translate('resolves to %s'), $this->escapeHtml($this->controller_class)) . ')';
+            $reasonMessage = '';
+            switch ($this->reason) {
+                case 'error-controller-cannot-dispatch':
+                    $reasonMessage = $this->translate('The requested controller was unable to dispatch the request.');
+                    break;
+                case 'error-controller-not-found':
+                    $reasonMessage = $this->translate('The requested controller could not be mapped to an existing controller class.');
+                    break;
+                case 'error-controller-invalid':
+                    $reasonMessage = $this->translate('The requested controller was not dispatchable.');
+                    break;
+                case 'error-router-no-match':
+                    $reasonMessage = $this->translate('The requested URL could not be matched by routing.');
+                    break;
+                default:
+                    $reasonMessage = $this->translate('We cannot determine at this time why a 404 was generated.');
+                    break;
             }
             ?>
-        </dd>
-    </dl>
 
-<?php endif ?>
+            <p><?php echo $reasonMessage ?></p>
 
-<?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
+        <?php endif ?>
 
-    <?php if (isset($this->exception) && $this->exception instanceof Exception): ?>
-        <hr/>
-        <h2><?php echo $this->translate('Additional information') ?>:</h2>
-        <h3><?php echo get_class($this->exception); ?></h3>
-        <dl>
-            <dt><?php echo $this->translate('File') ?>:</dt>
-            <dd>
-                <pre class="prettyprint linenums"><?php echo $this->exception->getFile() ?>:<?php echo $this->exception->getLine() ?></pre>
-            </dd>
-            <dt><?php echo $this->translate('Message') ?>:</dt>
-            <dd>
-                <pre class="prettyprint linenums"><?php echo $this->exception->getMessage() ?></pre>
-            </dd>
-            <dt><?php echo $this->translate('Stack trace') ?>:</dt>
-            <dd>
-                <pre class="prettyprint linenums"><?php echo $this->exception->getTraceAsString() ?></pre>
-            </dd>
-        </dl>
-        <?php
-        $e = $this->exception->getPrevious();
-        $icount = 0;
-        if ($e) :
-            ?>
-            <hr/>
-            <h2><?php echo $this->translate('Previous exceptions') ?>:</h2>
-            <ul class="unstyled">
-                <?php while ($e) : ?>
-                    <li>
-                        <h3><?php echo get_class($e); ?></h3>
-                        <dl>
-                            <dt><?php echo $this->translate('File') ?>:</dt>
-                            <dd>
-                                <pre class="prettyprint linenums"><?php echo $e->getFile() ?>:<?php echo $e->getLine() ?></pre>
-                            </dd>
-                            <dt><?php echo $this->translate('Message') ?>:</dt>
-                            <dd>
-                                <pre class="prettyprint linenums"><?php echo $e->getMessage() ?></pre>
-                            </dd>
-                            <dt><?php echo $this->translate('Stack trace') ?>:</dt>
-                            <dd>
-                                <pre class="prettyprint linenums"><?php echo $e->getTraceAsString() ?></pre>
-                            </dd>
-                        </dl>
-                    </li>
+        <?php if (isset($this->controller) && $this->controller): ?>
+
+            <dl>
+                <dt><?php echo $this->translate('Controller') ?>:</dt>
+                <dd><?php echo $this->escapeHtml($this->controller) ?>
                     <?php
-                    $e = $e->getPrevious();
-                    $icount += 1;
-                    if ($icount >= 50) {
-                        echo "<li>There may be more exceptions, but we have no enough memory to proccess it.</li>";
-                        break;
+                    if (isset($this->controller_class) && $this->controller_class && $this->controller_class != $this->controller
+                    ) {
+                        echo '(' . sprintf($this->translate('resolves to %s'), $this->escapeHtml($this->controller_class)) . ')';
                     }
-                endwhile;
-                ?>
-            </ul>
-        <?php endif; ?>
+                    ?>
+                </dd>
+            </dl>
 
-    <?php else: ?>
+        <?php endif ?>
 
-        <h3><?php echo $this->translate('No Exception available') ?></h3>
+        <?php if (isset($this->display_exceptions) && $this->display_exceptions): ?>
 
-    <?php endif ?>
+            <?php if (isset($this->exception) && $this->exception instanceof Exception): ?>
+                <hr/>
+                <h2><?php echo $this->translate('Additional information') ?>:</h2>
+                <h3><?php echo get_class($this->exception); ?></h3>
+                <dl>
+                    <dt><?php echo $this->translate('File') ?>:</dt>
+                    <dd>
+                        <pre class="prettyprint linenums"><?php echo $this->exception->getFile() ?>:<?php echo $this->exception->getLine() ?></pre>
+                    </dd>
+                    <dt><?php echo $this->translate('Message') ?>:</dt>
+                    <dd>
+                        <pre class="prettyprint linenums"><?php echo $this->exception->getMessage() ?></pre>
+                    </dd>
+                    <dt><?php echo $this->translate('Stack trace') ?>:</dt>
+                    <dd>
+                        <pre class="prettyprint linenums"><?php echo $this->exception->getTraceAsString() ?></pre>
+                    </dd>
+                </dl>
+                <?php
+                $e = $this->exception->getPrevious();
+                $icount = 0;
+                if ($e) :
+                    ?>
+                    <hr/>
+                    <h2><?php echo $this->translate('Previous exceptions') ?>:</h2>
+                    <ul class="unstyled">
+                        <?php while ($e) : ?>
+                            <li>
+                                <h3><?php echo get_class($e); ?></h3>
+                                <dl>
+                                    <dt><?php echo $this->translate('File') ?>:</dt>
+                                    <dd>
+                                        <pre class="prettyprint linenums"><?php echo $e->getFile() ?>:<?php echo $e->getLine() ?></pre>
+                                    </dd>
+                                    <dt><?php echo $this->translate('Message') ?>:</dt>
+                                    <dd>
+                                        <pre class="prettyprint linenums"><?php echo $e->getMessage() ?></pre>
+                                    </dd>
+                                    <dt><?php echo $this->translate('Stack trace') ?>:</dt>
+                                    <dd>
+                                        <pre class="prettyprint linenums"><?php echo $e->getTraceAsString() ?></pre>
+                                    </dd>
+                                </dl>
+                            </li>
+                            <?php
+                            $e = $e->getPrevious();
+                            $icount += 1;
+                            if ($icount >= 50) {
+                                echo "<li>There may be more exceptions, but we have no enough memory to proccess it.</li>";
+                                break;
+                            }
+                        endwhile;
+                        ?>
+                    </ul>
+                <?php endif; ?>
 
-    <?php
+            <?php else: ?>
 
+                <h5><?php echo $this->translate('No Exception available') ?></h5>
 
+            <?php endif ?>
 
+        <?php endif
+        ?>
 
-
-
-
-
-
-
- endif ?>
+    </div>
+    <div class="error-img col-md-4">
+        <img class="img-responsive" src='<?php echo $this->basePath('img/error.png');?>' alt="error" "/>
+    </div>
+</div>
