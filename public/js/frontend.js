@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $("#buttonLoginLayoutFront").fancybox();
+
 
     data = {};
     options = {};
@@ -78,6 +78,20 @@ $(document).ready(function () {
             generateCharts(data, 'lootRosterNoRoster', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
     }
+    
+    link = '';
+    $( ".boutonStats" ).on( "click", function()
+    { 
+        var newLink = $(this).attr('href');
+        if( newLink !== link){
+            $( link).toggle( "drop", 500 );
+            $( newLink).toggle( "drop", 500 );    
+            link = newLink;
+        }else{
+            $( newLink).toggle( "drop", 500 );    
+            link = newLink;
+        }
+    });
 });
 
 // gestion du loading ajax global
