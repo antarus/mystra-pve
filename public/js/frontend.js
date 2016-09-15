@@ -83,13 +83,15 @@ $(document).ready(function () {
     $( ".boutonStats" ).on( "click", function()
     { 
         var newLink = $(this).attr('href');
+        console.log('link :'+link);
+        console.log('newlink :'+newLink);
         if( newLink !== link){
             $( link).toggle( "drop", 500 );
             $( newLink).toggle( "drop", 500 );    
             link = newLink;
         }else{
             $( newLink).toggle( "drop", 500 );    
-            link = newLink;
+            link = '';
         }
     });
 });
