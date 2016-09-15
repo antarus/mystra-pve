@@ -360,7 +360,19 @@ li
 {
     background : rgba(34,45,54,0.30);
 }
-
+.social
+{
+    font-size: 16px;
+}
+.social small
+{
+    font-size: 10px;
+}
+.social h4
+{
+    text-align: center;
+    padding-bottom: 7px;
+}
 
 /*!
  *	TABLE
@@ -508,9 +520,17 @@ table > thead > tr:first-child
     margin: 0;
     margin-bottom: 15px;
 }
-.form-contact input
+
+.form-contact button, .form-contact button:visited , .form-contact button:focus 
 {
-    margin: auto;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.31);
+}
+.form-contact button:hover , .form-contact button:active 
+{
+    background: rgba(34,45,50,0.30) !important;
+    color: #FFD800;
+    border: 1px solid rgba(255,255,255,0.31) !important;
 }
 .form-login
 {
@@ -525,10 +545,15 @@ table > thead > tr:first-child
 {
     padding-bottom: 5px;
 }
-.form-create-account input , .form-login input , .form-forget input
+.form-create-account input , .form-login input , .form-forget input, .form-contact input  
 {
     border: 1px solid rgba(255,255,255,0.05);
     width: 200px;
+    background: rgba(34,45,54,0.15);
+}
+.form-contact textarea
+{
+    border: 1px solid rgba(255,255,255,0.05);
     background: rgba(34,45,54,0.15);
 }
 .form-forget input
@@ -536,12 +561,12 @@ table > thead > tr:first-child
     margin-top: 7px;
     margin-bottom: 7px;
 }
-.form-create-account input:focus , .form-login input:focus , .form-forget input:focus
+.form-create-account input:focus , .form-login input:focus , .form-forget input:focus , .form-contact textarea:focus
 {
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account button , .form-login button , .form-forget button
+.form-create-account button , .form-login button , .form-forget button 
 {
     text-transform: uppercase;
     border:none;

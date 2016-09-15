@@ -1,9 +1,3 @@
 Message de <b><?php echo $this->post['name'];?></b> <i><?php echo $this->post['email'] ; ?></i> le <?php echo date("d-m-Y").' à '.date("H:i") ;?> <br>
 
-<?php echo $this->post['message'];?>
- 
-
- 
-
----------------
-<img src="http://<?php echo $this->urlProject; ?>/img/Logotype-2.png" />
+<?php echo nl2br($this->post['message']);

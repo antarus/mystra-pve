@@ -71,6 +71,7 @@ class ContactController extends AbstractActionController
         $sSubject = $aPost['subject'];
         
         $validator = new Validator\EmailAddress();
+        $validMessage = new Validator\NotEmpty();
         
         if(!$this->_validCaptcha($aPost['g-recaptcha-response']))
            return $this->redirect()->toRoute('contact');           
@@ -81,6 +82,11 @@ class ContactController extends AbstractActionController
             return $this->redirect()->toRoute('contact');
         }
         
+        if(!$validMessage->isValid($aPost['message']))
+        {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Votre message est vide."), 'error');
+            return $this->redirect()->toRoute('contact');
+        }
         
         $oViewModel = new ViewModel(array('post'=>$aPost));
         $oViewModel->setTemplate('accueil/contact/mail_contact');
@@ -98,7 +104,7 @@ class ContactController extends AbstractActionController
         $oMail->setBody($body);
         $oMail->setEncoding('UTF-8');
         $oMail->setFrom($sMail);
-        $oMail->addTo('kadyll@raid-tracker.com');
+        $oMail->addTo('contact@raid-tracker.com');
        // $oMail->addCc('contact@raid-tracker.com');
         $oMail->setSubject($sSubject);
 
@@ -120,6 +126,7 @@ class ContactController extends AbstractActionController
             $oSend->send($oMail);
         } catch (\Zend\Mail\Transport\Exception\ExceptionInterface $e) {
             $bSent = false;
+            $this->flashMessenger()->addMessage($e->getMessage(),'error');
         }
         
         if($bSent)
