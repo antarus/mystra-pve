@@ -103,7 +103,7 @@ class ContactController extends AbstractActionController
         $oMail = new Message();
         $oMail->setBody($body);
         $oMail->setEncoding('UTF-8');
-        $oMail->setFrom($sMail);
+        $oMail->setFrom('contact@raid-tracker.com');
         $oMail->addTo('contact@raid-tracker.com');
        // $oMail->addCc('contact@raid-tracker.com');
         $oMail->setSubject($sSubject);
