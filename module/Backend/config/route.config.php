@@ -2556,6 +2556,23 @@ return array(
                     ),
                 ),
             ),
+            'backend-pages' =>
+            array(
+                'type' => 'segment',
+                'options' =>
+                array(
+                    'route' => '/backend/pages/:action',
+                    'constraints' =>
+                    array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]+'
+                    ),
+                    'defaults' =>
+                    array(
+                        'controller' => 'Backend\Controller\Pages',
+                        'action' => 'apropos',
+                    ),
+                ),
+            ),
         ),
     ),
 );

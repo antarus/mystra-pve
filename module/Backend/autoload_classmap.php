@@ -34,5 +34,6 @@ return array(
     'Backend\Module' => __DIR__ . '/Module.php',
     'Backend\Controller\CacheController' => __DIR__ . '/src/Backend/Controller/CacheController.php',
     'Backend\Controller\OpcodeCacheController' => __DIR__ . '/src/Backend/Controller/OpcodeCacheController.php',
+    'Backend\Controller\PagesController' => __DIR__ . '/src/Backend/Controller/PagesController.php',
     'Backend\Service\BackendNavigationFactory' => __DIR__ . '/src/Backend/Service/BackendNavigationFactory.php',
 );

@@ -21,16 +21,11 @@ return array(
                 ),
                 array(
                 'label' => $translator->translate('A propos'),
-                'route' => null,
-                'action' => 'index',
+                'route' => 'backend-pages',
+                'action' => 'apropos',
                 ),
                 array(
                 'label' => $translator->translate('Discord Bot'),
-                'route' => null,
-                'action' => 'index',
-                ),
-                array(
-                'label' => $translator->translate('Contact'),
                 'route' => null,
                 'action' => 'index',
                 ),

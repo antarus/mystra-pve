@@ -43,6 +43,7 @@ return array(
             'Backend\\Controller\\ZoneHasModeDiffculte' => 'Backend\\Controller\\ZoneHasModeDiffculteController',
             'Backend\\Controller\\Cache' => 'Backend\\Controller\\CacheController',
             'Backend\\Controller\\Opcode' => 'Backend\\Controller\\OpcodeCacheController',
+            'Backend\Controller\Pages' => 'Backend\Controller\PagesController',
         ),
     ),
     'view_manager' => array(

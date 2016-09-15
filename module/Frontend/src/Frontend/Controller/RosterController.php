@@ -63,8 +63,6 @@ class RosterController extends FrontController {
             // TODO Anta fin
         } catch (\Exception $exc) {
             $ex = \Core\Util\ParseException::getCause($exc);
-
-            //   $msg = $this->_getServTranslator()->translate("Une erreur est survenue lors de l'affichage du détail du raid.");
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
             $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
         }

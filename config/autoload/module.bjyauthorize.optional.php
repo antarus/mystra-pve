@@ -213,6 +213,7 @@ return array(
                 array('route' => 'backend-pallier-afficher-delete', 'roles' => array('admin')),
                 array('route' => 'backend-zone-autocomplete', 'roles' => array('admin')),
                 array('route' => 'backend-mode-autocomplete', 'roles' => array('admin')),
+                array('route' => 'backend-pages', 'roles' => array('admin')),
                 // cache
                 array('route' => 'cache-list', 'roles' => array('admin')),
                 array('route' => 'cache-status', 'roles' => array('admin')),
