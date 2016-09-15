@@ -70,13 +70,13 @@
 <aside class="col-md-4">
     <ul>
         <li>
-            <a class="btn btn-primary"  href="#presenceRaids">Présence Raids</a>
+            <a class="btn btn-primary boutonStats"  href="#presenceRaids">Présence Raids</a>
         </li>
         <li>
-            <a class="btn btn-primary"   href="#lootsRaids">Loots Raids</a>
+            <a class="btn btn-primary boutonStats"   href="#lootsRaids">Loots Raids</a>
         </li>
         <li>
-            <a class="btn btn-primary" href="#jesaispasquoimettre">Je sais pas quoi mettre</a>
+            <a class="btn btn-primary boutonStats" href="#jesaispasquoimettre">Je sais pas quoi mettre</a>
         </li>
     </ul>
 </aside>
@@ -98,11 +98,14 @@
 <script src="//code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script> 
         var link = '';
-        $( "a" ).on( "click", function()
+        $( ".boutonStats" ).on( "click", function()
         { 
             var newLink = $(this).attr('href');
-            $( link).toggle( "drop", 500 );
             if( newLink !== link){
+                $( link).toggle( "drop", 500 );
+                $( newLink).toggle( "drop", 500 );    
+                link = newLink;
+            }else{
                 $( newLink).toggle( "drop", 500 );    
                 link = newLink;
             }
