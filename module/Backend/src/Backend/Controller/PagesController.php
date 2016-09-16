@@ -89,23 +89,27 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public function aproposAction() {
         $idPage = $this->_getPagesId('apropos');
+        $oViewModel = new ViewModel();
+        
         try {
             $oApropoAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
                 'type' => 'page'));
-            $dateUpdate = new \DateTime($oApropoAction->lastUpdate);
-            $writeBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->writeBy));
-            $updateBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->updateBy));
+            if($oApropoAction)
+            {
+                 $dateUpdate = new \DateTime($oApropoAction->lastUpdate);
+                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->updateBy));      
+                $oViewModel->setVariable("writeBy", $writeBy->username);
+                $oViewModel->setVariable("updateBy", $updateBy->username);
+                $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+                $oViewModel->setVariable("content", $oApropoAction->content);
+            }
+           
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
         }
-
-        $oViewModel = new ViewModel();
         $oViewModel->setVariable("idPages", $idPage);
-        $oViewModel->setVariable("writeBy", $writeBy->username);
-        $oViewModel->setVariable("updateBy", $updateBy->username);
-        $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
-        $oViewModel->setVariable("content", $oApropoAction->content);
         $oViewModel->setTemplate('backend/pages/apropos');
         return $oViewModel;
     }
