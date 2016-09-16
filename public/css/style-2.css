@@ -332,7 +332,7 @@ li
 .btn-primary:hover , .btn-primary:active 
 {
     background: rgba(34,45,50,0.30) !important;
-    color: #000;
+    color: #FFF;
     border: 1px solid rgba(255,255,255,0.31) !important;
 }
 .panel-default
@@ -373,7 +373,12 @@ li
     text-align: center;
     padding-bottom: 7px;
 }
-
+.activeStats ,.activeStats:active ,.activeStats:focus, .activeStats:hover
+{
+    background: rgba(34,45,50,0.30) !important;
+    color: #FFD800;
+    border: 1px solid rgba(255,255,255,0.31) !important;
+}
 /*!
  *	TABLE
  */

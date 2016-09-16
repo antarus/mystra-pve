@@ -79,18 +79,22 @@ $(document).ready(function () {
         }
     }
     
-    link = '';
+    link = '#configRoster';
     $( ".boutonStats" ).on( "click", function()
     { 
         var newLink = $(this).attr('name');
-        console.log('link :'+link);
-        console.log('newlink :'+newLink);
+//        console.log('link :'+link);
+//        console.log('newlink :'+newLink);
         if( newLink !== link){
             $( link).toggle( "drop", 500 );
-            $( newLink).toggle( "drop", 500 );    
+            $('.boutonStats').removeClass('activeStats');  
+            $(newLink).delay(600);
+            $( newLink).toggle( "drop", 500 );  
+            $(this).addClass('activeStats');
             link = newLink;
         }else{
-            $( newLink).toggle( "drop", 500 );    
+            $( newLink).toggle( "drop", 500 );   
+            $('.boutonStats').removeClass('activeStats');   
             link = '';
         }
     });
