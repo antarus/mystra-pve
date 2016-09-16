@@ -3,6 +3,7 @@
 namespace Commun\Table;
 
 use \Commun\Exception\DatabaseException;
+use Zend\Db\Sql\Expression;
 
 /**
  * @author Antarus
@@ -34,7 +35,8 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
     public function savePage($idPages, $content, $userID) {
         $aPages = array('type' => 'page',
             'idPages' => $idPages,
-            'content' => $content);
+            'content' => $content,
+            'lastUpdate'=> new Expression('Now()'));
 
         try {
             if ($this->selectBy(array("idPages" => $aPages['idPages'],
