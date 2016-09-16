@@ -77,6 +77,44 @@ $(document).ready(function () {
             hoverBackgroundColor = ['rgba(25,52,65,0.8)', 'rgba(209,219,189,0.8)'];
             generateCharts(data, 'lootRosterNoRoster', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
+        if($('#presenceRoster').length)
+        {
+            data = {
+                'Prony' : 12,
+                'Antaruss'  : 8,
+                'Kâdyl' : 8
+            };
+            options = {
+                legend: {
+                    labels: {
+                       color: '#FFF'
+                    },
+                    display: false
+                },
+                scales :{
+                    xAxes: [{
+                        gridLines:{
+                            color: 'rgba(255,255,255,0)'
+                        },
+                        ticks: {
+                            fontColor: '#FFF'
+                        }
+                    }],
+                    yAxes: [{
+                        gridLines:{
+                            show:true, color:'rgba(255,255,255,0.40)'
+                        },
+                        ticks: {
+                            beginAtZero: true,
+                            fontColor: '#FFF'
+                        }
+                    }]
+                }
+            };
+            backgroundColor = ['rgba(255,124,10,1)', 'rgba(0,132,103,1)','rgba(147,130,201,1)'];
+            hoverBackgroundColor = ['rgba(255,124,10,0.8)', 'rgba(0,132,103,0.8)', 'rgba(147,130,201,0.8)'];
+            generateCharts(data, 'presenceRoster', 'bar', options, backgroundColor, hoverBackgroundColor);
+        }
     }
     
     link = '#configRoster';

@@ -62,15 +62,20 @@
             </div>
         </div>
         <div id="lootsRaids" class="statsDiv" style="display: none; overflow: hidden;">
-            <h4><?php echo $this->translate("Utilisation des loots :"); ?></h4>
-            <canvas id="lootDonationRaid" >            
-            </canvas>
-            <h4><?php echo $this->translate("Repartition des loots :"); ?></h4>
-            <canvas id="lootRosterNoRoster" >            
-            </canvas>
+            <div class="col-md-6">
+                <h4><?php echo $this->translate("Utilisation des loots :"); ?></h4>
+                <canvas id="lootDonationRaid" >            
+                </canvas>
+            </div>
+            <div class="col-md-6">
+                <h4><?php echo $this->translate("Repartition des loots :"); ?></h4>
+                <canvas id="lootRosterNoRoster" >            
+                </canvas>
+            </div>
         </div>
         <div id="jesaispasquoimettre" class="statsDiv" style="display: none; overflow: hidden;">
-            <p> Ceci est un test (ouai ouai vraiment)</p>
+            <canvas id='presenceRoster' style="max-width: 500px;">
+            </canvas>
         </div>
     </section>
 </div>
