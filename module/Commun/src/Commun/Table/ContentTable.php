@@ -49,7 +49,7 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
                 $aPages['writeBy'] = $userID;
                 $aPages['updateBy'] = $userID;
                 $this->insert($aPages);
-                return $this->lastInsertValue();
+                return true;
             }
         } catch (\Exception $exc) {
             throw new DatabaseException(12000, 2, $this->_getServiceLocator(), array(), $exc);
