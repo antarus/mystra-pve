@@ -54,7 +54,7 @@ return array(
             'front-roster-stat' => array(
                 'type' => 'Segment',
                 'options' => array(
-                    'route' => '/frontend/roster/:key/stat/',
+                    'route' => '/frontend/roster/:key/stat/[:action]',
                     'constraints' => array(
                         'key' => '[a-zA-Z0-9_-]+',
                     ),
