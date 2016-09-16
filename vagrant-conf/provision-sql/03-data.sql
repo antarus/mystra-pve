@@ -322,6 +322,19 @@ TRUNCATE TABLE `zone_has_bosses`;
 TRUNCATE TABLE `zone_has_mode_diffculte`;
 SET FOREIGN_KEY_CHECKS=1;
 
+TRUNCATE TABLE `content`;
+
+TRUNCATE TABLE `pages`;
+--
+-- Contenu de la table `pages`
+--
+
+INSERT INTO `pages` (`idPages`, `name`) VALUES
+(1, 'home'),
+(2, 'apropos'),
+(3, 'discordbot'),
+(4, 'team');
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

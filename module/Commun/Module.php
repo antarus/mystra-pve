@@ -7,7 +7,7 @@ namespace Commun;
  *
  * @
  *
- *         author Antarus
+ *         author Antarus Capi
  * @ project  Mystra
  */
 class Module {
@@ -192,6 +192,16 @@ class Module {
                 },
                 'Commun\Table\ZoneHasModeDiffculteTable' => function($sm) {
                     $oTable = new \Commun\Table\ZoneHasModeDiffculteTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
+                'Commun\Table\ContentTable' => function($sm) {
+                    $oTable = new \Commun\Table\ContentTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
+                'Commun\Table\PagesTable' => function($sm) {
+                    $oTable = new \Commun\Table\PagesTable($sm->get("\Zend\Db\Adapter\Adapter"));
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },

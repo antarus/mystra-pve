@@ -2,7 +2,6 @@
 
 namespace Commun\Table;
 
-use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\Sql\Expression;
 use \Commun\Exception\DatabaseException;
 

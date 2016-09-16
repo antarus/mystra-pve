@@ -16,7 +16,7 @@ return array(
             'pages' => array(
                 array(
                 'label' => $translator->translate('Home page'),
-                'route' => null,
+                'route' => 'backend-pages',
                 'action' => 'index',
                 ),
                 array(
@@ -26,13 +26,13 @@ return array(
                 ),
                 array(
                 'label' => $translator->translate('Discord Bot'),
-                'route' => null,
-                'action' => 'index',
+                'route' => 'backend-pages',
+                'action' => 'discordbot',
                 ),
                 array(
                 'label' => $translator->translate("l'équipe"),
-                'route' => null,
-                'action' => 'index',
+                'route' => 'backend-pages',
+                'action' => 'team',
                 )
         )),
         array(

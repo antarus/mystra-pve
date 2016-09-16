@@ -119,6 +119,8 @@ return array(
     'Commun\Model\ZoneHasModeDiffculte' => __DIR__ . '/src/Commun/Model/ZoneHasModeDiffculte.php',
     'Commun\Model\PallierAfficher' => __DIR__ . '/src/Commun/Model/PallierAfficher.php',
     'Commun\Model\LogApiProblem' => __DIR__ . '/src/Commun/Model/LogApiProblem.php',
+    'Commun\Model\Content' => __DIR__ . '/src/Commun/Model/Content.php',
+    'Commun\Model\Pages' => __DIR__ . '/src/Commun/Model/Pages.php',
     'Commun\Module' => __DIR__ . '/Module.php',
     'Commun\Table\BossesHasNpcTable' => __DIR__ . '/src/Commun/Table/BossesHasNpcTable.php',
     'Commun\Table\BossesTable' => __DIR__ . '/src/Commun/Table/BossesTable.php',
@@ -148,4 +150,6 @@ return array(
     'Commun\Table\ZoneHasModeDiffculteTable' => __DIR__ . '/src/Commun/Table/ZoneHasModeDiffculteTable.php',
     'Commun\Table\ZoneTable' => __DIR__ . '/src/Commun/Table/ZoneTable.php',
     'Commun\Table\PallierAfficherTable' => __DIR__ . '/src/Commun/Table/PallierAfficherTable.php',
+    'Commun\Table\ContentTable' => __DIR__ . '/src/Commun/Table/ContentTable.php',
+    'Commun\Table\PagesTable' => __DIR__ . '/src/Commun/Table/PagesTable.php',
 );

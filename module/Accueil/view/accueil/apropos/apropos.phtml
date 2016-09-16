@@ -1,0 +1,5 @@
+<h4 class="page-title"><?php echo $this->translate('A propos'); ?></h4>
+<div>
+    <?php echo $this->content; ?>
+</div>
+<p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "),$this->writeBy,$this->dateUpdate,$this->updateBy);?></p>

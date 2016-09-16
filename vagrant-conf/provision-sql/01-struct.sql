@@ -556,9 +556,50 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
   KEY `fk_mode_difficulte_has_zone_mode_difficulte1_idx` (`idMode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- phpMyAdmin SQL Dump
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
 --
--- Contraintes pour les tables exportées
+-- Client: localhost
+-- Généré le: Ven 16 Septembre 2016 à 15:28
+-- Version du serveur: 5.5.50-0ubuntu0.14.04.1
+-- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+-- --------------------------------------------------------
+
 --
+-- Structure de la table `content`
+--
+
+CREATE TABLE IF NOT EXISTS `content` (
+  `idContent` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('page','article') NOT NULL,
+  `idPages` int(11) NOT NULL,
+  `content` text NOT NULL,
+  `writeBy` int(11) DEFAULT NULL,
+  `updateBy` int(11) DEFAULT NULL,
+  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idContent`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pages`
+--
+
+CREATE TABLE IF NOT EXISTS `pages` (
+  `idPages` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`idPages`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
 
 --
 -- Contraintes pour la table `bosses_has_npc`
