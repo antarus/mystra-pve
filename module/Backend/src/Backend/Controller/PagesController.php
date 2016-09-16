@@ -116,24 +116,28 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public function discordbotAction() {
         $idPage = $this->_getPagesId('discordbot');
-        var_dump($idPage);
+        $oViewModel = new ViewModel();
         try {
             $oDiscordbotAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
                 'type' => 'page'));
-            $dateUpdate = new \DateTime($oDiscordbotAction->lastUpdate);
-            $writeBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->writeBy));
-            $updateBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->updateBy));
+            if($oDiscordbotAction)
+            {
+                $dateUpdate = new \DateTime($oDiscordbotAction->lastUpdate);
+                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->updateBy));   
+                $oViewModel->setVariable("writeBy", $writeBy->username);
+                $oViewModel->setVariable("updateBy", $updateBy->username);
+                $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+                $oViewModel->setVariable("content", $oDiscordbotAction->content);
+            }
+            
+            
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
         }
         
-        $oViewModel = new ViewModel();
         $oViewModel->setVariable("idPages", $idPage);
-        $oViewModel->setVariable("writeBy", $writeBy->username);
-        $oViewModel->setVariable("updateBy", $updateBy->username);
-        $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
-        $oViewModel->setVariable("content", $oDiscordbotAction->content);
         $oViewModel->setTemplate('backend/pages/discordbot');
         return $oViewModel;
     }
@@ -154,11 +158,11 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Enregistrement de la page effectuée avec succes."), 'success');
                 return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
             } catch (\Exception $ex) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Soucit lors de la sauvagarde de la page: " . $ex->getMessage()), 'error');
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de la page: " . $ex->getMessage()), 'error');
                 return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
             }
         } else {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Soucit lors de la sauvagarde de la page."), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de la page."), 'error');
             return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
         }
     }

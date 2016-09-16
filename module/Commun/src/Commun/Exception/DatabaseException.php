@@ -114,6 +114,8 @@ class DatabaseException extends \Commun\Exception\LogException {
         // usager
         11006 => "Usager inconnue.",
         11001 => "Erreur lors de la mise à jour de l'usager.",
+        //content
+        12000 => "Content"
     );
 
 }

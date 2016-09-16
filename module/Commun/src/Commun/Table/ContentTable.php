@@ -47,11 +47,12 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
                 return true;
             } else {
                 $aPages['writeBy'] = $userID;
+                $aPages['updateBy'] = $userID;
                 $this->insert($aPages);
                 return $this->lastInsertValue();
             }
         } catch (\Exception $exc) {
-            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $oRaids->getArrayCopy(), $exc);
+            throw new DatabaseException(12000, 2, $this->_getServiceLocator(), array(), $exc);
             return false;
         }
     }
