@@ -53,6 +53,16 @@ return array(
                     ),
                 ),
             ),
+            'team' => array(
+                'type' => 'Literal',
+                'options' => array(
+                    'route' => '/team',
+                    'defaults' => array(
+                        'controller' => 'Accueil\Controller\Team',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
         ),
     ),
     'controllers' => array(
@@ -61,6 +71,7 @@ return array(
             'Accueil\Controller\Contact' => 'Accueil\Controller\ContactController',
             'Accueil\Controller\Apropos' => 'Accueil\Controller\AproposController',
             'Accueil\Controller\Discordbot' => 'Accueil\Controller\DiscordbotController',
+            'Accueil\Controller\Team' => 'Accueil\Controller\TeamController',
         ),
     ),
     'view_manager' => array(

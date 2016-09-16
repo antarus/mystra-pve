@@ -46,6 +46,7 @@ return array(
                 array('route' => 'contact', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'apropos', 'roles' => array('guest', 'user', 'admin')),
                 array('route' => 'discordbot', 'roles' => array('guest', 'user', 'admin')),
+                array('route' => 'team', 'roles' => array('guest', 'user', 'admin')),
                 // backend Module
                 array('route' => 'backend-index', 'roles' => array('admin')),
                 array('route' => 'backend-bosses-list', 'roles' => array('admin')),

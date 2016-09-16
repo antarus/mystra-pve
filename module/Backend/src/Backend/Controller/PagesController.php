@@ -143,8 +143,30 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
     }
 
     public function teamAction() {
+        $idPage = $this->_getPagesId('team');
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/pages/apropos');
+        try {
+            $oTeamAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
+                'type' => 'page'));
+            if($oTeamAction)
+            {
+                $dateUpdate = new \DateTime($oTeamAction->lastUpdate);
+                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oTeamAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oTeamAction->updateBy));   
+                $oViewModel->setVariable("writeBy", $writeBy->username);
+                $oViewModel->setVariable("updateBy", $updateBy->username);
+                $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+                $oViewModel->setVariable("content", $oTeamAction->content);
+            }
+            
+            
+        } catch (Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
+            return $this->redirect()->toRoute('backend-pages');
+        }
+        
+        $oViewModel->setVariable("idPages", $idPage);
+        $oViewModel->setTemplate('backend/pages/team');
         return $oViewModel;
     }
 
