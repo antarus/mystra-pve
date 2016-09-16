@@ -83,7 +83,7 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
 
     public function indexAction() {
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/pages/apropos');
+        $oViewModel->setTemplate('backend/pages/home');
         return $oViewModel;
     }
 
