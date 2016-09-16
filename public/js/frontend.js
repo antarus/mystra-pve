@@ -82,7 +82,7 @@ $(document).ready(function () {
     link = '';
     $( ".boutonStats" ).on( "click", function()
     { 
-        var newLink = $(this).attr('href');
+        var newLink = $(this).attr('name');
         console.log('link :'+link);
         console.log('newlink :'+newLink);
         if( newLink !== link){
