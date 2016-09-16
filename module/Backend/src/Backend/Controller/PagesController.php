@@ -96,7 +96,7 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
             $writeBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->writeBy));
             $updateBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->updateBy));
         } catch (Exception $ex) {
-            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Soucit lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
         }
 
@@ -104,16 +104,33 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         $oViewModel->setVariable("idPages", $idPage);
         $oViewModel->setVariable("writeBy", $writeBy->username);
         $oViewModel->setVariable("updateBy", $updateBy->username);
-        $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à h:i:s'));
+        $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
         $oViewModel->setVariable("content", $oApropoAction->content);
         $oViewModel->setTemplate('backend/pages/apropos');
         return $oViewModel;
     }
 
     public function discordbotAction() {
-
+        $idPage = $this->_getPagesId('discordbot');
+        var_dump($idPage);
+        try {
+            $oDiscordbotAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
+                'type' => 'page'));
+            $dateUpdate = new \DateTime($oDiscordbotAction->lastUpdate);
+            $writeBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->writeBy));
+            $updateBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->updateBy));
+        } catch (Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
+            return $this->redirect()->toRoute('backend-pages');
+        }
+        
         $oViewModel = new ViewModel();
-        $oViewModel->setTemplate('backend/pages/apropos');
+        $oViewModel->setVariable("idPages", $idPage);
+        $oViewModel->setVariable("writeBy", $writeBy->username);
+        $oViewModel->setVariable("updateBy", $updateBy->username);
+        $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+        $oViewModel->setVariable("content", $oDiscordbotAction->content);
+        $oViewModel->setTemplate('backend/pages/discordbot');
         return $oViewModel;
     }
 
