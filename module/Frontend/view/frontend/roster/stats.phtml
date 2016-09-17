@@ -14,7 +14,7 @@
 
             <button class="btn btn-primary boutonStats"  name="#lootsRaids">Loots Raids</button>
 
-            <button class="btn btn-primary boutonStats" name="#jesaispasquoimettre">Je sais pas quoi mettre</button>
+            <button class="btn btn-primary boutonStats" name="#presenceRaid">Présence en raid</button>
 
         </div>
     </aside>
@@ -73,11 +73,11 @@
                 </canvas>
             </div>
         </div>
-        <div id="jesaispasquoimettre" class="statsDiv box" style="display: none; overflow: hidden; padding: 15px;">
-            <canvas id='presenceRoster' style="max-width: 500px;">
+        <div id="presenceRaid" class="statsDiv box" style="display: none; overflow: hidden; padding: 15px;">
+            <canvas id='presenceRoster' >
             </canvas>
         </div>
     </section>
 </div>
 
-<input type='hidden' id='ajaxUrl' value='<?php echo $this->url('front-raid-list', array('key' => $key)); ?>'/>
+<input type='hidden' id='ajaxUrl' value='<?php echo $this->url('front-roster-stat', array('key' => $key)); ?>'/>
