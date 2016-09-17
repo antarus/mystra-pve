@@ -1,11 +1,8 @@
 <h4>Articles :</h4>
 <form class="form-inline" method="post" action="<?php echo $this->url('backend-pages', array('action' => 'articles')); ?>">
-    <?php var_dump($this->listeArticles); ?>
     <div class="form-group">
-        <select name="articles" id="articles">
-            
+        <select name="articles" id="articles">            
             <?php foreach($this->listeArticles as $article): ?>
-            <?php print_r($article); ?>
             <option value="<?php echo $article['idContent']; ?>"><?php echo $article['titleArticle'] ?></option>
             <?php endforeach; ?>
         </select>
@@ -14,10 +11,10 @@
 </form>
 
 <p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "), $this->writeBy, $this->dateUpdate, $this->updateBy); ?></p>
-<form method='post' action='<?php echo $this->url('backend-pages', array('action' => 'savepage')); ?>'>
+<form method='post' action='<?php echo $this->url('backend-pages', array('action' => 'savearticle')); ?>'>
     <textarea class="ckeditor" name="content"><?php echo $this->content; ?></textarea>
     <input type="hidden" name="idPages" value="<?php echo $this->idPages; ?>" />
-    <input type="hidden" name="action" value="team" />
+    <input type="hidden" name="action" value="articles" />
     <p></p>
     <input type="submit" value="enregistrer" />
 </form>
