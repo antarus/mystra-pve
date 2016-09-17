@@ -15,6 +15,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         ->appendStylesheet($this->basePath('css/skin-blue.min.css'))
         ->appendStylesheet($this->basePath('css/style-2.css'))
         ->appendStylesheet($this->basePath('plugin/fancybox/source/jquery.fancybox.css?v=2.1.5'))
+        ->appendStylesheet($this->basePath('plugin/DirectionAwareHoverEffect/css/style.css'))
         ->appendStylesheet("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css")
         ->appendStylesheet("https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css")
         ->appendStylesheet("https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css");
@@ -42,6 +43,7 @@ echo $this->headScript()
         ->appendFile($this->basePath('js/Chart.js'))
         ->appendFile($this->basePath('js/frontend.js'))
         ->appendFile($this->basePath('js/app.min.js'))
+        ->appendFile($this->basePath('plugin/DirectionAwareHoverEffect/js/jquery.hoverdir.js'))
 //        ->appendFile($this->basePath('js/DT_bootstrap_3.js'))
 ;
 ?>

@@ -2,4 +2,43 @@
 <div>
     <?php echo $this->content; ?>
 </div>
-<p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "),$this->writeBy,$this->dateUpdate,$this->updateBy);?></p>
+<p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "), $this->writeBy, $this->dateUpdate, $this->updateBy); ?></p>
+<section>
+    <ul id="da-thumbs" class="da-thumbs">
+        <li>
+            <a href='#'>
+                <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Anta.png") ?>" height='187px'/>
+                <div><span>Antarus Web Developper | Responsable Project</span></div>
+            </a>
+        </li>
+        <li>
+            <a href='#'>
+            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Capi.png")  ?>" height='187px'/>
+            <div><span>Capi Web Developper | Responsable Project</span></div>
+            </a>
+        </li>
+        <li>
+            <a href='#'>
+            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll.png")  ?>" height='187px'/>
+            <div><span>Kadyll Web Developper Stagiaire | Esclave </span></div>
+            </a>
+        </li>
+        <li>
+            <a href='#'>
+            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png")  ?>" height='187px'/>
+            <div><span>Bro0k Graphiste | Doux rêveur </span></div>
+            </a>
+        </li>
+        <li>
+            <a href='#'>
+            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png")  ?>" height='187px'/>
+            <div><span>Captain Chaton BOT | Alcoolique </span></div>
+            </a>
+        </li>
+    </ul>
+</section>
+<script type="text/javascript">
+    $(function () {
+        $(' #da-thumbs > li ').hoverdir();
+    });
+</script>
