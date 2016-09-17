@@ -102,14 +102,8 @@ class RosterController extends FrontController {
             return $this->redirect()->toRoute('home');
         }
         
-        $key = $oRoster->getKey();
-        $iIdRaid = $this->params()->fromRoute('idRaid');
-        
         try {
-            $aRoster = $oRoster->getArrayCopy();
             $aStat = $this->getTableRoster()->getStatRoster($oRoster->getNom())->getArrayCopy();
-            $aPallier = $this->getTablePallier()->getPallierFrontend($oRoster->getIdRoster());
-
         } catch (\Exception $exc) {
             $ex = \Core\Util\ParseException::getCause($exc);
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
