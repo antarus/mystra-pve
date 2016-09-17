@@ -37,6 +37,14 @@ class Content extends \Core\Model\AbstractModel {
      * @var text
      */
     public $content = null;
+    
+    /**
+     * Colonne: titleArticle
+     *
+     * @var string
+     */
+    public $titleArticle = null;
+    
     /**
      * Colonne: writeby
      *
@@ -145,7 +153,16 @@ class Content extends \Core\Model\AbstractModel {
     public function getLastUpdate() {
         return $this->lastUpdate;
     }
-
+    
+    public function getTitleArticle(){
+        return $this->titleArticle;
+    }
+    
+    public function setTitleArticle($titleArticle)
+    {
+        $this->titleArticle = $titleArticle;
+    }
+    
     public function setIdContent($idContent) {
         $this->idContent = $idContent;
     }

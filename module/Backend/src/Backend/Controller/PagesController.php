@@ -90,21 +90,19 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
     public function aproposAction() {
         $idPage = $this->_getPagesId('apropos');
         $oViewModel = new ViewModel();
-        
+
         try {
             $oApropoAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
                 'type' => 'page'));
-            if($oApropoAction)
-            {
-                 $dateUpdate = new \DateTime($oApropoAction->lastUpdate);
-                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->writeBy));
-                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oApropoAction->updateBy));      
+            if ($oApropoAction) {
+                $dateUpdate = new \DateTime($oApropoAction->lastUpdate);
+                $writeBy = $this->getUsersTable()->selectby(array('id' => $oApropoAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id' => $oApropoAction->updateBy));
                 $oViewModel->setVariable("writeBy", $writeBy->username);
                 $oViewModel->setVariable("updateBy", $updateBy->username);
                 $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
                 $oViewModel->setVariable("content", $oApropoAction->content);
             }
-           
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
@@ -120,23 +118,20 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         try {
             $oDiscordbotAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
                 'type' => 'page'));
-            if($oDiscordbotAction)
-            {
+            if ($oDiscordbotAction) {
                 $dateUpdate = new \DateTime($oDiscordbotAction->lastUpdate);
-                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->writeBy));
-                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oDiscordbotAction->updateBy));   
+                $writeBy = $this->getUsersTable()->selectby(array('id' => $oDiscordbotAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id' => $oDiscordbotAction->updateBy));
                 $oViewModel->setVariable("writeBy", $writeBy->username);
                 $oViewModel->setVariable("updateBy", $updateBy->username);
                 $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
                 $oViewModel->setVariable("content", $oDiscordbotAction->content);
             }
-            
-            
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
         }
-        
+
         $oViewModel->setVariable("idPages", $idPage);
         $oViewModel->setTemplate('backend/pages/discordbot');
         return $oViewModel;
@@ -148,25 +143,63 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         try {
             $oTeamAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
                 'type' => 'page'));
-            if($oTeamAction)
-            {
+            if ($oTeamAction) {
                 $dateUpdate = new \DateTime($oTeamAction->lastUpdate);
-                $writeBy = $this->getUsersTable()->selectby(array('id'=>$oTeamAction->writeBy));
-                $updateBy = $this->getUsersTable()->selectby(array('id'=>$oTeamAction->updateBy));   
+                $writeBy = $this->getUsersTable()->selectby(array('id' => $oTeamAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id' => $oTeamAction->updateBy));
                 $oViewModel->setVariable("writeBy", $writeBy->username);
                 $oViewModel->setVariable("updateBy", $updateBy->username);
                 $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
                 $oViewModel->setVariable("content", $oTeamAction->content);
             }
-            
-            
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
         }
-        
+
         $oViewModel->setVariable("idPages", $idPage);
         $oViewModel->setTemplate('backend/pages/team');
+        return $oViewModel;
+    }
+
+    public function articlesAction() {
+        $oRequest = $this->getRequest();
+        $oViewModel = new ViewModel();
+        //on recupere la liste des articles pour la liste déroulante
+        try {
+            $aListArticles = $this->getContentTable()->fetchRowWhere(array('type' => 'article'))->getArrayCopy();
+            $oViewModel->setVariable('listeArticles', $aListArticles);
+            var_dump($aListArticles);
+        } catch (Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème lors du chargement de la liste des articles: " . $ex->getMessage()), 'error');
+            return $this->redirect()->toRoute('backend-pages');
+        }
+        if ($oRequest->isPost()) {
+            $aPost = $oRequest->getPost();
+            $idPage = $aPost['articles'];
+
+            try {
+
+                $oArticlesAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
+                    'type' => 'article'));
+                if ($oArticlesAction) {
+                    $dateUpdate = new \DateTime($oArticlesAction->lastUpdate);
+                    $writeBy = $this->getUsersTable()->selectby(array('id' => $oArticlesAction->writeBy));
+                    $updateBy = $this->getUsersTable()->selectby(array('id' => $oArticlesAction->updateBy));
+                    $oViewModel->setVariable("writeBy", $writeBy->username);
+                    $oViewModel->setVariable("updateBy", $updateBy->username);
+                    $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+                    $oViewModel->setVariable("content", $oArticlesAction->content);
+                }
+            } catch (Exception $ex) {
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
+                return $this->redirect()->toRoute('backend-pages');
+            }
+
+            $oViewModel->setVariable("idPages", $idPage);
+        }
+        $oViewModel->setTemplate('backend/pages/articles');
+
         return $oViewModel;
     }
 

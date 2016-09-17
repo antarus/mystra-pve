@@ -245,7 +245,7 @@ class AbstractTable extends AbstractTableGateway implements EventManagerAwareInt
      * @param mixed $order
      * @return mixed
      */
-    public function fetchRowWhere(Where $oWhere, $order = null) {
+    public function fetchRowWhere($oWhere, $order = null) {
         $oQuery = $this->getBaseQuery();
         $oQuery->where($oWhere);
         if (!is_null($order)) {

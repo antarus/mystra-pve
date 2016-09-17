@@ -30,9 +30,14 @@ return array(
                 'action' => 'discordbot',
                 ),
                 array(
-                'label' => $translator->translate("l'équipe"),
+                'label' => $translator->translate("L'Equipe"),
                 'route' => 'backend-pages',
                 'action' => 'team',
+                ),
+                array(
+                'label' => $translator->translate("Articles"),
+                'route' => 'backend-pages',
+                'action' => 'articles',
                 )
         )),
         array(
