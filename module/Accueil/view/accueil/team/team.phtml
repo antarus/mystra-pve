@@ -7,38 +7,50 @@
     <ul id="da-thumbs" class="da-thumbs">
         <li>
             <a href='#'>
-                <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Anta.png") ?>" height='187px'/>
-                <div><span>Antarus Web Developper | Responsable Project</span></div>
+                <img id='anta' src="<?php echo $this->basePath("img/avatarTeam/Avatar_Anta.png") ?>" 
+                     onmouseover="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Anta_2.png") ?>'"
+                     onmouseout="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Anta.png") ?>'" height='187px'/>
+                <div onmouseover="$('#anta').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Anta_2.png") ?>')"
+                     onmouseout="$('#anta').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Anta.png") ?>')"
+                     ><span>Antarus Web Developper | Responsable Project</span></div>
             </a>
         </li>
         <li>
             <a href='#'>
-            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Capi.png")  ?>" height='187px'/>
-            <div><span>Capi Web Developper | Responsable Project</span></div>
+            <img id='capi' src="<?php echo $this->basePath("img/avatarTeam/Avatar_Capi.png")  ?>"
+                     onmouseover="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Capi_2.png") ?>'"
+                     onmouseout="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Capi.png") ?>'" height='187px'/>
+            <div onmouseover="$('#capi').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Capi_2.png") ?>')"
+                     onmouseout="$('#capi').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Capi.png") ?>')"
+                     ><span>Capi Web Developper | Responsable Project</span></div>
             </a>
         </li>
         <li>
             <a href='#'>
-            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll.png")  ?>" height='187px'/>
-            <div><span>Kadyll Web Developper Stagiaire | Esclave </span></div>
+            <img id='kadyll' src="<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll.png")  ?>"
+                     onmouseover="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll_2.png") ?>'"
+                     onmouseout="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll.png") ?>'"  height='187px'/>
+            <div onmouseover="$('#kadyll').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll_2.png") ?>')"
+                     onmouseout="$('#kadyll').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Kadyll.png") ?>')"
+                     ><span>Kadyll Web Developper / Intégraphiste Stagiaire | Esclave </span></div>
             </a>
         </li>
         <li>
             <a href='#'>
-            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png")  ?>" height='187px'/>
-            <div><span>Bro0k Graphiste | Doux rêveur </span></div>
+            <img id='Bro0k' src="<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png")  ?>" 
+                 onmouseover="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k_2.png") ?>'"
+                 onmouseout="this.src='<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png") ?>'"   height='187px'/>
+            <div onmouseover="$('#Bro0k').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k_2.png") ?>')"
+                     onmouseout="$('#Bro0k').attr('src', '<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png") ?>')"
+                     ><span>Bro0k Graphiste | Doux rêveur </span></div>
             </a>
         </li>
-        <li>
-            <a href='#'>
-            <img src="<?php echo $this->basePath("img/avatarTeam/Avatar_Bro0k.png")  ?>" height='187px'/>
-            <div><span>Captain Chaton BOT | Alcoolique </span></div>
-            </a>
-        </li>
+        
     </ul>
 </section>
 <script type="text/javascript">
     $(function () {
         $(' #da-thumbs > li ').hoverdir();
+        
     });
 </script>
