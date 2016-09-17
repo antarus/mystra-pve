@@ -111,7 +111,7 @@ $(document).ready(function () {
                         };
                         backgroundColor = ['rgba(255,124,10,1)', 'rgba(0,132,103,1)', 'rgba(147,130,201,1)'];
                         hoverBackgroundColor = ['rgba(255,124,10,0.8)', 'rgba(0,132,103,0.8)', 'rgba(147,130,201,0.8)'];
-                        generateCharts(data, 'presenceRoster', 'bar', options, backgroundColor, hoverBackgroundColor);
+                        generateCharts(data.participants, 'presenceRoster', 'bar', options,data.couleur, hoverBackgroundColor);
                     })
                     .fail(function () {
                         generateCharts('');

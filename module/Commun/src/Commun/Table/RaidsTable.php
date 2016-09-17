@@ -200,9 +200,9 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $oQuery = $sql->select();
             $oQuery->from(array('rp' => 'raid_personnage'))
                     ->join(array('r' => 'raids'), 'r.idRaid=rp.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
-                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume'), \Zend\Db\Sql\Select::JOIN_INNER)
-                    ->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
-
+                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume','idClasses'), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('couleur'), \Zend\Db\Sql\Select::JOIN_INNER);
 
             return $oQuery;
         } catch (\Exception $exc) {

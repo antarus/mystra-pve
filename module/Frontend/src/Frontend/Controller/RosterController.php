@@ -99,6 +99,7 @@ class RosterController extends FrontController {
         $oRoster = $this->valideKey();
         $aParticipants = array();
         if (!$oRoster) {
+            $this->flashMessenger()->addMessage('La clé Roster renseignée est incorrecte.', 'error');
             return $this->redirect()->toRoute('home');
         }
         
@@ -114,9 +115,12 @@ class RosterController extends FrontController {
             foreach($aStat['participation'] as $participation)
             {
                 $aParticipants[$participation['nom_personnage']]= (int)$participation['nbRaid'];
+                $aCouleur[] = $participation['couleur'];
             }
             //Debug::dump($aParticipants);
-            return new JsonModel($aParticipants);
+            
+            $aResult = array('participants'=>$aParticipants,'couleur'=>$aCouleur);
+            return new JsonModel($aResult);
         }
         return new JsonModel(array());
 
