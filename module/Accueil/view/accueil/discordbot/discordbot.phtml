@@ -1,5 +1,14 @@
-<h4 class="page-title"><?php echo $this->translate('Discord Bot'); ?></h4>
-<div>
+<h4 class="page-title"><?php echo $this->translate("Cap'tain Chaton"); ?></h4>
+
+<div class="jumbotron">
+    <img class="pull-right" style='margin-top: 70px;' src="<?php echo $this->basePath("img/Captain_Chaton.jpg")  ?>" height='180px' />
     <?php echo $this->content; ?>
 </div>
-<p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "),$this->writeBy,$this->dateUpdate,$this->updateBy);?></p>
+<p class='pull-right'><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "), $this->writeBy, $this->dateUpdate, $this->updateBy); ?></p>
+<h4 class="page-title"><?php echo $this->translate("Documentation du Bot"); ?></h4>
+<iframe src="<?php echo $this->basePath("pdf/BotDiscordRTK-CaptainChaton.pdf")  ?>" width="800" height="600" align="middle"></iframe>
+<div class='clearfix'></div>
+<a href="<?php echo $this->basePath("pdf/BotDiscordRTK-CaptainChaton.pdf")  ?>">
+    <img src='<?php echo $this->basePath("img/pdf.png")  ?>' />
+    <?php echo $this->translate('Télécharger le pdf'); ?>
+</a>
