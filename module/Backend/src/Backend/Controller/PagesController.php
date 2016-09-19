@@ -82,7 +82,25 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
     }
 
     public function indexAction() {
+        $idPage = $this->_getPagesId('home');
         $oViewModel = new ViewModel();
+        try {
+            $oApropoAction = $this->getContentTable()->selectby(array('idPages' => $idPage,
+                'type' => 'page'));
+            if ($oApropoAction) {
+                $dateUpdate = new \DateTime($oApropoAction->lastUpdate);
+                $writeBy = $this->getUsersTable()->selectby(array('id' => $oApropoAction->writeBy));
+                $updateBy = $this->getUsersTable()->selectby(array('id' => $oApropoAction->updateBy));
+                $oViewModel->setVariable("writeBy", $writeBy->username);
+                $oViewModel->setVariable("updateBy", $updateBy->username);
+                $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
+                $oViewModel->setVariable("content", $oApropoAction->content);
+            }
+        } catch (Exception $ex) {
+            $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
+            return $this->redirect()->toRoute('backend-pages');
+        }
+        $oViewModel->setVariable("idPages", $idPage);
         $oViewModel->setTemplate('backend/pages/home');
         return $oViewModel;
     }
