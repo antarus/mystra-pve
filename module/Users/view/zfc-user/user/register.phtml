@@ -25,11 +25,16 @@
     ?>
 
     <?php echo $this->form()->openTag($form) ?>
-        <dl class="form-create-account">
-            <h3 class="form-title"><?php echo $this->translate('Register'); ?></h3>
+        <dl class="form-horizontal form-create-account">
+            
+            <h4 class="form-title"><?php echo $this->translate('Register'); ?></h3>
+            
         <?php foreach ($form as $element): ?>
+            
             <?php if (!$element instanceof Zend\Form\Element\Button): ?>
+            <div class="form-group">
             <dt><?php echo $this->formLabel($element) ?> <span class='required'>*</span></dt>
+            
             <?php endif ?>
             <?php if ($element instanceof Zend\Form\Element\Button): ?>
                 <dd><?php echo $recaptcha->getHTML();?></dd>
@@ -44,8 +49,10 @@
                     <dd id='gravatar'><?php if($element->getValue())echo $this->gravatar($element->getValue(), $settings);?></dd>
                 </a>
                 <?php endif;?>
+                </div>
             <?php endif ?>
         <?php endforeach ?>
+            
         </dl>
 
         <?php if ($this->redirect): ?>

@@ -105,8 +105,8 @@ li
 {
     text-transform: uppercase;
     padding: 8px 15px 9px;
-    font-size: 25px;
-    font-weight: bold;
+    font-size: 22px;
+    
     border-bottom: 1px solid rgba(255,255,255,0.15);
     margin-bottom: 15px;
 }
@@ -517,7 +517,7 @@ table > thead > tr:first-child
 {
    text-align: center;   
 }
-.form-contact .form-title
+.form-contact .form-title, .form-create-account .form-title , .form-forget .form-title
 {
     font-size: 20px;
     border: 1px solid rgba(255,255,255,0.30);
@@ -572,7 +572,7 @@ table > thead > tr:first-child
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(255,255,255,0.6);
 }
-.form-create-account button , .form-login button , .form-forget button 
+.form-login button
 {
     text-transform: uppercase;
     border:none;
@@ -584,12 +584,24 @@ table > thead > tr:first-child
     
 }
 
-.form-forget button
+
+
+.form-create-account button , .form-create-account button:visited
 {
-    margin-top: 7px;
+    background: none;
+    border: 1px solid rgba(255,255,255,0.31);
+    padding: 10px 16px 10px 16px;
+    font-size: 18px;
 }
 
-.form-create-account button:hover , .form-login button:hover , .form-forget button:hover
+.form-create-account button:hover , .form-create-account button:active 
+{
+    background: rgba(34,45,50,0.30) !important;
+    color: #FFD800;
+    border: 1px solid rgba(255,255,255,0.31) !important;
+}
+
+.form-login button:hover
 {
     text-shadow: 0 0 3px rgba(255,255,255,1);
     background: -moz-linear-gradient(top, rgba(34,45,50,0.1) 0%, rgba(34,45,50,1) 100%);

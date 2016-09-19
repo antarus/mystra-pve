@@ -1,26 +1,29 @@
 <?php
 $settings = array(
-                    'img_size'    => 100,
-                    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
-                    'rating'      => \Zend\View\Helper\Gravatar::RATING_G,
-                    'secure'      => null,
-                    );
+    'img_size' => 100,
+    'default_img' => \Zend\View\Helper\Gravatar::DEFAULT_MONSTERID,
+    'rating' => \Zend\View\Helper\Gravatar::RATING_G,
+    'secure' => null,
+);
 
 
-$recaptcha = new ZendService\ReCaptcha\ReCaptcha($this->publicKey,$this->privateKey, null, array('lang'=>'fr'));
-
+$recaptcha = new ZendService\ReCaptcha\ReCaptcha($this->publicKey, $this->privateKey, null, array('lang' => 'fr'));
 ?>
 
 
 
 
 
-<form action='<?php echo $this->url('forgetpass',array('action'=>'sendforgetpassmail'))?>' method='post' class="form-forget">
-    <h3 class="form-title"><?php echo $this->translate("Mot de passe oublié"); ?></h3>
-    <i><?php echo $this->translate("Entrez votre email, nous allons vous aider à le réinitialiser."); ?></i>
-    <input type='text' name='mail' value='<?php echo $this->mail; ?>' placeholder="Ex: monemail@gmail.com" />
-    
-    <?php echo $recaptcha->getHTML();?>
-    
-    <button type='submit'><?php echo $this->translate('Récupérer') ?></button>
+<form action='<?php echo $this->url('forgetpass', array('action' => 'sendforgetpassmail')) ?>' method='post' class="form-horizontal form-forget">
+    <h4 class="form-title"><?php echo $this->translate("Mot de passe oublié"); ?></h3>
+        <div class="form-group">
+            <i><?php echo $this->translate("Entrez votre email, nous allons vous aider à le réinitialiser."); ?></i>
+            <input type='text' name='mail' value='<?php echo $this->mail; ?>' placeholder="Ex: monemail@gmail.com" />
+        </div>
+        <div class="form-group">
+            <?php echo $recaptcha->getHTML(); ?>
+        </div>
+        <div class="form-group">
+             <button class="btn btn-primary" type='submit'><?php echo $this->translate('Récupérer') ?></button>
+        </div>
 </form>
