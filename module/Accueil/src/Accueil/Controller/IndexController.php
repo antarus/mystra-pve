@@ -73,14 +73,15 @@ class IndexController extends AbstractActionController
         $idPage = $this->_getPagesId('home');
         $oViewModel = new ViewModel();
         $aListeArticles = array();
-        $aAccueilAction = array();
+        $aArticlesAction = array();
+
         try {
             
             
             if($this->getContentTable()->fetchAllWhere(array('type' => 'article')))
             {
-                $aAccueilAction = $this->getContentTable()->fetchAllWhere(array('type' => 'article'))->toArray();
-                foreach($aAccueilAction as $article)
+                $aArticlesAction = $this->getContentTable()->fetchAllWhere(array('type' => 'article'))->toArray();
+                foreach($aArticlesAction as $article)
                 {
                     $dateUpdate = new \DateTime($article['lastUpdate']);
 
@@ -95,6 +96,10 @@ class IndexController extends AbstractActionController
 
                 $oViewModel->setVariable("listeArticles", $aListeArticles);
             }
+           $oAccueilAction = $this->getContentTable()->selectBy(array('idPages'=>$idPage,
+               'type' => 'page'))->getArrayCopy();
+
+           $oViewModel->setVariable("accueil", $oAccueilAction);
            
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
