@@ -7,7 +7,7 @@
     <section>
 
         <?php  foreach($this->listeArticles as $article) : ?>
-        <article class="panel panel-default">
+        <article class="panel panel-default" title="<?php echo $article['titleArticle']; ?>">
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo $article['titleArticle'] ;?></h3>
             </div>
