@@ -168,9 +168,8 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         //on recupere la liste des articles pour la liste déroulante
         try {
             $aListArticles = $this->getContentTable()->fetchAllWhere(array('type' => 'article'))->toArray();
-                        
-            $oViewModel->setVariable('listeArticles', $aListArticles);
 
+            $oViewModel->setVariable('listeArticles', $aListArticles);
         } catch (Exception $ex) {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème lors du chargement de la liste des articles: " . $ex->getMessage()), 'error');
             return $this->redirect()->toRoute('backend-pages');
@@ -178,7 +177,7 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         if ($oRequest->isPost()) {
             $aPost = $oRequest->getPost();
             $idPage = $aPost['articles'];
-            
+
             try {
 
                 $oArticlesAction = $this->getContentTable()->selectby(array('idContent' => $idPage,
@@ -188,9 +187,12 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
                     $writeBy = $this->getUsersTable()->selectby(array('id' => $oArticlesAction->writeBy));
                     $updateBy = $this->getUsersTable()->selectby(array('id' => $oArticlesAction->updateBy));
                     $oViewModel->setVariable("writeBy", $writeBy->username);
-                    $oViewModel->setVariable("updateBy", $updateBy->username);
+                    if ($updateBy)
+                        $oViewModel->setVariable("updateBy", $updateBy->username);
+
                     $oViewModel->setVariable("dateUpdate", $dateUpdate->format('d/m/Y à H:i:s'));
                     $oViewModel->setVariable("content", $oArticlesAction->content);
+                    $oViewModel->setVariable("titleArticle", $oArticlesAction->titleArticle);
                 }
             } catch (Exception $ex) {
                 $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors du chargement des informations de la page: " . $ex->getMessage()), 'error');
@@ -222,27 +224,39 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
             return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
         }
     }
-    
-    public function savearticleAction()
-    {
+
+    public function savearticleAction() {
         $oRequest = $this->getRequest();
 
         if ($oRequest->isPost()) {
+
             $aPost = $oRequest->getPost();
-            try {
-                $this->getContentTable()->saveArticle($aPost['idPages'], $aPost['content'], $this->_getUserId());
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Enregistrement de l'article effectué avec succes."), 'success');
-                return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
-            } catch (\Exception $ex) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article: " . $ex->getMessage()), 'error');
-                return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+            if (isset($aPost['save'])) {
+                try {
+                    $this->getContentTable()->saveArticle($aPost['idPages'], $aPost['content'], $this->_getUserId(), $aPost['title']);
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Enregistrement de l'article effectué avec succes."), 'success');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                } catch (\Exception $ex) {
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article: " . $ex->getMessage()), 'error');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                }
+            }elseif(isset($aPost['delete']))
+            {
+                try {
+                    $this->getContentTable()->deleteArticle($aPost['idPages']);
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Suppression de l'article effectuée avec succes."), 'success');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                } catch (\Exception $ex) {
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la suppression de l'article: " . $ex->getMessage()), 'error');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                }
             }
         } else {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article."), 'error');
             return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
         }
     }
-    
+
     private function _getPagesId($name) {
         $oPagetable = $this->getTablePages();
         $aPage = $oPagetable->selectBy(array('name' => $name));

@@ -36,7 +36,7 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
         $aPages = array('type' => 'page',
             'idPages' => $idPages,
             'content' => $content,
-            'lastUpdate'=> new Expression('Now()'));
+            'lastUpdate' => new Expression('Now()'));
 
         try {
             if ($this->selectBy(array("idPages" => $aPages['idPages'],
@@ -56,24 +56,50 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
             return false;
         }
     }
-    public function saveArticle($idContent, $content, $userID) {
+
+    public function saveArticle($idContent, $content, $userID, $titleArticle) {
         $aArticle = array('type' => 'article',
             'idContent' => $idContent,
             'content' => $content,
-            'lastUpdate'=> new Expression('Now()'));
+            'titleArticle' => $titleArticle,
+            'lastUpdate' => new Expression('Now()'));
+
 
         try {
             if ($this->selectBy(array("idContent" => $aArticle['idContent'],
-                        "type" => $aArticle['type']))) {
+                        "type" => $aArticle['type'],
+                        "titleArticle" => $aArticle['titleArticle']))) {
                 $aArticle['updateBy'] = $userID;
                 $this->update($aArticle, array("idContent" => $aArticle['idContent'],
                     "type" => $aArticle['type']));
                 return true;
             } else {
+                $aArticle['idContent'] = null;
+                $aArticle['idPages'] = 1;
                 $aArticle['writeBy'] = $userID;
                 $aArticle['updateBy'] = $userID;
+
                 $this->insert($aArticle);
                 return true;
+            }
+        } catch (\Exception $exc) {
+            throw new DatabaseException(12000, 2, $this->_getServiceLocator(), array(), $exc);
+            return false;
+        }
+    }
+
+    public function deleteArticle($idContent) {
+        $aArticle = array('idContent' => $idContent);
+
+
+        try {
+            if ($this->selectBy(array("idContent" => $aArticle['idContent']))) {
+                
+                $this->delete($aArticle, array("idContent" => $aArticle['idContent']));
+                return true;
+            } else {
+                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("L'article n'existe pas.",'error'));
+                return false;
             }
         } catch (\Exception $exc) {
             throw new DatabaseException(12000, 2, $this->_getServiceLocator(), array(), $exc);
