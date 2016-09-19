@@ -229,14 +229,27 @@ class PagesController extends \Zend\Mvc\Controller\AbstractActionController {
         $oRequest = $this->getRequest();
 
         if ($oRequest->isPost()) {
+
             $aPost = $oRequest->getPost();
-            try {
-                $this->getContentTable()->saveArticle($aPost['idPages'], $aPost['content'], $this->_getUserId(), $aPost['title']);
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Enregistrement de l'article effectué avec succes."), 'success');
-                return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
-            } catch (\Exception $ex) {
-                $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article: " . $ex->getMessage()), 'error');
-                return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+            if (isset($aPost['save'])) {
+                try {
+                    $this->getContentTable()->saveArticle($aPost['idPages'], $aPost['content'], $this->_getUserId(), $aPost['title']);
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Enregistrement de l'article effectué avec succes."), 'success');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                } catch (\Exception $ex) {
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article: " . $ex->getMessage()), 'error');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                }
+            }elseif(isset($aPost['delete']))
+            {
+                try {
+                    $this->getContentTable()->deleteArticle($aPost['idPages']);
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Suppression de l'article effectuée avec succes."), 'success');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                } catch (\Exception $ex) {
+                    $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la suppression de l'article: " . $ex->getMessage()), 'error');
+                    return $this->redirect()->toRoute('backend-pages', array('action' => $aPost['action']));
+                }
             }
         } else {
             $this->flashMessenger()->addMessage($this->_getServTranslator()->translate("Problème(s) lors de la sauvagarde de l'article."), 'error');
