@@ -56,22 +56,28 @@ class ContentTable extends \Core\Table\AbstractServiceTable {
             return false;
         }
     }
-    public function saveArticle($idContent, $content, $userID) {
+    public function saveArticle($idContent, $content, $userID, $titleArticle) {
         $aArticle = array('type' => 'article',
             'idContent' => $idContent,
             'content' => $content,
+            'titleArticle'=> $titleArticle,
             'lastUpdate'=> new Expression('Now()'));
+        
 
         try {
             if ($this->selectBy(array("idContent" => $aArticle['idContent'],
-                        "type" => $aArticle['type']))) {
+                        "type" => $aArticle['type'],
+                "titleArticle" => $aArticle['titleArticle']))) {
                 $aArticle['updateBy'] = $userID;
                 $this->update($aArticle, array("idContent" => $aArticle['idContent'],
                     "type" => $aArticle['type']));
                 return true;
             } else {
+                $aArticle['idContent'] = null;
+                $aArticle['idPages'] = 1;
                 $aArticle['writeBy'] = $userID;
                 $aArticle['updateBy'] = $userID;
+                
                 $this->insert($aArticle);
                 return true;
             }

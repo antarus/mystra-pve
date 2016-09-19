@@ -12,6 +12,10 @@
 
 <p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "), $this->writeBy, $this->dateUpdate, $this->updateBy); ?></p>
 <form method='post' action='<?php echo $this->url('backend-pages', array('action' => 'savearticle')); ?>'>
+    <div class="form-group">
+        <label>Titre*</label>
+        <input type="text" name="title" value="<?php echo $this->titleArticle ; ?>" required/>
+    </div>
     <textarea class="ckeditor" name="content"><?php echo $this->content; ?></textarea>
     <input type="hidden" name="idPages" value="<?php echo $this->idPages; ?>" />
     <input type="hidden" name="action" value="articles" />
