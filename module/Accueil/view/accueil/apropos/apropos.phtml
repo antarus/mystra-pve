@@ -1,5 +1,8 @@
-<h4 class="page-title"><?php echo $this->translate('A propos'); ?></h4>
-<div>
+<h4 class="page-title"><?php echo $this->translate("A propos de Raid TracKer..."); ?></h4>
+
+<div class="jumbotron">
     <?php echo $this->content; ?>
+    <img class="pull-right" style='margin-bottom: 30px; margin-right: 30px;' src="<?php echo $this->basePath("img/Logotype-2.png")  ?>" />
+    <div class='clearfix'></div>
 </div>
-<p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "),$this->writeBy,$this->dateUpdate,$this->updateBy);?></p>
+<p class='pull-right'><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "), $this->writeBy, $this->dateUpdate, $this->updateBy); ?></p>

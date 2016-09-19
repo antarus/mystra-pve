@@ -1,9 +1,9 @@
-<h4>A propos :</h4>
+<h4>Home :</h4>
 <p><?php echo sprintf($this->translate("Rédigé par %s, mis à jours le %s par %s "),$this->writeBy,$this->dateUpdate,$this->updateBy);?></p>
 <form method='post' action='<?php echo  $this->url('backend-pages',array('action'=>'savepage'));?>'>
     <textarea class="ckeditor" name="content"><?php echo $this->content; ?></textarea>
     <input type="hidden" name="idPages" value="<?php echo $this->idPages;?>" />
-    <input type="hidden" name="action" value="apropos" />
+    <input type="hidden" name="action" value="index" />
     <p></p>
     <input type="submit" value="enregistrer" />
 </form>
