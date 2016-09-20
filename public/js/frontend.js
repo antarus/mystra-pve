@@ -58,11 +58,12 @@ $(document).ready(function () {
                 'rgba(62,96,111,0.8)'];
             generateCharts(data, 'lootDonationRaid', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
-        if ($('#lootRosterNoRoster').length)
+        if ($('#lootDonationRaid').length)
         {
             data = {
-                'Roster': 12,
-                'NonRoster': 45
+                Dez: 12,
+                Spe1: 45,
+                Spe2: 24
             };
             options = {
                 legend: {
@@ -73,9 +74,13 @@ $(document).ready(function () {
                     position: 'right'
                 }
             };
-            backgroundColor = ['rgba(25,52,65,1)', 'rgba(209,219,189,1)'];
-            hoverBackgroundColor = ['rgba(25,52,65,0.8)', 'rgba(209,219,189,0.8)'];
-            generateCharts(data, 'lootRosterNoRoster', 'pie', options, backgroundColor, hoverBackgroundColor);
+            backgroundColor = ['rgba(209,219,189,1)',
+                'rgba(25,52,65,1)',
+                'rgba(62,96,111,1)'];
+            hoverBackgroundColor = ['rgba(209,219,189,0.8)',
+                'rgba(25,52,65,0.8)',
+                'rgba(62,96,111,0.8)'];
+            generateCharts(data, 'lootDonationRaid', 'pie', options, backgroundColor, hoverBackgroundColor);
         }
         if ($('#presenceRoster').length)
         {
@@ -109,8 +114,8 @@ $(document).ready(function () {
                                     }]
                             }
                         };
-                        
-                        generateCharts(data.participants, 'presenceRoster', 'bar', options,data.couleur, hoverBackgroundColor);
+
+                        generateCharts(data.participants, 'presenceRoster', 'bar', options, data.couleur, hoverBackgroundColor);
                     })
                     .fail(function () {
                         generateCharts('');

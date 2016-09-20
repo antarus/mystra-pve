@@ -1,1 +1,44 @@
-NON NON NON TA PAS LE DROITS !!! HHAHAHAHAHHAHA :D
+<style>
+    
+    .error-container
+    {
+        padding: 15px;
+        background: rgba(34,45,54,0.40);
+    }
+    .error-desc
+    {
+
+        background: rgba(34,45,54,0.40);
+        text-align: center;
+        font-size: 20px;
+    }
+    .error-nav a
+    {
+        margin: 75px 1px 15px 0;
+        text-transform: uppercase;
+    }
+    
+</style>
+
+<script>
+    jQuery(document).ready(function () {
+        page404();
+    })
+</script>
+<div class="error-container error-desc col-md-12">
+    <div class="error-desc col-md-8">
+        <h1 class="page-title" style="font-size:25px; text-align: left;"><?php echo $this->translate('Erreur') ?></h1>
+        <p> <?php echo $this->translate('Que fais-tu là humain?!'); ?> </p>
+        <p> <?php echo $this->translate('Tu n\'as pas ta place en ce lieu! Fuis, pauvre fou... fuis...'); ?> </p>
+        
+        <div class="error-nav">
+            <a class="btn btn-primary btn-lg" href="<?php echo $this->url('home'); ?>">
+                <?php echo $this->translate('Accueil') ?>
+            </a>
+        </div>
+        
+    </div>
+    <div class="error-img col-md-4">
+        <img class="img-responsive" src='<?php echo $this->basePath('img/error.png');?>' alt="error"/>
+    </div>
+</div>
