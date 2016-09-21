@@ -63,7 +63,7 @@ li
 }
 #green-light
 {
-    background-image: url('../img/background.jpg');
+    background-image: url('../img/background2');
     background-size: 100% 100%;
     background-attachment: fixed;
 }
@@ -324,6 +324,20 @@ li
 {
     background: rgba(34,45,54,0.40);
     padding: 7px;
+}
+.jumb-home
+{
+    background-image: url('../img/Legion.png')  ;
+    background-size : cover;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(255,255,255,0.40);
+}
+@media (max-width:1023px)
+{
+    .jumb-home
+    {
+        background-image: none;
+    }
 }
 .btn-primary, .btn-primary:visited , .btn-primary:focus 
 {

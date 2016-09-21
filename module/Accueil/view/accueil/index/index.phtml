@@ -1,13 +1,15 @@
 <section class="col-md-12">
-    <div class="jumbotron">
+    <div class="jumbotron jumb-home">
         <h1><?php echo $this->translate('Bienvenue sur RaidTracker'); ?></h1>
+        
         <?php echo $this->accueil['content'] ; ?>
+        
         <p><a class="btn btn-primary btn-lg" href="<?php echo $this->url('apropos') ;?>" role="button"><?php echo $this->translate('En savoir plus'); ?></a></p>
     </div>
     <section>
 
         <?php  foreach($this->listeArticles as $article) : ?>
-        <article class="panel panel-default">
+        <article class="panel panel-default" title="<?php echo $article['titleArticle']; ?>">
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo $article['titleArticle'] ;?></h3>
             </div>
