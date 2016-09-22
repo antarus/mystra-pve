@@ -10,7 +10,7 @@ $(document).ready(function () {
     {
         if ($('#lootDonationTiers').length)
         {
-            $.post($('#ajaxUrl').val() + 'ajaxPresence')
+            $.post($('#ajaxUrl').val() + 'ajaxLootDonationTiers')
                     .done(function (data) {
                         options = {
                             legend: {

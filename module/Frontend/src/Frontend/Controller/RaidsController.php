@@ -88,7 +88,7 @@ class RaidsController extends FrontController {
             $aPallier = $this->getTablePallier()->getPallierFrontend($oRoster->getIdRoster());
 
         } catch (\Exception $exc) {
-            $ex = \Core\Util\ParseException::getCause($exc);
+            
             $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
             $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
         }
@@ -103,9 +103,25 @@ class RaidsController extends FrontController {
         return $oViewModel;
     }
     
-    public function  ajaxPresenceAction()
+    public function  ajaxLootDonationTiersAction()
     {
-        return new JsonModel(array('Dez'=> 22,'Bank'=>3,'spe1'=>60,'spe2'=>45,'spe3'=> 5,'spe4'=>0));
+        $oRoster = $this->valideKey();
+        $aLootRosterFormat = array();
+        if (!$oRoster) {
+            return $this->redirect()->toRoute('home');
+        }      
+        try{
+            $aLootRoster = $this->getTableItemPersonnageRaid()->getLootPallierRoster($oRoster->getIdRoster());
+            foreach ($aLootRoster as $lootRoster)
+            {
+                $aLootRosterFormat[$lootRoster['note']]= $lootRoster['nbLoot'];
+            }
+            
+        } catch (Exception $exc) {
+            $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
+            $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
+        }
+        return new JsonModel($aLootRosterFormat);
     }
 
     /**
