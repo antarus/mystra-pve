@@ -12,24 +12,27 @@
 
             <button class="btn btn-primary boutonStats  activeStats" name="#configRoster">Config</button>
 
-            <button class="btn btn-primary boutonStats"  name="#lootsRaids">Loots Raids</button>
+            <button class="btn btn-primary boutonStats"  name="#lootsRaids"><?php echo $this->translate('Loots Raids'); ?></button>
 
-            <button class="btn btn-primary boutonStats" name="#presenceRaid">Présence en raid</button>
+            <button class="btn btn-primary boutonStats" name="#presenceRaid"><?php echo $this->translate('Présence en raid'); ?></button>
+
+            <button class="btn btn-primary boutonStats" name="#progressRoster"><?php echo $this->translate('Progress'); ?></button>
 
         </div>
     </aside>
 
     <section class="col-md-9">
+        
         <div id="configRoster" class="statsDiv" style="overflow: hidden;">
             <div class="box">
                 <p> <label><?php echo $this->translate("Pallier configuré") ?>  </label>
                     <?php if (!empty($this->palliers)): ?> 
-                    <ul>
-                        <?php foreach ($this->palliers as $pallier) : ?>
-                            <li><?php echo ucwords($pallier) ?> </li>
-                        <?php endforeach; ?>
-                    </ul>
-                    <?php
+                <ul>
+                    <?php foreach ($this->palliers as $pallier) : ?>
+                    <li><?php echo ucwords($pallier) ?> </li>
+                    <?php endforeach; ?>
+                </ul>
+                <?php
                 else: echo $this->translate("Pallier non configuré");
                 endif;
                 ?>
@@ -61,6 +64,7 @@
                 </p>
             </div>
         </div>
+        
         <div id="lootsRaids" class="statsDiv box" style="display: none; overflow: hidden; padding: 15px;">
             <div class="col-md-6">
                 <h4><?php echo $this->translate("Utilisation des loots :"); ?></h4>
@@ -73,10 +77,30 @@
                 </canvas>
             </div>
         </div>
+        
         <div id="presenceRaid" class="statsDiv box" style="display: none; overflow: hidden; padding: 15px;">
             <canvas id='presenceRoster' >
             </canvas>
         </div>
+        
+        <div id="progressRoster" class="statsDiv box" style="display: none; overflow: hidden; padding: 15px;">
+            <form class="form-inline" method="post"> 
+                <div class="form-group">
+                    
+                    <select name="raidList" id="raidList" required>
+                        <?php foreach($listePallier as $pallier): ?>
+                        <option value='<?php echo json_encode($pallier); ?>'><?php echo ucwords($pallier['zone']).' - '.ucwords($pallier['mode']); ?></option>
+                        <?php endforeach; ?> 
+                    </select>
+                </div>
+                <div class="form-group">
+                    <button id="validerRaid" class="btn btn-primary"><?php echo $this->translate("Valider"); ?></button>
+                </div>
+            </form>
+            <canvas id='progressRaid' >
+            </canvas>
+        </div>
+        
     </section>
 </div>
 

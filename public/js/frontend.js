@@ -183,6 +183,16 @@ $(document).ready(function () {
             link = '';
         }
     });
+    
+    $('#validerRaid').on('click', function() {
+        $.post('front-roster-stat',
+        {
+            
+        }).done(
+        function(data){
+            console.log(data);
+        });
+    });
 });
 
 // gestion du loading ajax global

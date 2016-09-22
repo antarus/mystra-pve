@@ -66,9 +66,8 @@ class RosterController extends FrontController {
 
             $aStat = $this->getTableRoster()->getStatRoster($oRoster->getNom())->getArrayCopy();
             $aPallier = $this->getTablePallier()->getPallierFrontend($oRoster->getIdRoster());
-
-                   
-                         
+            $aListPallier = $this->getTablePallier()->getPallierStats($oRoster->getIdRoster());
+            
             // TODO Anta
             // nombre de boss tués
             // nombre des loots
@@ -87,6 +86,7 @@ class RosterController extends FrontController {
         // Pour optimiser le rendu
         $oViewModel = new ViewModel();
         $oViewModel->setTemplate('frontend/roster/stats');
+        $oViewModel->setVariable('listePallier', $aListPallier);
         $oViewModel->setVariable('key', $key);
         $oViewModel->setVariable('roster', $aRoster);
         $oViewModel->setVariable('stats', $aStat);
@@ -124,6 +124,33 @@ class RosterController extends FrontController {
         }
         return new JsonModel(array());
 
+        
+    }
+    
+    public function ajaxProgressAction()
+    {
+        $oRoster = $this->valideKey();
+        $oRequest = $this->getRequest();
+        if (!$oRoster) {
+            $this->flashMessenger()->addMessage('La clé Roster renseignée est incorrecte.', 'error');
+            return $this->redirect()->toRoute('home');
+        }
+        if($oRequest->isPost())
+        {
+            $aPost = $oRequest->getPost();
+            $aPallier = json_decode($aPost['raidList']);            
+
+            try
+            {
+              
+
+            } catch (Exception $exc) {
+                $ex = \Core\Util\ParseException::getCause($exc);
+                $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
+                $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
+            }
+        }
+        return new JsonModel();
         
     }
 
