@@ -122,46 +122,7 @@ $(document).ready(function () {
                     });
 
         }
-        if ($('#progressRaid').length)
-        {
-            $.post($('#ajaxUrl').val() + 'ajaxProgress')
-                    .done(function (data) {
-                        options = {
-                            legend: {
-                                labels: {
-                                    color: '#FFF'
-                                },
-                                display: false
-                            },
-                            scales: {
-                                xAxes: [{
-                                        gridLines: {
-                                            show: true, color: 'rgba(255,255,255,0)'
-                                        },
-                                        ticks: {
-                                            fontColor: '#FFF'
-                                        }
-                                    }],
-                                yAxes: [{
-                                        gridLines: {
-                                            show: true, color: 'rgba(255,255,255,0.40)'
-                                        },
-                                        ticks: {
-                                            display: true,
-                                            beginAtZero: true,
-                                            fontColor: '#FFF'
-                                        }
-                                    }]
-                            }
-                        };
 
-                        generateCharts(data.participants, 'presenceRoster', 'bar', options, data.couleur, hoverBackgroundColor);
-                    })
-                    .fail(function () {
-                        generateCharts('');
-                    });
-
-        }
     }
 
     link = '#configRoster';
@@ -183,15 +144,51 @@ $(document).ready(function () {
             link = '';
         }
     });
-    
-    $('#validerRaid').on('click', function() {
-        $.post('front-roster-stat',
-        {
-            
-        }).done(
-        function(data){
-            console.log(data);
+
+    $('#validerRaid').on('click', function () {
+        event.preventDefault();
+        selected = $('#raidList').find(":selected").val();
+        console.log(selected);
+        $.post($('#ajaxUrl').val() + "ajaxProgress",
+                {
+                    value: selected
+                }).done(
+                function (data) {
+                    options = {
+                        legend: {
+                            labels: {
+                                color: '#FFF'
+                            },
+                            display: false
+                        },
+                        scales: {
+                            xAxes: [{
+                                    gridLines: {
+                                        show: true, color: 'rgba(255,255,255,0)'
+                                    },
+                                    ticks: {
+                                        fontColor: '#FFF'
+                                    }
+                                }],
+                            yAxes: [{
+                                    gridLines: {
+                                        show: true, color: 'rgba(255,255,255,0.40)'
+                                    },
+                                    ticks: {
+                                        display: true,
+                                        beginAtZero: true,
+                                        fontColor: '#FFF'
+                                    }
+                                }]
+                        }
+                    };
+                    backgroundColor = ['rgba(255,255,255,0.60)', 'rgba(255,255,255,0.60)', 'rgba(255,255,255,0.60)'];
+                    hoverBackgroundColor = ['rgba(255,255,255,1)', 'rgba(255,255,255,1)', 'rgba(255,255,255,1)'];
+                    generateCharts(data, 'progressRaid', 'bar', options, backgroundColor, hoverBackgroundColor);
+                }).fail(function () {
+            generateCharts('');
         });
+
     });
 });
 

@@ -138,8 +138,7 @@ class RosterController extends FrontController {
         if($oRequest->isPost())
         {
             $aPost = $oRequest->getPost();
-            $aPallier = json_decode($aPost['raidList']);            
-
+            $aPallier = json_decode($aPost['value']);            
             try
             {
               
@@ -150,7 +149,7 @@ class RosterController extends FrontController {
                 $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
             }
         }
-        return new JsonModel();
+        return new JsonModel(array('Garosh'=>5,'Thrall'=>22));
         
     }
 
