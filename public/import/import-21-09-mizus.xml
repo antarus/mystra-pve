@@ -1,0 +1,512 @@
+<raidlog>
+    <head>
+        <export>
+            <name>EQdkp Plus XML</name>
+            <version>1.0</version>
+        </export>
+        <tracker>
+            <name>Mizus RaidTracker</name>
+            <version>v0.70.5</version>
+        </tracker>
+        <gameinfo>
+            <game>World of Warcraft</game>
+            <language>frFR</language>
+            <charactername>Prony</charactername>
+        </gameinfo>
+    </head>
+    <raiddata>
+        <zones>
+            <zone>
+                <enter>1474502700</enter>
+                <leave>1474516440</leave>
+                <name>Le Cauchemar d’émeraude</name>
+                <difficulty>14</difficulty>
+            </zone>
+        </zones>
+        <bosskills>
+            <bosskill>
+                <name>Nythendra</name>
+                <time>1474507320</time>
+                <difficulty>14</difficulty>
+            </bosskill>
+            <bosskill>
+                <name>Il'gynoth</name>
+                <time>1474512540</time>
+                <difficulty>14</difficulty>
+            </bosskill>
+            <bosskill>
+                <name>Ursoc</name>
+                <time>1474514820</time>
+                <difficulty>14</difficulty>
+            </bosskill>
+        </bosskills>
+        <members>
+            <member>
+                <name>Alwynn</name>
+                <race>NightElf</race>
+                <sex>2</sex>
+                <class>PRIEST</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504440</time>
+                    <time type='leave'>1474515060</time>
+                </times>
+            </member>
+            <member>
+                <name>Antaruss</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>MONK</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474506540</time>
+                    <time type='leave'>1474515540</time>
+                </times>
+            </member>
+            <member>
+                <name>Azülà</name>
+                <race>Dwarf</race>
+                <sex>3</sex>
+                <class>SHAMAN</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503840</time>
+                    <time type='leave'>1474515480</time>
+                </times>
+            </member>
+            <member>
+                <name>Cartmân</name>
+                <race>Human</race>
+                <sex>2</sex>
+                <class>DEATHKNIGHT</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504500</time>
+                    <time type='leave'>1474516380</time>
+                </times>
+            </member>
+            <member>
+                <name>Cely</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>MAGE</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503540</time>
+                    <time type='leave'>1474515120</time>
+                </times>
+            </member>
+            <member>
+                <name>Comonbaby-Sargeras</name>
+                <race>Human</race>
+                <sex>2</sex>
+                <class>WARRIOR</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503360</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Eddå</name>
+                <race>Dwarf</race>
+                <sex>3</sex>
+                <class>SHAMAN</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474504260</time>
+                    <time type='leave'>1474515540</time>
+                </times>
+            </member>
+            <member>
+                <name>Faïlly</name>
+                <race>Dwarf</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>PRIEST</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474502760</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Gârfunk</name>
+                <race>Draenei</race>
+                <guild>Mystra</guild>
+                <sex>3</sex>
+                <class>MONK</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474502760</time>
+                    <time type='leave'>1474516380</time>
+                </times>
+            </member>
+            <member>
+                <name>Jolarson</name>
+                <race>Human</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>PALADIN</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474502940</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Kâdyl</name>
+                <race>Human</race>
+                <guild>Mystra</guild>
+                <sex>3</sex>
+                <class>WARLOCK</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474502760</time>
+                    <time type='leave'>1474515660</time>
+                </times>
+            </member>
+            <member>
+                <name>Lisys</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>PRIEST</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503480</time>
+                    <time type='leave'>1474515600</time>
+                </times>
+            </member>
+            <member>
+                <name>Madryade</name>
+                <race>NightElf</race>
+                <sex>3</sex>
+                <class>DRUID</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474504440</time>
+                    <time type='leave'>1474504860</time>
+                    <time type='join'>1474505040</time>
+                    <time type='leave'>1474515360</time>
+                </times>
+            </member>
+            <member>
+                <name>Märgâlärds</name>
+                <race>Draenei</race>
+                <sex>2</sex>
+                <class>SHAMAN</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474502700</time>
+                    <time type='leave'>1474515120</time>
+                </times>
+            </member>
+            <member>
+                <name>Mïstÿ</name>
+                <race>Worgen</race>
+                <sex>3</sex>
+                <class>DRUID</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474504140</time>
+                    <time type='leave'>1474515660</time>
+                </times>
+            </member>
+            <member>
+                <name>Olare</name>
+                <race>Human</race>
+                <sex>2</sex>
+                <class>PALADIN</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474503300</time>
+                    <time type='leave'>1474515360</time>
+                </times>
+            </member>
+            <member>
+                <name>Philémons</name>
+                <race>Gnome</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>WARLOCK</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474503840</time>
+                    <time type='leave'>1474515420</time>
+                </times>
+            </member>
+            <member>
+                <name>Prony</name>
+                <race>NightElf</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>DRUID</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474502700</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Rappaden-Hyjal</name>
+                <race>Pandaren</race>
+                <guild>La cuvée des Trolls</guild>
+                <sex>2</sex>
+                <class>MONK</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474506180</time>
+                    <time type='leave'>1474515360</time>
+                </times>
+            </member>
+            <member>
+                <name>Redd</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>ROGUE</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503840</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Rurú</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>MAGE</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503000</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Sfy-Ner’zhul</name>
+                <race>Human</race>
+                <sex>2</sex>
+                <class>MAGE</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504740</time>
+                    <time type='leave'>1474515720</time>
+                </times>
+            </member>
+            <member>
+                <name>Spoiler</name>
+                <race>Dwarf</race>
+                <sex>2</sex>
+                <class>SHAMAN</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504740</time>
+                    <time type='leave'>1474516020</time>
+                </times>
+            </member>
+            <member>
+                <name>Subkryss</name>
+                <race>NightElf</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>DEATHKNIGHT</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504140</time>
+                    <time type='leave'>1474516440</time>
+                </times>
+            </member>
+            <member>
+                <name>Trìskel</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>PRIEST</class>
+                <level>0</level>
+                <times>
+                    <time type='join'>1474503120</time>
+                    <time type='leave'>1474515480</time>
+                </times>
+            </member>
+            <member>
+                <name>Tÿra</name>
+                <race>Human</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>DEATHKNIGHT</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474505160</time>
+                    <time type='leave'>1474515420</time>
+                </times>
+            </member>
+            <member>
+                <name>Vika-Sargeras</name>
+                <race>Human</race>
+                <sex>3</sex>
+                <class>ROGUE</class>
+                <level>110</level>
+                <times>
+                    <time type='join'>1474503420</time>
+                    <time type='leave'>1474515300</time>
+                </times>
+            </member>
+            <member>
+                <name>Wochini</name>
+                <race>Pandaren</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>WARRIOR</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504920</time>
+                    <time type='leave'>1474515540</time>
+                </times>
+            </member>
+            <member>
+                <name>Xéres</name>
+                <race>Human</race>
+                <sex>2</sex>
+                <class>PALADIN</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474503840</time>
+                    <time type='leave'>1474515420</time>
+                </times>
+            </member>
+            <member>
+                <name>Yujimbo-Ner’zhul</name>
+                <race>NightElf</race>
+                <guild>Mystra</guild>
+                <sex>2</sex>
+                <class>DEMONHUNTER</class>
+                <level>100</level>
+                <times>
+                    <time type='join'>1474504140</time>
+                    <time type='leave'>1474508940</time>
+                </times>
+            </member>
+        </members>
+        <items>
+            <item>
+                <name>Ceinturon sanglé sans vie</name>
+                <time>1474507740</time>
+                <member>Rappaden-Hyjal</member>
+                <itemid>139197::::::::110:102::3:3:1807:1477:3336:::</itemid>
+                <cost>0</cost>
+                <note>0</note>
+                <boss>Nythendra</boss>
+            </item>
+            <item>
+                <name>Mantelet ancien tissé de rêve</name>
+                <time>1474507740</time>
+                <member>Cely</member>
+                <itemid>139191::::::::110:102::3:3:1807:40:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Nythendra</boss>
+            </item>
+            <item>
+                <name>Camail grisé en écailles de dragon</name>
+                <time>1474507740</time>
+                <member>Märgâlärds</member>
+                <itemid>139214::::::::110:102::3:3:1807:1477:3336:::</itemid>
+                <cost>0</cost>
+                <boss>Nythendra</boss>
+            </item>
+            <item>
+                <name>Cordon de larves rampantes</name>
+                <time>1474507800</time>
+                <member>Spoiler</member>
+                <itemid>139212::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Nythendra</boss>
+            </item>
+            <item>
+                <name>Serre-poignets des rêves insensés</name>
+                <time>1474507800</time>
+                <member>Wochini</member>
+                <itemid>139235::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Nythendra</boss>
+            </item>
+            <item>
+                <name>Appendices spontanés</name>
+                <time>1474512780</time>
+                <member>Jolarson</member>
+                <itemid>139325::::::::110:102::3:3:1807:1808:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Il'gynoth</boss>
+            </item>
+            <item>
+                <name>Espauliers des runes changeantes</name>
+                <time>1474512840</time>
+                <member>Olare</member>
+                <itemid>139233::::::::110:102::3:4:1807:43:1477:3336:::</itemid>
+                <cost>0</cost>
+                <boss>Il'gynoth</boss>
+            </item>
+            <item>
+                <name>Gantelets d'intention malveillante</name>
+                <time>1474512840</time>
+                <member>Eddå</member>
+                <itemid>139213::::::::110:102::3:3:1807:1808:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Il'gynoth</boss>
+            </item>
+            <item>
+                <name>Gantelets d'intention malveillante</name>
+                <time>1474512840</time>
+                <member>Azülà</member>
+                <itemid>139213::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Il'gynoth</boss>
+            </item>
+            <item>
+                <name>Gantelets ternis de garde-rêve</name>
+                <time>1474513380</time>
+                <member>Tÿra</member>
+                <itemid>141695::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Il'gynoth</boss>
+            </item>
+            <item>
+                <name>Solerets striés en griffefer</name>
+                <time>1474514880</time>
+                <member>Azülà</member>
+                <itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Ursoc</boss>
+            </item>
+            <item>
+                <name>Instinct assoiffé de sang</name>
+                <time>1474514940</time>
+                <member>Mïstÿ</member>
+                <itemid>139329::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Ursoc</boss>
+            </item>
+            <item>
+                <name>Mules cramoisies bordées de laine</name>
+                <time>1474515000</time>
+                <member>Sfy-Ner’zhul</member>
+                <itemid>139195::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Ursoc</boss>
+            </item>
+            <item>
+                <name>Fureur débridée</name>
+                <time>1474515000</time>
+                <member>Antaruss</member>
+                <itemid>139327::::::::110:102::3:3:1807:1477:3336:::</itemid>
+                <cost>0</cost>
+                <boss>Ursoc</boss>
+            </item>
+            <item>
+                <name>Solerets striés en griffefer</name>
+                <time>1474515000</time>
+                <member>Spoiler</member>
+                <itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
+                <cost>0</cost>
+                <boss>Ursoc</boss>
+            </item>
+        </items>
+    </raiddata>
+</raidlog>

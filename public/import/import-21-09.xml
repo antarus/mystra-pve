@@ -1,0 +1,333 @@
+<raidlog><head><export><name>EQdkp Plus XML</name><version>1.0</version></export><tracker><name>RCLootCouncil</name><version>2.1.2</version></tracker><gameinfo><game>World of Warcraft</game><language>frFR</language><charactername>Prony</charactername></gameinfo></head>
+<raiddata>
+	<zones>
+		<zone>
+			<enter>1474473600</enter>
+			<name>Le Cauchemar d’émeraude-Normal</name>
+		</zone>
+	</zones>
+	<bosskills>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491308</time>
+		</bosskill>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491262</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493378</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493392</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493328</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486210</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486253</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486199</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493363</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486244</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493403</time>
+		</bosskill>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491296</time>
+		</bosskill>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491251</time>
+		</bosskill>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491328</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486183</time>
+		</bosskill>
+		<bosskill>
+			<name>Nythendra</name>
+			<time>1474486232</time>
+		</bosskill>
+		<bosskill>
+			<name>Il’gynoth</name>
+			<time>1474491317</time>
+		</bosskill>
+		<bosskill>
+			<name>Ursoc</name>
+			<time>1474493314</time>
+		</bosskill>
+	</bosskills>
+	<items>
+		<item>
+			<itemid>139213::::::::110:102::3:3:1807:1808:1472:::</itemid>
+			<name>Gantelets d'intention malveillante</name>
+			<member>Eddå</member>
+			<time>1474491308</time>
+			<count>1</count>
+			<cost>4</cost>
+			<note>Majeur upgrade</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139325::::::::110:102::3:3:1807:1808:1472:::</itemid>
+			<name>Appendices spontanés</name>
+			<member>Jolarson</member>
+			<time>1474491262</time>
+			<count>1</count>
+			<cost>4</cost>
+			<note>Majeur upgrade</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139195::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Mules cramoisies bordées de laine</name>
+			<member>Sfy</member>
+			<time>1474493378</time>
+			<count>1</count>
+			<cost>2</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139327::::::::110:102::3:3:1807:1477:3336:::</itemid>
+			<name>Fureur débridée</name>
+			<member>Antaruss</member>
+			<time>1474493392</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139260::::::::110:102::3:3:1807:1487:3337:::</itemid>
+			<name>Croc ensanglanté d'ours</name>
+			<member>Redd</member>
+			<time>1474493328</time>
+			<count>1</count>
+			<cost>4</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139214::::::::110:102::3:3:1807:1477:3336:::</itemid>
+			<name>Camail grisé en écailles de dragon</name>
+			<member>Märgâlärds</member>
+			<time>1474486210</time>
+			<count>1</count>
+			<cost>4</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139235::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Serre-poignets des rêves insensés</name>
+			<member>Wochini</member>
+			<time>1474486253</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139191::::::::110:102::3:3:1807:40:1472:::</itemid>
+			<name>Mantelet ancien tissé de rêve</name>
+			<member>Cely</member>
+			<time>1474486199</time>
+			<count>1</count>
+			<cost>4</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139329::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Instinct assoiffé de sang</name>
+			<member>Mïstÿ</member>
+			<time>1474493363</time>
+			<count>1</count>
+			<cost>2</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139212::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Cordon de larves rampantes</name>
+			<member>Spoiler</member>
+			<time>1474486244</time>
+			<count>1</count>
+			<cost>5</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Solerets striés en griffefer</name>
+			<member>Spoiler</member>
+			<time>1474493403</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139233::::::::110:102::3:4:1807:43:1477:3336:::</itemid>
+			<name>Espauliers des runes changeantes</name>
+			<member>Olare</member>
+			<time>1474491296</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139254::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Pierre de sang hurlante</name>
+			<member>Trìskel</member>
+			<time>1474491251</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139257::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Fétiche imbibé de sang</name>
+			<member>Tÿra</member>
+			<time>1474491328</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139197::::::::110:102::3:3:1807:1477:3336:::</itemid>
+			<name>Ceinturon sanglé sans vie</name>
+			<member>Rappaden</member>
+			<time>1474486183</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139252::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Graine-Monde préservée</name>
+			<member>Lisys</member>
+			<time>1474486232</time>
+			<count>1</count>
+			<cost>3</cost>
+			<note>Majeur upgrade</note>
+			<boss>Nythendra</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139213::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Gantelets d'intention malveillante</name>
+			<member>Azülà</member>
+			<time>1474491317</time>
+			<count>1</count>
+			<cost>2</cost>
+			<note>Spécialisation secondaire / cupidité</note>
+			<boss>Il’gynoth</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+		<item>
+			<itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
+			<name>Solerets striés en griffefer</name>
+			<member>Azülà</member>
+			<time>1474493314</time>
+			<count>1</count>
+			<cost>5</cost>
+			<note>Majeur upgrade</note>
+			<boss>Ursoc</boss>
+			<zone>Le Cauchemar d’émeraude-Normal</zone>
+		</item>
+	</items>
+	<members>
+		<member>
+			<name>Wochini</name>
+		</member>
+		<member>
+			<name>Lisys</name>
+		</member>
+		<member>
+			<name>Sfy</name>
+		</member>
+		<member>
+			<name>Redd</name>
+		</member>
+		<member>
+			<name>Rappaden</name>
+		</member>
+		<member>
+			<name>Olare</name>
+		</member>
+		<member>
+			<name>Eddå</name>
+		</member>
+		<member>
+			<name>Azülà</name>
+		</member>
+		<member>
+			<name>Tÿra</name>
+		</member>
+		<member>
+			<name>Spoiler</name>
+		</member>
+		<member>
+			<name>Mïstÿ</name>
+		</member>
+		<member>
+			<name>Märgâlärds</name>
+		</member>
+		<member>
+			<name>Antaruss</name>
+		</member>
+		<member>
+			<name>Cely</name>
+		</member>
+		<member>
+			<name>Trìskel</name>
+		</member>
+		<member>
+			<name>Jolarson</name>
+		</member>
+	</members>
+</raiddata></raidlog>
