@@ -119,7 +119,7 @@ $(document).ready(function () {
                             }
                         };
 
-                        generateCharts(data.participants, 'presenceRoster', 'bar', options, data.couleur, hoverBackgroundColor);
+                        generateCharts(data.participants, 'presenceRoster', 'bar', options, data.couleur, data.couleur);
                     })
                     .fail(function () {
                         generateCharts('');
