@@ -381,7 +381,46 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
 
         return $this->fetchAllArray($oQuery);
     }
+    /**
+     * Retourne le nombre de loot par type de note pour l'id roster et l'id raid renseigné
+     * @return \Zend\Db\Sql\Sql
+     */
+    function getLootRosterRaid($idRoster, $idRaid) {
 
+        $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+        $oQueryPallier = $sql->select();
+        $oQuery = $sql->select();
+        try {
+            $oQueryPallier->from(array('pa' => 'pallierAfficher'))
+                    ->order('idModeDifficulte')
+            ->where->equalTo("idRoster", $idRoster);
+            $aPallierAfficheRoster = $this->fetchAllArray($oQueryPallier);
+        } catch (\Exception $exc) {
+            throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $idRoster, $exc);
+        }
+        
+        $oQuery->columns(array(
+                    'note',
+                    'nbLoot' => new Expression('COUNT(*)')
+                ))
+                ->from(array('ipr' => 'item_personnage_raid'))
+                ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
+
+        foreach ($aPallierAfficheRoster as $pallierAffiche) {
+            $oQuery->where->NEST()->equalTo('r.idRaid',$idRaid)->AND->equalTo('r.idZoneTmp',$pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
+        }
+        
+        
+        $oQuery->group('note');
+        
+        return $this->fetchAllArray($oQuery);
+    }
     /**
      * Fonction commune pour les stats de loot
      * @return \Zend\Db\Sql\Sql

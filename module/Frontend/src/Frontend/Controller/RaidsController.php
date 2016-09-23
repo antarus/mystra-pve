@@ -123,7 +123,35 @@ class RaidsController extends FrontController {
         }
         return new JsonModel($aLootRosterFormat);
     }
+    
+    public function  ajaxLootDonationRaidAction()
+    {
+        $oRoster = $this->valideKey();
+        $aLootRosterFormat = array();
+        $aRequest = $this->getRequest();
+        $aPost = $aRequest->getPost();
+        if($aPost['idRaid'])
+        {
+            $iIdRaid = $aPost['idRaid'];
+            
+            if (!$oRoster) {
+                return $this->redirect()->toRoute('home');
+            }      
+            try{
+                $aLootRoster = $this->getTableItemPersonnageRaid()->getLootRosterRaid($oRoster->getIdRoster(),$iIdRaid);
+                foreach ($aLootRoster as $lootRoster)
+                {
+                    $aLootRosterFormat[$lootRoster['note']]= $lootRoster['nbLoot'];
+                }
 
+            } catch (Exception $exc) {
+                $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
+                $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
+            }
+            return new JsonModel($aLootRosterFormat);
+        }
+        return new JsonModel();
+    }
     /**
      * Action pour le listing via AJAX.
      *
