@@ -21,13 +21,17 @@ $(document).ready(function () {
                                 position: 'right'
                             }
                         };
-                        backgroundColor = ['rgba(209,219,189,1)', 'rgba(255,255,245,1)',
-                            'rgba(25,52,65,1)', 'rgba(62,96,111,1)',
-                            'rgba(85,136,158,1)', 'rgba(145,170,157,1)'];
+                        backgroundColor = ['rgba(25,52,65,0.8)', 'rgba(38,60,69,0.8)',
+                            'rgba(37,70,74,0.8)', 'rgba(62,96,111,0.8)',
+                            'rgba(64,98,102,0.8)', 'rgba(84,111,112,0.8)',
+                            'rgba(145,170,157,0.8)', 'rgba(209,219,189,0.8)',
+                            'rgba(252,255,245,0.8)'];
 
-                        hoverBackgroundColor = ['rgba(209,219,189,0.8)', 'rgba(255,255,245,0.8)',
-                            'rgba(25,52,65,0.8)', 'rgba(62,96,111,0.8)',
-                            'rgba(85,136,158,0.8)', 'rgba(145,170,157,0.8)'];
+                        hoverBackgroundColor = ['rgba(25,52,65,1)', 'rgba(38,60,69,1)',
+                            'rgba(37,70,74,1)', 'rgba(62,96,11,1)',
+                            'rgba(64,98,102,1)', 'rgba(84,111,112,1)',
+                            'rgba(145,170,157,1)', 'rgba(209,219,189,1)',
+                            'rgba(252,255,245,1)'];
                         generateCharts(data, 'lootDonationTiers', 'pie', options, backgroundColor, hoverBackgroundColor);
                     })
                     .fail(function () {
