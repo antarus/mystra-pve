@@ -127,7 +127,7 @@ class RaidsController extends FrontController {
     public function  ajaxLootDonationRaidAction()
     {
         $oRoster = $this->valideKey();
-        $aLootRosterFormat = array();
+        $aLootRaidFormat = array();
         $aRequest = $this->getRequest();
         $aPost = $aRequest->getPost();
         if($aPost['idRaid'])
@@ -138,17 +138,17 @@ class RaidsController extends FrontController {
                 return $this->redirect()->toRoute('home');
             }      
             try{
-                $aLootRoster = $this->getTableItemPersonnageRaid()->getLootRosterRaid($oRoster->getIdRoster(),$iIdRaid);
-                foreach ($aLootRoster as $lootRoster)
+                $aLootRaid = $this->getTableItemPersonnageRaid()->getLootRosterRaid($oRoster->getIdRoster(),$iIdRaid);
+                foreach ($aLootRaid as $lootRaid)
                 {
-                    $aLootRosterFormat[$lootRoster['note']]= $lootRoster['nbLoot'];
+                    $aLootRaidFormat[$lootRaid['note']]= $lootRaid['nbLoot'];
                 }
 
             } catch (Exception $exc) {
                 $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
                 $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
             }
-            return new JsonModel($aLootRosterFormat);
+            return new JsonModel($aLootRaidFormat);
         }
         return new JsonModel();
     }

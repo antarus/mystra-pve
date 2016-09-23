@@ -391,7 +391,7 @@
                 <time>1474507740</time>
                 <member>Rappaden-Hyjal</member>
                 <itemid>139197::::::::110:102::3:3:1807:1477:3336:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <note>0</note>
                 <boss>Nythendra</boss>
             </item>
@@ -400,7 +400,7 @@
                 <time>1474507740</time>
                 <member>Cely</member>
                 <itemid>139191::::::::110:102::3:3:1807:40:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Nythendra</boss>
             </item>
             <item>
@@ -408,7 +408,7 @@
                 <time>1474507740</time>
                 <member>Märgâlärds</member>
                 <itemid>139214::::::::110:102::3:3:1807:1477:3336:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Nythendra</boss>
             </item>
             <item>
@@ -416,7 +416,7 @@
                 <time>1474507800</time>
                 <member>Spoiler</member>
                 <itemid>139212::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Nythendra</boss>
             </item>
             <item>
@@ -424,7 +424,7 @@
                 <time>1474507800</time>
                 <member>Wochini</member>
                 <itemid>139235::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Nythendra</boss>
             </item>
             <item>
@@ -432,7 +432,7 @@
                 <time>1474512780</time>
                 <member>Jolarson</member>
                 <itemid>139325::::::::110:102::3:3:1807:1808:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Il'gynoth</boss>
             </item>
             <item>
@@ -440,7 +440,7 @@
                 <time>1474512840</time>
                 <member>Olare</member>
                 <itemid>139233::::::::110:102::3:4:1807:43:1477:3336:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Il'gynoth</boss>
             </item>
             <item>
@@ -448,7 +448,7 @@
                 <time>1474512840</time>
                 <member>Eddå</member>
                 <itemid>139213::::::::110:102::3:3:1807:1808:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Il'gynoth</boss>
             </item>
             <item>
@@ -456,7 +456,7 @@
                 <time>1474512840</time>
                 <member>Azülà</member>
                 <itemid>139213::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Il'gynoth</boss>
             </item>
             <item>
@@ -464,7 +464,7 @@
                 <time>1474513380</time>
                 <member>Tÿra</member>
                 <itemid>141695::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Il'gynoth</boss>
             </item>
             <item>
@@ -472,7 +472,7 @@
                 <time>1474514880</time>
                 <member>Azülà</member>
                 <itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Ursoc</boss>
             </item>
             <item>
@@ -480,7 +480,7 @@
                 <time>1474514940</time>
                 <member>Mïstÿ</member>
                 <itemid>139329::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Ursoc</boss>
             </item>
             <item>
@@ -488,7 +488,7 @@
                 <time>1474515000</time>
                 <member>Sfy-Ner’zhul</member>
                 <itemid>139195::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Ursoc</boss>
             </item>
             <item>
@@ -496,7 +496,7 @@
                 <time>1474515000</time>
                 <member>Antaruss</member>
                 <itemid>139327::::::::110:102::3:3:1807:1477:3336:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Ursoc</boss>
             </item>
             <item>
@@ -504,7 +504,7 @@
                 <time>1474515000</time>
                 <member>Spoiler</member>
                 <itemid>139220::::::::110:102::3:2:1807:1472:::</itemid>
-                <cost>0</cost>
+                <note>0</note>
                 <boss>Ursoc</boss>
             </item>
         </items>
