@@ -17,6 +17,7 @@ class RosterController extends FrontController {
 
     private $_tablePallier;
     private $_tableRaid;
+    private $_tableItemPersonnageRaid;
 
     /**
      * Returne une instance de la table PallierAfficher en lazy.
@@ -41,7 +42,17 @@ class RosterController extends FrontController {
         }
         return $this->_tableRaid;
     }
-    
+    /**
+     * Returne une instance de la table Raid en lazy.
+     *
+     * @return \Commun\Table\ItemPersonnageRaidTable
+     */
+    public function getTableItemPersonnageRaid() {
+        if (!$this->_tableItemPersonnageRaid) {
+            $this->_tableItemPersonnageRaid = $this->getServiceLocator()->get('\Commun\Table\ItemPersonnageRaidTable');
+        }
+        return $this->_tableItemPersonnageRaid;
+    }
     /**
      * Retourne l'ecran de detail d'un raid.
      *
@@ -126,7 +137,26 @@ class RosterController extends FrontController {
 
         
     }
-    
+     public function  ajaxLootDonationTiersAction()
+    {
+        $oRoster = $this->valideKey();
+        $aLootRosterFormat = array();
+        if (!$oRoster) {
+            return $this->redirect()->toRoute('home');
+        }      
+        try{
+            $aLootRoster = $this->getTableItemPersonnageRaid()->getLootPallierRoster($oRoster->getIdRoster());
+            foreach ($aLootRoster as $lootRoster)
+            {
+                $aLootRosterFormat[$lootRoster['note']]= $lootRoster['nbLoot'];
+            }
+            
+        } catch (Exception $exc) {
+            $this->_getLogService()->log(LogService::ERR, $exc->getMessage(), LogService::USER, $this->getRequest()->getPost());
+            $this->flashMessenger()->addMessage($exc->getMessage(), 'error');
+        }
+        return new JsonModel($aLootRosterFormat);
+    }
     public function ajaxProgressAction()
     {
         $oRoster = $this->valideKey();
