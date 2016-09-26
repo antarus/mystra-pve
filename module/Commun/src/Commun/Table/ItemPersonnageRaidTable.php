@@ -358,7 +358,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $exc) {
             throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $idRoster, $exc);
         }
-        
+
         $oQuery->columns(array(
                     'note',
                     'nbLoot' => new Expression('COUNT(*)')
@@ -373,14 +373,15 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
 
         foreach ($aPallierAfficheRoster as $pallierAffiche) {
-            $oQuery->where->NEST()->equalTo('r.idZoneTmp',$pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
+            $oQuery->where->NEST()->equalTo('r.idZoneTmp', $pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
         }
 
-        
+
         $oQuery->group('note');
 
         return $this->fetchAllArray($oQuery);
     }
+
     /**
      * Retourne le nombre de loot par type de note pour l'id roster et l'id raid renseigné
      * @return \Zend\Db\Sql\Sql
@@ -398,7 +399,7 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $exc) {
             throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $idRoster, $exc);
         }
-        
+
         $oQuery->columns(array(
                     'note',
                     'nbLoot' => new Expression('COUNT(*)')
@@ -413,14 +414,15 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
                 ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
 
         foreach ($aPallierAfficheRoster as $pallierAffiche) {
-            $oQuery->where->NEST()->equalTo('r.idRaid',$idRaid)->AND->equalTo('r.idZoneTmp',$pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
+            $oQuery->where->NEST()->equalTo('r.idRaid', $idRaid)->AND->equalTo('r.idZoneTmp', $pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
         }
-        
-        
+
+
         $oQuery->group('note');
-        
+
         return $this->fetchAllArray($oQuery);
     }
+
     /**
      * Fonction commune pour les stats de loot
      * @return \Zend\Db\Sql\Sql
@@ -525,28 +527,36 @@ class ItemPersonnageRaidTable extends \Core\Table\AbstractServiceTable {
     function getNbTotalLootRosterPallier($iIdRoster, $iSpe) {
         try {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
+            $oQueryPallier = $sql->select();
             $oQuery = $sql->select();
-            $oQuery->columns(array(
-                        'totalItemPallier' => new Expression('COUNT(ipr.idItem)')
-                    ))
-                    ->from(array('ipr' => 'item_personnage_raid'))
-                    ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER);
-            // spé
-            /* @var $predicateSpe \Zend\Db\Sql\Where() */
-            $predicateSpe = $this->getPredicateSpe($iSpe);
-            // palllier
             try {
-                $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
-                $oQuery->where->addPredicate($predicatePallier);
-            } catch (\Commun\Exception\LogException $exc) {
-                return null;
+                $oQueryPallier->from(array('pa' => 'pallierAfficher'))
+                        ->order('idModeDifficulte')
+                ->where->equalTo("idRoster", $iIdRoster);
+                $aPallierAfficheRoster = $this->fetchAllArray($oQueryPallier);
+            } catch (\Exception $exc) {
+                throw new DatabaseException(10000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
             }
 
-            /* @var $predicateGlobal \Zend\Db\Sql\Where() */
-            $predicateGlobal = $this->getTablePallier()->getPredicate($iIdRoster);
-            $predicateGlobal->addPredicate($predicateSpe, 'AND');
-            $oQuery->where($predicateGlobal);
+            $oQuery->columns(array(
+                        'totalItemPallier' => new Expression('COUNT(*)')
+                    ))
+                    ->from(array('ipr' => 'item_personnage_raid'))
+                    ->join(array('r' => 'raids'), 'r.idRaid=ipr.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('z' => 'zone'), 'z.idZone=r.idZoneTmp', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('m' => 'mode_difficulte'), 'm.idMode=r.idMode', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('ro' => 'roster'), 'ro.idRoster=r.idRosterTmp', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('i' => 'items'), 'ipr.idItem=i.idItem', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('b' => 'bosses'), 'ipr.idBosses=b.idBosses', array(), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('p' => 'personnages'), 'p.idPersonnage=ipr.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER);
 
+            foreach ($aPallierAfficheRoster as $pallierAffiche) {
+                $oQuery->where->NEST()->equalTo('r.idZoneTmp', $pallierAffiche['idZone'])->AND->equalTo('r.idMode', $pallierAffiche['idModeDifficulte'])->UNNEST()->OR;
+            }
+
+
+            $oQuery->group('ro.idRoster');
+            
             return $this->fetchAllArray($oQuery)[0]['totalItemPallier'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);

@@ -115,22 +115,18 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
         try {
             $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
             $oQuery = $sql->select();
+
+            $aPallierRoster = $this->getTablePallier()->getPallierPourIdRoster($iIdRoster);
             $oQuery->columns(array(
-                        'totalRaidPallier' => new Expression('COUNT(r.idRaid)')
+                        'nbTotalRaidPallier' => new Expression('COUNT(*)')
                     ))
-                    ->from(array('r' => 'raids'))
-                    ->order('idMode');
-            try {
-
-                $predicatePallier = $this->getTablePallier()->getPredicate($iIdRoster);
-//            $predicatePallier->AND->equalTo("idRosterTmp", $iIdRoster);
-
-                $oQuery->where->addPredicate($predicatePallier);
-            } catch (\Commun\Exception\LogException $exc) {
-                return null;
+                    ->from(array('r' => 'raids'));
+            foreach ($aPallierRoster as $pallierRoster) {
+                $oQuery->where->NEST()->equalTo("r.idRosterTmp", $pallierRoster['idRoster'])->AND->equalTo('r.idZoneTmp', $pallierRoster['idZone'])->AND->equalTo('r.idMode', $pallierRoster['idModeDifficulte'])->UNNEST()->OR;
             }
-
-            return $this->fetchAllArray($oQuery)[0]['totalRaidPallier'];
+            $oQuery->group('r.idRosterTmp');
+            
+            return $this->fetchAllArray($oQuery)[0]['nbTotalRaidPallier'];
         } catch (\Exception $exc) {
             throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
         }
@@ -200,7 +196,7 @@ class RaidsTable extends \Core\Table\AbstractServiceTable {
             $oQuery = $sql->select();
             $oQuery->from(array('rp' => 'raid_personnage'))
                     ->join(array('r' => 'raids'), 'r.idRaid=rp.idRaid', array(), \Zend\Db\Sql\Select::JOIN_INNER)
-                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume','idClasses'), \Zend\Db\Sql\Select::JOIN_INNER)
+                    ->join(array('p' => 'personnages'), 'p.idPersonnage=rp.idPersonnage', array('nom_personnage' => 'nom', 'royaume_personnage' => 'royaume', 'idClasses'), \Zend\Db\Sql\Select::JOIN_INNER)
                     ->join(array('rhp' => 'roster_has_personnage'), 'rhp.idRoster = r.idRosterTmp AND rhp.idPersonnage = rp.idPersonnage', array(), \Zend\Db\Sql\Select::JOIN_INNER)
                     ->join(array('c' => 'classes'), 'c.idClasses = p.idClasses', array('couleur'), \Zend\Db\Sql\Select::JOIN_INNER);
 
