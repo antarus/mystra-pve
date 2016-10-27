@@ -579,13 +579,13 @@ CREATE TABLE IF NOT EXISTS `content` (
   `idContent` int(11) NOT NULL AUTO_INCREMENT,
   `type` enum('page','article') NOT NULL,
   `idPages` int(11) NOT NULL,
+  `titleArticle` varchar(150) NOT NULL,
   `content` text NOT NULL,
   `writeBy` int(11) DEFAULT NULL,
   `updateBy` int(11) DEFAULT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idContent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 
 -- --------------------------------------------------------
