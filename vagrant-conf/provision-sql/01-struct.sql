@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Jeu 25 Août 2016 à 00:44
+-- Généré le: Jeu 27 Octobre 2016 à 17:12
 -- Version du serveur: 5.5.50-0ubuntu0.14.04.1
--- Version de PHP: 5.5.9-1ubuntu4.19
+-- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -35,6 +35,8 @@ CREATE TABLE IF NOT EXISTS `bosses` (
   `nom` varchar(155) NOT NULL,
   `level` int(11) NOT NULL,
   `vie` int(11) DEFAULT NULL,
+  `idBosseBnet` int(11) DEFAULT NULL,
+  `locale` varchar(5) NOT NULL,
   PRIMARY KEY (`idBosses`),
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -68,6 +70,25 @@ CREATE TABLE IF NOT EXISTS `classes` (
   `icon` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`idClasses`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `content`
+--
+
+DROP TABLE IF EXISTS `content`;
+CREATE TABLE IF NOT EXISTS `content` (
+  `idContent` int(11) NOT NULL AUTO_INCREMENT,
+  `type` enum('page','article') NOT NULL,
+  `idPages` int(11) NOT NULL,
+  `titleArticle` varchar(150) NOT NULL,
+  `content` text NOT NULL,
+  `writeBy` int(11) DEFAULT NULL,
+  `updateBy` int(11) DEFAULT NULL,
+  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`idContent`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 -- --------------------------------------------------------
 
@@ -211,7 +232,7 @@ CREATE TABLE IF NOT EXISTS `guildes` (
   `idFaction` int(11) NOT NULL,
   PRIMARY KEY (`idGuildes`),
   KEY `fk_guildes_faction1_idx` (`idFaction`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -228,6 +249,7 @@ CREATE TABLE IF NOT EXISTS `items` (
   `idBnet` int(10) DEFAULT NULL,
   `couleur` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
   `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `locale` varchar(5) NOT NULL,
   PRIMARY KEY (`idItem`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -255,7 +277,6 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
 -- --------------------------------------------------------
 
 --
@@ -278,10 +299,24 @@ CREATE TABLE IF NOT EXISTS `mode_difficulte` (
 
 DROP TABLE IF EXISTS `npc`;
 CREATE TABLE IF NOT EXISTS `npc` (
-  `idNpc` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id battlenet',
+  `idNpc` int(11) NOT NULL,
   `nom` varchar(45) NOT NULL,
+  `locale` varchar(5) NOT NULL,
   PRIMARY KEY (`idNpc`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `pages`
+--
+
+DROP TABLE IF EXISTS `pages`;
+CREATE TABLE IF NOT EXISTS `pages` (
+  `idPages` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) NOT NULL,
+  PRIMARY KEY (`idPages`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
@@ -328,7 +363,7 @@ CREATE TABLE IF NOT EXISTS `personnages` (
   KEY `fk_personnages_classes1_idx` (`idClasses`),
   KEY `fk_personnages_race1_idx` (`idRace`),
   KEY `fk_personnages_user1_idx` (`idUsers`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -408,11 +443,12 @@ CREATE TABLE IF NOT EXISTS `roster` (
   `idRoster` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(100) NOT NULL,
   `key` varchar(100) DEFAULT NULL,
+  `locale` varchar(5) NOT NULL,
+  `region` varchar(45) NOT NULL,
   PRIMARY KEY (`idRoster`),
   UNIQUE KEY `nom_UNIQUE` (`nom`),
   UNIQUE KEY `key_UNIQUE` (`key`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -464,15 +500,24 @@ CREATE TABLE IF NOT EXISTS `user` (
   `display_name` varchar(50) DEFAULT NULL,
   `password` varchar(128) NOT NULL,
   `state` smallint(5) unsigned DEFAULT NULL,
-  `lastConnection` DATETIME NOT NULL,
+  `lastConnection` datetime NOT NULL,
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `keyValidMail` varchar(500) DEFAULT NULL,
   `forgetpass` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
+--
+-- Déclencheurs `user`
+--
+DROP TRIGGER IF EXISTS `add_role_user`;
+DELIMITER //
+CREATE TRIGGER `add_role_user` AFTER INSERT ON `user`
+ FOR EACH ROW insert into user_role_linker (user_id,role_id) values (new.id, 10)
+//
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -513,7 +558,8 @@ CREATE TABLE IF NOT EXISTS `user_role_linker` (
 
 DROP TABLE IF EXISTS `zone`;
 CREATE TABLE IF NOT EXISTS `zone` (
-  `idZone` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id battlenet',
+  `idZone` int(11) NOT NULL AUTO_INCREMENT,
+  `idZoneBnet` int(11) DEFAULT NULL COMMENT 'id zone bnet',
   `nom` varchar(255) NOT NULL,
   `lvlMin` mediumint(9) NOT NULL,
   `lvlMax` mediumint(9) NOT NULL,
@@ -522,6 +568,7 @@ CREATE TABLE IF NOT EXISTS `zone` (
   `patch` varchar(45) NOT NULL,
   `isDonjon` tinyint(1) NOT NULL,
   `isRaid` tinyint(1) NOT NULL,
+  `locale` varchar(5) NOT NULL,
   PRIMARY KEY (`idZone`),
   UNIQUE KEY `nom_UNIQUE` (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
@@ -556,50 +603,9 @@ CREATE TABLE IF NOT EXISTS `zone_has_mode_diffculte` (
   KEY `fk_mode_difficulte_has_zone_mode_difficulte1_idx` (`idMode`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- phpMyAdmin SQL Dump
--- version 4.0.10deb1
--- http://www.phpmyadmin.net
 --
--- Client: localhost
--- Généré le: Ven 16 Septembre 2016 à 15:28
--- Version du serveur: 5.5.50-0ubuntu0.14.04.1
--- Version de PHP: 5.6.23-1+deprecated+dontuse+deb.sury.org~trusty+1
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-
--- --------------------------------------------------------
-
+-- Contraintes pour les tables exportées
 --
--- Structure de la table `content`
---
-
-CREATE TABLE IF NOT EXISTS `content` (
-  `idContent` int(11) NOT NULL AUTO_INCREMENT,
-  `type` enum('page','article') NOT NULL,
-  `idPages` int(11) NOT NULL,
-  `titleArticle` varchar(150) NOT NULL,
-  `content` text NOT NULL,
-  `writeBy` int(11) DEFAULT NULL,
-  `updateBy` int(11) DEFAULT NULL,
-  `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`idContent`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
-
-
--- --------------------------------------------------------
-
---
--- Structure de la table `pages`
---
-
-CREATE TABLE IF NOT EXISTS `pages` (
-  `idPages` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(150) NOT NULL,
-  PRIMARY KEY (`idPages`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
-
 
 --
 -- Contraintes pour la table `bosses_has_npc`
