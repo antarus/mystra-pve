@@ -67,7 +67,8 @@ class GuildesTable extends \Core\Table\AbstractServiceTable {
      */
     public function importGuilde($aPost) {
         try {
-            $guild = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->guilds();
+            // TODO ajouter dans l'ecran ou user language region
+            $guild = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->guilds();
             $guild->on($aPost['serveur']);
             $aOptionBnet = array();
             if ($aPost['imp-membre'] == "Oui") {

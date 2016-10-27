@@ -63,7 +63,8 @@ class ItemsTable extends \Core\Table\AbstractServiceTable {
             }
             // si n'existe pas on importe
             if (!$oTabItems) {
-                $itemBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->items();
+                // TODO ajouter dans l'ecran ou user language region
+                $itemBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->items();
                 $oBnetItem = $itemBnet->find($aInfoItem[0]);
                 if (!$oBnetItem) {
                     throw new BnetException(399, $this->_getServiceLocator(), $aPost);

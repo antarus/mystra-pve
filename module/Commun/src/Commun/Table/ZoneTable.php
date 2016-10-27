@@ -142,7 +142,8 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
 
     public function importZone($aPost) {
         try {
-            $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->zones();
+            // TODO ajouter dans l'ecran ou user language region
+            $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->zones();
             $aZoneBnet = $zone->find($aPost['idZone']);
             if (!$aZoneBnet) {
                 throw new BnetException(499, $this->_getServiceLocator(), $aPost);

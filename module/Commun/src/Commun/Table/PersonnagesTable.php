@@ -101,7 +101,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
     public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
             $aOptionBnet[] = 'items';
-            $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "en_GB"))->characters();
+            $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->characters();
             $personnageBnet->on($aPost['serveur']);
 
             $aPersoBnet = $personnageBnet->find($aPost['nom'], $aOptionBnet);
