@@ -13,10 +13,14 @@ class DatabaseException extends \Commun\Exception\LogException {
         5000 => "roster/personnage",
         6000 => "roster",
         7000 => "zone",
+        7500 => "zoneTranslate",
         8000 => "item/raid/personnage/boss",
         9000 => "boss",
+        9500 => "bossTranslate",
         10000 => "pallier",
-        11000 => "user"
+        11000 => "user",
+        12000 => "npc",
+        12500 => "npcTranslate",
     ];
     protected $ERREUR_TYPE = [
         0 => "inconnu",
@@ -48,7 +52,7 @@ class DatabaseException extends \Commun\Exception\LogException {
             $msg = $this->message[5000];
             $codeErreur = 5000;
         }
-        
+
         if ($this->_getTranslator() != null) {
             $msg = $this->_getTranslator()->translate($msg);
         }

@@ -6,36 +6,23 @@ namespace Commun\Form;
  * @author Antarus
  * @project Raid-TracKer
  */
-class ZoneForm extends \Core\Form\AbstractForm
-{
+class ZoneForm extends \Core\Form\AbstractForm {
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct('zone');
         $this->setAttribute('method', 'post');
 
         $this->add(array(
-           'name' => 'idZone',
-           'attributes' => array(
-               'type'  => 'hidden',
-           ),
-        ));
-
-        $this->add(array(
-            'name' => 'nom',
+            'name' => 'idZone',
             'attributes' => array(
-                'type'  => 'text',
-                'class' => 'form-control'
-            ),
-            'options' => array(
-                'label' => 'Nom',
+                'type' => 'hidden',
             ),
         ));
 
         $this->add(array(
             'name' => 'lvlMin',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -46,7 +33,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'lvlMax',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -57,7 +44,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'tailleMin',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -68,7 +55,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'tailleMax',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -79,7 +66,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'patch',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -90,7 +77,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'isDonjon',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -101,7 +88,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'isRaid',
             'attributes' => array(
-                'type'  => 'text',
+                'type' => 'text',
                 'class' => 'form-control'
             ),
             'options' => array(
@@ -112,7 +99,7 @@ class ZoneForm extends \Core\Form\AbstractForm
         $this->add(array(
             'name' => 'submit',
             'attributes' => array(
-                'type'  => 'submit',
+                'type' => 'submit',
                 'value' => 'Go',
                 'id' => 'submitbutton',
                 'class' => 'form-control btn-success',
@@ -121,6 +108,4 @@ class ZoneForm extends \Core\Form\AbstractForm
         ));
     }
 
-
 }
-

@@ -15,6 +15,8 @@
                 <input type="radio" name="imp-boss" value="Non" <?php if ($zone["imp-boss"] == 'Non') echo 'checked'; ?>><?php echo $this->translate("Non") ?>
             </div>
 
+            <?= $this->render('layout/backend/locale') ?>
+
             <div class="form-actions">
                 <input id="submit" type='submit' value='submit' class="btn"/>
             </div>

@@ -101,6 +101,7 @@ class PersonnagesTable extends \Core\Table\AbstractServiceTable {
     public function importPersonnage($aPost, $oGuilde = null, $aOptionBnet = array()) {
         try {
             $aOptionBnet[] = 'items';
+            // TODO ajouter dans l'ecran ou user language region
             $personnageBnet = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->characters();
             $personnageBnet->on($aPost['serveur']);
 

@@ -179,14 +179,13 @@ class ParserWow {
      * @return  \Core\Model\Zone
      * @throws Exception
      */
-    public static function extraitZoneDepuisBnetZone($aDataZoneBnet) {
+    public static function extraitZoneDepuisBnetZone($aDataZoneBnet, $locale = "fr_FR") {
 
         if (!isset($aDataZoneBnet)) {
             throw new \Exception("Les datas pour l'extraction de zone issues de bnet ne peuvent être vide.");
         }
         $oZone = new \Commun\Model\Zone();
         $oZone->setIdZone($aDataZoneBnet['id']);
-        $oZone->setNom($aDataZoneBnet['name']);
         $oZone->setIsDonjon($aDataZoneBnet['isDungeon']);
         $oZone->setIsRaid($aDataZoneBnet['isRaid']);
         $oZone->setLvlMax($aDataZoneBnet['advisedMinLevel']);
@@ -203,6 +202,11 @@ class ParserWow {
         }
         $oZone->setTailleMin($iTailleMin);
         $oZone->setTailleMax($iTailleMax);
+
+        // temporaire pour translate
+        $oZone->setLocale($locale);
+        $oZone->setNom($aDataZoneBnet['name']);
+
         return $oZone;
     }
 
@@ -214,7 +218,7 @@ class ParserWow {
      * @return array de \Core\Model\Personnages
      * @throws Exception
      */
-    public static function extraitBossDepuisBnetZone($aDataZoneBnet, \Commun\Model\Zone $oZone) {
+    public static function extraitBossDepuisBnetZone($aDataZoneBnet, \Commun\Model\Zone $oZone, $locale = "fr_FR") {
 
         if (!isset($aDataZoneBnet)) {
             throw new Exception("Les datas pour l'extraction de zone issues de bnet ne peuvent être vide.");
@@ -226,15 +230,21 @@ class ParserWow {
 
                 $oBoss = new \Commun\Model\Bosses();
                 $oBoss->setIdBosses($aBosse['id']);
-                $oBoss->setNom($aBosse['name']);
+
                 $oBoss->setLevel($aBosse['level']);
                 $oBoss->setVie($aBosse['health']);
+                // temporaire pour translate
+                $oBoss->setLocale($locale);
+                $oBoss->setNom($aBosse['name']);
                 $aNpc = array();
                 if (isset($aBosse['npcs'])) {
                     foreach ($aBosse['npcs'] as $aNpcBnet) {
                         $oNpc = new \Commun\Model\Npc();
                         $oNpc->setIdNpc($aNpcBnet['id']);
+                        $oNpc->setIdNpcBidon($aNpcBnet['id']);
+                        // temporaire pour translate
                         $oNpc->setNom($aNpcBnet['name']);
+                        $oNpc->setLocale($locale);
                         $aNpc[] = $oNpc;
                     }
                 }

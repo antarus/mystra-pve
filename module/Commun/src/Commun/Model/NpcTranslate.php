@@ -8,28 +8,21 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Bosses extends \Core\Model\AbstractModel {
+class Npc extends \Core\Model\AbstractModel {
 
     /**
-     * Colonne: idBosses
+     * Colonne: idNpc
      *
      * @var int
      */
-    public $idBosses = null;
+    public $idNpc = null;
 
     /**
-     * Colonne: level
+     * Colonne: nom
      *
-     * @var int
+     * @var string
      */
-    public $level = null;
-
-    /**
-     * Colonne: vie
-     *
-     * @var int
-     */
-    public $vie = null;
+    public $nom = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -92,57 +85,39 @@ class Bosses extends \Core\Model\AbstractModel {
     }
 
     /**
-     * Retourne la valeur idBosses.
+     * Retourne la valeur idNpc.
      *
      * @return int
      */
-    public function getIdBosses() {
-        return intval($this->idBosses);
+    public function getIdNpc() {
+        return intval($this->idNpc);
     }
 
     /**
-     * Définit la valeur pour idBosses
+     * Définit la valeur pour idNpc
      *
      * @param int
      */
-    public function setIdBosses($value) {
-        $this->idBosses = $value;
+    public function setIdNpc($value) {
+        $this->idNpc = $value;
     }
 
     /**
-     * Retourne la valeur level.
+     * Retourne la valeur nom.
      *
-     * @return int
+     * @return string
      */
-    public function getLevel() {
-        return intval($this->level);
+    public function getNom() {
+        return strval($this->nom);
     }
 
     /**
-     * Définit la valeur pour level
+     * Définit la valeur pour nom
      *
-     * @param int
+     * @param string
      */
-    public function setLevel($value) {
-        $this->level = $value;
-    }
-
-    /**
-     * Retourne la valeur vie.
-     *
-     * @return int
-     */
-    public function getVie() {
-        return intval($this->vie);
-    }
-
-    /**
-     * Définit la valeur pour vie
-     *
-     * @param int
-     */
-    public function setVie($value) {
-        $this->vie = $value;
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
 }

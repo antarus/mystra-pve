@@ -55,6 +55,11 @@ class Module {
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },
+                'Commun\Table\BossesTranslateTable' => function($sm) {
+                    $oTable = new \Commun\Table\BossesTranslateTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
                 'Commun\Table\BossesHasNpcTable' => function($sm) {
                     $oTable = new \Commun\Table\BossesHasNpcTable($sm->get("\Zend\Db\Adapter\Adapter"));
                     $oTable->setServiceLocator($sm);
@@ -120,6 +125,11 @@ class Module {
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },
+                'Commun\Table\NpcTranslateTable' => function($sm) {
+                    $oTable = new \Commun\Table\NpcTranslateTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
                 'Commun\Table\ItemPersonnageRaidTable' => function($sm) {
                     $oTable = new \Commun\Table\ItemPersonnageRaidTable($sm->get("\Zend\Db\Adapter\Adapter"));
                     $oTable->setServiceLocator($sm);
@@ -182,6 +192,11 @@ class Module {
                 },
                 'Commun\Table\ZoneTable' => function($sm) {
                     $oTable = new \Commun\Table\ZoneTable($sm->get("\Zend\Db\Adapter\Adapter"));
+                    $oTable->setServiceLocator($sm);
+                    return $oTable;
+                },
+                'Commun\Table\ZoneTranslateTable' => function($sm) {
+                    $oTable = new \Commun\Table\ZoneTranslateTable($sm->get("\Zend\Db\Adapter\Adapter"));
                     $oTable->setServiceLocator($sm);
                     return $oTable;
                 },

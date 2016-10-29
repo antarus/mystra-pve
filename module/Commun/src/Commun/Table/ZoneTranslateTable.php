@@ -44,7 +44,6 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
     private $_tableZoneHasBosses = null;
     private $_tableZoneHasModeDiffculte = null;
     private $_tableModeDifficulte = null;
-    private $_tableZoneTranslate = null;
 
     /**
      * Returne une instance de la table en lazy.
@@ -91,18 +90,6 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
             $this->_tableNpc = $this->_getServiceLocator()->get('\Commun\Table\NpcTable');
         }
         return $this->_tableNpc;
-    }
-
-    /**
-     * Returne une instance de la table ZoneTranslate  en lazy.
-     *
-     * @return \Commun\Table\ZoneTranslateTable
-     */
-    public function _getTableZoneTranslate() {
-        if (!$this->_tableZoneTranslate) {
-            $this->_tableZoneTranslate = $this->_getServiceLocator()->get('\Commun\Table\ZoneTranslateTable');
-        }
-        return $this->_tableZoneTranslate;
     }
 
     /**
@@ -153,38 +140,15 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
         return $this->_tableModeDifficulte;
     }
 
-    /**
-     * Retourne le select query deja configuré par l'adapter et le nom de la table.
-     *
-     * @return Zend\Db\Sql\Select
-     */
-    public function getBaseQuery() {
-
-        try {
-//               select z.*, zt.locale,zt.nom from zone z
-//right join zone_translate zt on zt.idZone=z.idZone
-            $sql = new \Zend\Db\Sql\Sql($this->getAdapter());
-            $oQuery = $sql->select();
-            $oQuery->from(array('z' => 'zone'))
-                    ->join(array('zt' => 'zone_translate'), 'zt.idZone=z.idZone', array('nom', 'locale'), \Zend\Db\Sql\Select::JOIN_RIGHT);
-
-            $oQuery->order("idZone");
-            return $oQuery;
-        } catch (\Exception $exc) {
-            throw new DatabaseException(4000, 4, $this->_getServiceLocator(), $iIdRoster, $exc);
-        }
-    }
-
     public function importZone($aPost) {
         try {
             // TODO ajouter dans l'ecran ou user language region
-            $locale = $aPost['locale'];
-            $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, $locale))->zones();
+            $zone = $this->_getServBnet()->warcraft(new Region(Region::EUROPE, "fr_FR"))->zones();
             $aZoneBnet = $zone->find($aPost['idZone']);
             if (!$aZoneBnet) {
                 throw new BnetException(499, $this->_getServiceLocator(), $aPost);
             }
-            $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet, $locale);
+            $oZone = \Core\Util\ParserWow::extraitZoneDepuisBnetZone($aZoneBnet);
             $oZone = $this->saveOrUpdateZone($oZone);
             //mode de difficulté
             //supprime toutes les clé correpsondnat au boss dans la table BossesHasModeDifficulté
@@ -209,10 +173,22 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
             }
 
             if ($aPost['imp-boss'] == "Oui") {
-                $aBossZone = \Core\Util\ParserWow::extraitBossDepuisBnetZone($aZoneBnet, $oZone, $locale);
+                $aBossZone = \Core\Util\ParserWow::extraitBossDepuisBnetZone($aZoneBnet, $oZone);
             } else {
                 $aBossZone = array();
             }
+            //supprime toutes les clé correpsondnat au zone dans la table ZoneHasBosses
+//            $oTabZoneHasBoss = $this->_getTableZoneHasBosses()->selectBy(
+//                    array("idZone" => $oZone->getIdZone()));
+//            if ($oTabZoneHasBoss) {
+//                if (is_array($oTabZoneHasBoss)) {
+//                    foreach ($oTabZoneHasBoss as $oZoneHasBoss) {
+//                        $this->_getTableZoneHasBosses()->delete($oZoneHasBoss);
+//                    }
+//                } else {
+//                    $this->_getTableZoneHasBosses()->delete($oTabZoneHasBoss);
+//                }
+//            }
             foreach ($aBossZone as $oBoss) {
                 // table boss
                 $oTabBoss = $this->_getTableBoss()->selectBy(
@@ -224,6 +200,20 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                     // sinon on update
                     $this->_getTableBoss()->update($oBoss);
                 }
+
+                // table npc
+//                //supprime toutes les clé correspondant au boss dans la table BossesHasNpc
+//                $oTabBossHasNpc = $this->_getTableBossesHasNpc()->selectBy(
+//                        array("idBosses" => $oBoss->getIdBosses()));
+//                if ($oTabBossHasNpc) {
+//                    if (is_array($oTabBossHasNpc)) {
+//                        foreach ($oTabBossHasNpc as $oNpc) {
+//                            $this->_getTableBossesHasNpc()->delete($oNpc);
+//                        }
+//                    } else {
+//                        $this->_getTableBossesHasNpc()->delete($oTabBossHasNpc);
+//                    }
+//                }
 
                 foreach ($oBoss->getNpc() as $oNpc) {
                     $oTabNpc = $this->_getTableNpc()->selectBy(
@@ -274,6 +264,11 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
                 $oTabZone = $this->selectBy(
                         array(
                             "idZone" => $oZone->getIdZone()));
+                if (!$oTabZone) {
+                    $oTabZone = $this->selectBy(
+                            array(
+                                "nom" => $oZone->getNom()));
+                }
             } catch (\Exception $exc) {
                 throw new DatabaseException(7000, 4, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
             }
@@ -298,65 +293,6 @@ class ZoneTable extends \Core\Table\AbstractServiceTable {
         } catch (\Exception $ex) {
             throw new \Commun\Exception\LogException("Erreur lors de la sauvegarde de la zone", 0, $this->_getServiceLocator(), $ex, $oZone->getArrayCopy());
         }
-    }
-
-    /**
-     * Met à jour un objet en base.
-     *
-     * @param mixed $mObject
-     * @return int
-     * @throws \Exception\BadMethodCallException
-     */
-    public function update($mObject, $where = null) {
-        $zone = parent::update($mObject, $where);
-        try {
-            $oTabZoneTrans = $this->_getTableZoneTranslate()->selectBy(
-                    array(
-                        "locale" => $mObject->getLocale(),
-                        "nom" => $mObject->getNom()));
-            $oZoneTranslate = new \Commun\Model\ZoneTranslate();
-            $oZoneTranslate->setIdZone($mObject->getIdZone());
-            $oZoneTranslate->setLocale($mObject->getLocale());
-            $oZoneTranslate->setNom($mObject->getNom());
-            // si n'existe pas on insert
-            if (!$oTabZoneTrans) {
-                try {
-                    $this->_getTableZoneTranslate()->insert($oZoneTranslate);
-                } catch (\Exception $exc) {
-                    throw new DatabaseException(7500, 2, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
-                }
-            } else {
-                try {
-                    // sinon on update
-                    $oZoneTranslate->setIdZoneTranslate($oTabZoneTrans->getIdZoneTranslate());
-                    $this->_getTableZoneTranslate()->update($oZoneTranslate);
-                } catch (\Exception $exc) {
-                    throw new DatabaseException(7500, 1, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
-                }
-            }
-            return $zone;
-        } catch (\Exception $exc) {
-            throw new DatabaseException(7500, 4, $this->_getServiceLocator(), $oZone->getArrayCopy(), $exc);
-        }
-    }
-
-    /**
-     * Insert l'objet en base.
-     *
-     * @param mixed $mObject
-     * @return int
-     * @throws \Exception\BadMethodCallException
-     */
-    public function insert($mObject) {
-        $zone = parent::insert($mObject);
-
-        $zoneTranslate = new \Commun\Model\ZoneTranslate();
-        $zoneTranslate->setIdZone($mObject->getIdZone());
-        $zoneTranslate->setLocale($mObject->getLocale());
-        $zoneTranslate->setNom($mObject->getNom());
-        $this->_getTableZoneTranslate()->insert($zoneTranslate);
-
-        return $zone;
     }
 
     /**

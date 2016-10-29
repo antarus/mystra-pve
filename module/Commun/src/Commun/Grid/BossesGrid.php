@@ -47,7 +47,12 @@ class BossesGrid extends \ZfTable\AbstractTable {
         ),
         'nom' => array(
             'title' => 'Nom',
-            'width' => '100',
+            'width' => '155',
+            'filters' => 'text',
+        ),
+        'locale' => array(
+            'title' => 'Locale',
+            'width' => '5',
             'filters' => 'text',
         ),
         'level' => array(

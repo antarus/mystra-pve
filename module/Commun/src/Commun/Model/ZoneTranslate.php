@@ -18,6 +18,13 @@ class Zone extends \Core\Model\AbstractModel {
     public $idZone = null;
 
     /**
+     * Colonne: nom
+     *
+     * @var string
+     */
+    public $nom = null;
+
+    /**
      * Colonne: lvlMin
      *
      * @var string
@@ -144,23 +151,23 @@ class Zone extends \Core\Model\AbstractModel {
         $this->idZone = $value;
     }
 
-//    /**
-//     * Retourne la valeur nom.
-//     *
-//     * @return string
-//     */
-//    public function getNom() {
-//        return strval($this->nom);
-//    }
-//
-//    /**
-//     * Définit la valeur pour nom
-//     *
-//     * @param string
-//     */
-//    public function setNom($value) {
-//        $this->nom = strtolower($value);
-//    }
+    /**
+     * Retourne la valeur nom.
+     *
+     * @return string
+     */
+    public function getNom() {
+        return strval($this->nom);
+    }
+
+    /**
+     * Définit la valeur pour nom
+     *
+     * @param string
+     */
+    public function setNom($value) {
+        $this->nom = strtolower($value);
+    }
 
     /**
      * Retourne la valeur lvlMin.

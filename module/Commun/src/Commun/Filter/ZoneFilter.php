@@ -6,168 +6,193 @@ namespace Commun\Filter;
  * @author Antarus
  * @project Raid-TracKer
  */
-class ZoneFilter extends \Core\Filter\AbstractFilter
-{
+class ZoneFilter extends \Core\Filter\AbstractFilter {
 
-    public function __construct()
-    {
+    public function __construct() {
         $inputFilter = $this->getInputFilter();
         $factory = $this->getInputFactory();
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'idZone',
-               'required' => true,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
-                   ),
-               )
+                    'name' => 'idZone',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'Int')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'Digits'
+                        ),
+                    )
+        )));
+        $inputFilter->add($factory->createInput(array(
+                    'name' => 'idZoneBnet',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'Int')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'Digits'
+                        ),
+                    )
+        )));
+        $inputFilter->add($factory->createInput(array(
+                    'name' => 'locale',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '5',
+                                'max' => '5'
+                            )
+                        ),
+                    )
+        )));
+        $inputFilter->add($factory->createInput(array(
+                    'name' => 'nom',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '255'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'nom',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '255'
-                       )
-                   ),
-               )
+                    'name' => 'lvlMin',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '255'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'lvlMin',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '255'
-                       )
-                   ),
-               )
+                    'name' => 'lvlMax',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '255'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'lvlMax',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '255'
-                       )
-                   ),
-               )
+                    'name' => 'tailleMin',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '255'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'tailleMin',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '255'
-                       )
-                   ),
-               )
+                    'name' => 'tailleMax',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '255'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'tailleMax',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '255'
-                       )
-                   ),
-               )
+                    'name' => 'patch',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'StripTags'),
+                        array('name' => 'StringTrim')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'StringLength',
+                            'options' => array(
+                                'encoding' => 'UTF-8',
+                                'min' => '1',
+                                'max' => '45'
+                            )
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'patch',
-               'required' => true,
-               'filters' => array(
-                   array('name' => 'StripTags'),
-                   array('name' => 'StringTrim')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'StringLength',
-                       'options' => array(
-                           'encoding' => 'UTF-8',
-                           'min' => '1',
-                           'max' => '45'
-                       )
-                   ),
-               )
+                    'name' => 'isDonjon',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'Int')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'Digits'
+                        ),
+                    )
         )));
 
         $inputFilter->add($factory->createInput(array(
-               'name' => 'isDonjon',
-               'required' => true,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
-                   ),
-               )
-        )));
-
-        $inputFilter->add($factory->createInput(array(
-               'name' => 'isRaid',
-               'required' => true,
-               'filters' => array(
-                   array('name'=>'Int')
-               ),
-               'validators' => array(
-                   array(
-                       'name' => 'Digits'
-                   ),
-               )
+                    'name' => 'isRaid',
+                    'required' => true,
+                    'filters' => array(
+                        array('name' => 'Int')
+                    ),
+                    'validators' => array(
+                        array(
+                            'name' => 'Digits'
+                        ),
+                    )
         )));
     }
 
-
 }
-

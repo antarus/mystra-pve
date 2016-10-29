@@ -18,6 +18,13 @@ class Bosses extends \Core\Model\AbstractModel {
     public $idBosses = null;
 
     /**
+     * Colonne: nom
+     *
+     * @var string
+     */
+    public $nom = null;
+
+    /**
      * Colonne: level
      *
      * @var int
@@ -107,6 +114,24 @@ class Bosses extends \Core\Model\AbstractModel {
      */
     public function setIdBosses($value) {
         $this->idBosses = $value;
+    }
+
+    /**
+     * Retourne la valeur nom.
+     *
+     * @return string
+     */
+    public function getNom() {
+        return strval($this->nom);
+    }
+
+    /**
+     * Définit la valeur pour nom
+     *
+     * @param string
+     */
+    public function setNom($value) {
+        $this->nom = strtolower($value);
     }
 
     /**

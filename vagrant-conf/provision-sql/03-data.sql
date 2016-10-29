@@ -136,6 +136,17 @@ TRUNCATE TABLE `item_personnage_raid`;
 -- Vider la table avant d'insérer `mode_difficulte`
 --
 
+TRUNCATE TABLE `locale`;
+
+INSERT INTO `locale` (`idLocale`, `region`, `locale`) VALUES
+(1, 'EUROPE', 'en_GB'),
+(2, 'EUROPE', 'es_ES'),
+(3, 'EUROPE', 'fr_FR'),
+(4, 'EUROPE', 'ru_RU'),
+(5, 'EUROPE', 'pt_PT'),
+(6, 'EUROPE', 'de_DE'),
+(7, 'EUROPE', 'it_IT');
+
 TRUNCATE TABLE `mode_difficulte`;
 --
 -- Contenu de la table `mode_difficulte`

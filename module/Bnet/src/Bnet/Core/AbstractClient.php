@@ -84,7 +84,8 @@ abstract class AbstractClient {
      * @return string
      */
     protected function getRequestKey($url, array $options) {
-        return hash_hmac('md5', $url, serialize($options));
+        $data = $this->region->getLocale() . $url;
+        return hash_hmac('md5', $data, serialize($options));
     }
 
     /**

@@ -277,6 +277,16 @@ CREATE TABLE IF NOT EXISTS `item_personnage_raid` (
   KEY `fk_item_personnage_raid_bosses1_idx` (`idBosses`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+
+
+CREATE TABLE IF NOT EXISTS `locale` (
+  `idLocale` int(11) NOT NULL,
+  `region` varchar(45) DEFAULT NULL,
+  `locale` varchar(5) DEFAULT NULL,
+  PRIMARY KEY (`idLocale`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- --------------------------------------------------------
 
 --

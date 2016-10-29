@@ -20,9 +20,9 @@ class Npc extends \Core\Model\AbstractModel {
     /**
      * Colonne: nom
      *
-     * @var string
+     * @var int
      */
-    public $nom = null;
+    public $idNpcBidon = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -102,22 +102,12 @@ class Npc extends \Core\Model\AbstractModel {
         $this->idNpc = $value;
     }
 
-    /**
-     * Retourne la valeur nom.
-     *
-     * @return string
-     */
-    public function getNom() {
-        return strval($this->nom);
+    function getIdNpcBidon() {
+        return intval($this->idNpcBidon);
     }
 
-    /**
-     * Définit la valeur pour nom
-     *
-     * @param string
-     */
-    public function setNom($value) {
-        $this->nom = strtolower($value);
+    function setIdNpcBidon($idNpcBidon) {
+        $this->idNpcBidon = $idNpcBidon;
     }
 
 }
