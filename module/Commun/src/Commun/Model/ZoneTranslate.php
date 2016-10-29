@@ -8,7 +8,14 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Zone extends \Core\Model\AbstractModel {
+class ZoneTranslate extends \Core\Model\AbstractModel {
+
+    /**
+     * Colonne: idZoneTranslate
+     *
+     * @var int
+     */
+    public $idZoneTranslate = null;
 
     /**
      * Colonne: idZone
@@ -25,53 +32,11 @@ class Zone extends \Core\Model\AbstractModel {
     public $nom = null;
 
     /**
-     * Colonne: lvlMin
+     * Colonne: locale
      *
      * @var string
      */
-    public $lvlMin = null;
-
-    /**
-     * Colonne: lvlMax
-     *
-     * @var string
-     */
-    public $lvlMax = null;
-
-    /**
-     * Colonne: tailleMin
-     *
-     * @var string
-     */
-    public $tailleMin = null;
-
-    /**
-     * Colonne: tailleMax
-     *
-     * @var string
-     */
-    public $tailleMax = null;
-
-    /**
-     * Colonne: patch
-     *
-     * @var string
-     */
-    public $patch = null;
-
-    /**
-     * Colonne: isDonjon
-     *
-     * @var int
-     */
-    public $isDonjon = null;
-
-    /**
-     * Colonne: isRaid
-     *
-     * @var int
-     */
-    public $isRaid = null;
+    public $locale = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -151,148 +116,28 @@ class Zone extends \Core\Model\AbstractModel {
         $this->idZone = $value;
     }
 
-    /**
-     * Retourne la valeur nom.
-     *
-     * @return string
-     */
-    public function getNom() {
-        return strval($this->nom);
+    function getNom() {
+        return $this->nom;
     }
 
-    /**
-     * Définit la valeur pour nom
-     *
-     * @param string
-     */
-    public function setNom($value) {
-        $this->nom = strtolower($value);
+    function getLocale() {
+        return $this->locale;
     }
 
-    /**
-     * Retourne la valeur lvlMin.
-     *
-     * @return string
-     */
-    public function getLvlMin() {
-        return strval($this->lvlMin);
+    function setNom($nom) {
+        $this->nom = $nom;
     }
 
-    /**
-     * Définit la valeur pour lvlMin
-     *
-     * @param string
-     */
-    public function setLvlMin($value) {
-        $this->lvlMin = $value;
+    function setLocale($locale) {
+        $this->locale = $locale;
     }
 
-    /**
-     * Retourne la valeur lvlMax.
-     *
-     * @return string
-     */
-    public function getLvlMax() {
-        return strval($this->lvlMax);
+    function getIdZoneTranslate() {
+        return intval($this->idZoneTranslate);
     }
 
-    /**
-     * Définit la valeur pour lvlMax
-     *
-     * @param string
-     */
-    public function setLvlMax($value) {
-        $this->lvlMax = $value;
-    }
-
-    /**
-     * Retourne la valeur tailleMin.
-     *
-     * @return string
-     */
-    public function getTailleMin() {
-        return strval($this->tailleMin);
-    }
-
-    /**
-     * Définit la valeur pour tailleMin
-     *
-     * @param string
-     */
-    public function setTailleMin($value) {
-        $this->tailleMin = $value;
-    }
-
-    /**
-     * Retourne la valeur tailleMax.
-     *
-     * @return string
-     */
-    public function getTailleMax() {
-        return strval($this->tailleMax);
-    }
-
-    /**
-     * Définit la valeur pour tailleMax
-     *
-     * @param string
-     */
-    public function setTailleMax($value) {
-        $this->tailleMax = $value;
-    }
-
-    /**
-     * Retourne la valeur patch.
-     *
-     * @return string
-     */
-    public function getPatch() {
-        return strval($this->patch);
-    }
-
-    /**
-     * Définit la valeur pour patch
-     *
-     * @param string
-     */
-    public function setPatch($value) {
-        $this->patch = $value;
-    }
-
-    /**
-     * Retourne la valeur isDonjon.
-     *
-     * @return int
-     */
-    public function getIsDonjon() {
-        return intval($this->isDonjon);
-    }
-
-    /**
-     * Définit la valeur pour isDonjon
-     *
-     * @param int
-     */
-    public function setIsDonjon($value) {
-        $this->isDonjon = $value;
-    }
-
-    /**
-     * Retourne la valeur isRaid.
-     *
-     * @return int
-     */
-    public function getIsRaid() {
-        return intval($this->isRaid);
-    }
-
-    /**
-     * Définit la valeur pour isRaid
-     *
-     * @param int
-     */
-    public function setIsRaid($value) {
-        $this->isRaid = $value;
+    function setIdZoneTranslate($idZoneTranslate) {
+        $this->idZoneTranslate = $idZoneTranslate;
     }
 
 }

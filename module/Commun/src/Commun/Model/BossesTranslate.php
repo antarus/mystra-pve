@@ -8,10 +8,17 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Bosses extends \Core\Model\AbstractModel {
+class BossesTranslate extends \Core\Model\AbstractModel {
 
     /**
-     * Colonne: idBosses
+     * Colonne: idZoneTranslate
+     *
+     * @var int
+     */
+    public $idBossesTranslate = null;
+
+    /**
+     * Colonne: idZone
      *
      * @var int
      */
@@ -25,18 +32,11 @@ class Bosses extends \Core\Model\AbstractModel {
     public $nom = null;
 
     /**
-     * Colonne: level
+     * Colonne: locale
      *
-     * @var int
+     * @var string
      */
-    public $level = null;
-
-    /**
-     * Colonne: vie
-     *
-     * @var int
-     */
-    public $vie = null;
+    public $locale = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -98,76 +98,36 @@ class Bosses extends \Core\Model\AbstractModel {
 
     }
 
-    /**
-     * Retourne la valeur idBosses.
-     *
-     * @return int
-     */
-    public function getIdBosses() {
+    function getIdBossesTranslate() {
+        return intval($this->idBossesTranslate);
+    }
+
+    function getIdBosses() {
         return intval($this->idBosses);
     }
 
-    /**
-     * Définit la valeur pour idBosses
-     *
-     * @param int
-     */
-    public function setIdBosses($value) {
-        $this->idBosses = $value;
+    function setIdBossesTranslate($idBossesTranslate) {
+        $this->idBossesTranslate = $idBossesTranslate;
     }
 
-    /**
-     * Retourne la valeur nom.
-     *
-     * @return string
-     */
-    public function getNom() {
-        return strval($this->nom);
+    function setIdBosses($idBosses) {
+        $this->idBosses = $idBosses;
     }
 
-    /**
-     * Définit la valeur pour nom
-     *
-     * @param string
-     */
-    public function setNom($value) {
-        $this->nom = strtolower($value);
+    function getNom() {
+        return $this->nom;
     }
 
-    /**
-     * Retourne la valeur level.
-     *
-     * @return int
-     */
-    public function getLevel() {
-        return intval($this->level);
+    function getLocale() {
+        return $this->locale;
     }
 
-    /**
-     * Définit la valeur pour level
-     *
-     * @param int
-     */
-    public function setLevel($value) {
-        $this->level = $value;
+    function setNom($nom) {
+        $this->nom = $nom;
     }
 
-    /**
-     * Retourne la valeur vie.
-     *
-     * @return int
-     */
-    public function getVie() {
-        return intval($this->vie);
-    }
-
-    /**
-     * Définit la valeur pour vie
-     *
-     * @param int
-     */
-    public function setVie($value) {
-        $this->vie = $value;
+    function setLocale($locale) {
+        $this->locale = $locale;
     }
 
 }

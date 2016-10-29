@@ -8,10 +8,17 @@ use Zend\EventManager\EventManagerInterface;
  * @author Antarus
  * @project Raid-TracKer
  */
-class Npc extends \Core\Model\AbstractModel {
+class NpcTranslate extends \Core\Model\AbstractModel {
 
     /**
-     * Colonne: idNpc
+     * Colonne: idZoneTranslate
+     *
+     * @var int
+     */
+    public $idNpcTranslate = null;
+
+    /**
+     * Colonne: idZone
      *
      * @var int
      */
@@ -23,6 +30,13 @@ class Npc extends \Core\Model\AbstractModel {
      * @var string
      */
     public $nom = null;
+
+    /**
+     * Colonne: locale
+     *
+     * @var string
+     */
+    public $locale = null;
 
     /**
      * Surcharge cette methode dans la classe enfant si vous avez besoin évenenement
@@ -84,40 +98,36 @@ class Npc extends \Core\Model\AbstractModel {
 
     }
 
-    /**
-     * Retourne la valeur idNpc.
-     *
-     * @return int
-     */
-    public function getIdNpc() {
+    function getIdNpcTranslate() {
+        return intval($this->idNpcTranslate);
+    }
+
+    function getIdNpc() {
         return intval($this->idNpc);
     }
 
-    /**
-     * Définit la valeur pour idNpc
-     *
-     * @param int
-     */
-    public function setIdNpc($value) {
-        $this->idNpc = $value;
+    function setIdNpcTranslate($idNpcTranslate) {
+        $this->idNpcTranslate = $idNpcTranslate;
     }
 
-    /**
-     * Retourne la valeur nom.
-     *
-     * @return string
-     */
-    public function getNom() {
-        return strval($this->nom);
+    function setIdNpc($idNpc) {
+        $this->idNpc = $idNpc;
     }
 
-    /**
-     * Définit la valeur pour nom
-     *
-     * @param string
-     */
-    public function setNom($value) {
-        $this->nom = strtolower($value);
+    function getNom() {
+        return $this->nom;
+    }
+
+    function getLocale() {
+        return $this->locale;
+    }
+
+    function setNom($nom) {
+        $this->nom = $nom;
+    }
+
+    function setLocale($locale) {
+        $this->locale = $locale;
     }
 
 }
